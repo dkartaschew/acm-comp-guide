@@ -1,0 +1,497 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{pdflscape}
+\usepackage{datetime}
+\newdateformat{shortdatem}{%
+\twodigit{\THEDAY}-\shortmonthname--\THEYEAR}
+\shortdatem
+\usepackage[bottom]{footmisc}
+\lhead{ANZAC Competition Guide}
+\rhead{}
+\lfoot{}
+\rfoot{\small\today}
+\renewcommand{\footrulewidth}{0.4pt}
+\usepackage{tocloft}
+\renewcommand\cftsecleader{\bfseries\cftdotfill\cftdotsep}
+\renewcommand\cftsecfont{\normalfont}
+\renewcommand\cftsecpagefont{\normalfont}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
+\renewcommand\cftsecdotsep{\cftdot}
+\renewcommand\cftsubsecdotsep{\cftdot}
+\renewcommand\cftsecdotsep{\cftdot}
+\renewcommand\cftsubsubsecdotsep{\cftdot}
+\renewcommand\cftparadotsep{\cftdot}
+\sloppy
+\tiny
+\usepackage{colortbl}
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{dkgray}{gray}{0.7}
+\renewcommand*\arraystretch{1.5}
+\exhyphenpenalty=10000
+\hyphenpenalty=10000
+\end_preamble
+\use_default_options false
+\begin_modules
+theorems-ams
+eqs-within-sections
+figs-within-sections
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman charter
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 0
+\use_mhchem 0
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2.5cm
+\rightmargin 2.5cm
+\bottommargin 2.5cm
+\secnumdepth 4
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Guide for Advanced Algorithms for Australia and New Zealand Algorithmics
+ & Computing League Competition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Prepared By: Darran Kartaschew
+\end_layout
+
+\begin_layout Standard
+Document Version: 1.0
+\end_layout
+
+\begin_layout Standard
+Last Updated on: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{roman} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{1}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+About the Competition
+\end_layout
+
+\begin_layout Standard
+The programming contests held in Universities across Australia and New Zealand,
+ are part of the Australia and New Zealand Algorithmics & Computing League
+ Competition and is used in conjunction with the ACM-ICPC competition.
+ These competitions are aimed at challenging students in completing a set
+ number of problems within the allocated time slot (typically 5 hours),
+ with the winners in each location given some prestige.
+\end_layout
+
+\begin_layout Standard
+In recent years teams from not only Universities taken part, but teams from
+ TAFE and other educational institutions have taken part in the competition.
+ Additionally teams outside of Australia and New Zealand such as those from
+ the Phillipines have also taken part.
+\end_layout
+
+\begin_layout Subsubsection
+ANZAC 2012
+\end_layout
+
+\begin_layout Standard
+The ANZAC 2012 competition takes place in 5 to 6 rounds each year and are
+ sponsored by a local University and associated Faculty member.
+ Typically, a single round will run for 5 hours (starting at midday for
+ East Coast Australia), and at least 6 problems will be presented for completion
+ by students.
+\end_layout
+
+\begin_layout Standard
+All challenges require some form of problem solving skills or techniques
+ and do require at least a basic understanding of different algorithms in
+ order to complete the challenges, let alone to be competitive in the competitio
+n.
+\end_layout
+
+\begin_layout Standard
+In order to compete within the competition it is recommended that 3 students
+ form a team to work together on solving the challenges.
+ Each team is only given 1 computer to work on, and all reference material
+ brought into the competion must be in printed form only
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The printed material requirement is to ensure that no copying of existing
+ source code is allowed, only transcription of source code from written
+ form
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Scores are awarded for completed challenges (typically 1 point), and the
+ time elasped from the start of the competition to accepted submission of
+ the challenge is also noted.
+ If a submitted challenge fails, then a 20 minute time penalty to added
+ to the teams total time value.
+\end_layout
+
+\begin_layout Standard
+As a minimum each contest will allow either C/C++ and Java, however additional
+ programming languages may also be included.
+ Typically C# has been allowed in recent years, due to the popularity of
+ the language, especially as it is taught farily early in a students undergradua
+te degree.
+\end_layout
+
+\begin_layout Standard
+Overall, the competition is designed to be challenging, fun and also students
+ to advance within their field of study.
+ It is also a great way to network amongst other equally capable students
+ within the programming field.
+\end_layout
+
+\begin_layout Subsubsection
+ACM-ICPC
+\end_layout
+
+\begin_layout Standard
+The ACM-ICPC competition is an International level competition sponsored
+ by IBM, ACM and Upsilon Pi Epsilon, and contestants who make the world
+ finals are often sort after by industry for later employment, as well as
+ bringing notoriety and prestige to the University or College to which the
+ constestants originate from.
+ The regional component of the competition is typically held as the last
+ ANZAC competition, as both competitions share the same tools, resources
+ and rules.
+\end_layout
+
+\begin_layout Standard
+The top two teams from each region (and in the case of Australia and New
+ Zealand, the top team from Australia and top team from New Zealand), attend
+ the International competition held annually in late March/early April in
+ an overseas location.
+ The 2012 ACM-ICPC Finals consisting of teams from all over the world was
+ held in Warsow, Poland.
+\end_layout
+
+\begin_layout Subsection
+About this Guide
+\end_layout
+
+\begin_layout Standard
+This guide is designed to give students some background knowledge of the
+ environments utilised within the competition, as well as information on
+ various algorithms needed to solve problems.
+ The included algorithms are by no means exhaustive, however represent the
+ bulk of the algorithms that will be useful in completion of challenges.
+\end_layout
+
+\begin_layout Standard
+This guide book is split into multiple parts:
+\end_layout
+
+\begin_layout Enumerate
+Basic Source Templates that cover the basic frameworks needed for challenge
+ submissions.
+\end_layout
+
+\begin_layout Enumerate
+Basic Algorithms and techniques.
+\end_layout
+
+\begin_layout Enumerate
+Advanced Algorithms.
+\end_layout
+
+\begin_layout Standard
+All algorithms described will include:
+\end_layout
+
+\begin_layout Enumerate
+A short statement on the algorithm and the intended uses, as well as other
+ possible uses.
+\end_layout
+
+\begin_layout Enumerate
+The pseudocode for the algorithm.
+\end_layout
+
+\begin_layout Enumerate
+An actual implementation in at least 1 programming language.
+ This will typically be in the form of a function or method call.
+\end_layout
+
+\begin_layout Enumerate
+An example challenge that requires the use of the algorithm.
+\end_layout
+
+\begin_layout Enumerate
+An example solution to the challenge.
+\end_layout
+
+\begin_layout Standard
+Throughout the guide there will be notes on performance aspects of each
+ algorithm, as well as helpful utility functions to make better use of the
+ algorithm implementations.
+ One example will be a function to convert an Adjancy List into an Adjancy
+ Matrix used for different graph based algorithms.
+\end_layout
+
+\begin_layout Subsection
+Supported Environments
+\end_layout
+
+\begin_layout Standard
+The guide will focus on Java being developed in Eclipse, and C# being developed
+ in Visual Studio.
+ However there will be examples in C++ when appropriate.
+\end_layout
+
+\begin_layout Subsubsection
+PC^2
+\end_layout
+
+\begin_layout Subsubsection
+Eclipse
+\end_layout
+
+\begin_layout Subsubsection
+Visual Studio
+\end_layout
+
+\begin_layout Section
+Performance
+\end_layout
+
+\begin_layout Subsection
+BigO Notation
+\end_layout
+
+\begin_layout Subsection
+Measuring Performance
+\end_layout
+
+\begin_layout Section
+Basic Source Templates
+\end_layout
+
+\begin_layout Subsection
+Input / Output
+\end_layout
+
+\begin_layout Subsubsection
+C#
+\end_layout
+
+\begin_layout Subsubsection
+C++
+\end_layout
+
+\begin_layout Subsubsection
+Java
+\end_layout
+
+\begin_layout Section
+Basic Algorithms
+\end_layout
+
+\begin_layout Subsection
+Basic String Handling
+\end_layout
+
+\begin_layout Subsection
+Searching
+\end_layout
+
+\begin_layout Subsection
+Sorting
+\end_layout
+
+\begin_layout Subsection
+Array Handling
+\end_layout
+
+\begin_layout Subsubsection
+Array Rotation
+\end_layout
+
+\begin_layout Subsubsection
+Array Mirroring and Flipping
+\end_layout
+
+\begin_layout Section
+Advanced Algorithms
+\end_layout
+
+\begin_layout Subsection
+Simple Maths
+\end_layout
+
+\begin_layout Subsubsection
+Greatest common divisor
+\end_layout
+
+\begin_layout Subsubsection
+Sieve of Eratosthenes (prime number generation)
+\end_layout
+
+\begin_layout Subsection
+String based algorithms
+\end_layout
+
+\begin_layout Standard
+substring search
+\end_layout
+
+\end_body
+\end_document
