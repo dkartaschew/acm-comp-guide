@@ -60,6 +60,7 @@ figs-within-sections
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement h
 \paperfontsize default
 \spacing single
 \use_hyperref false
@@ -110,6 +111,34 @@ Guide for Advanced Algorithms for Australia and New Zealand Algorithmics
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/by-sa.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This work is licensed under the Creative Commons Attribution-ShareAlike
+ 3.0 Australia License.
+ To view a copy of this license, visit 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://creativecommons.org/licenses/by-sa/3.0/au/
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -387,26 +416,645 @@ Throughout the guide there will be notes on performance aspects of each
  Matrix used for different graph based algorithms.
 \end_layout
 
-\begin_layout Subsection
-Supported Environments
+\begin_layout Subsubsection
+License
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/by-sa.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This work is licensed under the Creative Commons Attribution-ShareAlike
+ 3.0 Australia License.
+ To view a copy of this license, visit 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://creativecommons.org/licenses/by-sa/3.0/au/
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This means you are free:
+\end_layout
+
+\begin_layout Itemize
+to copy, distribute, display, and perform the work 
+\end_layout
+
+\begin_layout Itemize
+to make derivative works 
+\end_layout
+
+\begin_layout Itemize
+to make commercial use of the work 
+\end_layout
+
+\begin_layout Standard
+Under the following conditions:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Attribution
+\series default
+ — You must give the original author credit.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Share Alike
+\series default
+ — If you alter, transform, or build upon this work, you may distribute
+ the resulting work only under a licence identical to this one.
+ 
+\end_layout
+
+\begin_layout Standard
+With the understanding that:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Waiver
+\series default
+ — Any of the above conditions can be waived if you get permission from
+ the copyright holder.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Public Domain
+\series default
+ — Where the work or any of its elements is in the public domain under applicabl
+e law, that status is in no way affected by the license.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Other Rights
+\series default
+ — In no way are any of the following rights affected by the license: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Your fair dealing or fair use rights, or other applicable copyright exceptions
+ and limitations; 
+\end_layout
+
+\begin_layout Itemize
+The author's moral rights; 
+\end_layout
+
+\begin_layout Itemize
+Rights other persons may have either in the work itself or in how the work
+ is used, such as publicity or privacy rights.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Notice
+\series default
+ — For any reuse or distribution, you must make clear to others the licence
+ terms of this work.
+ 
+\end_layout
+
+\begin_layout Standard
+Original Author endorsed waivers:
+\end_layout
+
+\begin_layout Itemize
+The original author however allows use of source code snippets, that is,
+ source code written in the languages of C++, C# or Java contained with
+ this guide for any purpose, without attribution.
+ This waiver does not extend to the text, nor other materials contained
+ within the guide.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Supported Competition Environments
 \end_layout
 
 \begin_layout Standard
 The guide will focus on Java being developed in Eclipse, and C# being developed
  in Visual Studio.
  However there will be examples in C++ when appropriate.
+ Most other IDEs have similar options, when used for development, debugging
+ and/or profiling.
+\end_layout
+
+\begin_layout Subsection
+PC^2
+\end_layout
+
+\begin_layout Standard
+The primary tool that allow students to submit their challenge entries to
+ be judged in the PC^2 Software Suite.
+ The application itself is developed by California State University, Sacramento
+ for the purposes of programming competitions and has been adopted by both
+ the Australia and New Zealand Algorithmics & Computing League (ANZACL)
+ and ACM for their respective competitions.
+\end_layout
+
+\begin_layout Standard
+An example of the Login Interface is shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:PC^2-Login-Screen"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Screenshot-PC^2 Login.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+PC^2 Login Screen
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PC^2-Login-Screen"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once logged into the system, the following options are typically available:
+\end_layout
+
+\begin_layout Description
+Submit
+\begin_inset space ~
+\end_inset
+
+Run Allows you to submit a challenge entry to be judged, or alternatively
+ to test your entry against some supplied sample data.
+\end_layout
+
+\begin_layout Description
+View
+\begin_inset space ~
+\end_inset
+
+Runs Allows you to view a history of submissions made to the judges.
+\end_layout
+
+\begin_layout Description
+Request
+\begin_inset space ~
+\end_inset
+
+Clarification Allows you to request a clarification from the judges about
+ one of the challenges.
+\end_layout
+
+\begin_layout Description
+View
+\begin_inset space ~
+\end_inset
+
+Clarifications Allows you to see the responses to your requests for clarificatio
+ns.
+\end_layout
+
+\begin_layout Description
+Options Allows you to access various options that control the clients operation.
+ However this tab, only allows you to view the operational log of the client.
+\end_layout
+
+\begin_layout Standard
+Most of the operations on the various areas are self explanatory, so won't
+ be covered in detail.
+ The main screen that competitors will utilise is the 
+\series bold
+Submit Run
+\series default
+ tab as shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:PC^2-Client-Submit"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Screenshot-PC^2 Team TEAM 3 (Site 1) [STARTED] Build 2136.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+PC^2 Client Submit Run Tab
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PC^2-Client-Submit"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This screen has two main modes of operation, allow a competitor to test
+ their submission against some sample input, or submit their source code
+ to be judged.
+ Both have similar operations, except the test has one additional step.
 \end_layout
 
 \begin_layout Subsubsection
-PC^2
+Submit Run
+\end_layout
+
+\begin_layout Standard
+To submit a run for judging, perform the following steps:
+\end_layout
+
+\begin_layout Enumerate
+From the Problem dropdown list select the challenge that you are attempting.
+\end_layout
+
+\begin_layout Enumerate
+From the Language dropdown list select the programming language in the submissio
+n is written in.
+\end_layout
+
+\begin_layout Enumerate
+Use the Select button to select the source code file for the submission.
+ (Note: A single Source Code file is required, do not attempt to submit
+ data files or executable files).
+\end_layout
+
+\begin_layout Enumerate
+Use the Add Button to select any additional files needed to complete your
+ submission.
+ (Note: This is rarely needed).
+\end_layout
+
+\begin_layout Enumerate
+Click on Submit, and Yes to confirm to have your submission judged.
+\end_layout
+
+\begin_layout Enumerate
+You will receive a confirmation dialog confirming that your entry has been
+ submitted.
+\end_layout
+
+\begin_layout Standard
+Once you entry has been judged you will receive one of the following confirmatio
+ns:
+\end_layout
+
+\begin_layout Itemize
+Yes - Your submission was successful in passing all tests.
+ Congratulations, you have been awarded one point.
+\end_layout
+
+\begin_layout Itemize
+No - Your submission failed one or more tests.
+\end_layout
+
+\begin_layout Itemize
+Time Overrun - Your submission took more time that allowed for the challenge.
+\end_layout
+
+\begin_layout Standard
+An example Judge's Response Dialog is shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sample-Judge's-Response"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Screenshot-Run Judgement Received.png
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Sample Judge's Response
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Sample-Judge's-Response"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Submit Test
+\end_layout
+
+\begin_layout Standard
+Before your submit your solution to be judged it is 
+\series bold
+highly recommended
+\series default
+ that you perform a test run on your submission first, due to possible differenc
+es between the environment you utilised for development and the environment
+ in which your submission will be run on the judges machine.
+\end_layout
+
+\begin_layout Standard
+To test your submission first, perform the following steps:
+\end_layout
+
+\begin_layout Enumerate
+Ensure that your source code file and the sample data files are in the same
+ folder/directory on your system.
+\end_layout
+
+\begin_layout Enumerate
+From the Problem dropdown list select the challenge that you are attempting.
+\end_layout
+
+\begin_layout Enumerate
+From the Language dropdown list select the programming language in the submissio
+n is written in.
+\end_layout
+
+\begin_layout Enumerate
+Use the Select button to select the source code file for the submission.
+ (Note: A single Source Code file is required, do not attempt to submit
+ data files or executable files).
+\end_layout
+
+\begin_layout Enumerate
+Use the Add Button to select any additional files needed to complete your
+ submission.
+ (Note: This is rarely needed).
+\end_layout
+
+\begin_layout Enumerate
+Click on 
+\begin_inset Quotes eld
+\end_inset
+
+Test
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Select the appropriate sample input file in the open dialog box.
+ (Typically the sample input fille will be 
+\family typewriter
+<challengename>_sample_in.txt
+\family default
+ ).
+\end_layout
+
+\begin_layout Enumerate
+Wait for the output dialog and compare to the expected output.
+\end_layout
+
+\begin_layout Enumerate
+If you are happy with your submission, then submit your solution for judging,
+ by clicking on 
+\begin_inset Quotes eld
+\end_inset
+
+Submit
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Software Languages
+\end_layout
+
+\begin_layout Standard
+Currently the competition support the following software development languages
+ with some variations between regional areas: Java, C++ and C#.
+\end_layout
+
+\begin_layout Subsubsection
+Java
+\end_layout
+
+\begin_layout Standard
+Java is compiled utilising the Oracle Java 6SE JRE implementation, however
+ future competitions may migrate to Java 7SE as Java 7 becomes more popular.
+ (This guide will target the Oracle Java 6 SE JRE).
+\end_layout
+
+\begin_layout Subsubsection
+C++
+\end_layout
+
+\begin_layout Standard
+C++ (and by extension C) is compiled with an POSIX compatible compiler,
+ typically being mingw on Windows.
+ mingw utilises the GNU GCC compiler suite, and offers a near complete POSIX
+ environment including the C++ STL.
+\end_layout
+
+\begin_layout Standard
+It should be noted, that in some instances the Microsoft Visual Studio C++
+ compiler has been used within the competition, so it is best to check with
+ the local staff supporting the competition which compiler will be utilised.
+ 
+\end_layout
+
+\begin_layout Standard
+This guide will target a 100% pure POSIX environment.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+C#
+\end_layout
+
+\begin_layout Standard
+C# will typically be compiled by Microsoft Visual Studio 2010 with the .NET
+ 2.0 Framework.
+ However there may be variations to this, so it is best to check with the
+ local staff supporting the competition which compiler and/or .NET framework
+ will be utilised.
+\end_layout
+
+\begin_layout Subsection
+IDEs
+\end_layout
+
+\begin_layout Standard
+At the moment there are no official supported IDEs utilised by the competition,
+ however the majority of contestants utilise either Eclipse and/or Visual
+ Studio.
+ 
+\end_layout
+
+\begin_layout Standard
+Other IDEs or Editors commonly utilised by competitors include NetBeans
+ (Java, C++), Code::Blocks (C++) and Notepad++ (Java, C#, C++).
 \end_layout
 
 \begin_layout Subsubsection
 Eclipse
 \end_layout
 
+\begin_layout Standard
+Eclipse may be utilised to develop either Java applications or C++ applications
+ (on provision the appropriate eclipse plugins for C++ are installed, and
+ a compatible C++ compiler such as mingw is also installed).
+\end_layout
+
+\begin_layout Standard
+There is no special configuration for Eclipse to be utilised within the
+ competition.
+ As all competition entries operate within a command line only interface
+ there is no requirement for any GUI builder plugins to be present.
+\end_layout
+
+\begin_layout Standard
+To utilise Eclipse for Java development, perform the following steps:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
 \begin_layout Subsubsection
 Visual Studio
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -419,6 +1067,21 @@ BigO Notation
 
 \begin_layout Subsection
 Measuring Performance
+\end_layout
+
+\begin_layout Subsubsection
+Integers vs Floats
+\end_layout
+
+\begin_layout Subsection
+Implementation and Modern Software Engineering Practices
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -439,6 +1102,13 @@ C++
 
 \begin_layout Subsubsection
 Java
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -467,6 +1137,13 @@ Array Rotation
 
 \begin_layout Subsubsection
 Array Mirroring and Flipping
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
