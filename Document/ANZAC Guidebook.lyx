@@ -970,6 +970,13 @@ Java is compiled utilising the Oracle Java 6SE JRE implementation, however
  (This guide will target the Oracle Java 6 SE JRE).
 \end_layout
 
+\begin_layout Standard
+By default the competition will utilise the 32bit JRE, however this may
+ vary as needed between each region.
+ Additionally the Java compiler and JVM are run using default settings only.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 C++
 \end_layout
@@ -986,6 +993,12 @@ It should be noted, that in some instances the Microsoft Visual Studio C++
  compiler has been used within the competition, so it is best to check with
  the local staff supporting the competition which compiler will be utilised.
  
+\end_layout
+
+\begin_layout Standard
+Irrespective of the C++ compiler and/or environment, it should be noted
+ that the default compiler settings are utilised through the competition,
+ so features including optimisation flags or 64bit operation are not enabled.
 \end_layout
 
 \begin_layout Standard
@@ -1042,12 +1055,1035 @@ There is no special configuration for Eclipse to be utilised within the
 To utilise Eclipse for Java development, perform the following steps:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Enumerate
+Start Eclipse, and switch to a Workspace that is empty, or has been designated
+ for use for competition.
+ (Use 
+\family typewriter
+File
+\family default
+ -> 
+\family typewriter
+Switch Workspace 
+\family default
+to move).
+\end_layout
 
+\begin_layout Enumerate
+In the 
+\family typewriter
+File
+\family default
+ menu, select 
+\family typewriter
+New
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+In the 
+\family typewriter
+New
+\family default
+ dialog box, select 
+\family typewriter
+Java Project
+\family default
+.
+ Click on 
+\family typewriter
+Next
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+Enter any name for the project name.
+ Leave all other settings as default.
+\end_layout
+
+\begin_layout Enumerate
+Click on 
+\family typewriter
+Finish
+\family default
+.
+ This will create a basic project that can be used for developing submissions.
+\end_layout
+
+\begin_layout Enumerate
+In the Package Explorer pane, right click on the 
+\family typewriter
+'src'
+\family default
+ package, and select 
+\family typewriter
+New
+\family default
+ -> 
+\family typewriter
+Java Class
+\family default
+.
+ This will be the first submission that you will work on.
+ When developing further submissions, simple start at this point and following
+ the remaining steps.
+\end_layout
+
+\begin_layout Enumerate
+The in 
+\family typewriter
+New Java Class
+\family default
+ dialog, enter in the challenge name in the
+\family typewriter
+ Name:
+\family default
+ field, and click on 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+public static void main(String[] args)
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ to select this option.
+ Leave all other options as default, and click on 
+\family typewriter
+Finish
+\family default
+.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Eclipse---New-1"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+The new submission Java file will open in the file pane.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Eclipse---New-1"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+You are now reading to develop you submission.
+\end_layout
+
+\begin_layout Standard
+All debugging facilities may be utilised within Eclipse with no restrictions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Eclipse1.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Eclipse - New Java Class
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Eclipse---New"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Eclipse2.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Eclipse - New Java Application
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Eclipse---New-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+One item to note with the file structure of Eclipse and essentially all
+ Java application development, you will need to note the exact location
+ of the source files so are able to find them later in order to submit your
+ solutions.
+ 
+\end_layout
+
+\begin_layout Standard
+Using the example in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Eclipse---New"
+
+\end_inset
+
+, note the 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+Source Folder
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ location, this is the location that your submissions will be located in,
+ in this case 
+\family typewriter
+ACM/src/AddingNumbers.java
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+When testing your submission with PC^2 you will be required to either:
+\end_layout
+
+\begin_layout Enumerate
+Copy your source code file to the same location as sample input files, or
+\end_layout
+
+\begin_layout Enumerate
+Copy the sample input files into the same location as the source code file.
 \end_layout
 
 \begin_layout Subsubsection
 Visual Studio
+\end_layout
+
+\begin_layout Standard
+Visual Studio is capable of working with a number of programming languages,
+ including C# and C++.
+ This guide will cover working with both langauges, noting the differences
+ between the two.
+\end_layout
+
+\begin_layout Paragraph
+C#
+\end_layout
+
+\begin_layout Standard
+There is no special configuration for Visual Studio to be utilised within
+ the competition.
+ As all competition entries operate within a command line only interface
+ there is no requirement for any GUI builder plugins to be present.
+\end_layout
+
+\begin_layout Standard
+To utilise Visual Studio for C# development, perform the following steps:
+\end_layout
+
+\begin_layout Enumerate
+Start Visual Studio.
+\end_layout
+
+\begin_layout Enumerate
+If you receive a 
+\family typewriter
+
+\begin_inset Quotes eld
+\end_inset
+
+Select Development Language
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ dialog, select 
+\family typewriter
+Microsoft C#
+\family default
+.
+\end_layout
+
+\begin_layout Enumerate
+Select 
+\family typewriter
+
+\begin_inset Quotes eld
+\end_inset
+
+New Project
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ from the Start Page, or alternatively from the 
+\family typewriter
+File
+\family default
+ menu.
+\end_layout
+
+\begin_layout Enumerate
+In the 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+New Project
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ dialog, ensure that:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\family typewriter
+Visual C#
+\family default
+ > 
+\family typewriter
+Windows
+\family default
+ is selected in the Installed Templates pane.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Console Application - Visual C#
+\family default
+ is selected in the Application Type pane.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+.NET Framework 2.0
+\family default
+ is selected in the .NET Framework dropdown.
+\end_layout
+
+\begin_layout Enumerate
+Enter the name of the challenge in the 
+\family typewriter
+Name:
+\family default
+ field.
+\end_layout
+
+\begin_layout Enumerate
+Note the location in which the project is being created.
+\end_layout
+
+\begin_layout Enumerate
+Click on
+\family typewriter
+ OK
+\family default
+ to build the project.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Visual-Studio-C"
+
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The new 
+\family typewriter
+Program.cs
+\family default
+ file will be opened and displayed in the File Pane.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Visual-Studio-C-1"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/VS_1.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Visual Studio C# New Project
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Visual-Studio-C"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/VS_2.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Visual Studio C# Program.cs
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Visual-Studio-C-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When testing your submission with PC^2 you will be required to either:
+\end_layout
+
+\begin_layout Enumerate
+Copy your source code file to the same location as sample input files, or
+\end_layout
+
+\begin_layout Enumerate
+Copy the sample input files into the same location as the source code file.
+\end_layout
+
+\begin_layout Paragraph
+C++
+\end_layout
+
+\begin_layout Standard
+To utilise Visual Studio for C++ development, perform the following steps:
+\end_layout
+
+\begin_layout Enumerate
+Start Visual Studio.
+\end_layout
+
+\begin_layout Enumerate
+If you receive a 
+\family typewriter
+
+\begin_inset Quotes eld
+\end_inset
+
+Select Development Language
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ dialog, select 
+\family typewriter
+Microsoft C
+\family default
+++.
+\end_layout
+
+\begin_layout Enumerate
+Select 
+\family typewriter
+
+\begin_inset Quotes eld
+\end_inset
+
+New Project
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ from the Start Page, or alternatively from the 
+\family typewriter
+File
+\family default
+ menu.
+\end_layout
+
+\begin_layout Enumerate
+In the 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+New Project
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ dialog, ensure that:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\family typewriter
+Visual C++
+\family default
+ > 
+\family typewriter
+Win32
+\family default
+ is selected in the Installed Templates pane.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Win32 Console Application - Visual C++
+\family default
+ is selected in the Application Type pane.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+.NET Framework 2.0
+\family default
+ is selected in the .NET Framework dropdown.
+\end_layout
+
+\begin_layout Enumerate
+Enter the name of the challenge in the 
+\family typewriter
+Name:
+\family default
+ field.
+\end_layout
+
+\begin_layout Enumerate
+Note the location in which the project is being created.
+\end_layout
+
+\begin_layout Enumerate
+Click on
+\family typewriter
+ OK
+\family default
+ to build the project.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Visual-Studio-C-2"
+
+\end_inset
+
+)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The Win32 Application Wizard will run.
+ Select Next on the Wizard Welcome screen.
+\end_layout
+
+\begin_layout Enumerate
+On the Applications Settings dialog, enusre that 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+Console Application
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ is checked, and 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+Precompiled Headers
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ is unchecked.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Visual-Studio-C++"
+
+\end_inset
+
+).
+ Click on 
+\family typewriter
+Finish
+\family default
+ to build the project.
+\end_layout
+
+\begin_layout Enumerate
+The new 
+\family typewriter
+<Application>.cpp
+\family default
+ file will be opened and displayed in the File Pane.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Visual-Studio-C-1-1"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+The following changes are recommended to the main source file to ensure
+ maximum platform compatibility:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Add 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+using namespace std;
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ before any included headers.
+\end_layout
+
+\begin_layout Enumerate
+Remove or comment out the 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+#include 
+\begin_inset Quotes eld
+\end_inset
+
+stdafx.h
+\begin_inset Quotes erd
+\end_inset
+
+
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ line
+\end_layout
+
+\begin_layout Enumerate
+Add 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+#include <stdio.h>
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+#include <iostream>
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ to ensure POSIX compatibility.
+\end_layout
+
+\begin_layout Enumerate
+Change 
+\family typewriter
+int _tmain(int argc, _TCHAR* argv[])
+\family default
+
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ to 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+int main()
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+You are now ready to develop your submissions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/VS_3.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Visual Studio C++ New Project
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Visual-Studio-C-2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/VS_4.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Visual Studio C++ Project Options
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Visual-Studio-C++"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/VS_5.png
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Visual Studio C++ Program.cpp
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Visual-Studio-C-1-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When testing your submission with PC^2 you will be required to either:
+\end_layout
+
+\begin_layout Enumerate
+Copy your source code file to the same location as sample input files, or
+\end_layout
+
+\begin_layout Enumerate
+Copy the sample input files into the same location as the source code file.
+\end_layout
+
+\begin_layout Subsection
+Submission Guidelines
+\end_layout
+
+\begin_layout Standard
+The primary requirement of any submission, is that all source code required
+ for the submission is located in a single text file.
+\end_layout
+
+\begin_layout Standard
+To test your submission, the judges machine will compile your source code
+ to an exectuable or class file in the case of Java, then execute it.
+ All input for the application is feed in via 
+\family typewriter
+stdin
+\family default
+ (or using standard console input), and all application responses and feedback
+ should be returned via 
+\family typewriter
+stdout
+\family default
+ (or using standard console output).
+ In effect the judges machine will run:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\family typewriter
+$ submission.exe < challenge1_input.txt > challenge1_output.txt
+\end_layout
+
+\begin_layout Standard
+Any output the application produces is saved to a file, and this file is
+ then compared to a known correct answer file.
+ Any variations from between the applications output and the answer file
+ will result in a 
+\family typewriter
+\series bold
+No
+\family default
+\series default
+ response.
+ If both the output of the application and answer file match, then the judges
+ machine will return a 
+\family typewriter
+\series bold
+Yes
+\family default
+\series default
+ response.
 \end_layout
 
 \begin_layout Standard
@@ -1065,12 +2101,748 @@ Performance
 BigO Notation
 \end_layout
 
+\begin_layout Standard
+Big O notation is used in Computer Science to describe the performance or
+ complexity of an algorithm.
+ Big O specifically describes the 
+\series bold
+worst-case
+\series default
+ scenario, and can be used to describe the execution time required or the
+ space used (e.g.
+ in memory or on disk) by an algorithm.
+\end_layout
+
+\begin_layout Standard
+Typically, algorithms will be assigned the following functions:
+\end_layout
+
+\begin_layout Description
+O(1) This algorithm operates in the same time irrespective of the number
+ of elements to be processed.
+ (The ideal algorithm).
+\end_layout
+
+\begin_layout Description
+O(log
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n) This algorithm will have a worst-case runtime of log
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n with n elements to be processed.
+\end_layout
+
+\begin_layout Description
+O(n) This algorithm will have a worst case runtime in the order of the number
+ of elements to be processed.
+\end_layout
+
+\begin_layout Description
+O(nlog
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n) This algorithm will have a worst case runtime in the order of nlog
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n with n elements to be processed.
+\end_layout
+
+\begin_layout Description
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+) This algoritm will have a worst case runtime in the order of n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+ with n elements to be processed.
+\end_layout
+
+\begin_layout Description
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+) This algorithm will have a worst case runtime in the order of n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+ with n elements to be processed.
+\end_layout
+
+\begin_layout Description
+O(2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+) This algorithm will have a worst case runtime in the order of 2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+ with n elements to be processed.
+\end_layout
+
+\begin_layout Standard
+As an example, suppose the each operation can be done in 1 microsecond,
+ and we have 256 elements to be processed.
+ The respective worst case runtimes for each function is shown in Table
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Big-O-runtimes"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Function
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Time
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+log
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8 microseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+256 microseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+nlog
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2 milliseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+65 milliseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17 seconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3.7×10
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+64 
+\end_layout
+
+\end_inset
+
+centuries
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Big O runtimes
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Big-O-runtimes"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The information within this section is a very brief introduction to BigO
+ notation, is included to help you choose between two different algorithms
+ to complete a task based on the Order function given in the algorithm descripti
+on.
+ Much research has been completed on algorithm analysis, with many text
+ books and reference books being authored on this one subject of Computer
+ Science.
+\end_layout
+
 \begin_layout Subsection
 Measuring Performance
 \end_layout
 
+\begin_layout Standard
+While information described with algorithms can be useful to gain an understandi
+ng of the algorithm complexity, it can be helpful to be able to measure
+ the actual exectution time needed to complete sections of code.
+ All modern languages or software libraries contatins functions to determine
+ exectution times
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Modern IDEs such as Oracle Solaris Studio 12.3 include profiling tools to
+ determine 'hot-spots' within applications and also be able to automatically
+ record execution times of individual functions/methods to later analysis.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsubsection
-Integers vs Floats
+C#
+\end_layout
+
+\begin_layout Standard
+The .NET Framework provides a Stopwatch class that is capable of being used
+ to measure execution times.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Timing---Csharp"
+
+\end_inset
+
+ shows an example of the syntax.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Verse
+
+\family typewriter
+Stopwatch st = new Stopwatch(); st.Start();
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+// code to be timed goes here
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+st.Stop();
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+// time in milliseconds 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+long elapsed = (long) st.ElapsedTicks * 1000000 / Stopwatch.Frequency; 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+Console.WriteLine("time = {0}", elapsed);
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Timing - C#
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Timing---Csharp"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+C++
+\end_layout
+
+\begin_layout Standard
+The C standard library includes time specific functions in 
+\family typewriter
+<time.h>
+\family default
+ on most systems.
+ The primary function is the clock() function that returns the number of
+ 'clicks' since the application started execution.
+ A macro 
+\family typewriter
+CLOCKS_PER_SEC
+\family default
+ is used to determine the ratio between clicks and seconds.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Timing---C++"
+
+\end_inset
+
+ shows an example of the syntax.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Verse
+
+\family typewriter
+#include <time.h> 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+#include <stdio.h>
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+clock_t start = clock();
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+// code to be timed goes here
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+clock_t end = clock();
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+// time in clicks 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+long elapsed = (long)(end – start)/CLOCKS_PER_SEC; 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+printf("time = %d
+\backslash
+n", elapsed);
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Timing - C++
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Timing---C++"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Java
+\end_layout
+
+\begin_layout Standard
+The Java System library provides multiple timers with varying accuracy.
+ Since Java 5, nanosecond timers has been available via the 
+\family typewriter
+System.nanoTime()
+\family default
+ method
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Accuracy of the System.nanoTime() method is reliant on the JVM version and
+ underlying Operating System.
+ However most modern operating systems do provide some form on nanosecond
+ timer.
+\end_layout
+
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Timing---Java"
+
+\end_inset
+
+ shows an example of the syntax.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Verse
+
+\family typewriter
+long start = System.nanoTime();
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+// code to be timed goes here
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+long end = System.nanoTime();
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+// time in nanoseconds 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+long elapsed = (end – start)/1000000; 
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+System.out.printf("time = %d%n", elapsed);
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Timing - Java
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Timing---Java"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Integers vs Floating Point
+\end_layout
+
+\begin_layout Standard
+Modern CPUs have integrated high-performance floating-point execution units,
+ however it should be noted that the choice of Integer and Floating point
+ number will have an impact of performance of your solution.
 \end_layout
 
 \begin_layout Subsection
@@ -1098,6 +2870,10 @@ C#
 
 \begin_layout Subsubsection
 C++
+\end_layout
+
+\begin_layout Paragraph
+iostreams vs printf
 \end_layout
 
 \begin_layout Subsubsection
