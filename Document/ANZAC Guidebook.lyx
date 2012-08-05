@@ -33,6 +33,7 @@
 \renewcommand*\arraystretch{1.5}
 \exhyphenpenalty=10000
 \hyphenpenalty=10000
+\usepackage{xcolor}
 \end_preamble
 \use_default_options false
 \begin_modules
@@ -47,13 +48,13 @@ figs-within-sections
 \fontencoding global
 \font_roman charter
 \font_sans default
-\font_typewriter default
+\font_typewriter lmtt
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
-\font_tt_scale 100
+\font_tt_scale 80
 
 \graphics default
 \default_output_format default
@@ -64,6 +65,18 @@ figs-within-sections
 \paperfontsize default
 \spacing single
 \use_hyperref false
+\pdf_title "ANZAC Guidebook"
+\pdf_author "Darran Kartaschew"
+\pdf_keywords "ACM-ICPC, ANZAC"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize a4paper
 \use_geometry true
 \use_amsmath 1
@@ -92,6 +105,7 @@ figs-within-sections
 \papercolumns 1
 \papersides 1
 \paperpagestyle fancy
+\listings_params "basicstyle={\small,\ttfamily},frame=single,language=Java"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -2035,6 +2049,13 @@ Copy the sample input files into the same location as the source code file.
 
 \begin_layout Subsection
 Submission Guidelines
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Submission-Guidelines"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2554,42 +2575,49 @@ reference "fig:Timing---Csharp"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
 \family typewriter
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily},language={[Sharp]C}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
 Stopwatch st = new Stopwatch(); st.Start();
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 // code to be timed goes here
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 st.Stop();
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 // time in milliseconds 
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 long elapsed = (long) st.ElapsedTicks * 1000000 / Stopwatch.Frequency; 
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 Console.WriteLine("time = {0}", elapsed);
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -2651,56 +2679,61 @@ reference "fig:Timing---C++"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
 \family typewriter
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily},language={C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
 #include <time.h> 
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 #include <stdio.h>
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 clock_t start = clock();
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 // code to be timed goes here
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 clock_t end = clock();
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 // time in clicks 
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
-long elapsed = (long)(end – start)/CLOCKS_PER_SEC; 
+long elapsed = (long)(end - start)/CLOCKS_PER_SEC; 
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 printf("time = %d
 \backslash
 n", elapsed);
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -2769,42 +2802,47 @@ reference "fig:Timing---Java"
 \begin_inset Float figure
 wide false
 sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily},language=Java"
+inline false
 status open
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 long start = System.nanoTime();
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 // code to be timed goes here
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 long end = System.nanoTime();
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 // time in nanoseconds 
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
-long elapsed = (end – start)/1000000; 
+long elapsed = (end - start)/1000000; 
 \end_layout
 
-\begin_layout Verse
+\begin_layout Plain Layout
 
-\family typewriter
 System.out.printf("time = %d%n", elapsed);
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -2841,12 +2879,426 @@ Integers vs Floating Point
 
 \begin_layout Standard
 Modern CPUs have integrated high-performance floating-point execution units,
- however it should be noted that the choice of Integer and Floating point
- number will have an impact of performance of your solution.
+ however it should be noted that the choice of Integer, Long's and Floating
+ Point number will have an impact of performance of your solution.
+ The code snippet in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Source-code-for"
+
+\end_inset
+
+ demonstrates the performance differences of using 'int', 'long' and 'double'
+ for a simple add, multiple and divide sequence.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\family typewriter
+\begin_inset listings
+lstparams "tabsize=2"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+ public class NumberTypeTesting {
+\end_layout
+
+\begin_layout Plain Layout
+
+   static final long ITERATIONS = 1000000000;
+\end_layout
+
+\begin_layout Plain Layout
+
+   public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+     final double DOUBLE_PRIME = 73;
+\end_layout
+
+\begin_layout Plain Layout
+
+     final int INT_PRIME = 73;
+\end_layout
+
+\begin_layout Plain Layout
+
+     final long LONG_PRIME = 73;
+\end_layout
+
+\begin_layout Plain Layout
+
+     long start;
+\end_layout
+
+\begin_layout Plain Layout
+
+     long end;
+\end_layout
+
+\begin_layout Plain Layout
+
+     long count;
+\end_layout
+
+\begin_layout Plain Layout
+
+     double valueDoubleA = 1.00;
+\end_layout
+
+\begin_layout Plain Layout
+
+     double valueDoubleB = Math.PI; // pi = 3.142
+\end_layout
+
+\begin_layout Plain Layout
+
+     double valueDoubleC = Math.E; // e = 2.718
+\end_layout
+
+\begin_layout Plain Layout
+
+     int valueIntA = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+     int valueIntB = 10;
+\end_layout
+
+\begin_layout Plain Layout
+
+     int valueIntC = 31;
+\end_layout
+
+\begin_layout Plain Layout
+
+     long valueLongA = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+     long valueLongB = 31;
+\end_layout
+
+\begin_layout Plain Layout
+
+     long valueLongC = 33;
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\end_layout
+
+\begin_layout Plain Layout
+
+     // Integers
+\end_layout
+
+\begin_layout Plain Layout
+
+     count = ITERATIONS;
+\end_layout
+
+\begin_layout Plain Layout
+
+     start = System.nanoTime();
+\end_layout
+
+\begin_layout Plain Layout
+
+     while (count-- != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+       valueIntA += valueIntC * valueIntB / INT_PRIME;
+\end_layout
+
+\begin_layout Plain Layout
+
+     }
+\end_layout
+
+\begin_layout Plain Layout
+
+     end = System.nanoTime();
+\end_layout
+
+\begin_layout Plain Layout
+
+     System.out.printf("Integer time = %d msec%n", (end - start) / 1000000);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+     // Long
+\end_layout
+
+\begin_layout Plain Layout
+
+     count = ITERATIONS;
+\end_layout
+
+\begin_layout Plain Layout
+
+     start = System.nanoTime();
+\end_layout
+
+\begin_layout Plain Layout
+
+     while (count-- != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+       valueLongA += valueLongC * valueLongB / LONG_PRIME;
+\end_layout
+
+\begin_layout Plain Layout
+
+     }
+\end_layout
+
+\begin_layout Plain Layout
+
+     end = System.nanoTime();
+\end_layout
+
+\begin_layout Plain Layout
+
+     System.out.printf("Long time = %d msec%n", (end - start) / 1000000);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+     // Double
+\end_layout
+
+\begin_layout Plain Layout
+
+     count = ITERATIONS;
+\end_layout
+
+\begin_layout Plain Layout
+
+     start = System.nanoTime();
+\end_layout
+
+\begin_layout Plain Layout
+
+     while (count-- != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+       valueDoubleA += valueDoubleC * valueDoubleB / DOUBLE_PRIME;
+\end_layout
+
+\begin_layout Plain Layout
+
+     }
+\end_layout
+
+\begin_layout Plain Layout
+
+     end = System.nanoTime();
+\end_layout
+
+\begin_layout Plain Layout
+
+     System.out.printf("Double time = %d msec%n", (end - start) / 1000000);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Source code for timing test
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Source-code-for"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Java 6SE 32bit was used to generate the following results.
+\end_layout
+
+\end_inset
+
+ for the above test in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Source-code-for"
+
+\end_inset
+
+ are:
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+Integer time = 1131 msec
+\begin_inset Newline newline
+\end_inset
+
+Long time = 2673 msec 
+\begin_inset Newline newline
+\end_inset
+
+Double time = 1298 msec
+\end_layout
+
+\begin_layout Standard
+While there is a minor performance drop for using floating point numbers,
+ using 64bit longs yields over double the execution time.
+ This may easily be fixed by utilising an environment that runs as 64bit
+ code, but this is not guaranteed to be available during the competition.
 \end_layout
 
 \begin_layout Subsection
 Implementation and Modern Software Engineering Practices
+\end_layout
+
+\begin_layout Standard
+One of the aims of the competition is to develop efficient solutions to
+ the challenges being presented.
+ However often this also means not following modern software engineering
+ practices and taking as many shortcuts as possible.
+\end_layout
+
+\begin_layout Standard
+Some items that are typically seen (and encouraged) are:
+\end_layout
+
+\begin_layout Enumerate
+Liberal use of global variables utlised by direct access.
+\end_layout
+
+\begin_layout Enumerate
+Libreal use of function pointers and jump tables in C++.
+\end_layout
+
+\begin_layout Enumerate
+Dispite strong OOP principles with each programming language, these are
+ often ignored for more simple data structures and items like inheritence
+ and encapsulation are ignored.
+\end_layout
+
+\begin_layout Enumerate
+Nested classes liberally use public variables allowing for direct access.
+\end_layout
+
+\begin_layout Enumerate
+The 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+goto
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ statement being used in C++ and C# submissions
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+While most professional programmers avoid 
+\begin_inset Quotes eld
+\end_inset
+
+goto
+\begin_inset Quotes erd
+\end_inset
+
+ as it's considered inherently evil, there are some instances where its
+ use can save execution time and/or reduce code complexity.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Ignoring typical design patterns, unless they provide direct and significant
+ benefit in utlising an algorithm to complete a challenge.
+\end_layout
+
+\begin_layout Standard
+As mentioned in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Submission-Guidelines"
+
+\end_inset
+
+, that all source code required for the submission is located in a single
+ text file, also requires some creative uses of both local and anonymous
+ classes.
 \end_layout
 
 \begin_layout Standard
