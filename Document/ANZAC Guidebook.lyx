@@ -3288,6 +3288,11 @@ Ignoring typical design patterns, unless they provide direct and significant
  benefit in utlising an algorithm to complete a challenge.
 \end_layout
 
+\begin_layout Enumerate
+Error checking is kept to a minimum, mainly designed around corner cases
+ for algorithms to handle rather than handling bad and malformed input.
+\end_layout
+
 \begin_layout Standard
 As mentioned in Section 
 \begin_inset CommandInset ref
@@ -3312,6 +3317,15 @@ reference "sub:Submission-Guidelines"
 Basic Source Templates
 \end_layout
 
+\begin_layout Standard
+All source code submissions are to consist of a single source code file,
+ as previously mentioned.
+ This section aims to provide simple templates that can be utilised to create
+ your submissions.
+ It will also cover some of the basic console functions available with each
+ langauge.
+\end_layout
+
 \begin_layout Subsection
 Input / Output
 \end_layout
@@ -3320,16 +3334,1437 @@ Input / Output
 C#
 \end_layout
 
+\begin_layout Standard
+The .NET Framework unfortunately has rather cumbersome support for handling
+ console input and output.
+ The 
+\family typewriter
+System.Console
+\family default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://msdn.microsoft.com/en-us/library/system.console.aspx
+\end_layout
+
+\end_inset
+
+ class provides methods for dealing with the console.
+ The three main methods that are typically used are:
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Console.ReadLine();
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Console.Write();
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+Console.WriteLine();
+\end_layout
+
+\begin_layout Paragraph
+Input
+\end_layout
+
+\begin_layout Standard
+The primary function for input from the Console is the 
+\family typewriter
+Console.ReadLine()
+\family default
+ method which as the name indicates, reads a single line from the console
+ and returns a 
+\family typewriter
+string
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+In order to extract information from the string, it is needed to split the
+ string based on a delimiter (typically a space), then attempt to convert
+ each part into the desired type.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cs-Input-Template"
+
+\end_inset
+
+ shows how to read a group of 3 integers (per line) from the console, until
+ a three 0's (zeroes) are entered.
+ The numbers for each line is added, and the sum is written back to the
+ console.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={[Sharp]C}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+using System;
+\end_layout
+
+\begin_layout Plain Layout
+
+namespace AddNumbers {
+\end_layout
+
+\begin_layout Plain Layout
+
+  class Program {
+\end_layout
+
+\begin_layout Plain Layout
+
+    static void Main(string[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Define our numbers to read.
+\end_layout
+
+\begin_layout Plain Layout
+
+      int[] numbers;
+\end_layout
+
+\begin_layout Plain Layout
+
+      int index;
+\end_layout
+
+\begin_layout Plain Layout
+
+      int sum;
+\end_layout
+
+\begin_layout Plain Layout
+
+      string line;
+\end_layout
+
+\begin_layout Plain Layout
+
+      string[] linesplit;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Keep reading the input from the console until we have nothing left.
+\end_layout
+
+\begin_layout Plain Layout
+
+      while ((line = Console.ReadLine()) != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Reset array indices and sum of numbers
+\end_layout
+
+\begin_layout Plain Layout
+
+        index = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        sum = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Split the line read, and create a new int array to hold our value.
+\end_layout
+
+\begin_layout Plain Layout
+
+        linesplit = line.Split(' ');
+\end_layout
+
+\begin_layout Plain Layout
+
+        numbers = new int[linesplit.Length];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Attempt to convert the individual parts to int's
+\end_layout
+
+\begin_layout Plain Layout
+
+        foreach (string element in linesplit) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          try {
+\end_layout
+
+\begin_layout Plain Layout
+
+            numbers[index] = Convert.ToInt32(element);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          catch {
+\end_layout
+
+\begin_layout Plain Layout
+
+            numbers[index] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          index++;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Test for exit condition.
+\end_layout
+
+\begin_layout Plain Layout
+
+        if ((linesplit.Length == 3) && (numbers[0] == 0) 
+\end_layout
+
+\begin_layout Plain Layout
+
+               && (numbers[1] == 0) && (numbers[2] == 0)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          break;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Sum our number and output the sum to Console.
+\end_layout
+
+\begin_layout Plain Layout
+
+        foreach (int number in numbers) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          sum += number;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        Console.WriteLine("{0}", sum);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+C# Input Template
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Cs-Input-Template"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Output
+\end_layout
+
+\begin_layout Standard
+The primary functions for output to the Console are the 
+\family typewriter
+Console.Write()
+\family default
+ and 
+\family typewriter
+Console.WriteLine()
+\family default
+ methods.
+ These two differ only by the latter terminating the line with a 
+\family typewriter
+carriage-return
+\family default
+, while the former does not.
+\end_layout
+
+\begin_layout Standard
+One item to note, that a single 
+\family typewriter
+Console.Write() 
+\family default
+method may only take up to 5 parameters, the first being a string, and the
+ other 4 being items to be inserted into the string.
+ Item placement within the string is denoted by a number with 
+\family typewriter
+{}
+\family default
+ brackets.
+ (See the last line in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cs-Input-Template"
+
+\end_inset
+
+ for an example).
+ The item placement parameter, may also take a second argument, being the
+ type to have the item converted to, or displayed as.
+ Common types include:
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+(C) Currency: .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ {0:C}
+\begin_inset Newline newline
+\end_inset
+
+(D) Decimal:.
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ {0:D}
+\begin_inset Newline newline
+\end_inset
+
+(E) Scientific:.
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ {0:E}
+\begin_inset Newline newline
+\end_inset
+
+(F) Fixed point: .
+ .
+ .
+ .
+ .
+ .
+ .
+ {0:F}
+\begin_inset Newline newline
+\end_inset
+
+(G) General:.
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ {0:G}
+\begin_inset Newline newline
+\end_inset
+
+(P) Percent:.
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ .
+ {0:P}
+\begin_inset Newline newline
+\end_inset
+
+(X) Hexadecimal: .
+ .
+ .
+ .
+ .
+ .
+ .
+ {0:X}
+\end_layout
+
+\begin_layout Standard
+By default, console output is buffered, and only written periodically as
+ determined by underlying system settings.
+ To flush the output to console immediately, the 
+\family typewriter
+Console.Out.Flush()
+\family default
+ method can be utilised.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 C++
 \end_layout
 
+\begin_layout Standard
+Due to the environment in which C++ was originally developed, C++ has very
+ strong capabilities for handling both console input and output.
+ C++ offers two methods when working with the console:
+\end_layout
+
+\begin_layout Enumerate
+iostreams
+\end_layout
+
+\begin_layout Enumerate
+C standard library functions.
+\end_layout
+
+\begin_layout Standard
+While the two methods can be intermixed, it is recommended that programmers
+ utilised a single method for their application
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Mixing the two methods is possible, on provision that all input and output
+ streams are emtpy when switching between either method.
+ This is due to the buffering that each method utilises during Console IO
+ operations.
+\end_layout
+
+\end_inset
+
+.
+ For the purposes of this guide, I'll only explain the 
+\family typewriter
+iostream
+\family default
+s method as it is often seen as easy to use of the two methods.
+\end_layout
+
+\begin_layout Paragraph
+Input
+\end_layout
+
+\begin_layout Standard
+Input from the console is handled by the 
+\family typewriter
+std::cin
+\family default
+ stream, and has the ability to take multiple types of inputs in a single
+ line or function call.
+ (This is possible due to operator overloading in C++).
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:C++-input-and"
+
+\end_inset
+
+ shows the same application written in C++, as shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cs-Input-Template"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={[ANSI]C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#include <cstdlib>
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <iostream>
+\end_layout
+
+\begin_layout Plain Layout
+
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+int main() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int a, b, c;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    do {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Get input of 3 integers and store in a, b and c.
+\end_layout
+
+\begin_layout Plain Layout
+
+        cin >> a >> b >> c;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Test exit condition, and exit if true.
+\end_layout
+
+\begin_layout Plain Layout
+
+        if(a == 0 && b == 0 && c == 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+            break;
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Output the sum.
+\end_layout
+
+\begin_layout Plain Layout
+
+        cout << (a + b + c) << endl;
+\end_layout
+
+\begin_layout Plain Layout
+
+    } while(true);
+\end_layout
+
+\begin_layout Plain Layout
+
+   return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+C++ input and output example
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:C++-input-and"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the 
+\family typewriter
+cin
+\family default
+ and 
+\family typewriter
+cout
+\family default
+ streams operate on single variables, an alternate method is required to
+ read a complete line in one function call.
+ This method is 
+\family typewriter
+getline ( istream& is, string& str );
+\family default
+, where 
+\family typewriter
+is
+\family default
+ is the character stream, and 
+\family typewriter
+str
+\family default
+ is the string to place the input into.
+ As example of 
+\family typewriter
+getline() 
+\family default
+is in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:C++-getline()-example"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={[ANSI]C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#include <iostream>
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <string>
+\end_layout
+
+\begin_layout Plain Layout
+
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+int main () {
+\end_layout
+
+\begin_layout Plain Layout
+
+  string str;
+\end_layout
+
+\begin_layout Plain Layout
+
+  cout << "Please enter full name: ";
+\end_layout
+
+\begin_layout Plain Layout
+
+  getline (cin,str);
+\end_layout
+
+\begin_layout Plain Layout
+
+  cout << "Thank you, " << str << ".
+\backslash
+n";
+\end_layout
+
+\begin_layout Plain Layout
+
+  return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+C++ getline() example
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:C++-getline()-example"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once the line has been fetched with the 
+\family typewriter
+getline()
+\family default
+ method, you are free to use any of the other string functions to extract
+ information from the string.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Output
+\end_layout
+
+\begin_layout Standard
+The primary method of output is via the 
+\family typewriter
+cout
+\family default
+ iostream, as shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:C++-input-and"
+
+\end_inset
+
+.
+ The format is simply:
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+cout << {object} << {object} << {object} << 
+\begin_inset Quotes eld
+\end_inset
+
+ string 
+\begin_inset Quotes erd
+\end_inset
+
+ << ..
+ << endl;
+\end_layout
+
+\begin_layout Standard
+where each {object} represents any C++ primitive type or any C++ object.
+\end_layout
+
+\begin_layout Standard
+There are two methods to generating a newline character, utilising C++.
+ You may either:
+\end_layout
+
+\begin_layout Enumerate
+Output string 
+\family typewriter
+
+\begin_inset Quotes eld
+\end_inset
+
+
+\backslash
+n
+\begin_inset Quotes erd
+\end_inset
+
+
+\family default
+, or
+\end_layout
+
+\begin_layout Enumerate
+Output 
+\family typewriter
+std::endl
+\family default
+ .
+\end_layout
+
+\begin_layout Standard
+The difference between the two methods, is that 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+std::endl
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ will flush the output buffer to console, where 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+
+\backslash
+n
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ will not.
+\end_layout
+
+\begin_layout Standard
+To control the precision of floating point numbers, you can use the 
+\family typewriter
+setprecision(
+\shape italic
+x
+\shape default
+)
+\family default
+ method as part of the output sequence.
+ eg: 
+\family typewriter
+cout << setprecision(4) << (double)1.23456788 << endl
+\family default
+; will output 
+\family typewriter
+1.235
+\family default
+ to the console.
+\end_layout
+
 \begin_layout Paragraph
 iostreams vs printf
+\begin_inset CommandInset label
+LatexCommand label
+name "par:iostreams-vs-printf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The other method to perform console output is the C function 
+\family typewriter
+printf()
+\family default
+.
+ 
+\family typewriter
+printf()
+\family default
+ offers the same features as the 
+\family typewriter
+cout
+\family default
+ iostream, and may be used when very fine control over output is required
+ especially with floating point numbers.
+ 
+\end_layout
+
+\begin_layout Standard
+The general format of the printf() function is:
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+printf(const char *str, ...);
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+str
+\family default
+ is a formatted string, that may contain 0 or more place holders for additional
+ arguments.
+ Placeholders in the formatted string are simply filled in order of additional
+ arguments as specified in the function call, and the additional arguments
+ must be of the same type as specified by the placeholder.
+\end_layout
+
+\begin_layout Standard
+Formats for placeholders include:
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+%d
+\family default
+ - decimal 
+\family typewriter
+
+\begin_inset Newline newline
+\end_inset
+
+%du
+\family default
+ - decimal unsigned
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+%f
+\family default
+ - floating point
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+%s
+\family default
+ - string (char*)
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+%c
+\family default
+ - character
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+%x
+\family default
+ - hexidecimal number
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+%l
+\family default
+ - long 
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+%lu
+\family default
+ - long unsigned
+\end_layout
+
+\begin_layout Standard
+Additional fields may be added to the place holders to specify field width
+ and/or precisions.
+ For example:
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+%.5f
+\family default
+ - will display a floating point number to 5 decimal places.
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+%5s
+\family default
+ - will consume at exactly 5 character spaces for a string.
+ 
+\end_layout
+
+\begin_layout Standard
+There are a few special reserved characters for the printf(), some of these
+ include:
+\end_layout
+
+\begin_layout Verse
+
+\family typewriter
+
+\backslash
+n
+\family default
+ - carriage return.
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+
+\backslash
+t
+\family default
+ - tab character.
+\end_layout
+
+\begin_layout Standard
+There are some myths surrounding performance differences between 
+\family typewriter
+cout
+\family default
+ and 
+\family typewriter
+printf()
+\family default
+.
+ Through personal testing I've found few performance differences between
+ each method, however this may be enterely compiler and platform dependent,
+ so won't comment too greatly on the matter.
+ So it's best to use the one that is suited to your problem at the time,
+ as it's unlikely that any performance differences that exist will effect
+ your challenge submission greatly.
 \end_layout
 
 \begin_layout Subsubsection
 Java
+\end_layout
+
+\begin_layout Standard
+Similar to C++, Java has a very capable set of support functions for handling
+ console input and output.
+ These are mainly archived through the 
+\family typewriter
+System.in 
+\family default
+and 
+\family typewriter
+System.out
+\family default
+ classes used in conjuction with the 
+\family typewriter
+Java.util.Scanner
+\family default
+ class provided with the default Java libraries.
+\end_layout
+
+\begin_layout Paragraph
+Input
+\end_layout
+
+\begin_layout Standard
+Java historically has had a large number of different methods for handling
+ console input, with each new version of Java providing a more streamlined
+ method of handling these functions.
+\end_layout
+
+\begin_layout Standard
+The current prefered method for console input in Java is to use the 
+\family typewriter
+Java.util.Scanner
+\family default
+ class tied with the 
+\family typewriter
+System.in
+\family default
+ object to extract the required information from the console.
+ An example of the 
+\family typewriter
+Scanner
+\family default
+ class can be found in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Java-Input-and"
+
+\end_inset
+
+ which solves the same problem as shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cs-Input-Template"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+public class AddNumbers {
+\end_layout
+
+\begin_layout Plain Layout
+
+   public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // get first line and check for end of test cases
+\end_layout
+
+\begin_layout Plain Layout
+
+      String line = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Continue until exit condition
+\end_layout
+
+\begin_layout Plain Layout
+
+      while (!line.equals("0 0 0")) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+         // extract three ints
+\end_layout
+
+\begin_layout Plain Layout
+
+         Scanner sc = new Scanner(line);
+\end_layout
+
+\begin_layout Plain Layout
+
+         int a = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+         int b = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+         int c = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+         System.out.printf("%d%n", (a + b + c));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+         // get next line
+\end_layout
+
+\begin_layout Plain Layout
+
+         line = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Java Input and Output
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Java-Input-and"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Paragraph
+Output
+\end_layout
+
+\begin_layout Standard
+Output is easiest handled via the 
+\family typewriter
+System.out.printf()
+\family default
+ method, as it offers a good match between flexiblity and performance.
+ The format for the method call is the same as the C++ 
+\family typewriter
+printf()
+\family default
+ function as described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "par:iostreams-vs-printf"
+
+\end_inset
+
+.
+ An example of the method call is also in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Java-Input-and"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
