@@ -34,6 +34,8 @@
 \exhyphenpenalty=10000
 \hyphenpenalty=10000
 \usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode} 
 \end_preamble
 \use_default_options false
 \begin_modules
@@ -431,6 +433,98 @@ Throughout the guide there will be notes on performance aspects of each
 \end_layout
 
 \begin_layout Subsubsection
+Development System
+\end_layout
+
+\begin_layout Standard
+The applications and source code snippets developed for this guide were
+ performed on the following hardware and software combinations as noted
+ below.
+ Any performance measurements, in particular times required for certain
+ functions reflect times as acquired with listed hardware and software combinati
+ons.
+ Performance measurements will vary accordingly with different hardware
+ and software combinations when performing your own performance measurements.
+\end_layout
+
+\begin_layout Paragraph
+Hardware
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+HP xw4600 Workstation, with:
+\end_layout
+
+\begin_layout Itemize
+Intel Core 2 Quad, Q9400 @ 2.66GHz (Quad core, 2.66GHz, 6MB L2 cache, 64bit
+ enabled).
+\end_layout
+
+\begin_layout Itemize
+4GB RAM (4 × 1GB Reg ECC DDR2-800Mhz)
+\end_layout
+
+\begin_layout Itemize
+250GB 7200rpm HDD
+\end_layout
+
+\begin_layout Itemize
+nVidia Quadro FX580 graphics card.
+\end_layout
+
+\begin_layout Itemize
+Dual 20
+\begin_inset Quotes erd
+\end_inset
+
+ LCD Monitors (1680x1050 resolution).
+\end_layout
+
+\begin_layout Paragraph
+Software
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Oracle Solaris 11 11/11, with:
+\end_layout
+
+\begin_layout Itemize
+Solaris Studio 12.3 (C++)
+\end_layout
+
+\begin_layout Itemize
+Netbeans 7.2 (Java)
+\end_layout
+
+\begin_layout Itemize
+Java 6 JDK 1.6u26 or Java 7 JDK 1.7u5
+\end_layout
+
+\begin_layout Itemize
+gcc 4.5.2 (C++)
+\end_layout
+
+\begin_layout Standard
+Microsoft Windows XP x64, with:
+\end_layout
+
+\begin_layout Itemize
+Mircosoft Visual Studio 2010 (C# and C++)
+\end_layout
+
+\begin_layout Itemize
+.NET Frameowrk 2.0
+\end_layout
+
+\begin_layout Subsection
 License
 \end_layout
 
@@ -3494,6 +3588,30 @@ namespace AddNumbers {
 
 \begin_layout Plain Layout
 
+        // Test for exit condition.
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (line.CompareTo("0 0 0") == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          break;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
         // Reset array indices and sum of numbers
 \end_layout
 
@@ -3573,35 +3691,6 @@ namespace AddNumbers {
 \begin_layout Plain Layout
 
           index++;
-\end_layout
-
-\begin_layout Plain Layout
-
-        }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-        // Test for exit condition.
-\end_layout
-
-\begin_layout Plain Layout
-
-        if ((linesplit.Length == 3) && (numbers[0] == 0) 
-\end_layout
-
-\begin_layout Plain Layout
-
-               && (numbers[1] == 0) && (numbers[2] == 0)) {
-\end_layout
-
-\begin_layout Plain Layout
-
-          break;
 \end_layout
 
 \begin_layout Plain Layout
@@ -3858,7 +3947,7 @@ C standard library functions.
 
 \begin_layout Standard
 While the two methods can be intermixed, it is recommended that programmers
- utilised a single method for their application
+ utilise a single method for their application
 \begin_inset Foot
 status collapsed
 
@@ -4488,21 +4577,290 @@ t
 \end_layout
 
 \begin_layout Standard
-There are some myths surrounding performance differences between 
-\family typewriter
-cout
-\family default
- and 
+There are has been some debate over the performance aspects of the two methods,
+ often siting that there is no performance difference.
+ Utilising the source code in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:C++,-cout-vs"
+
+\end_inset
+
+, I've found that in some cases there can be significant differences in
+ performance, with 
 \family typewriter
 printf()
 \family default
-.
- Through personal testing I've found few performance differences between
- each method, however this may be enterely compiler and platform dependent,
- so won't comment too greatly on the matter.
- So it's best to use the one that is suited to your problem at the time,
- as it's unlikely that any performance differences that exist will effect
- your challenge submission greatly.
+ being up to 250 times faster than the equivalent 
+\family typewriter
+cout
+\family default
+ function.
+\end_layout
+
+\begin_layout Standard
+Based on average times for 5 runs of the test application in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:C++,-cout-vs"
+
+\end_inset
+
+, yeilds the following results:
+\end_layout
+
+\begin_layout Enumerate
+cout time = 67240 msec
+\end_layout
+
+\begin_layout Enumerate
+printf() time = 280 msec
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "language={[ANSI]C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#include <cstdlib>
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <iostream>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+#define LOOPCOUNT 1000000
+\end_layout
+
+\begin_layout Plain Layout
+
+#define NUMBER1 31.0 
+\end_layout
+
+\begin_layout Plain Layout
+
+#define NUMBER2 21
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+int main() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    long count = LOOPCOUNT;
+\end_layout
+
+\begin_layout Plain Layout
+
+    double dbl = NUMBER1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int Int = NUMBER2;
+\end_layout
+
+\begin_layout Plain Layout
+
+    char* str = (char*) &"hello";
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    clock_t start = clock(); // Start timing
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (count--) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        cout << dbl << " " << Int++ << " " << str << "
+\backslash
+n";
+\end_layout
+
+\begin_layout Plain Layout
+
+        dbl = dbl * (double) Int / ((double) Int * 2.0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    clock_t end = clock(); // End timing
+\end_layout
+
+\begin_layout Plain Layout
+
+    cerr << "cout time = " << double(end - start)*1000.0/CLOCKS_PER_SEC 
+\end_layout
+
+\begin_layout Plain Layout
+
+         << "msec " << endl;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // reset start values
+\end_layout
+
+\begin_layout Plain Layout
+
+    count = LOOPCOUNT;
+\end_layout
+
+\begin_layout Plain Layout
+
+    dbl = NUMBER1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    Int = NUMBER2;
+\end_layout
+
+\begin_layout Plain Layout
+
+    start = clock(); // Start timing
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (count--) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        printf("%f %d %s
+\backslash
+n", dbl, Int++, str);
+\end_layout
+
+\begin_layout Plain Layout
+
+        dbl = dbl * (double) Int / ((double) Int * 2.0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    end = clock(); // End timing
+\end_layout
+
+\begin_layout Plain Layout
+
+    cerr << "printf time = " << double(end - start)*1000.0/CLOCKS_PER_SEC
+\end_layout
+
+\begin_layout Plain Layout
+
+         << "msec" << endl;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+C++, 
+\family typewriter
+cout
+\family default
+ vs 
+\family typewriter
+printf()
+\family default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:C++,-cout-vs"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -4731,10 +5089,6 @@ name "fig:Java-Input-and"
 
 \end_layout
 
-\begin_layout Standard
-
-\end_layout
-
 \begin_layout Paragraph
 Output
 \end_layout
@@ -4779,15 +5133,168 @@ Basic Algorithms
 \end_layout
 
 \begin_layout Subsection
-Basic String Handling
+Sorting
+\end_layout
+
+\begin_layout Standard
+The majority of data structures that will be utilised within the competition
+ all provide some form of inbuilt sorting algorithm, or through their design
+ are naturally sorted as in the case of a Binary Search Tree.
+\end_layout
+
+\begin_layout Standard
+It is highly recommended as far as competition submissions are concerned,
+ that you utilise the built-in sort methods rather that attempting to implement
+ your own sort method.
+\end_layout
+
+\begin_layout Standard
+Typically, most data structures will utilise either quicksort or merge sort
+ (depending on the underlying structure) as they both offer 
+\series bold
+O(n log n)
+\series default
+ performance in the average case.
+ 
 \end_layout
 
 \begin_layout Subsection
 Searching
 \end_layout
 
-\begin_layout Subsection
-Sorting
+\begin_layout Standard
+When given a linear array of data items, search algorithms find information
+ about a particular data item in the list or find the location of the data
+ item in the list.
+ Two primary search algorithms are:
+\end_layout
+
+\begin_layout Enumerate
+Linear Search
+\end_layout
+
+\begin_layout Enumerate
+Binary Search
+\end_layout
+
+\begin_layout Subsubsection
+Linear Search
+\end_layout
+
+\begin_layout Standard
+Linear Search algorithms transverse through a list of data items in sequential
+ order attempting to find the location of the data item.
+ The list itself may or may not be sorted, and the underlying data structure
+ may be a linear array or a linked list.
+\end_layout
+
+\begin_layout Paragraph
+Psuedocode
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\rmfamily},frame=none,language=Matlab,showstringspaces=false"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Input: A vector S storing n items, with search key k.
+\end_layout
+
+\begin_layout Plain Layout
+
+Output: Index of item found, or -1 if not found.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i = 0 to n-1 do
+\end_layout
+
+\begin_layout Plain Layout
+
+  if S[i] = k then
+\end_layout
+
+\begin_layout Plain Layout
+
+     return i
+\end_layout
+
+\begin_layout Plain Layout
+
+return -1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Linear Search
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem
+\end_layout
+
+\begin_layout Subsubsection
+Binary Search
+\end_layout
+
+\begin_layout Paragraph
+Psuedocode
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem
 \end_layout
 
 \begin_layout Subsection
