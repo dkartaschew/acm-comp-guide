@@ -34,8 +34,8 @@
 \exhyphenpenalty=10000
 \hyphenpenalty=10000
 \usepackage{xcolor}
-\usepackage{algorithm}
-\usepackage{algpseudocode} 
+\usepackage{algorithmic}
+\renewcommand{\ps@plain}{\pagestyle{fancy}}
 \end_preamble
 \use_default_options false
 \begin_modules
@@ -224,6 +224,36 @@ pagenumbering{roman}
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList algorithm
 
 \end_inset
 
@@ -2681,7 +2711,12 @@ status open
 
 \begin_layout Plain Layout
 
-Stopwatch st = new Stopwatch(); st.Start();
+Stopwatch st = new Stopwatch();
+\end_layout
+
+\begin_layout Plain Layout
+
+st.Start();
 \end_layout
 
 \begin_layout Plain Layout
@@ -5128,6 +5163,13 @@ reference "fig:Java-Input-and"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Basic Algorithms
 \end_layout
@@ -5188,10 +5230,6 @@ Linear Search algorithms transverse through a list of data items in sequential
  may be a linear array or a linked list.
 \end_layout
 
-\begin_layout Paragraph
-Psuedocode
-\end_layout
-
 \begin_layout Standard
 \begin_inset Float algorithm
 placement H
@@ -5200,43 +5238,79 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset listings
-lstparams "basicstyle={\rmfamily},frame=none,language=Matlab,showstringspaces=false"
-inline false
+\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-Input: A vector S storing n items, with search key k.
+
+\backslash
+begin{algorithmic} 
 \end_layout
 
 \begin_layout Plain Layout
 
-Output: Index of item found, or -1 if not found.
+
+\backslash
+REQUIRE Vector $S$, with $n$ elements, with search key $k$
 \end_layout
 
 \begin_layout Plain Layout
 
+
+\backslash
+ENSURE if $k 
+\backslash
+in S$ return index of $k$, else return -1
 \end_layout
 
 \begin_layout Plain Layout
 
-for i = 0 to n-1 do
+
+\backslash
+FOR {$i$ = 0 to $n-1$}
 \end_layout
 
 \begin_layout Plain Layout
 
-  if S[i] = k then
+
+\backslash
+IF {$S$[$i$] = $k$}
 \end_layout
 
 \begin_layout Plain Layout
 
-     return i
+
+\backslash
+RETURN $i$
 \end_layout
 
 \begin_layout Plain Layout
 
-return -1
+
+\backslash
+ENDIF
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ENDFOR
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+RETURN -1
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
 \end_layout
 
 \end_inset
@@ -5256,6 +5330,209 @@ Linear Search
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Standard
+The linear search algorithm takes a vector (aka array) of elements, and
+ simply searches all elements in order as stored.
+ This can yeild slow performance with large vectors, as the worst case for
+ linear search is 
+\series bold
+O(n)
+\series default
+.
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Linear-Search-Implementation"
+
+\end_inset
+
+ and Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Linear-Search-Implementation2"
+
+\end_inset
+
+ show the linear search algorithm as implemented in Java and C++ respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public int LinearSearch(E[] vector, E key){
+\end_layout
+
+\begin_layout Plain Layout
+
+  for(int index = 0; index < vector.length; index++){
+\end_layout
+
+\begin_layout Plain Layout
+
+    if(vector[index] == key){
+\end_layout
+
+\begin_layout Plain Layout
+
+      return index;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Linear Search Implementation (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Linear-Search-Implementation"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public int LinearSearch(E[] vector, int vsize, E key){
+\end_layout
+
+\begin_layout Plain Layout
+
+  for(int index = 0; index < vsize; index++){
+\end_layout
+
+\begin_layout Plain Layout
+
+    if(vector[index] == key){
+\end_layout
+
+\begin_layout Plain Layout
+
+      return index;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Linear Search Implementation (C++)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Linear-Search-Implementation2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Plain Layout
 
 \end_layout
@@ -5266,15 +5543,431 @@ Linear Search
 \end_layout
 
 \begin_layout Paragraph
-Description of working
+Sample Problem - Linear Search 
+\begin_inset CommandInset label
+LatexCommand label
+name "par:SP-Linear-Search"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given a list of numbers (integers) in a line, determine if the first value
+ on the line is present within the subsequent list of numbers.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+Input consists of one or more lines, with the first line being the number
+ of cases to test.
+\end_layout
+
+\begin_layout Standard
+Each line consists of one or more integers in the range of 0 to 32767.
+ The first integer is the key value, followed by a list of up to 32 integers
+ forming a vector of numbers.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3
+\begin_inset Newline newline
+\end_inset
+
+10 12 327 0 10 
+\begin_inset Newline newline
+\end_inset
+
+1 2 3 4 5 6 7 8
+\begin_inset Newline newline
+\end_inset
+
+10 20 30 40 50 60 70 90 10
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+The output of each line should consist of a single integer being either
+ the index of the key within the vector, being zero (0) offset, or the value
+ -1 if the key is not present in the vector.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3
+\begin_inset Newline newline
+\end_inset
+
+-1
+\begin_inset Newline newline
+\end_inset
+
+7
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
-Implementation
+Problem Solution
 \end_layout
 
-\begin_layout Paragraph
-Sample Problem
+\begin_layout Standard
+A solution to the above problem utilising a linear search can be seen in
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Solution-to-Linear"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Some of the test cases to handle include:
+\end_layout
+
+\begin_layout Enumerate
+The case count being less or equal to 0.
+\end_layout
+
+\begin_layout Enumerate
+The line itself contains a single integer, being the key, but provided with
+ an empty vector to search.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class LinearSearch {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform linear search of array (vector) for item (key).
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vector array of numbers
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param key item to look for in array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return index of key in vector, or -1 is not present
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static int linearSearch(int[] vector, int key) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int index = 0; index < vector.length; index++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (vector[index] == key) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return index;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // get first line and get the number of cases to test.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int caseCount = Integer.parseInt(in.nextLine());
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep reading each line while caseCount > 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (caseCount-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // split by white space.
+ so we have an array of numbers
+\end_layout
+
+\begin_layout Plain Layout
+
+      String[] numStrs = in.nextLine().split("
+\backslash
+
+\backslash
+s+");
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // create an array to hold our numbers, and convet the array of strings
+ to
+\end_layout
+
+\begin_layout Plain Layout
+
+      // numbers.
+ Note: numStrs[0] is the key value
+\end_layout
+
+\begin_layout Plain Layout
+
+      int[] nums = new int[numStrs.length - 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int i = 1; i < nums.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        nums[i - 1] = Integer.parseInt(numStrs[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Output the index of the key in the vector
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("%d%n", linearSearch(nums, Integer.parseInt(numStrs[0]))));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to Linear Search Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Solution-to-Linear"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
