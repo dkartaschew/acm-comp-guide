@@ -34,8 +34,10 @@
 \exhyphenpenalty=10000
 \hyphenpenalty=10000
 \usepackage{xcolor}
-\usepackage{algorithmic}
+\usepackage{algpseudocode}
 \renewcommand{\ps@plain}{\pagestyle{fancy}}
+\algrenewcommand\algorithmicrequire{\textbf{Input}}
+\algrenewcommand\algorithmicensure{\textbf{Output}}
 \end_preamble
 \use_default_options false
 \begin_modules
@@ -5194,7 +5196,15 @@ It is highly recommended as far as competition submissions are concerned,
 Typically, most data structures will utilise either quicksort or merge sort
  (depending on the underlying structure) as they both offer 
 \series bold
-O(n log n)
+O(
+\shape italic
+n
+\shape default
+ log 
+\shape italic
+n
+\shape default
+)
 \series default
  performance in the average case.
  
@@ -5252,14 +5262,14 @@ begin{algorithmic}
 
 
 \backslash
-REQUIRE Vector $S$, with $n$ elements, with search key $k$
+Require Vector $S$, with $n$ elements, with search key $k$
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-ENSURE if $k 
+Ensure if $k 
 \backslash
 in S$ return index of $k$, else return -1
 \end_layout
@@ -5268,42 +5278,67 @@ in S$ return index of $k$, else return -1
 
 
 \backslash
-FOR {$i$ = 0 to $n-1$}
+State
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-IF {$S$[$i$] = $k$}
+Procedure{LinearSearch}{$S,k$}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-RETURN $i$
+For {$i$ = 0 to $n-1$}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-ENDIF
+If {$S$[$i$] = $k$}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-ENDFOR
+State 
+\backslash
+Return $i$
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-RETURN -1
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+Return -1
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
 \end_layout
 
 \begin_layout Plain Layout
@@ -5345,7 +5380,11 @@ The linear search algorithm takes a vector (aka array) of elements, and
  This can yeild slow performance with large vectors, as the worst case for
  linear search is 
 \series bold
-O(n)
+O(
+\shape italic
+n
+\shape default
+)
 \series default
 .
 \end_layout
@@ -5377,7 +5416,7 @@ reference "fig:Linear-Search-Implementation2"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset listings
@@ -5462,7 +5501,7 @@ name "fig:Linear-Search-Implementation"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset listings
@@ -5696,7 +5735,7 @@ The line itself contains a single integer, being the key, but provided with
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset listings
@@ -5974,20 +6013,796 @@ name "fig:Solution-to-Linear"
 Binary Search
 \end_layout
 
-\begin_layout Paragraph
-Psuedocode
+\begin_layout Standard
+The binary search algorithm is a more efficient method of searching a vector,
+ on provision that the vector is sorted and any element can be accessed
+ in 
+\series bold
+O(1)
+\series default
+ time.
+ Becuase of these two conditions, it can't with some storage data structures
+ like linked lists (as elements can't be accessed in 
+\series bold
+O(1)
+\series default
+ time), nor is suitable for vectors that are unsorted.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require An ordered vector $S$, with $n$ elements, with search key $k$.
+ Items $low$ and $high$ indicate current search space of vector $S$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure if $k 
+\backslash
+in S$ return index of $k$, else return -1
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{BinarySearch}{$S, k, low, high$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$low$ > $high$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+Return -1
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $mid 
+\backslash
+leftarrow 
+\backslash
+lfloor ( low + high ) / 2 
+\backslash
+rfloor$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$k = S[mid]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+Return $mid$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ElsIf {$k < S[mid]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+Return BinarySearch($S,k,low,mid-1$)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+Return BinarySearch($S,k,mid+1,high$)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Binary Search
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
 Description of working
 \end_layout
 
+\begin_layout Standard
+The binary search algorithm is a naturally recursive algorithm, in that
+ it calls itself to continue searching the vector.
+ 
+\end_layout
+
+\begin_layout Standard
+The algorithm starts with the entire space of the vector, and looks at the
+ mid point between the 
+\shape italic
+low
+\shape default
+ and 
+\shape italic
+high
+\shape default
+ values.
+ If this value is not the required key (
+\shape italic
+k
+\shape default
+), it will then determine if the key is less than or greater than the current
+ value at 
+\shape italic
+mid
+\shape default
+.
+ If the key is lower than mid, then it will redefine the search space to
+ be that between 
+\shape italic
+low
+\shape default
+ and 
+\shape italic
+mid-1
+\shape default
+, otherwise redefine the search space between 
+\shape italic
+mid
+\shape default
++1 and 
+\shape italic
+high
+\shape default
+.
+ It then calls itself to perform another search.
+ In the event that 
+\shape italic
+low
+\shape default
+ is greater than 
+\shape italic
+high
+\shape default
+, it determines that the key is not in 
+\shape italic
+S
+\shape default
+, and will return -1.
+\end_layout
+
+\begin_layout Standard
+What the algorithm effectively does is split the entire search space of
+ vector 
+\shape italic
+S
+\shape default
+ into 2 parts, if the key is not at 
+\shape italic
+mid
+\shape default
+.
+ By virtue, if the value at 
+\shape italic
+mid
+\shape default
+ is less than the key, it understands that there is no justification to
+ look at values located to the left of the current 
+\shape italic
+mid
+\shape default
+ point in the vector.
+ With each iteration of the search it effectively reduces the search space
+ by half.
+\end_layout
+
+\begin_layout Standard
+By reduction of the search by half, the worst case performance of a binary
+ search is 
+\series bold
+O(log
+\shape italic
+ n
+\shape default
+)
+\series default
+.
+ As this is a vast improvement on a linear search, a binary search should
+ be utilised when ever possible.
+ However, this requires that the vector be sorted before a binary search
+ can be performed.
+\end_layout
+
+\begin_layout Standard
+Utilising a quicksort or merge sort, will add overhead (both of these typically
+ yield 
+\series bold
+O(
+\shape italic
+n
+\shape default
+ log
+\shape italic
+ n
+\shape default
+)
+\series default
+ performance), so for very large vectors, the overhead of a sort prior to
+ search is not that great, but for small size vectors, the overhead of a
+ sort may not yield greater performance over the simple (and slow) linear
+ search.
+\end_layout
+
 \begin_layout Paragraph
 Implementation
 \end_layout
 
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Binary-Search-(Java)"
+
+\end_inset
+
+ shows an implementation of the binary search in Java.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public int BinarySearch(E[] vector, E key, int low, int high){
+\end_layout
+
+\begin_layout Plain Layout
+
+  if(low > high){
+\end_layout
+
+\begin_layout Plain Layout
+
+    return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  int mid = (low+high)/2;
+\end_layout
+
+\begin_layout Plain Layout
+
+  if(vector[mid] == key){
+\end_layout
+
+\begin_layout Plain Layout
+
+    return mid;
+\end_layout
+
+\begin_layout Plain Layout
+
+  } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    if(vector[mid] < key){
+\end_layout
+
+\begin_layout Plain Layout
+
+      return BinarySearch(vector, key, low, (mid-1));
+\end_layout
+
+\begin_layout Plain Layout
+
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return BinarySearch(vector, key, (mid+1), high);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Binary Search (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Binary-Search-(Java)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Sample Problem
+\end_layout
+
+\begin_layout Standard
+For demonstration of the Binary Search algorithm, I will use the same problem
+ as shown in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "par:SP-Linear-Search"
+
+\end_inset
+
+, Linear Search Problem.
+\end_layout
+
+\begin_layout Paragraph
+Problem Solution
+\end_layout
+
+\begin_layout Standard
+A solution to the sample problem utilising a binary search can be seen in
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Solution-to-Linear-1"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Some of the test cases to handle include:
+\end_layout
+
+\begin_layout Enumerate
+The case count being less or equal to 0.
+\end_layout
+
+\begin_layout Enumerate
+The line itself contains a single integer, being the key, but provided with
+ an empty vector to search.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement !th
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class LinearSearch {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform linear search of array (vector) for item (key).
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vector array of numbers
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param key item to look for in array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return index of key in vector, or -1 is not present
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static int linearSearch(int[] vector, int key) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int index = 0; index < vector.length; index++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (vector[index] == key) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return index;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // get first line and get the number of cases to test.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int caseCount = Integer.parseInt(in.nextLine());
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep reading each line while caseCount > 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (caseCount-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // split by white space.
+ so we have an array of numbers
+\end_layout
+
+\begin_layout Plain Layout
+
+      String[] numStrs = in.nextLine().split("
+\backslash
+
+\backslash
+s+");
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // create an array to hold our numbers, and convet the array of strings
+ to
+\end_layout
+
+\begin_layout Plain Layout
+
+      // numbers.
+ Note: numStrs[0] is the key value
+\end_layout
+
+\begin_layout Plain Layout
+
+      int[] nums = new int[numStrs.length - 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int i = 1; i < nums.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        nums[i - 1] = Integer.parseInt(numStrs[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Output the index of the key in the vector
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("%d%n", linearSearch(nums, Integer.parseInt(numStrs[0]))));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to Linear Search Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Solution-to-Linear-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
