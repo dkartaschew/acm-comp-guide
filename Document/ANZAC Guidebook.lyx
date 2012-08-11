@@ -2810,7 +2810,7 @@ reference "fig:Timing---C++"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -5245,7 +5245,7 @@ Linear Search algorithms transverse through a list of data items in sequential
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -5797,7 +5797,7 @@ public class LinearSearch {
 
 \begin_layout Plain Layout
 
-  public static int linearSearch(int[] vector, int key) {
+  public static int LinearSearch(int[] vector, int key) {
 \end_layout
 
 \begin_layout Plain Layout
@@ -5958,7 +5958,7 @@ s+");
 
 \begin_layout Plain Layout
 
-      System.out.printf("%d%n", linearSearch(nums, Integer.parseInt(numStrs[0]))));
+      System.out.printf("%d%n", LinearSearch(nums, Integer.parseInt(numStrs[0]))));
 \end_layout
 
 \begin_layout Plain Layout
@@ -6041,7 +6041,7 @@ O(1)
 \begin_inset Float algorithm
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -6418,7 +6418,7 @@ public int BinarySearch(E[] vector, E key, int low, int high){
 
 \begin_layout Plain Layout
 
-    if(vector[mid] < key){
+    if(key < vector[mid]){
 \end_layout
 
 \begin_layout Plain Layout
@@ -6498,6 +6498,8 @@ reference "par:SP-Linear-Search"
 \end_inset
 
 , Linear Search Problem.
+ However, it is expected that the input of numbers (except for the key)
+ will be in order from lowest to highest.
 \end_layout
 
 \begin_layout Paragraph
@@ -6535,7 +6537,7 @@ The line itself contains a single integer, being the key, but provided with
 placement !th
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset listings
@@ -6567,7 +6569,7 @@ public class LinearSearch {
 
 \begin_layout Plain Layout
 
-   * Perform linear search of array (vector) for item (key).
+   * Perform binary search of array (vector) for item (key).
 \end_layout
 
 \begin_layout Plain Layout
@@ -6587,6 +6589,16 @@ public class LinearSearch {
 
 \begin_layout Plain Layout
 
+   * @param low start position of array to search
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param high end position of array to search
+\end_layout
+
+\begin_layout Plain Layout
+
    * @return index of key in vector, or -1 is not present
 \end_layout
 
@@ -6597,22 +6609,62 @@ public class LinearSearch {
 
 \begin_layout Plain Layout
 
-  public static int linearSearch(int[] vector, int key) {
+  public static int BinarySearch(int[] vector, int key, int low, int high){
 \end_layout
 
 \begin_layout Plain Layout
 
-    for (int index = 0; index < vector.length; index++) {
+    if(low > high){
 \end_layout
 
 \begin_layout Plain Layout
 
-      if (vector[index] == key) {
+      return -1;
 \end_layout
 
 \begin_layout Plain Layout
 
-        return index;
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    int mid = (low+high)/2;
+\end_layout
+
+\begin_layout Plain Layout
+
+    if(vector[mid] == key){
+\end_layout
+
+\begin_layout Plain Layout
+
+      return mid;
+\end_layout
+
+\begin_layout Plain Layout
+
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if(key < vector[mid]){
+\end_layout
+
+\begin_layout Plain Layout
+
+        return BinarySearch(vector, key, low, (mid-1));
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return BinarySearch(vector, key, (mid+1), high);
 \end_layout
 
 \begin_layout Plain Layout
@@ -6623,11 +6675,6 @@ public class LinearSearch {
 \begin_layout Plain Layout
 
     }
-\end_layout
-
-\begin_layout Plain Layout
-
-    return -1;
 \end_layout
 
 \begin_layout Plain Layout
@@ -6758,7 +6805,12 @@ s+");
 
 \begin_layout Plain Layout
 
-      System.out.printf("%d%n", linearSearch(nums, Integer.parseInt(numStrs[0]))));
+      System.out.printf("%d%n", 
+\end_layout
+
+\begin_layout Plain Layout
+
+        BinarySearch(nums, Integer.parseInt(numStrs[0]), 0, nums.length-1));
 \end_layout
 
 \begin_layout Plain Layout
@@ -6785,7 +6837,7 @@ s+");
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Solution to Linear Search Problem (Java)
+Solution to Binary Search Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Solution-to-Linear-1"
@@ -6809,12 +6861,912 @@ name "fig:Solution-to-Linear-1"
 Array Handling
 \end_layout
 
+\begin_layout Standard
+When talking about arrays, we typical define one as a single string
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A string in many languages (notably low level langauges like assembler)
+ does not define a String of letters, numbers and punctuation, but rather
+ a linear memory region of bytes.
+\end_layout
+
+\end_inset
+
+ or allocation of elements in a linear continous region.
+ Ee can define an array of arrays to form a two dimensional array, or an
+ array of arrays of arrays to form a three dimensional array, and continue
+ to do so, allowing for infinite dimensional array.
+ This section will typically discuss array operations on two dimensional
+ arrays, such as rotation and mirroring that may support application of
+ algorithms or may simply speed up implementions due to underlying hardware
+ constraints.
+\end_layout
+
+\begin_layout Subsubsection
+Array Performance
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Array-Performance"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When most people are taught programming in either High School or early Universit
+y level, performance constraints in regards to arrays is either neglected
+ or very limited discussion is made without concrete examples.
+ This section aims to give some insight to performance issues when dealing
+ with arrays, primarily around performance bottlenecks.
+\end_layout
+
+\begin_layout Standard
+The primary reason for poor performance when using arrays, is not based
+ on a programming language or library issue, but is based on lack of understandi
+ng the underlying hardware and how memory access works.
+\end_layout
+
+\begin_layout Standard
+From a hardware achitectural viewpoint there are different classes of hardware
+ memory:
+\end_layout
+
+\begin_layout Enumerate
+Primary - The RAM that the CPU sees as the address space given to it.
+\end_layout
+
+\begin_layout Enumerate
+Secondary - The Harddrive installed within the system, providing non-voliatile
+ memory.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Teritiary - Removable non-voliatile memory such as DVD's, CD's, USB Flash
+ Keys, etc.
+\end_layout
+
+\begin_layout Standard
+What is typically not taught are the different levels of primary storage.
+ Utilising a modern Intel x86 processor
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The size and access latencies described are taken from the Intel Core 2
+ Quad Family Datasheet and Vol 3 of the Intel Architecture Manuals.
+\end_layout
+
+\end_inset
+
+ as an example, the primary levels include:
+\end_layout
+
+\begin_layout Enumerate
+CPU registers, internal to the CPU and these are where typically most operations
+ are performed.
+ These typically have a zero latency access.
+\end_layout
+
+\begin_layout Enumerate
+Level 1 Data and Code caches, these hold the most recent code and data being
+ accessed from the Level 2 cache.
+ There are typically two Level 1 caches, each desginated for holding either
+ code or data, and are typically 16kilobytes size in size
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Each CPU make/model can have different L1 cache sizes, for example the Intel
+ E7 Xeon CPUs have 32KB for code and 32KB for data in it's L1 cache, and
+ the AMD Opteron utilises 64KB L1 caches.
+ 
+\end_layout
+
+\end_inset
+
+.
+ The Level 1 cache will typically have a 1-2 CPU cycle access latency, and
+ besides the CPU registers is the fastest memory available to the CPU.
+\end_layout
+
+\begin_layout Enumerate
+Level 2 unified Code and Data cache will typically be in the size of anywhere
+ from 256kilobytes up to 16megabytes in size depending on the CPU make and
+ model.
+ This acts a large cache between the main memory of the system, and the
+ CPU and Level 1 caches.
+ The Level 2 cache will typically have a 5-10 CPU cycle access latency,
+ primarily due to restrictions of the size of the cache.
+ (The larger the cache, the slower the access due to it's size
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This is a very crude approximation, as there are many factors that determine
+ the performance of the L2 cache.
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+Level 3 unified Code and Data caches are present in some CPUs and act as
+ a third level between the CPU and main memory of the system.
+ Level 3 caches are becoming more common with multi-core CPUs, as Level
+ 2 and Level 1 caches are being tied to a particular CPU core, where the
+ Level 3 cache can act as a unified cache for all CPU cores.
+ While Level 3 caches can be quite big, in some cases now approaching 32MB
+ in size
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The Sun UltraSPARC IV+ utilises a 32MB L3 cache and the Intel Itanium 9300
+ utilises a 24MB L3 cache.
+\end_layout
+
+\end_inset
+
+, they are even slower that the Level 2 cache with access latency between
+ 15-35 CPU cycles.
+\end_layout
+
+\begin_layout Enumerate
+Main Memory, is typically in the form of the DIMMs that get installed in
+ the mainboard of the computer.
+ While systems are approaching very large capacities (32GB can be found
+ in home desktop systems, and up to 194GB in workstations), they are very
+ slow compared to the CPU registers and even the Level 1,2 and 3 caches.
+ Typical access latencies can be measured anywhere from hundreds to thousands
+ of CPU cycles.
+ That is, if the CPU needs some information that is not present in one of
+ the caches, it can potentially stall for 100's, if not 1000's of CPU cycles
+ doing nothing while it waits for the information
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+CPU vendors do a lot to avoid this, and even resort to techniques such as
+ SMT (aka HyperThreading), or even offer CPU instructions that allow application
+s to preload the caches with information to avoid these stalls.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Why is knowing all about the different level of cache's important in regards
+ to arrays? Simply, if you try to access an array element that is not in
+ one of the caches, your application will suffer a performance hit whilst
+ waiting for the information from main memory.
+ By ensuring that your next memory access will be in one of the CPUs cache,
+ you can ensure the best possible performance for your applicaton when dealing
+ with any sized array.
+\end_layout
+
+\begin_layout Standard
+To quote Terje Mathisen (a well known programming optimization guru
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Terje, at one time worked for iD Software on the original Doom and Quake
+ games and was able to get Quake running a full 3D environment utilising
+ a software based graphics renderer on hardware such as the Intel Pentium
+ 60.
+ (The Intel Pentium 60, ran at 60MHz, roughly 60-90 times slower than current
+ CPUs).
+\end_layout
+
+\end_inset
+
+): "All programming is an exercise in caching."
+\end_layout
+
+\begin_layout Standard
+The problem with current programming languages, notably Java and C# is that
+ they run on top of virtual machines or utilise some form of JIT compilation,
+ negating any direct control of the CPU and cache management functions.
+ Even C++ applications lack cache management functions (unless you utilise
+ inline assembler in your application).
+ The way to work with these languages is to exploit the nature of the CPU's
+ cache management engine to your advantage.
+\end_layout
+
+\begin_layout Standard
+The CPUs cache management engine works by loading the contents of most recently
+ accessed memory address into the cache in either 32byte chunks for the
+ level 1 cache, or 4kilobyte chunks for the level 2 and 3 caches.
+ To ensure that the next memory address is located in the cache, ensure
+ that the next array element to access is located very close of the last
+ one accessed.
+ When the CPU cache management engine sees your last access was on a border
+ of a chunk it will load in the next chunk in a linear fashion based on
+ the last accessed memory address.
+\end_layout
+
+\begin_layout Standard
+Therefore the to gain the best possible performance when dealing with arrays,
+ either utilise very small arrays that will fit into the level 1 cache,
+ or only access arrays in a linear fashion row by row.
+\end_layout
+
+\begin_layout Standard
+To illustrate these cache performance aspects, the application in Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Array-Access-Performance"
+
+\end_inset
+
+ yeilds the results show in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Array-Access-Performance"
+
+\end_inset
+
+.
+ As can be seen, when dealing with a 16384 
+\begin_inset Formula $\times$
+\end_inset
+
+ 16384 sized array (consuming 256MB), accessing the array row by row takes
+ 1.35 seconds, however accessing it column by column takes just over 16 seconds.
+ This clearly demonstrates the caches hits/misses taking place and confirms
+ the latencies expected by the cache misses.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <time.h>
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <stdio.h> 
+\end_layout
+
+\begin_layout Plain Layout
+
+#include <iostream>
+\end_layout
+
+\begin_layout Plain Layout
+
+char array1[1024][1204]; 
+\end_layout
+
+\begin_layout Plain Layout
+
+char array2[2048][2048]; 
+\end_layout
+
+\begin_layout Plain Layout
+
+char array3[4096][4096]; 
+\end_layout
+
+\begin_layout Plain Layout
+
+char array4[8192][8192]; 
+\end_layout
+
+\begin_layout Plain Layout
+
+char array5[16384][16384];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+int main() {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Row by row.
+\end_layout
+
+\begin_layout Plain Layout
+
+  clock_t start = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int y = 0; y < 1024; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int x = 0; x < 1023; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      array1[y][x] = array1[y][x + 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  clock_t end = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  long elapsed = (long) (end - start) / (CLOCKS_PER_SEC / 1000);
+\end_layout
+
+\begin_layout Plain Layout
+
+  printf("1MB row time = %dmsec
+\backslash
+n", elapsed);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Column by Column
+\end_layout
+
+\begin_layout Plain Layout
+
+  start = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int x = 0; x < 1024; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int y = 0; y < 1023; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      array1[y][x] = array1[y + 1][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  end = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  elapsed = (long) (end - start) / (CLOCKS_PER_SEC / 1000);
+\end_layout
+
+\begin_layout Plain Layout
+
+  printf("1MB col time = %dmsec
+\backslash
+n", elapsed);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  // ....
+ <snip 4MB, 16MB and 64MB loops>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  // 256MB Row by row.
+\end_layout
+
+\begin_layout Plain Layout
+
+  start = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int y = 0; y < 16384; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int x = 0; x < 16383; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      array5[y][x] = array5[y][x + 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  end = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  elapsed = (long) (end - start) / (CLOCKS_PER_SEC / 1000);
+\end_layout
+
+\begin_layout Plain Layout
+
+  printf("256MB row time = %dmsec
+\backslash
+n", elapsed);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Column by Column
+\end_layout
+
+\begin_layout Plain Layout
+
+  start = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int x = 0; x < 16384; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int y = 0; y < 16383; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      array5[y][x] = array5[y + 1][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  end = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+  elapsed = (long) (end - start) / (CLOCKS_PER_SEC / 1000);
+\end_layout
+
+\begin_layout Plain Layout
+
+  printf("256MB col time = %dmsec
+\backslash
+n", elapsed);
+\end_layout
+
+\begin_layout Plain Layout
+
+  return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Access Performance (C++)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Array-Access-Performance"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Row x Row
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Column x Column
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+1024 
+\begin_inset Formula $\times$
+\end_inset
+
+ 1024 (1MB)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+~0 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+10 msec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+2048 
+\begin_inset Formula $\times$
+\end_inset
+
+ 2048 (4MB)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+20 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+220 msec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+4096 
+\begin_inset Formula $\times$
+\end_inset
+
+ 4096 (16MB)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+90 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+830 msec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+8192 
+\begin_inset Formula $\times$
+\end_inset
+
+ 8192 (64MB)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+350 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+4150 msec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+16384 
+\begin_inset Formula $\times$
+\end_inset
+
+ 16384 (256MB)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+1350 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+16080 msec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Access Performance
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Array-Access-Performance"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Array Rotation
 \end_layout
 
+\begin_layout Standard
+As shown in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Array-Performance"
+
+\end_inset
+
+, the way that an array is accessed can effect the performance of your applicati
+on.
+ Ways to ensure that you access an array row by row, may require rotation
+ of an array, or alternatively rotation of an array may be needed to utilise
+ an algorithm or math function.
+\end_layout
+
 \begin_layout Subsubsection
 Array Mirroring and Flipping
+\end_layout
+
+\begin_layout Subsubsection
+Diagnal Traversal of an Array
 \end_layout
 
 \begin_layout Standard
