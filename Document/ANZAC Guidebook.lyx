@@ -5245,7 +5245,7 @@ Linear Search algorithms transverse through a list of data items in sequential
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -5714,7 +5714,9 @@ reference "fig:Solution-to-Linear"
 \end_inset
 
 .
- 
+ The solution included simply reads in a line of numbers, and attempts to
+ find the first value in the list of other values in the line.
+ It continues to do this, until the exit condition is reached.
 \end_layout
 
 \begin_layout Standard
@@ -6516,7 +6518,9 @@ reference "fig:Solution-to-Linear-1"
 \end_inset
 
 .
- 
+ The solution included simply reads in a line of numbers, and attempts to
+ find the first value in the list of other values in the line.
+ It continues to do this, until the exit condition is reached.
 \end_layout
 
 \begin_layout Standard
@@ -7472,7 +7476,7 @@ name "fig:Array-Access-Performance"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -7743,6 +7747,1010 @@ name "tab:Array-Access-Performance"
 \end_layout
 
 \begin_layout Subsubsection
+Array Traversal Methods
+\end_layout
+
+\begin_layout Standard
+Any 3-dimension array, can be accessing in a variety of ways, including
+ column-wise, row-wise and starting from the top to bottom, bottom to top,
+ left to right and right to left.
+\end_layout
+
+\begin_layout Standard
+As seen in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Array-Access-Performance"
+
+\end_inset
+
+, row-wise and column-wise access methods where undertaken in a top to bottom,
+ left to right fashion.
+ Formalised algorithms for row-wise and column-wise access are shown in
+ Algorithms 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Row-wise-Traversal-of"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Column-wise-Traversal-of"
+
+\end_inset
+
+ respectively.
+\end_layout
+
+\begin_layout Standard
+To change from a left to right, to a right to left access pattern, simply
+ count down from the width value to 0 for columns.
+ To change from top to bottom, to a bottom to top access pattern, simply
+ count down from the height value to 0 for rows.
+\end_layout
+
+\begin_layout Standard
+The same applies to any 2+ dimensional array, to change the direction of
+ travsel, either change from counting from 0 to width/height to counting
+ down from the width/height to 0, and vice versa.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source matrix $S$, with $n$ by $m$ elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Prints value in element of matrix
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{MatrixRowWiseTraversal}{$S, n, m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$row$ = 0 to $m-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$column$ = 0 to $n-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {print $S[row][column]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Row-wise Traversal of an Array
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Row-wise-Traversal-of"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source matrix $S$, with $n$ by $m$ elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Prints value in element of matrix
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{MatrixColumnWiseTraversal}{$S, n, m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$column$ = 0 to $n-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$row$ = 0 to $m-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {print $S[row][column]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Column-wise Traversal of an Array
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Column-wise-Traversal-of"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Diagonal Traversal of an Array
+\end_layout
+
+\begin_layout Standard
+Diagonal traversal of an array is used for many areas including image analysis,
+ map scanning, simple path finding methods
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+There are more comprehensive path finding techniques that utilise graphs/network
+s, so these methods are not commonly used.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The one issue with this form of travesal through an array, are the underlying
+ performance penalities that will occur due to cache misses, as each subsequent
+ access to the array is non-linear.
+ Like other array travesal techniques, diagonal traverse is an 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ operation.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source matrix $S$, with $n$ by $m$ elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Prints value in element of matrix
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{MatrixDiagonalTraversal}{$S, n, m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$x 
+\backslash
+leftarrow 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$y 
+\backslash
+leftarrow 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {
+\backslash
+texttt{True}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$v 
+\backslash
+leftarrow x$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$w 
+\backslash
+leftarrow y$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$v 
+\backslash
+geq 0 
+\backslash
+wedge w < m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {print $S[w][v]$} 
+\backslash
+Comment {$S$[row][column]}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$v 
+\backslash
+leftarrow v-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$w 
+\backslash
+leftarrow w+1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$x < n -1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$x 
+\backslash
+leftarrow x+1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ElsIf {$y < m -1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$y 
+\backslash
+leftarrow y+1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+textbf{return}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Diagonal Traversal of an Array
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Diagonal-Traversal-of"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Standard
+As described in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Diagonal-Traversal-of"
+
+\end_inset
+
+, the algorithm utilises two loops, with the first loop (
+\family typewriter
+while(true)
+\family default
+) determines the start position of the traverse, and the second while loop
+ traverses the actual slice, starting from the top and moving downwards
+ and to the left, (as denoted by the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$v 
+\backslash
+leftarrow v-1$
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{$w 
+\backslash
+leftarrow w+1$}
+\end_layout
+
+\end_inset
+
+ operations).
+\end_layout
+
+\begin_layout Standard
+The 
+\family typewriter
+if-else-if-else
+\family default
+ statements recalculate the new start position for the next travesal, until
+ the new start position exceeds the bounds of the array, in which case the
+ algorithm exits.
+\end_layout
+
+\begin_layout Standard
+The algorithm as described, starts in the top left corner, and moves towards
+ the bottom right of the array.
+ To modify the algorithm to scan from other origins to opposite corner,
+ the line to be altered is the access function that prints the current element
+ in the array.
+ The start at the various origins and traverse to the opposite corner, the
+ following forms are needed for the print function:
+\end_layout
+
+\begin_layout Itemize
+Top-left origin to bottom-right traverse: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+print $S[w][v]$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Bottom-left origin to top-right traverse: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+print $S[m-w-1][v]$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Top-right origin to bottom-left traverse: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+print $S[w][n-v-1]$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Bottom-right origin to top-left traverse: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+print $S[m-w-1][n-v-1]$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Diagonal-Traversal-of-1"
+
+\end_inset
+
+ demonstrates the top-left origin to bottom-right traversel on a 3 
+\begin_inset Formula $\times$
+\end_inset
+
+ 4 array, with each slice (or starting location) shown.
+\end_layout
+
+\begin_layout Standard
+The order of traversel for the other origins would result in the following
+ sequences based on the forms listed above:
+\end_layout
+
+\begin_layout Itemize
+Top-left origin to bottom-right traverse: 
+\family typewriter
+a, b, d, c, e, g, f, h, j, i, k, l
+\end_layout
+
+\begin_layout Itemize
+Bottom-left origin to top-right traverse: 
+\family typewriter
+j, k, g, l, h, d, i, e, a, f, b, c
+\end_layout
+
+\begin_layout Itemize
+Top-right origin to bottom-left traverse: 
+\family typewriter
+c, b, f, a, e, i, d, h, l, g, k, j
+\end_layout
+
+\begin_layout Itemize
+Bottom-right origin to top-left traverse: 
+\family typewriter
+l, k, i, j, h, f, g, e, c, d, b, a
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Array Diagonal.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Diagonal Traversal of an Array with a Top-Left Origin
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Diagonal-Traversal-of-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Diagonal-Traversal-of"
+
+\end_inset
+
+ demonstrates the implementation of the algorithm as described.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public static void ArrayDiagonalTraverse(int[][] matrix, int width, int
+ height){
+\end_layout
+
+\begin_layout Plain Layout
+
+  int start_x = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+  int start_y = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+  int column;
+\end_layout
+
+\begin_layout Plain Layout
+
+  int row;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Keep looping until exit condition.
+\end_layout
+
+\begin_layout Plain Layout
+
+  while (true) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   // Initialise the starting location in the matrix for the current slice.
+\end_layout
+
+\begin_layout Plain Layout
+
+   column = start_x;
+\end_layout
+
+\begin_layout Plain Layout
+
+   row = start_y;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   // Traverse the current slice.
+\end_layout
+
+\begin_layout Plain Layout
+
+   while (column >= 0 && row < height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+     System.out.printf("%d ", matrix[row][column]);
+\end_layout
+
+\begin_layout Plain Layout
+
+     column--;
+\end_layout
+
+\begin_layout Plain Layout
+
+     row++;
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   // Update the start location for the next slice.
+\end_layout
+
+\begin_layout Plain Layout
+
+   if (start_x < width - 1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+     start_x++;
+\end_layout
+
+\begin_layout Plain Layout
+
+   } else if (start_y < height - 1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+     start_y++;
+\end_layout
+
+\begin_layout Plain Layout
+
+   } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+     // Exit the method, as start locations are now out of matrix bounds.
+\end_layout
+
+\begin_layout Plain Layout
+
+     break;
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Diagonal Traversal of an Array (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Diagonal-Traversal-of"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 Array Rotation
 \end_layout
 
@@ -7756,17 +8764,1490 @@ reference "sub:Array-Performance"
 
 , the way that an array is accessed can effect the performance of your applicati
 on.
- Ways to ensure that you access an array row by row, may require rotation
+ Methods to ensure that you can access an array row by row may require rotation
  of an array, or alternatively rotation of an array may be needed to utilise
  an algorithm or math function.
 \end_layout
 
-\begin_layout Subsubsection
-Array Mirroring and Flipping
+\begin_layout Standard
+Any array rotation or mirroring function requires two copies of the array
+ to be present at one time, the source array and target array.
+ This must be considered in relation to the amount of memory required, as
+ you effectively need double the memory requirement for either operation.
+\end_layout
+
+\begin_layout Standard
+Both rotation and mirroring functions are 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ operations, due to all array members must be accessed to complete the opeation
+ successfully.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source matrix $S$, with $n$ by $m$ elements, with target matrix
+ $T$, with $m$ by $n$ elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Matrix $T$ represents matrix $S$ rotated 90
+\backslash
+textdegree  clockwise.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{RotateMatrixClockwise}{$S, T, n, m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $f 
+\backslash
+leftarrow m-1$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$y$ = 0 to $m-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$x$ = 0 to $n-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $T[x][(f-y)] 
+\backslash
+leftarrow S[y][x]$ 
+\backslash
+Comment{$S$[row][column]}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Rotation Clockwise
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Array-Rotation-Clockwise"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source matrix $S$, with $n$ by $m$ elements, with target matrix
+ $T$, with $m$ by $n$ elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Matrix $T$ represents matrix $S$ rotated 90
+\backslash
+textdegree  anti-clockwise.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{RotateMatrixAntiClockwise}{$S, T, n, m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $f 
+\backslash
+leftarrow n-1$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$x$ = 0 to $n-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$y$ = 0 to $m-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $T[(f-x)][y] 
+\backslash
+leftarrow S[y][x]$
+\backslash
+Comment{$S$[row][column]}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Rotation AntiClockwise
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Array-Rotation-AntiClockwise"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Standard
+Algoritms 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Array-Rotation-Clockwise"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Array-Rotation-AntiClockwise"
+
+\end_inset
+
+ depict both clockwise and anti-clock array rotation respectively.
+ Simply, both perform substitution of x and y values for the target array.
+ An additionl variable is needed to hold an offset, so that the new array
+ offsets may be calculated correctly
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+While this is not necessary, it make for slightly cleaner code.
+\end_layout
+
+\end_inset
+
+.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Array-Rotation-Diagram"
+
+\end_inset
+
+ shows the clockwise rotation operation in effect.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Array Rotation.eps
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Rotation
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Array-Rotation-Diagram"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Array-Clockwise-Rotation"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Array-Anti-Clockwise-Rotation"
+
+\end_inset
+
+ show implementations of clockwise and anticlockwise rotation respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public void ArrayRotateClockWise(E[][] source, E[][] target, int width,
+ int height){
+\end_layout
+
+\begin_layout Plain Layout
+
+  int factor = height-1;
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int y = 0; y < height; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int x = 0; x < width; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      target[x][(factor-y)] = source[y][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Clockwise Rotation (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Array-Clockwise-Rotation"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public void ArrayAntiRotateClockWise(E[][] source, E[][] T, int width, int
+ height){
+\end_layout
+
+\begin_layout Plain Layout
+
+  int factor = width-1;
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int x = 0; x < width; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int y = 0; y < height; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      target[(factor-x)][y] = source[y][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Anti-Clockwise Rotation (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Array-Anti-Clockwise-Rotation"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Performance of both of these implementations will suffer due to access not
+ being performed in a row by row fashion, which limits the viability of
+ the above algorithms.
+ However they should still be considered and used, when the many operations
+ are performed on the resulting array, rather than single use post rotation.
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem- Matrix Rotation 
+\begin_inset CommandInset label
+LatexCommand label
+name "par:SP-Linear-Search-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given a two dimension matrix measuring n 
+\begin_inset Formula $\times$
+\end_inset
+
+ m, rotate the matrix in a clockwise direction.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+Input consists of one or more lines, with the first line being the size
+ of the matrix to rotate in width and height.
+ The width and height will be in a range between 0 and 79.
+ The application should exit when the size given is 
+\begin_inset Quotes eld
+\end_inset
+
+0 0
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The following lines denote the matrix to be rotated, with each element being
+ a 1 or 0, separated by a space.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3 3
+\begin_inset Newline newline
+\end_inset
+
+1 0 1
+\begin_inset Newline newline
+\end_inset
+
+0 0 0
+\begin_inset Newline newline
+\end_inset
+
+1 0 0
+\begin_inset Newline newline
+\end_inset
+
+2 2
+\begin_inset Newline newline
+\end_inset
+
+1 0
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+0 0 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+The output of each rotation should be the resultant matrix, without spaces
+ between each column in the matrix.
+ There must a blank line separating each resultant matrix.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+101
+\begin_inset Newline newline
+\end_inset
+
+000
+\begin_inset Newline newline
+\end_inset
+
+001
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+00
+\begin_inset Newline newline
+\end_inset
+
+01
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A solution to the sample problem utilising an array rotation can be seen
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Solution-to-Array"
+
+\end_inset
+
+.
+ The solution performs the following:
+\end_layout
+
+\begin_layout Enumerate
+Reads in the width and height values.
+ If these are not 0 and 0, continue the main loop body, otherwise exit.
+\end_layout
+
+\begin_layout Enumerate
+If either of the values is 0, (indicating a 0 width or height), skip attempting
+ to read in a matrix, and go back to step 1.
+\end_layout
+
+\begin_layout Enumerate
+Create a new array of size width, height to hold integers.
+ Read in the values from stdin, and fill in these values into the respective
+ position within the array.
+\end_layout
+
+\begin_layout Enumerate
+Create a new array to hold the result of the rotation.
+ Rotate the array, and print the results.
+ Goto step 1.
+\end_layout
+
+\begin_layout Standard
+As this challenge is very simple, the only issue to account for is if either
+ the width or height is given as 0 (zero), in which case a blank line should
+ be returned.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+public class ArrayRotation {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Rotate an Array in a clockwise direction
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param source The source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param target The target array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param width The width of the source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param height The height of the target array
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void ArrayRotateClockWise(int[][] source, int[][] target,
+ int width, int height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int factor = height - 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int y = 0; y < height; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int x = 0; x < width; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        target[x][(factor - y)] = source[y][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // get the size of the matrix to rotate.
+\end_layout
+
+\begin_layout Plain Layout
+
+    String matrixSizeLine = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner matrixSize = new Scanner(matrixSizeLine);
+\end_layout
+
+\begin_layout Plain Layout
+
+    int width = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    int height = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep reading in a matrix until exit condition 
+\end_layout
+
+\begin_layout Plain Layout
+
+   while (!((width == 0) && (height == 0))) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Ignore the line if either width or height = 0.
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!((width == 0) || (height == 0))) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Read in our matrix.
+\end_layout
+
+\begin_layout Plain Layout
+
+        int[][] matrix = new int[height][width];
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int count = 0; count < height; count++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          String[] matrixLine = in.nextLine().split("
+\backslash
+
+\backslash
+s+");
+\end_layout
+
+\begin_layout Plain Layout
+
+          for (int element = 0; element < matrixLine.length; element++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            matrix[count][element] = Integer.parseInt(matrixLine[element]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Rotate the matrix and print.
+\end_layout
+
+\begin_layout Plain Layout
+
+        int[][] target = new int[width][height];
+\end_layout
+
+\begin_layout Plain Layout
+
+        ArrayRotateClockWise(matrix, target, width, height);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Print the resultant matrix.
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int row = 0; row < width; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          for (int column = 0; column < height; column++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            System.out.print(target[row][column]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          System.out.println();
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Print line between each matrix output
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println();
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      // get the size of the matrix to rotate.
+\end_layout
+
+\begin_layout Plain Layout
+
+      matrixSizeLine = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+      matrixSize = new Scanner(matrixSizeLine);
+\end_layout
+
+\begin_layout Plain Layout
+
+      width = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      height = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to Array Rotation Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Solution-to-Array"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
-Diagnal Traversal of an Array
+Array Mirroring or Flipping
+\end_layout
+
+\begin_layout Standard
+Array mirroring or flipping is a very simple technique, that simply requires
+ a offset to be calculated from the current height or width value.
+ Typically, to calculate the mirror location, we simple subtract the current
+ source column (or row) value from the width (or height) size to calculate
+ the target location.
+ Algorithms 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Array-Mirror-Vertical"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Array-Mirror-Horizon"
+
+\end_inset
+
+ depict mirroring along the vertical axis and horizontal axis respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source matrix $S$, with $n$ by $m$ elements, with target matrix
+ $T$, with $n$ by $m$ elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Matrix $T$ represents matrix $S$ mirrored along a vertical axis
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{MirrorMatrixVeritcal}{$S, T, n, m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$y$ = 0 to $m-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$x$ = 0 to $n-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $T[m-y][x] 
+\backslash
+leftarrow S[y][x]$ 
+\backslash
+Comment{$S$[row][column]}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Mirror Array Along Vertical Axis
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Array-Mirror-Vertical"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source matrix $S$, with $n$ by $m$ elements, with target matrix
+ $T$, with $n$ by $m$ elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Matrix $T$ represents matrix $S$ mirrored along a horizontal axis
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{MirrorMatrixHorizontal}{$S, T, n, m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$y$ = 0 to $m-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$x$ = 0 to $n-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $T[y][n-x] 
+\backslash
+leftarrow S[y][x]$ 
+\backslash
+Comment{$S$[row][column]}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Mirror Array Along Horizontal Axis
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Array-Mirror-Horizon"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As both of these algorithms access both the source and target arrays row
+ by row, there should be no (or few) performance penalities due to cache
+ misses.
 \end_layout
 
 \begin_layout Standard
@@ -7786,6 +10267,849 @@ Simple Maths
 
 \begin_layout Subsubsection
 Greatest common divisor
+\end_layout
+
+\begin_layout Standard
+The Greatest Common Divisor or Eucilidean algorithm was originally developed
+ by Euclid of Alexandria in 3
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+rd
+\end_layout
+
+\end_inset
+
+ BC, and computes the greatest common divisor of two non-negative, not-both-zero
+ integers 
+\family typewriter
+m
+\family default
+ and 
+\family typewriter
+n
+\family default
+, that is the largest integer that divides both 
+\family typewriter
+m
+\family default
+ and 
+\family typewriter
+n
+\family default
+ 
+\shape italic
+evenly
+\shape default
+.
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Standard
+The Euclidean algorithm is based on the principle that the greatest common
+ divisor of two numbers does not change if the smaller number is subtracted
+ from the larger number.
+ For if k, m, and n are integers, and k is a common factor of two integers
+ A and B, then A=(n×k) and B=(m×k) implies A-B=(n-m)×k, therefore k is also
+ a common factor of the difference.
+ That k may also represent the greatest common divisor is proven below.
+ For example, 21 is the GCD of 252 and 105 (252 = 12 × 21; 105 = 5 × 21);
+ since 252 − 105 = (12 - 5) × 21 = 147, the GCD of 147 and 105 is also 21.
+\end_layout
+
+\begin_layout Standard
+Since the larger of the two numbers is reduced, repeating this process gives
+ successively smaller numbers until one of them is zero.
+ When that occurs, the GCD is the remaining nonzero number.
+ By reversing the steps in the Euclidean algorithm, the GCD can be expressed
+ as a sum of the two original numbers each multiplied by a positive or negative
+ integer, e.g., 21 = [5 × 105] + [(−2) × 252].
+\end_layout
+
+\begin_layout Standard
+Iterative and recursive implementations of the algorithm are shown in Algorithms
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Euclidean-Algorithm-Iterative"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Euclidean-Algorithm-Recursive"
+
+\end_inset
+
+ respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{Euclid}{$m,n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While{$n
+\backslash
+not=0$}
+\backslash
+Comment{We have the answer if n is 0} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $r
+\backslash
+gets m
+\backslash
+bmod n$ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $m
+\backslash
+gets n$ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State $n
+\backslash
+gets r$ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+textbf{return} $m$
+\backslash
+Comment{The gcd is m} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Euclidean Algorithm (Iterative)
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Euclidean-Algorithm-Iterative"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{Euclid}{$m,n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$n = 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+textbf{return} $m$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State 
+\backslash
+textbf{return} gcd($n, m
+\backslash
+bmod n$)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Euclidean Algorithm (Recursive)
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Euclidean-Algorithm-Recursive"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the iterative form of the algorithm can be found in
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Euclidean-Algorithm-(Java)"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+lstparams "basicstyle={\normalsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public static int gcd(int m, int n) {
+\end_layout
+
+\begin_layout Plain Layout
+
+  int r;
+\end_layout
+
+\begin_layout Plain Layout
+
+  while (n != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    r = m % n;
+\end_layout
+
+\begin_layout Plain Layout
+
+    m = n;
+\end_layout
+
+\begin_layout Plain Layout
+
+    n = r;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  return m;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Euclidean Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Euclidean-Algorithm-(Java)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - GCD
+\end_layout
+
+\begin_layout Standard
+Calculate the GCD of two integers.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line of input will be 
+\shape italic
+N
+\shape default
+ (1 <= 
+\shape italic
+N
+\shape default
+ <= 1000), the number of test cases to run.
+ On each of the next 
+\shape italic
+N
+\shape default
+ lines will be two integers m and n (0 <= 
+\shape italic
+m, n 
+\shape default
+<= 2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+31
+\end_layout
+
+\end_inset
+
+ - 1).
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3 
+\begin_inset Newline newline
+\end_inset
+
+12 60
+\begin_inset Newline newline
+\end_inset
+
+60 24
+\begin_inset Newline newline
+\end_inset
+
+3 5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+Output the greatest common denominator of 
+\shape italic
+m
+\shape default
+ and 
+\shape italic
+n
+\shape default
+, one value on each line.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+12
+\begin_inset Newline newline
+\end_inset
+
+12
+\begin_inset Newline newline
+\end_inset
+
+1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+The solution to this problem utilised Euclid's GCD algorithm can be seen
+ in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Solution-to-GCD"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+public class GCD {
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Compute the Greatest Common Divisor
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param m number 1, greater or equal to 0.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param n number 2, greater or equal to 0.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return the GCD
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static int EuclidGCD(int m, int n) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int r;
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (n != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      r = m % n;
+\end_layout
+
+\begin_layout Plain Layout
+
+      m = n;
+\end_layout
+
+\begin_layout Plain Layout
+
+      n = r;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return m;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // get first line and get the number of cases to test.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int caseCount = Integer.parseInt(in.nextLine());
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep reading each line while caseCount > 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (caseCount-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      String line = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // extract numbers ints
+\end_layout
+
+\begin_layout Plain Layout
+
+      Scanner sc = new Scanner(line);
+\end_layout
+
+\begin_layout Plain Layout
+
+      int a = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      int b = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Output the gcd for the two given numbers.
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("%d%n", EuclidGCD(a,b));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to GCD Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Solution-to-GCD"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Whilst this solution/challenge is rather simple, the following test cases
+ must be considered:
+\end_layout
+
+\begin_layout Enumerate
+One or both values are 0 (zero).
+\end_layout
+
+\begin_layout Enumerate
+There will be longer run times if one or both numbers are primes.
+ (The GCD is 1 in this case).
+\end_layout
+
+\begin_layout Enumerate
+The input range is 
+\begin_inset Formula $0<m<2^{31}-1$
+\end_inset
+
+, which requires the use of at least a signed 32bit number (typically 
+\family typewriter
+int
+\family default
+ on all platforms).
 \end_layout
 
 \begin_layout Subsubsection
