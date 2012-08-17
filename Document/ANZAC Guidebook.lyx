@@ -38,6 +38,7 @@
 \renewcommand{\ps@plain}{\pagestyle{fancy}}
 \algrenewcommand\algorithmicrequire{\textbf{Input}}
 \algrenewcommand\algorithmicensure{\textbf{Output}}
+\usepackage[english]{babel}
 \end_preamble
 \use_default_options false
 \begin_modules
@@ -109,7 +110,7 @@ figs-within-sections
 \papercolumns 1
 \papersides 1
 \paperpagestyle fancy
-\listings_params "basicstyle={\small,\ttfamily},frame=single,language=Java"
+\listings_params "basicstyle={\small,\ttfamily},captionpos=b,frame=single,language=Java"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -11937,7 +11938,14 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-An implementation of the Sieve of Eratosthenes can be found in Figure .
+An implementation of the Sieve of Eratosthenes can be found in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sieve-of-Eratosthenes"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -12036,12 +12044,22 @@ public static int[] Eratosthenes(int maxPrimeNumber){
 
 \begin_layout Plain Layout
 
-        vectorA[composite] = 0;
+        if(vectorA[composite] != 0){
 \end_layout
 
 \begin_layout Plain Layout
 
-        nonPrimeCount++;
+          vectorA[composite] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+          nonPrimeCount++;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
 \end_layout
 
 \begin_layout Plain Layout
@@ -12081,7 +12099,7 @@ public static int[] Eratosthenes(int maxPrimeNumber){
 
 \begin_layout Plain Layout
 
-  int[] primes = new int[maxPrimeNumber-nonPrimeCount+3];
+  int[] primes = new int[maxPrimeNumber-nonPrimeCount-1];
 \end_layout
 
 \begin_layout Plain Layout
@@ -12153,29 +12171,17 @@ name "fig:Sieve-of-Eratosthenes"
 \end_layout
 
 \begin_layout Paragraph
-Sample Problem - Light, More Light
+Sample Problem - Primes for Hashtable
 \end_layout
 
 \begin_layout Standard
-There is a man named "Mabu" for switching on-off lights in our University.
- He switches on-off the lights in a corridor.
- Every bulb has its own toggle switch.
- That is, if it is pressed then the bulb turns on.
- Another press will turn it off.
- To save power consumption (or may be he is mad or something else) he does
- a peculiar thing.
- If in a corridor there is `n' bulbs, he walks along the corridor back and
- forth `n' times and in i'th walk he toggles only the switches whose serial
- is divisable by i.
- He does not press any switch when coming back to his initial position.
- A i'th walk is defined as going down the corridor (while doing the peculiar
- thing) and coming back again.
+Student Programmer Joe is developing a dynamic hash table class in Java,
+ and from his textbooks knows that prime numbers make the best values to
+ use within the hashing function.
+ He would like a program to tell him if the number he is using is a prime,
+ and if not what's the closest prime to but below to the number he has given
+ the program.
  
-\end_layout
-
-\begin_layout Standard
-Now you have to determine what is the final condition of the last bulb.
- Is it on or off?
 \end_layout
 
 \begin_layout Standard
@@ -12183,19 +12189,15 @@ INPUT
 \end_layout
 
 \begin_layout Standard
-The input will be an integer indicating the n'th bulb in a corridor, which
- is less then or equals 2
-\begin_inset script superscript
-
-\begin_layout Plain Layout
-31
-\end_layout
-
+The input will be an integer indicating the number Joe inputs to be tested
+ for being a prime, which is within the range of 
+\begin_inset Formula $0\leq N\leq2^{16}-1$
 \end_inset
 
- - 1.
+.
  A zero indicates the end of input.
  You should not process this input.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -12223,11 +12225,15 @@ status open
 \begin_inset Newline newline
 \end_inset
 
-6241
+6243
 \begin_inset Newline newline
 \end_inset
 
 8191
+\begin_inset Newline newline
+\end_inset
+
+10
 \begin_inset Newline newline
 \end_inset
 
@@ -12246,13 +12252,10 @@ OUTPUT
 \begin_layout Standard
 Output "
 \family typewriter
-yes
+prime
 \family default
-" if the light is on otherwise "
-\family typewriter
-no
-\family default
-" , in a single line.
+" if a prime number, otherwise the closest prime below the number given.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -12276,15 +12279,19 @@ status open
 \begin_layout Plain Layout
 
 \family typewriter
-no
+prime
 \begin_inset Newline newline
 \end_inset
 
-yes
+6421
 \begin_inset Newline newline
 \end_inset
 
-no
+prime
+\begin_inset Newline newline
+\end_inset
+
+7 
 \end_layout
 
 \end_inset
@@ -12297,6 +12304,515 @@ Sample Solution
 \end_layout
 
 \begin_layout Standard
+A sample solution for the Primes fo Hash table problem can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Primes"
+
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+public class PrimesForHashtable {
+\end_layout
+
+\begin_layout Plain Layout
+
+  /* Largest value with input space */
+\end_layout
+
+\begin_layout Plain Layout
+
+  final static int PRIME_SPACE = (int) Math.pow(2, 16);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Utilise Sieve of Eratosthenes to create an array of prime numbers
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static int[] Eratosthenes(int maxPrimeNumber) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Define new vector A with all numbers from 2 to N
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] vectorA = new int[maxPrimeNumber + 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int index = 2; index <= maxPrimeNumber; index++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      vectorA[index] = index;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    int nonPrimeCount = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Flag all non-primes in vector A.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int sqrtMaxPrime = (int) Math.sqrt(maxPrimeNumber);
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int index = 2; index < sqrtMaxPrime; index++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Skip this number if known composite
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (vectorA[index] != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int composite = index * index;
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Flag all composites of this number as non-prime
+\end_layout
+
+\begin_layout Plain Layout
+
+        while (composite <= maxPrimeNumber) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (vectorA[composite] != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            vectorA[composite] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+            nonPrimeCount++;
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          composite = composite + index;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Create new array from A, filled with just primes.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int resultIndex = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] primes = new int[maxPrimeNumber - nonPrimeCount-1];
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int index = 2; index <= maxPrimeNumber; index++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (vectorA[index] != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        primes[resultIndex++] = vectorA[index];
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return primes;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform binary search of array to locate prime number.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static int BinarySearch(int[] vector, int key, int low, int high)
+ {
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (low > high) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return high; // Return the index of the current high value, as this
+\end_layout
+
+\begin_layout Plain Layout
+
+                   // points to 1 below the key, if not found
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    int mid = (low + high) / 2;
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (vector[mid] == key) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return mid;
+\end_layout
+
+\begin_layout Plain Layout
+
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (vector[mid] > key) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return BinarySearch(vector, key, low, (mid - 1));
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return BinarySearch(vector, key, (mid + 1), high);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Returns a prime equal to or below to the number given.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static int LookUpPrime(int[] primes, int number) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return primes[BinarySearch(primes, number, 0, primes.length-1)];
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Create a list of primes for the given input space.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] primes = Eratosthenes(PRIME_SPACE);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    String line = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep processing input until 0.
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!line.equals("0")) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Get our number, and it's closest prime.
+\end_layout
+
+\begin_layout Plain Layout
+
+      int number = Integer.parseInt(line);
+\end_layout
+
+\begin_layout Plain Layout
+
+      int prime = LookUpPrime(primes, number);
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Display if it's a prime, or closet prime.
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (prime == number) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("prime");
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(prime);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      line = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Primes for Hashtable (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Primes"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
