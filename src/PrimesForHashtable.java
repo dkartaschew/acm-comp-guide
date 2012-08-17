@@ -36,7 +36,7 @@ public class PrimesForHashtable {
     }
     // Create new array from A, filled with just primes.
     int resultIndex = 0;
-    int[] primes = new int[maxPrimeNumber - nonPrimeCount-1];
+    int[] primes = new int[maxPrimeNumber - nonPrimeCount - 1];
     for (int index = 2; index <= maxPrimeNumber; index++) {
       if (vectorA[index] != 0) {
         primes[resultIndex++] = vectorA[index];
@@ -50,8 +50,8 @@ public class PrimesForHashtable {
    */
   public static int BinarySearch(int[] vector, int key, int low, int high) {
     if (low > high) {
-      return high; // Return the index of the current high value, as this
-                   // points to 1 below the key, if not found
+      return (high >= 0 ? high : 0); // Return the index of the current high value, as this
+      // points to 1 below the key, if not found
     }
     int mid = (low + high) / 2;
     if (vector[mid] == key) {
@@ -69,7 +69,7 @@ public class PrimesForHashtable {
    * Returns a prime equal to or below to the number given.
    */
   public static int LookUpPrime(int[] primes, int number) {
-    return primes[BinarySearch(primes, number, 0, primes.length-1)];
+    return primes[BinarySearch(primes, number, 0, primes.length - 1)];
   }
 
   /**
@@ -87,13 +87,18 @@ public class PrimesForHashtable {
     while (!line.equals("0")) {
       // Get our number, and it's closest prime.
       int number = Integer.parseInt(line);
-      int prime = LookUpPrime(primes, number);
+      // Handle special case of number 1.
+      if (number != 1) {
+        int prime = LookUpPrime(primes, number);
 
-      // Display if it's a prime, or closet prime.
-      if (prime == number) {
-        System.out.println("prime");
+        // Display if it's a prime, or closet prime.
+        if (prime == number) {
+          System.out.println("prime");
+        } else {
+          System.out.println(prime);
+        }
       } else {
-        System.out.println(prime);
+        System.out.println("1");
       }
 
       line = in.nextLine();
