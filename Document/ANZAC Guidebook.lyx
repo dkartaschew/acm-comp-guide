@@ -2760,7 +2760,6 @@ Console.WriteLine("time = {0}", elapsed);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Timing - C#
 \begin_inset CommandInset label
 LatexCommand label
@@ -2859,7 +2858,6 @@ n", elapsed);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Timing - C++
 \begin_inset CommandInset label
 LatexCommand label
@@ -2945,7 +2943,6 @@ long end = System.nanoTime();
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Timing - Java
 \begin_inset CommandInset label
 LatexCommand label
@@ -3375,6 +3372,16 @@ Ignoring typical design patterns, unless they provide direct and significant
 \begin_layout Enumerate
 Error checking is kept to a minimum, mainly designed around corner cases
  for algorithms to handle rather than handling bad and malformed input.
+\end_layout
+
+\begin_layout Enumerate
+Utilisation of the most efficient algorithm, even in cases where memory
+ requirements may be pushed to the extreme.
+ eg, building complete hashtables in memory for 
+\series bold
+O(1)
+\series default
+ lookups, rather than recomputing as needed.
 \end_layout
 
 \begin_layout Standard
@@ -3878,7 +3885,6 @@ namespace AddNumbers {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 C# Input Example
 \begin_inset CommandInset label
 LatexCommand label
@@ -4078,7 +4084,6 @@ int main() {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 C++ Input and Output Example
 \begin_inset CommandInset label
 LatexCommand label
@@ -4200,7 +4205,6 @@ n";
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 C++ getline() example
 \begin_inset CommandInset label
 LatexCommand label
@@ -4760,7 +4764,6 @@ n", dbl, Int++, str);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 C++, cout vs printf()
 \begin_inset CommandInset label
 LatexCommand label
@@ -4969,7 +4972,6 @@ public class AddNumbers {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Java Input and Output Example
 \begin_inset CommandInset label
 LatexCommand label
@@ -5394,7 +5396,6 @@ public int LinearSearch(E[] vector, int vsize, E key){
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Linear Search Implementation (C++)
 \begin_inset CommandInset label
 LatexCommand label
@@ -5806,7 +5807,6 @@ s+");
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Linear Search (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -6264,7 +6264,6 @@ public int BinarySearch(E[] vector, E key, int low, int high){
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Binary Search (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -6625,7 +6624,6 @@ s+");
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Binary Search Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -7211,7 +7209,6 @@ n", elapsed);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Array Access Performance (C++)
 \begin_inset CommandInset label
 LatexCommand label
@@ -7514,7 +7511,7 @@ Array Traversal Methods
 \end_layout
 
 \begin_layout Standard
-Any 3-dimension array, can be accessing in a variety of ways, including
+Any 2-dimension array, can be accessing in a variety of ways, including
  column-wise, row-wise and starting from the top to bottom, bottom to top,
  left to right and right to left.
 \end_layout
@@ -7945,9 +7942,9 @@ leftarrow y$}
 \backslash
 While {$v 
 \backslash
-geq 0 
+geq 0$ 
 \backslash
-wedge w < m$}
+textbf{and} $w < m$}
 \end_layout
 
 \begin_layout Plain Layout
@@ -10092,6 +10089,13 @@ geq 1$
 
 
 \backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 Procedure{Euclid}{$m,n$}
 \end_layout
 
@@ -10850,7 +10854,7 @@ O(n log log n)
 \begin_inset Float algorithm
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -10878,6 +10882,13 @@ Require Positives integer $n$ denoting upper limit for prime number search,
 Ensure All prime number $
 \backslash
 leq n$ stored in vector $S$.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
 \end_layout
 
 \begin_layout Plain Layout
@@ -12777,12 +12788,3254 @@ name "lis:Solution-to-Primes"
 \end_layout
 
 \begin_layout Subsection
-String based algorithms
+String based algorithms and data structures
 \end_layout
 
 \begin_layout Standard
-substring search
+String are a fundamental data type with a high importance in the following
+ areas:
 \end_layout
 
+\begin_layout Itemize
+Web crawlers utilised by search engines classify billions of text documents
+ each day.
+\end_layout
+
+\begin_layout Itemize
+Bioinformatics Research, particularly arounfg genome based research.
+ 
+\end_layout
+
+\begin_layout Standard
+Strings are effectively a collection of characters, with each character
+ being defined as part of an alphabet.
+ This alphabet, may consist of only a single character, a small number of
+ characters, (eg ASCII with 127 characters), a large number of characters
+ (eg Unicode with 1,114,112 characters), or all possible values represented
+ by either a byte (256 characters), word (65536 characters) or double-word(2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+32
+\end_layout
+
+\end_inset
+
+ characters).
+ One common misconseption is that a string may only represent those letters
+ and figures as defined in a human langauge, but from a Computers viewpoint
+ any value that can be defined may be included (or even excluded) from the
+ alphabet that defines a string.
+\end_layout
+
+\begin_layout Standard
+Typically, we allow 
+\shape italic
+A
+\shape default
+ to be a alphabet (finite set), with:
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+pattern
+\shape default
+ and 
+\shape italic
+text
+\shape default
+ are vectors of elements of 
+\shape italic
+A
+\shape default
+.
+\end_layout
+
+\begin_layout Itemize
+
+\shape italic
+A
+\shape default
+ may be:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+usual human alphabet
+\end_layout
+
+\begin_layout Itemize
+binary alphabet = 
+\shape italic
+A
+\shape default
+ = {0,1}
+\end_layout
+
+\begin_layout Itemize
+DNA alphabet = 
+\shape italic
+A 
+\shape default
+= {A, C, G, T}
+\end_layout
+
+\begin_layout Itemize
+etc.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+When dealing with strings in different languages, the meaning and implementation
+ may vary.
+\end_layout
+
+\begin_layout Itemize
+C99 - A string is defined as a vector of char (or byte), utilising ASCII
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Other non-PC systems may utilise alternate encoding systems such as EBCIDC
+ in place of ASCII encoding.
+\end_layout
+
+\end_inset
+
+ or UTF-8
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Modern UNIX implementations like FreeBSD, Solaris and GNU/Linux use UTF-8.
+\end_layout
+
+\end_inset
+
+ encoding terminated by the character 
+\shape italic
+NUL
+\shape default
+ (0).
+\end_layout
+
+\begin_layout Itemize
+C++ - A string may be that as C99, or of an object wrapped around a C99
+ string.
+ Some operating systems like Windows allow a Wide-Character (16bits) to
+ be utilised in place of single byte characters.
+\end_layout
+
+\begin_layout Itemize
+Java - A string is a vector of UTF-16 encoded characters, represented as
+ an object, and is immutable.
+\end_layout
+
+\begin_layout Itemize
+C# (with .NET) - A string is a vector of UTF-16 encoded characters, represented
+ as an object, and is immutable.
+\end_layout
+
+\begin_layout Standard
+There are numberous algorithms that perform string matching, including Brute
+ Force, Rabin-Karp, Knuth-Morris-Pratt, Boyer-Moore, and Horspool.
+ Regular Expressions are also considered a form of pattern matching, with
+ the advantage that they allow an infinite number of patterns to be matched.
+\end_layout
+
+\begin_layout Standard
+This guide will discuss the Brute Force and Knuth-Morris-Pratt algorithms.
+\end_layout
+
+\begin_layout Subsubsection
+Brute Force Substring Search
+\end_layout
+
+\begin_layout Standard
+Brute Force Substring search is considered a naive based algorithm that
+ utilises a very simple method to determine string or pattern matching.
+\end_layout
+
+\begin_layout Standard
+The algorithm walks through the vector of text, attempting to match the
+ pattern in sequence.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A Vector $T$ of $n$ characters representing a text, and vector $P$
+ of $m$ characters representing a pattern to find in $T$.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The index of the first character of $P$ when a complete match is
+ found in $T$, otherwise -1 if search was unsuccessful.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{BruteForceStringMatch}{$T, P$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$i 
+\backslash
+gets 0$ to $n-m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$j < m$ 
+\backslash
+textbf{and} $P[j]=T[i+j]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets j + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$j = m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $i$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Brute Force String Matching
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Brute-Force-String"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Standard
+The Brute Force String Matching algorithm is a very simple algorithm that
+ performs the following steps:
+\end_layout
+
+\begin_layout Enumerate
+Align patternw at the beginning of the text.
+\end_layout
+
+\begin_layout Enumerate
+Moving from left to right, compare each character of the pattern to the
+ corresponding character in the text until:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+All characters are found to match; or
+\end_layout
+
+\begin_layout Enumerate
+A mismatch is detected.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+While pattern is not found, and the text is not exhausted, relaign pattern
+ one position to the right and repeat step 2.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Example-of-Brute"
+
+\end_inset
+
+ has an example of Brute Force matching.
+ (The pattern's characters that are compare with their text counterparts
+ are in bold type).
+\end_layout
+
+\begin_layout Standard
+Brute Force String Matching is considered a 
+\series bold
+O(n)
+\series default
+ operation, however may offer worse performance if many clost matches are
+ present within the text.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="18">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+B
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+D
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+_
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+I
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+C
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+E
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+D
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+_
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+H
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+I
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+M
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+O
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family typewriter
+\series bold
+T
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+gets$
+\end_layout
+
+\end_inset
+
+(Match Found)
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Example of Brute Force String Matching
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Example-of-Brute"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the Brute Force String Matching can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Brute-Force-String"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language={[ANSI]C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+int BruteForceStringMatch(char* text, int textLength, 
+\end_layout
+
+\begin_layout Plain Layout
+
+                          char* pattern, int patternLength){
+\end_layout
+
+\begin_layout Plain Layout
+
+  int patternIndex = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Scan the text looking for the pattern
+\end_layout
+
+\begin_layout Plain Layout
+
+  for(int textIndex = 0; textIndex < textLength-patternLength; textIndex++){
+\end_layout
+
+\begin_layout Plain Layout
+
+    patternIndex = 0; // Reset index into pattern
+\end_layout
+
+\begin_layout Plain Layout
+
+    // While the current text position matches the pattern, keep scanning
+ it.
+\end_layout
+
+\begin_layout Plain Layout
+
+    while((patternIndex < patternLength)
+\end_layout
+
+\begin_layout Plain Layout
+
+             &&(text[patternIndex] == pattern[textIndex+patternIndex])){
+\end_layout
+
+\begin_layout Plain Layout
+
+      patternIndex++;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    // If the patternIndex is equal to patternLength, we have found the
+ pattern!
+\end_layout
+
+\begin_layout Plain Layout
+
+    if(patternIndex == patternLength){
+\end_layout
+
+\begin_layout Plain Layout
+
+      return textIndex;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Pattern not found, so return -1.
+\end_layout
+
+\begin_layout Plain Layout
+
+  return -1; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Brute Force String Matching (C++)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Brute-Force-String"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Where's Waldorf
+\end_layout
+
+\begin_layout Standard
+Given a 
+\begin_inset Formula $m$
+\end_inset
+
+ by 
+\begin_inset Formula $n$
+\end_inset
+
+ grid of letters, (
+\begin_inset Formula $1\leq m,n\leq50$
+\end_inset
+
+), and a list of words, find the location in the grid at which the word
+ can be found.
+ A word matches a straight, uninterrupted line of letters in the grid.
+ A word can match the letters in the grid regardless of case (i.e.
+ upper and lower case letters are to be treated as the same).
+ The matching can be done in any of the eight directions either horizontally,
+ vertically or diagonally through the grid.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The input begins with a single positive integer on a line by itself indicating
+ the number of the cases following, each of them as described below.
+ This line is followed by a blank line, and there is also a blank line between
+ two consecutive inputs.
+ 
+\end_layout
+
+\begin_layout Standard
+The input begins with a pair of integers, 
+\begin_inset Formula $m$
+\end_inset
+
+ followed by 
+\begin_inset Formula $n,1\leq m,n\leq50$
+\end_inset
+
+ in decimal notation on a single line.
+ The next 
+\begin_inset Formula $m$
+\end_inset
+
+ lines contain 
+\begin_inset Formula $n$
+\end_inset
+
+ letters each; this is the grid of letters in which the words of the list
+ must be found.
+ The letters in the grid may be in upper or lower case.
+ 
+\end_layout
+
+\begin_layout Standard
+Following the grid of letters, another integer k appears on a line by itself
+ (
+\begin_inset Formula $1\leq k\leq20$
+\end_inset
+
+ ).
+ The next 
+\begin_inset Formula $k$
+\end_inset
+
+ lines of input contain the list of words to search for, one word per line.
+ These words may contain upper and lower case letters only (no spaces, hyphens
+ or other non-alphabetic characters).
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+1
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+8 11
+\begin_inset Newline newline
+\end_inset
+
+abcDEFGhigg
+\begin_inset Newline newline
+\end_inset
+
+hEbkWalDork
+\begin_inset Newline newline
+\end_inset
+
+FtyAwaldORm
+\begin_inset Newline newline
+\end_inset
+
+FtsimrLqsrc
+\begin_inset Newline newline
+\end_inset
+
+byoArBeDeyv
+\begin_inset Newline newline
+\end_inset
+
+Klcbqwikomk
+\begin_inset Newline newline
+\end_inset
+
+strEBGadhrb
+\begin_inset Newline newline
+\end_inset
+
+yUiqlxcnBjf
+\begin_inset Newline newline
+\end_inset
+
+4
+\begin_inset Newline newline
+\end_inset
+
+Waldorf
+\begin_inset Newline newline
+\end_inset
+
+Bambi
+\begin_inset Newline newline
+\end_inset
+
+Betty
+\begin_inset Newline newline
+\end_inset
+
+Dagbert
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, the output must follow the description below.
+ The outputs of two consecutive cases will be separated by a blank line.
+ 
+\end_layout
+
+\begin_layout Standard
+For each word in the word list, a pair of integers representing the location
+ of the corresponding word in the grid must be output.
+ The integers must be separated by a single space.
+ The first integer is the line in the grid where the first letter of the
+ given word can be found (1 represents the topmost line in the grid, and
+ 
+\begin_inset Formula $m$
+\end_inset
+
+ represents the bottommost line).
+ The second integer is the column in the grid where the first letter of
+ the given word can be found (1 represents the leftmost column in the grid,
+ and 
+\begin_inset Formula $n$
+\end_inset
+
+ represents the rightmost column in the grid).
+ If a word can be found more than once in the grid, then the location which
+ is output should correspond to the uppermost occurence of the word (i.e.
+ the occurence which places the first letter of the word closest to the
+ top of the grid).
+ If two or more words are uppermost, the output should correspond to the
+ leftmost of these occurences.
+ All words can be found at least once in the grid.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 5
+\begin_inset Newline newline
+\end_inset
+
+2 3
+\begin_inset Newline newline
+\end_inset
+
+1 2
+\begin_inset Newline newline
+\end_inset
+
+7 8
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Where's Waldorf problem can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Where's"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},language={[ANSI]C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+#include <cstdlib>
+\end_layout
+
+\begin_layout Plain Layout
+#include <iostream>
+\end_layout
+
+\begin_layout Plain Layout
+#include <cctype>
+\end_layout
+
+\begin_layout Plain Layout
+#include <cstring>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+char** wordmap;
+\end_layout
+
+\begin_layout Plain Layout
+int testCases = 0;
+\end_layout
+
+\begin_layout Plain Layout
+int wordmapWidth = 0;
+\end_layout
+
+\begin_layout Plain Layout
+int wordmapHeight = 0;
+\end_layout
+
+\begin_layout Plain Layout
+char blankline[256];
+\end_layout
+
+\begin_layout Plain Layout
+int wordSearches = 0;
+\end_layout
+
+\begin_layout Plain Layout
+char* pattern = NULL;
+\end_layout
+
+\begin_layout Plain Layout
+int patternLength = 0;
+\end_layout
+
+\begin_layout Plain Layout
+char* text = NULL;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * Attempt to find a pattern contained within the text.
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+int BruteForceStringMatch(char* text, int textLength, char* pattern, 
+\end_layout
+
+\begin_layout Plain Layout
+
+							
+\lang english
+int patternLength) {
+\end_layout
+
+\begin_layout Plain Layout
+  int patternIndex = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  // Ensure the text is big enough to hold our pattern!
+\end_layout
+
+\begin_layout Plain Layout
+  if (patternLength > textLength) {
+\end_layout
+
+\begin_layout Plain Layout
+    return -1;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  // Scan the text looking for the pattern
+\end_layout
+
+\begin_layout Plain Layout
+  for (int textIndex = 0; textIndex < textLength - patternLength; textIndex++)
+ {
+\end_layout
+
+\begin_layout Plain Layout
+    patternIndex = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    // While the current text position matches the pattern, keep scanning
+ it.
+\end_layout
+
+\begin_layout Plain Layout
+    while ((patternIndex < patternLength) && (text[patternIndex] == 
+\end_layout
+
+\begin_layout Plain Layout
+
+                                           
+\lang english
+pattern[textIndex + patternIndex])) {
+\end_layout
+
+\begin_layout Plain Layout
+      patternIndex++;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    // If the patternIndex is equal to patternLength, we have found the
+ pattern!
+\end_layout
+
+\begin_layout Plain Layout
+    if (patternIndex == patternLength) {
+\end_layout
+
+\begin_layout Plain Layout
+      return textIndex;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  // Pattern not found, so return -1.
+\end_layout
+
+\begin_layout Plain Layout
+  return -1;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * Create a search pattern of length, from the word map.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param col starting position in the word map (0 offset)
+\end_layout
+
+\begin_layout Plain Layout
+ * @param row starting position in the word map (0 offset)
+\end_layout
+
+\begin_layout Plain Layout
+ * @param length length of required string.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param colOffset direction to move column index for each letter.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param rowOffset direction to move row index for each letter.
+\end_layout
+
+\begin_layout Plain Layout
+ * @return Index of found string.
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+char* buildTextString(int col, int row, int length, int colOffset,
+ 
+\lang english
+int rowOffset) {
+\end_layout
+
+\begin_layout Plain Layout
+  char* newString = new char[length + 1];
+\end_layout
+
+\begin_layout Plain Layout
+  int index = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  while (length--) {
+\end_layout
+
+\begin_layout Plain Layout
+    newString[index++] = wordmap[row][col];
+\end_layout
+
+\begin_layout Plain Layout
+    row += rowOffset;
+\end_layout
+
+\begin_layout Plain Layout
+    col += colOffset;
+\end_layout
+
+\begin_layout Plain Layout
+    // Ensure we are not going outside map boundary
+\end_layout
+
+\begin_layout Plain Layout
+    if ((row < 0) || (row >= wordmapHeight) || 
+\end_layout
+
+\begin_layout Plain Layout
+
+        
+\lang english
+(col < 0) || (col >= wordmapWidth)) {
+\end_layout
+
+\begin_layout Plain Layout
+      newString[index] = NULL;
+\end_layout
+
+\begin_layout Plain Layout
+      return newString;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  newString[index] = NULL;
+\end_layout
+
+\begin_layout Plain Layout
+  return newString;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * Convert string to lower case, and store in place
+\end_layout
+
+\begin_layout Plain Layout
+ * @param str ASCIIZ string to convert.
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+void strToLower(char* str) {
+\end_layout
+
+\begin_layout Plain Layout
+  int i = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  while (str[i]) {
+\end_layout
+
+\begin_layout Plain Layout
+    str[i] = (char) tolower(str[i]);
+\end_layout
+
+\begin_layout Plain Layout
+    i++;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * Main 
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+int main() {
+\end_layout
+
+\begin_layout Plain Layout
+  scanf("%d", &testCases);
+\end_layout
+
+\begin_layout Plain Layout
+  while (testCases--) {
+\end_layout
+
+\begin_layout Plain Layout
+    gets(blankline);
+\end_layout
+
+\begin_layout Plain Layout
+    // Read in the wordmap, and ensure in lower case.
+\end_layout
+
+\begin_layout Plain Layout
+    scanf("%d %d", &wordmapHeight, &wordmapWidth);
+\end_layout
+
+\begin_layout Plain Layout
+    wordmap = new char*[wordmapHeight];
+\end_layout
+
+\begin_layout Plain Layout
+    for (int row = 0; row < wordmapHeight; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+      wordmap[row] = new char[wordmapWidth + 1];
+\end_layout
+
+\begin_layout Plain Layout
+      scanf("%s", wordmap[row]);
+\end_layout
+
+\begin_layout Plain Layout
+      strToLower(wordmap[row]);
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Read in the number of words to search for.
+\end_layout
+
+\begin_layout Plain Layout
+    scanf("%d", &wordSearches);
+\end_layout
+
+\begin_layout Plain Layout
+    while (wordSearches--) {
+\end_layout
+
+\begin_layout Plain Layout
+      // Read in a single word.
+\end_layout
+
+\begin_layout Plain Layout
+      pattern = new char[wordmapWidth + 1];
+\end_layout
+
+\begin_layout Plain Layout
+      scanf("%s", pattern);
+\end_layout
+
+\begin_layout Plain Layout
+      strToLower(pattern);
+\end_layout
+
+\begin_layout Plain Layout
+      patternLength = strlen(pattern);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Attempt to scan for the word;
+\end_layout
+
+\begin_layout Plain Layout
+      for (int row = 0; row < wordmapHeight; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+        for (int col = 0; col < wordmapWidth; col++) {
+\end_layout
+
+\begin_layout Plain Layout
+          for (int rowOffset = -1; rowOffset < 2; rowOffset++) {
+\end_layout
+
+\begin_layout Plain Layout
+            for (int colOffset = -1; colOffset < 2; colOffset++) {
+\end_layout
+
+\begin_layout Plain Layout
+              if ((colOffset != 0) || (rowOffset != 0)) {
+\end_layout
+
+\begin_layout Plain Layout
+                // Get our next text string, and attempt to match!
+\end_layout
+
+\begin_layout Plain Layout
+                text = buildTextString(col, row, patternLength, colOffset,
+ 
+\lang english
+rowOffset);
+\end_layout
+
+\begin_layout Plain Layout
+                if (BruteForceStringMatch(text, strlen(text) + 1, pattern,
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                                            
+\lang english
+patternLength) == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+                  printf("%d %d
+\backslash
+n", (row + 1), (col + 1));
+\end_layout
+
+\begin_layout Plain Layout
+                  delete(text);
+\end_layout
+
+\begin_layout Plain Layout
+                  goto break_search;
+\end_layout
+
+\begin_layout Plain Layout
+                }
+\end_layout
+
+\begin_layout Plain Layout
+                delete(text);
+\end_layout
+
+\begin_layout Plain Layout
+              }
+\end_layout
+
+\begin_layout Plain Layout
+            }
+\end_layout
+
+\begin_layout Plain Layout
+          }
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+break_search:
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Free our word.
+\end_layout
+
+\begin_layout Plain Layout
+      delete(pattern);
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Free our wordmap;
+\end_layout
+
+\begin_layout Plain Layout
+    for (int row = 0; row < wordmapHeight; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+      delete(wordmap[row]);
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    delete(wordmap);
+\end_layout
+
+\begin_layout Plain Layout
+    printf("
+\backslash
+n");
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  return 0;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Where's Waldorf (C++)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Where's"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Knuth-Morris-Pratt Substring Search
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Big String Search
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+References
+\end_layout
+
+\begin_layout Standard
+Throughout this guide multipe sources where used to construct this guide.
+ The main sources of information presented through out this guide were:
+\end_layout
+
+\begin_layout Itemize
+Corney, M.
+ (2011).
+ INB204 Special Topic Advanced Algorithms, Semester 2, 2011, Lecture Slides
+ and Notes.
+\end_layout
+
+\begin_layout Itemize
+Tang, M.
+ (2012).
+ INB371 Data Structures and Algorithms, Semester 1, 2012, Lecture Slides
+ and Notes.
+\end_layout
+
+\begin_layout Itemize
+Goodrich, M., Tamassia, R., (2002) 
+\shape italic
+Algorithm Design: Foundations, Analysis and Internet Examples
+\shape default
+, Wiley Press.
+ ISBN: 0-471-38365-1 (QUT Library: 005.1 622)
+\end_layout
+
+\begin_layout Standard
+Additionally, the following sections were derived from the following sources:
+\end_layout
+
+\begin_layout Itemize
+Section 5.3.1 - Array Performance, Timing Values and Cache layouts, derived
+ from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Intel Corporation, (2002) 
+\shape italic
+Intel Pentium 4 and Intel Xeon Processor Optimisation Reference Manual
+\shape default
+.
+ Intel Corporation, Order Number: 248966-007 (No longer available in print
+ and very limited circulation, but newer editions in electronic form may
+ be found at: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.intel.com/content/www/us/en/processors/architectures-software-developer-manuals.html"
+
+\end_inset
+
+ ).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Section 6.1.1 - Greatest Common Divisor, Description Text, derived from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wikipedia (n.d.), Greatest Common Divisor, Retrieved August 16, 2012, from
+ 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://en.wikipedia.org/wiki/Greatest_common_divisor"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Wolfram Mathworld (n.d.), Greatest Common Divisor, Retrieved August 13, 2012,
+ from 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://mathworld.wolfram.com/GreatestCommonDivisor.html"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Section 6.1.2 - Sieve of Eratosthenes, Figure 6.1, derived from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wikipedia (n.d.), Sieve of Eratosthenes, Retrieved August 15, 2012, from 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \end_body
 \end_document
