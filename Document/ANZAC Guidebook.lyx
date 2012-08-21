@@ -9693,9 +9693,10 @@ reference "alg:Array-Mirror-Horizon"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -9821,9 +9822,10 @@ name "alg:Array-Mirror-Vertical"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -9955,6 +9957,13 @@ As both of these algorithms access both the source and target arrays row
 
 \begin_layout Standard
 \begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
 \end_inset
 
 
@@ -10320,6 +10329,13 @@ reference "lis:Euclidean-Algorithm-(Java)"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -10798,13 +10814,6 @@ name "lis:Solution-to-GCD"
 
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
 \end_inset
 
 
@@ -12256,13 +12265,6 @@ Since a binary search was used, I had to pay little attention to values
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset listings
 inline false
 status open
@@ -13188,7 +13190,18 @@ reference "fig:Example-of-Brute"
 \begin_layout Standard
 Brute Force String Matching is considered a 
 \series bold
-O(n)
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
 \series default
  operation, however may offer worse performance if many clost matches are
  present within the text.
@@ -14890,7 +14903,7 @@ int BruteForceStringMatch(char* text, int textLength,
 
 \begin_layout Plain Layout
 
-  for(int textIndex = 0; textIndex < textLength-patternLength; textIndex++){
+  for(int textIndex = 0; textIndex <= textLength-patternLength; textIndex++){
 \end_layout
 
 \begin_layout Plain Layout
@@ -14911,7 +14924,7 @@ int BruteForceStringMatch(char* text, int textLength,
 
 \begin_layout Plain Layout
 
-             &&(text[patternIndex] == pattern[textIndex+patternIndex])){
+             &&(pattern[patternIndex] == text[textIndex+patternIndex])){
 \end_layout
 
 \begin_layout Plain Layout
@@ -15053,8 +15066,11 @@ The input begins with a pair of integers,
 \end_layout
 
 \begin_layout Standard
-Following the grid of letters, another integer k appears on a line by itself
- (
+Following the grid of letters, another integer 
+\begin_inset Formula $k$
+\end_inset
+
+ appears on a line by itself (
 \begin_inset Formula $1\leq k\leq20$
 \end_inset
 
@@ -15258,18 +15274,22 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 #include <cstdlib>
 \end_layout
 
 \begin_layout Plain Layout
+
 #include <iostream>
 \end_layout
 
 \begin_layout Plain Layout
+
 #include <cctype>
 \end_layout
 
 \begin_layout Plain Layout
+
 #include <cstring>
 \end_layout
 
@@ -15278,6 +15298,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+
 using namespace std;
 \end_layout
 
@@ -15286,69 +15307,92 @@ using namespace std;
 \end_layout
 
 \begin_layout Plain Layout
+
 char** wordmap;
 \end_layout
 
 \begin_layout Plain Layout
+
 int testCases = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 int wordmapWidth = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 int wordmapHeight = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 char blankline[256];
 \end_layout
 
 \begin_layout Plain Layout
+
 int wordSearches = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 char* pattern = NULL;
 \end_layout
 
 \begin_layout Plain Layout
+
 int patternLength = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 char* text = NULL;
 \end_layout
 
 \begin_layout Plain Layout
 
+int location = -1;
 \end_layout
 
 \begin_layout Plain Layout
+
+int currentRow = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+int currentCol = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * Attempt to find a pattern contained within the text.
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
-int BruteForceStringMatch(char* text, int textLength, char* pattern, 
+
+int BruteForceStringMatch(char* text, int textLength, char* pattern, int
+ patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
 
-							
-\lang english
-int patternLength) {
-\end_layout
-
-\begin_layout Plain Layout
   int patternIndex = 0;
 \end_layout
 
@@ -15357,18 +15401,22 @@ int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
   // Ensure the text is big enough to hold our pattern!
 \end_layout
 
 \begin_layout Plain Layout
+
   if (patternLength > textLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -15377,72 +15425,86 @@ int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
   // Scan the text looking for the pattern
 \end_layout
 
 \begin_layout Plain Layout
-  for (int textIndex = 0; textIndex < textLength - patternLength; textIndex++)
+
+  for (int textIndex = 0; textIndex <= textLength - patternLength; textIndex++)
  {
 \end_layout
 
 \begin_layout Plain Layout
+
     patternIndex = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     // While the current text position matches the pattern, keep scanning
  it.
 \end_layout
 
 \begin_layout Plain Layout
-    while ((patternIndex < patternLength) && (text[patternIndex] == 
+
+    while ((patternIndex < patternLength) && (pattern[patternIndex] == 
 \end_layout
 
 \begin_layout Plain Layout
 
-                                           
-\lang english
-pattern[textIndex + patternIndex])) {
+                                              text[textIndex + patternIndex]))
+ {
 \end_layout
 
 \begin_layout Plain Layout
+
       patternIndex++;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
-    // If the patternIndex is equal to patternLength, we have found the
- pattern!
+
+    // If the patternIndex is equal to the patternLength, we have found
+ the pattern!
 \end_layout
 
 \begin_layout Plain Layout
+
     if (patternIndex == patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
       return textIndex;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   // Pattern not found, so return -1.
 \end_layout
 
 \begin_layout Plain Layout
+
   return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -15452,115 +15514,128 @@ pattern[textIndex + patternIndex])) {
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * Create a search pattern of length, from the word map.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param col starting position in the word map (0 offset)
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param row starting position in the word map (0 offset)
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param length length of required string.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param colOffset direction to move column index for each letter.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param rowOffset direction to move row index for each letter.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @return Index of found string.
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
-char* buildTextString(int col, int row, int length, int colOffset,
- 
-\lang english
-int rowOffset) {
+
+char* buildTextString(int col, int row, int length, int colOffset, int rowOffset
+) {
 \end_layout
 
 \begin_layout Plain Layout
+
   char* newString = new char[length + 1];
 \end_layout
 
 \begin_layout Plain Layout
+
   int index = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   while (length--) {
 \end_layout
 
 \begin_layout Plain Layout
+
     newString[index++] = wordmap[row][col];
 \end_layout
 
 \begin_layout Plain Layout
+
     row += rowOffset;
 \end_layout
 
 \begin_layout Plain Layout
+
     col += colOffset;
 \end_layout
 
 \begin_layout Plain Layout
+
     // Ensure we are not going outside map boundary
 \end_layout
 
 \begin_layout Plain Layout
-    if ((row < 0) || (row >= wordmapHeight) || 
+
+    if ((row < 0) || (row >= wordmapHeight) || (col < 0) || (col >= wordmapWidth
+)) {
 \end_layout
 
 \begin_layout Plain Layout
 
-        
-\lang english
-(col < 0) || (col >= wordmapWidth)) {
-\end_layout
-
-\begin_layout Plain Layout
       newString[index] = NULL;
 \end_layout
 
 \begin_layout Plain Layout
+
       return newString;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   newString[index] = NULL;
 \end_layout
 
 \begin_layout Plain Layout
+
   return newString;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -15570,49 +15645,56 @@ int rowOffset) {
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * Convert string to lower case, and store in place
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param str ASCIIZ string to convert.
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 void strToLower(char* str) {
 \end_layout
 
 \begin_layout Plain Layout
+
   int i = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   while (str[i]) {
 \end_layout
 
 \begin_layout Plain Layout
+
     str[i] = (char) tolower(str[i]);
 \end_layout
 
 \begin_layout Plain Layout
+
     i++;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -15622,65 +15704,151 @@ void strToLower(char* str) {
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
 /**
 \end_layout
 
 \begin_layout Plain Layout
- * Main 
+
+ * Update the best found location, based on current row/col positions
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
+void UpdateFind(int row, int col, int rowOffset, int colOffset, int location)
+ {
+\end_layout
+
+\begin_layout Plain Layout
+
+  if (currentRow > row + (rowOffset * location)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    currentRow = row + (rowOffset * location);
+\end_layout
+
+\begin_layout Plain Layout
+
+    currentCol = col + (colOffset * location);
+\end_layout
+
+\begin_layout Plain Layout
+
+  } else if (currentRow == row + (rowOffset * location)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (currentCol > col + (colOffset * location)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      currentRow = row + (rowOffset * location);
+\end_layout
+
+\begin_layout Plain Layout
+
+      currentCol = col + (colOffset * location);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+/**
+\end_layout
+
+\begin_layout Plain Layout
+
+ * Main 
+\end_layout
+
+\begin_layout Plain Layout
+
+ */
+\end_layout
+
+\begin_layout Plain Layout
+
 int main() {
 \end_layout
 
 \begin_layout Plain Layout
+
   scanf("%d", &testCases);
 \end_layout
 
 \begin_layout Plain Layout
+
   while (testCases--) {
 \end_layout
 
 \begin_layout Plain Layout
+
     gets(blankline);
 \end_layout
 
 \begin_layout Plain Layout
+
     // Read in the wordmap, and ensure in lower case.
 \end_layout
 
 \begin_layout Plain Layout
+
     scanf("%d %d", &wordmapHeight, &wordmapWidth);
 \end_layout
 
 \begin_layout Plain Layout
+
     wordmap = new char*[wordmapHeight];
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int row = 0; row < wordmapHeight; row++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       wordmap[row] = new char[wordmapWidth + 1];
 \end_layout
 
 \begin_layout Plain Layout
+
       scanf("%s", wordmap[row]);
 \end_layout
 
 \begin_layout Plain Layout
+
       strToLower(wordmap[row]);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -15689,34 +15857,42 @@ int main() {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Read in the number of words to search for.
 \end_layout
 
 \begin_layout Plain Layout
+
     scanf("%d", &wordSearches);
 \end_layout
 
 \begin_layout Plain Layout
+
     while (wordSearches--) {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Read in a single word.
 \end_layout
 
 \begin_layout Plain Layout
+
       pattern = new char[wordmapWidth + 1];
 \end_layout
 
 \begin_layout Plain Layout
+
       scanf("%s", pattern);
 \end_layout
 
 \begin_layout Plain Layout
+
       strToLower(pattern);
 \end_layout
 
 \begin_layout Plain Layout
+
       patternLength = strlen(pattern);
 \end_layout
 
@@ -15725,96 +15901,163 @@ int main() {
 \end_layout
 
 \begin_layout Plain Layout
-      // Attempt to scan for the word;
-\end_layout
 
-\begin_layout Plain Layout
-      for (int row = 0; row < wordmapHeight; row++) {
-\end_layout
-
-\begin_layout Plain Layout
-        for (int col = 0; col < wordmapWidth; col++) {
-\end_layout
-
-\begin_layout Plain Layout
-          for (int rowOffset = -1; rowOffset < 2; rowOffset++) {
-\end_layout
-
-\begin_layout Plain Layout
-            for (int colOffset = -1; colOffset < 2; colOffset++) {
-\end_layout
-
-\begin_layout Plain Layout
-              if ((colOffset != 0) || (rowOffset != 0)) {
-\end_layout
-
-\begin_layout Plain Layout
-                // Get our next text string, and attempt to match!
-\end_layout
-
-\begin_layout Plain Layout
-                text = buildTextString(col, row, patternLength, colOffset,
- 
-\lang english
-rowOffset);
-\end_layout
-
-\begin_layout Plain Layout
-                if (BruteForceStringMatch(text, strlen(text) + 1, pattern,
- 
+      currentRow = wordmapHeight;
 \end_layout
 
 \begin_layout Plain Layout
 
-                                            
-\lang english
-patternLength) == 0) {
+      currentCol = wordmapWidth;
 \end_layout
 
 \begin_layout Plain Layout
-                  printf("%d %d
-\backslash
-n", (row + 1), (col + 1));
+
 \end_layout
 
 \begin_layout Plain Layout
-                  delete(text);
+
+      //Attempt to scan for word, along the top of the grid.
 \end_layout
 
 \begin_layout Plain Layout
-                  goto break_search;
+
+      for (int col = 0; col < wordmapWidth; col++) {
 \end_layout
 
 \begin_layout Plain Layout
-                }
+
+        int row = 0;
 \end_layout
 
 \begin_layout Plain Layout
-                delete(text);
+
+        int rowOffset = 1;
 \end_layout
 
 \begin_layout Plain Layout
-              }
+
+        for (int colOffset = -1; colOffset < 2; colOffset++) {
 \end_layout
 
 \begin_layout Plain Layout
-            }
+
+          // Get our next text string, and attempt to match!
 \end_layout
 
 \begin_layout Plain Layout
+
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+\end_layout
+
+\begin_layout Plain Layout
+
+          location = BruteForceStringMatch(text, strlen(text), pattern,
+ patternLength);
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (location >= 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            UpdateFind(row, col, rowOffset, colOffset, location);
+\end_layout
+
+\begin_layout Plain Layout
+
           }
 \end_layout
 
 \begin_layout Plain Layout
+
+          delete(text);
+\end_layout
+
+\begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
-break_search:
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      //Attempt to scan for word, along the bottom of the grid.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int col = 0; col < wordmapWidth; col++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int row = wordmapHeight - 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        int rowOffset = -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int colOffset = -1; colOffset < 2; colOffset++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          // Get our next text string, and attempt to match!
+\end_layout
+
+\begin_layout Plain Layout
+
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+\end_layout
+
+\begin_layout Plain Layout
+
+          location = BruteForceStringMatch(text, strlen(text), pattern,
+ patternLength);
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (location >= 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            UpdateFind(row, col, rowOffset, colOffset, location);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          delete(text);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
 \end_layout
 
 \begin_layout Plain Layout
@@ -15822,14 +16065,174 @@ break_search:
 \end_layout
 
 \begin_layout Plain Layout
+
+      //Attempt to scan for word, along the left of the grid.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int row = 0; row < wordmapHeight; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int col = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        int colOffset = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int rowOffset = -1; rowOffset < 2; rowOffset++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          // Get our next text string, and attempt to match!
+\end_layout
+
+\begin_layout Plain Layout
+
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+\end_layout
+
+\begin_layout Plain Layout
+
+          location = BruteForceStringMatch(text, strlen(text), pattern,
+ patternLength);
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (location >= 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            UpdateFind(row, col, rowOffset, colOffset, location);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          delete(text);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      //Attempt to scan for word, along the right of the grid.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int row = 0; row < wordmapHeight; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int col = wordmapWidth - 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        int colOffset = -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int rowOffset = -1; rowOffset < 2; rowOffset++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          // Get our next text string, and attempt to match!
+\end_layout
+
+\begin_layout Plain Layout
+
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+\end_layout
+
+\begin_layout Plain Layout
+
+          location = BruteForceStringMatch(text, strlen(text), pattern,
+ patternLength);
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (location >= 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            UpdateFind(row, col, rowOffset, colOffset, location);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          delete(text);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      printf("%d %d
+\backslash
+n", currentRow + 1, currentCol + 1);
+\end_layout
+
+\begin_layout Plain Layout
+
       // Free our word.
 \end_layout
 
 \begin_layout Plain Layout
+
       delete(pattern);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -15838,41 +16241,54 @@ break_search:
 \end_layout
 
 \begin_layout Plain Layout
+
     // Free our wordmap;
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int row = 0; row < wordmapHeight; row++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       delete(wordmap[row]);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     delete(wordmap);
 \end_layout
 
 \begin_layout Plain Layout
+
     printf("
 \backslash
 n");
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   return 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -15880,7 +16296,6 @@ n");
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Where's Waldorf (C++)
 \begin_inset CommandInset label
 LatexCommand label
@@ -15901,8 +16316,576 @@ name "lis:Solution-to-Where's"
 
 \end_layout
 
+\begin_layout Standard
+The Where's Waldorf problem, can be solved a number of ways, with the two
+ most common methods being:
+\end_layout
+
+\begin_layout Enumerate
+Move through each letter in the grid, and attempt to find the word in one
+ of the eight directions leading from the current character, until a match
+ is found.
+ (This is roughly 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ performance).
+\end_layout
+
+\begin_layout Enumerate
+Move along the outer most characters only, and attempt to find the word
+ in three directions that look inward into the grid, utilising a pattern
+ search algorithm.
+ (This roughly 
+\series bold
+O(12n)
+\series default
+ performance).
+\end_layout
+
+\begin_layout Standard
+For solving this problem, I utilised the second method.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to mitigate the case from being an issue, when reading in either
+ a grid line or pattern to look for, I convert both to lower case before
+ storing/using them.
+ The sample solution first initiates a scan along the top of the grid, creating
+ 3 texts to search for each position along the top of the grid.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Scanning-Grid-for"
+
+\end_inset
+
+ demonstrates this technique.
+ If found, I update the best known location (according to cuurent row and
+ column values), and then continue to scan the rest of the grid (as shown
+ as the gradients squares in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Scanning-Grid-for"
+
+\end_inset
+
+).
+ Lastly at the end of the grid scan, I output the best found location.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/WheresWaldorf.eps
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Scanning Grid for Where's Waldorf
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Scanning-Grid-for"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Some of the tough test cases include:
+\end_layout
+
+\begin_layout Itemize
+Grids being either 1 wide or 1 row deep.
+\end_layout
+
+\begin_layout Itemize
+Current text to scan is smaller than the pattern length.
+\end_layout
+
+\begin_layout Itemize
+Multiple words found in the grid.
+\end_layout
+
+\begin_layout Itemize
+A grid being all of one letter, and pattern to find is a string of the one
+ letter.
+\end_layout
+
 \begin_layout Subsubsection
 Knuth-Morris-Pratt Substring Search
+\end_layout
+
+\begin_layout Standard
+When studying the worst-case performance of the brute force pattern matching,
+ there is a major deficiency in that characters are potentially rescanned.
+ Specifically, we may perform many comparisons while testing potential placement
+ of the pattern against the text, yet if we discover a pattern character
+ that does not match in the text, then we throw away all the information
+ gained by these comparisons and start over again from scratch with the
+ algorithm.
+\end_layout
+
+\begin_layout Standard
+The Knuth-Morris-Pratt (or KMP) algorithm, avoids this waste of information,
+ and in doing so, achieves 
+\series bold
+O(n+m)
+\series default
+ performance, which is optimal in the worst case.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A Vector $T$ of $n$ characters representing a text, and vector $P$
+ of $m$ characters representing a pattern to find in $T$.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The index of the first character of $P$ when a complete match is
+ found in $T$, otherwise -1 if search was unsuccessful.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{KMPMatch}{$T, P$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$f 
+\backslash
+gets 
+\backslash
+textsc{KMPFailure}(P)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$i < n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$P[j]=T[i]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$j = m - 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $i-m+1$} 
+\backslash
+Comment{A match!}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets i + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets j + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ElsIf {$j > 0$} 
+\backslash
+Comment{No match, but advanced in P}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets f(j-1)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets i + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $-1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A Vector $P$ of $m$ characters representing a pattern.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The failure function $f$ for $P$, which maps $j$ to the length of
+ the longest prefix of $P$ that is a suffix of $P[1..j]$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{KMPFailure}{$P$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$f(0) 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$i < m$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$P[j] = P[i]$} 
+\backslash
+Comment {We have matched $j+1$ characters}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$f(i) 
+\backslash
+gets j + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets i + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets j + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ElsIf {$j > 0$} 
+\backslash
+Comment {$j$ indexes just after a prefix of $P$ that must match}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$j 
+\backslash
+gets f(j - 1)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else 
+\backslash
+Comment {We have no matches}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$f(i) 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets i + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Knuth-Morris-Pratt Substring Search
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Knuth-Morris-Pratt-Substring-Sea"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph

@@ -15,6 +15,11 @@ int wordSearches = 0;
 char* pattern = NULL;
 int patternLength = 0;
 char* text = NULL;
+int location;
+
+int currentRow = 0;
+int currentCol = 0;
+
 
 /**
  * Attempt to find a pattern contained within the text.
@@ -28,10 +33,10 @@ int BruteForceStringMatch(char* text, int textLength, char* pattern, int pattern
   }
 
   // Scan the text looking for the pattern
-  for (int textIndex = 0; textIndex < textLength - patternLength; textIndex++) {
+  for (int textIndex = 0; textIndex <= textLength - patternLength; textIndex++) {
     patternIndex = 0;
     // While the current text position matches the pattern, keep scanning it.
-    while ((patternIndex < patternLength) && (text[patternIndex] == pattern[textIndex + patternIndex])) {
+    while ((patternIndex < patternLength) && (pattern[patternIndex] == text[textIndex + patternIndex])) {
       patternIndex++;
     }
     // If the patternIndex is equal to the patternLength, we have found the pattern!
@@ -84,6 +89,19 @@ void strToLower(char* str) {
 }
 
 
+void UpdateFind(int row, int col, int rowOffset, int colOffset, int location) {
+  if (currentRow > row + (rowOffset * location)) {
+    currentRow = row + (rowOffset * location);
+    currentCol = col + (colOffset * location);
+  } else if (currentRow == row + (rowOffset * location)) {
+    if (currentCol > col + (colOffset * location)) {
+      currentRow = row + (rowOffset * location);
+      currentCol = col + (colOffset * location);
+    }
+  }
+}
+
+
 /**
  * Main 
  */
@@ -109,27 +127,70 @@ int main() {
       strToLower(pattern);
       patternLength = strlen(pattern);
 
-      // Attempt to scan for the word;
-      for (int row = 0; row < wordmapHeight; row++) {
-        for (int col = 0; col < wordmapWidth; col++) {
-          for (int rowOffset = -1; rowOffset < 2; rowOffset++) {
-            for (int colOffset = -1; colOffset < 2; colOffset++) {
-              if ((colOffset != 0) || (rowOffset != 0)) {
-                // Get our next text string, and attempt to match!
-                text = buildTextString(col, row, patternLength, colOffset, rowOffset);
-                if (BruteForceStringMatch(text, strlen(text) + 1, pattern, patternLength) == 0) {
-                  printf("%d %d\n", (row + 1), (col + 1));
-                  delete(text);
-                  goto break_search;
-                }
-                delete(text);
-              }
-            }
+      currentRow = wordmapHeight;
+      currentCol = wordmapWidth;
+
+      //Attempt to scan for word, along the top of the grid.
+      for (int col = 0; col < wordmapWidth; col++) {
+        int row = 0;
+        int rowOffset = 1;
+        for (int colOffset = -1; colOffset < 2; colOffset++) {
+          // Get our next text string, and attempt to match!
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+          location = BruteForceStringMatch(text, strlen(text), pattern, patternLength);
+          if (location >= 0) {
+            UpdateFind(row, col, rowOffset, colOffset, location);
           }
+          delete(text);
         }
       }
-break_search:
 
+      //Attempt to scan for word, along the bottom of the grid.
+      for (int col = 0; col < wordmapWidth; col++) {
+        int row = wordmapHeight - 1;
+        int rowOffset = -1;
+        for (int colOffset = -1; colOffset < 2; colOffset++) {
+          // Get our next text string, and attempt to match!
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+          location = BruteForceStringMatch(text, strlen(text), pattern, patternLength);
+          if (location >= 0) {
+            UpdateFind(row, col, rowOffset, colOffset, location);
+          }
+          delete(text);
+        }
+      }
+
+      //Attempt to scan for word, along the left of the grid.
+      for (int row = 0; row < wordmapHeight; row++) {
+        int col = 0;
+        int colOffset = 1;
+        for (int rowOffset = -1; rowOffset < 2; rowOffset++) {
+          // Get our next text string, and attempt to match!
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+          location = BruteForceStringMatch(text, strlen(text), pattern, patternLength);
+          if (location >= 0) {
+            UpdateFind(row, col, rowOffset, colOffset, location);
+          }
+          delete(text);
+        }
+      }
+
+      //Attempt to scan for word, along the right of the grid.
+      for (int row = 0; row < wordmapHeight; row++) {
+        int col = wordmapWidth - 1;
+        int colOffset = -1;
+        for (int rowOffset = -1; rowOffset < 2; rowOffset++) {
+          // Get our next text string, and attempt to match!
+          text = buildTextString(col, row, 50, colOffset, rowOffset);
+          location = BruteForceStringMatch(text, strlen(text), pattern, patternLength);
+          if (location >= 0) {
+            UpdateFind(row, col, rowOffset, colOffset, location);
+          }
+          delete(text);
+        }
+      }
+
+      printf("%d %d\n", currentRow + 1, currentCol + 1);
       // Free our word.
       delete(pattern);
     }
