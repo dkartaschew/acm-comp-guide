@@ -16481,7 +16481,7 @@ O(n+m)
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -16892,16 +16892,1412 @@ name "alg:Knuth-Morris-Pratt-Substring-Sea"
 Description of working
 \end_layout
 
+\begin_layout Standard
+The main idea of the KMP algorithm is to preprocess the pattern string P
+ so as to compute a 
+\series bold
+failure function
+\series default
+ 
+\shape italic
+f
+\shape default
+ that indicates the proper shift of 
+\shape italic
+P
+\shape default
+ so that, to the largest extent possible, we can reuse previously performed
+ comparisons.
+ Specifically, the failure function 
+\shape italic
+f(j)
+\shape default
+ is defined as the length of the longest prefix of 
+\shape italic
+P
+\shape default
+ that is a suffix of 
+\shape italic
+P[1..j]
+\shape default
+.
+ We also use the convention that 
+\shape italic
+f(0) = 0
+\shape default
+.
+ The importance of this failure function is that 
+\begin_inset Quotes eld
+\end_inset
+
+encodes
+\begin_inset Quotes erd
+\end_inset
+
+ repeated substrings inside the pattern itself.
+\end_layout
+
+\begin_layout Standard
+The KMP pattern matching algorithm, shown in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Knuth-Morris-Pratt-Substring-Sea"
+
+\end_inset
+
+, incrementally processes the text string 
+\shape italic
+T
+\shape default
+ comparing it to the pattern string 
+\shape italic
+P
+\shape default
+.
+ Each time there is a match, we increment the current indices.
+ On the other hand, if there is a mismatch and we have previously made progress
+ in 
+\shape italic
+P
+\shape default
+, then we consult the failure function to determine the new index in 
+\shape italic
+P
+\shape default
+ where we need to continue checking 
+\shape italic
+P
+\shape default
+ against 
+\shape italic
+T
+\shape default
+.
+ Otherwise, we simplate increment the index for 
+\shape italic
+T
+\shape default
+ (and keep the index variable for 
+\shape italic
+P
+\shape default
+ at its beginning).
+ We repeat this process until we find a match of 
+\shape italic
+P
+\shape default
+ in 
+\shape italic
+T
+\shape default
+ or the index of 
+\shape italic
+T
+\shape default
+ reaches 
+\shape italic
+n
+\shape default
+, the length of
+\shape italic
+ T
+\shape default
+.
+\end_layout
+
+\begin_layout Standard
+The main part of the KMP algorithm is the while-loop, which performs a compariso
+n between a character in 
+\shape italic
+T
+\shape default
+ and a character in 
+\shape italic
+P
+\shape default
+ each iteration.
+ Depending upon the outcome of this comparison, the algorithm either moves
+ on to the next characters in 
+\shape italic
+T
+\shape default
+ and 
+\shape italic
+P
+\shape default
+, consults the failure function for a new candidate character in 
+\shape italic
+P
+\shape default
+, or starts over with the next index in 
+\shape italic
+T
+\shape default
+.
+ The correctness of this algorithm follows from the definition of the failure
+ function.
+ The skipped comparisons are actually unnecessary, for the failure function
+ guarantess that all the ignored comparisons are redundan - they would involve
+ comparing characters we already know match.
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Illustration-of-the"
+
+\end_inset
+
+, we illustrate the execution of the KMP algorithm.
+ The failure function f for the pattern displayed is given in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Failure-Function-for"
+
+\end_inset
+
+.
+ The algorithm performs 19 character comparisons, which are indicated with
+ numberical labels.
+ Note the use of the failure function to avoid redoing one of the comparisons
+ between a character of the pattern and a character of text.
+ Also note that this algorithm performs fewer overall comparisons tha the
+ brute force algorithm.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/KMPAlgorithm.eps
+	width 75text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Illustration of the KMP algorithm.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Illustration-of-the"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Quote
+Consider the pattern string 
+\shape italic
+P
+\shape default
+=
+\begin_inset Quotes erd
+\end_inset
+
+abacab
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The failure function f(j) for the string is shown as the following table.
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="7">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+j
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+P(j)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+c
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\shape italic
+f(j)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Failure Function for Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Illustration-of-the"
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Failure-Function-for"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The failure function utilised within the KMP Algorithm is also shown in
+ Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Knuth-Morris-Pratt-Substring-Sea"
+
+\end_inset
+
+.
+ This algorithm is another example of a bootstrapping process quite similar
+ to that used in the 
+\shape smallcaps
+KMPMatch
+\shape default
+ procedure.
+ We compare the pattern to itself as in the KMP Algorithm.
+ Each time we have two characters that match, we set 
+\begin_inset Formula $f(i)=j+1$
+\end_inset
+
+.
+ Note that since we have 
+\begin_inset Formula $i>j$
+\end_inset
+
+ throughtout the execution of the algorithm, 
+\begin_inset Formula $f(j-1)$
+\end_inset
+
+ is always defined when we need to use it.
+\end_layout
+
 \begin_layout Paragraph
 Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the KMP Algorithm can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:KMP-String-Match"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language={[ANSI]C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * KMP Failure function.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param Pattern Pointer to the pattern to be processed to derive the failure
+\end_layout
+
+\begin_layout Plain Layout
+
+ *                
+\lang english
+function.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param patternLength Length of pattern.
+\end_layout
+
+\begin_layout Plain Layout
+ * @return The failure function (array of int).
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+int *KMPFailure(char *Pattern, int patternLength) {
+\end_layout
+
+\begin_layout Plain Layout
+  int indexI = 
+1
+\lang english
+;
+\end_layout
+
+\begin_layout Plain Layout
+  int indexJ = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  int* failure = new int[patternLength]; // Create new function f.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  failure[0] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  while (indexI < patternLength) {
+\end_layout
+
+\begin_layout Plain Layout
+    if (Pattern[indexJ] == Pattern[indexI]) {
+\end_layout
+
+\begin_layout Plain Layout
+      failure[indexI++] = ++indexJ;
+\end_layout
+
+\begin_layout Plain Layout
+    } else if (indexJ > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+      indexJ = failure[indexJ - 1];
+\end_layout
+
+\begin_layout Plain Layout
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+      failure[indexI++] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  return failure;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * Utilise the KMP Substring search algorithm to find a pattern in text.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param Text Pointer to the text to be searched.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param textLength Length of the text to be processed.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param Pattern Pointer to the pattern to find within the text
+\end_layout
+
+\begin_layout Plain Layout
+ * @param patternLength Length of the pattern string
+\end_layout
+
+\begin_layout Plain Layout
+ * @return Index of pattern in text, otherwise -1 if not found.
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+int KMPMatch(char* Text, int textLength, char* Pattern, int patternLength)
+ {
+\end_layout
+
+\begin_layout Plain Layout
+  char* failure = KMPFailure(Pattern, patternLength);
+\end_layout
+
+\begin_layout Plain Layout
+  int indexI = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  int indexJ = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  while (indexI < textLength) {
+\end_layout
+
+\begin_layout Plain Layout
+    if (Pattern[indexJ] == Text[indexI]) {
+\end_layout
+
+\begin_layout Plain Layout
+      if (indexJ == (patternLength - 1)) {
+\end_layout
+
+\begin_layout Plain Layout
+        delete(failure); // Found a match, so return the index.
+\end_layout
+
+\begin_layout Plain Layout
+        return (indexI - patternLength + 1);
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      indexI++;
+\end_layout
+
+\begin_layout Plain Layout
+      indexJ++;
+\end_layout
+
+\begin_layout Plain Layout
+    } else if (indexJ > 0) { // No match but advanced in P.
+\end_layout
+
+\begin_layout Plain Layout
+      indexJ = failure[indexJ - 1]; // Move forward appropriate amount.
+\end_layout
+
+\begin_layout Plain Layout
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+      indexI++;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  delete(failure);
+\end_layout
+
+\begin_layout Plain Layout
+  return -1;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+KMP String Match (C++)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:KMP-String-Match"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
 Sample Problem - Big String Search
 \end_layout
 
+\begin_layout Standard
+Search some text to locate a particular pattern.
+ If the pattern exists in the text, output the 0-based index of the pattern
+ in the text.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line of input will be 
+\shape italic
+N (1 <= N <= 1000)
+\shape default
+, the number of test cases to run.
+ On each of the next 
+\shape italic
+2N
+\shape default
+ lines will be two strings.
+ The first string will be the pattern to search for.
+ On the next line will be the text to search in.
+ All pattern strings will have a length between 1 and 100,000 inclusive.
+ All text strings will have a length between 1 and 500,000 inclusive.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+5
+\begin_inset Newline newline
+\end_inset
+
+the 
+\begin_inset Newline newline
+\end_inset
+
+the quick brown fox jumps over the lazy dog
+\begin_inset Newline newline
+\end_inset
+
+000111 
+\begin_inset Newline newline
+\end_inset
+
+010101010101000110000111 
+\begin_inset Newline newline
+\end_inset
+
+CGAT 
+\begin_inset Newline newline
+\end_inset
+
+TGATCTAGCTAGCTAGCTAGCTAGCATACGCATAGCTA
+\begin_inset Newline newline
+\end_inset
+
+happy 
+\begin_inset Newline newline
+\end_inset
+
+I could be happy if I didn’t have to work
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output the test case number followed by a space, and
+ then the 0-based index of the first letter of the pattern in the text if
+ the pattern can be found, or NOT FOUND if the pattern does not exist in
+ the text.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+1 0 
+\begin_inset Newline newline
+\end_inset
+
+2 18
+\begin_inset Newline newline
+\end_inset
+
+3 NOT FOUND 
+\begin_inset Newline newline
+\end_inset
+
+4 11
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Big String Search problem can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Bis"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily},language={[ANSI]C++}"
+inline false
+status open
+
+\begin_layout Plain Layout
+#include <cstdlib>
+\end_layout
+
+\begin_layout Plain Layout
+#include <cstdio>
+\end_layout
+
+\begin_layout Plain Layout
+#include <cstring>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+#define MAX_PATTERN_LENGTH 100000
+\end_layout
+
+\begin_layout Plain Layout
+#define MAX_TEXT_LENGTH 500000
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+int testCases = 0;
+\end_layout
+
+\begin_layout Plain Layout
+char pattern[MAX_PATTERN_LENGTH];
+\end_layout
+
+\begin_layout Plain Layout
+char text[MAX_TEXT_LENGTH];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+int index = 0;
+\end_layout
+
+\begin_layout Plain Layout
+int testCount = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * KMP Failure function.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param Pattern Pointer to the pattern to be processed to derive the failure
+ 
+\lang english
+function.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param patternLength Length of pattern.
+\end_layout
+
+\begin_layout Plain Layout
+ * @return The failure function (array of int).
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+int *KMPFailure(char *Pattern, int patternLength) {
+\end_layout
+
+\begin_layout Plain Layout
+  int indexI = 1;
+\end_layout
+
+\begin_layout Plain Layout
+  int indexJ = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  int* failure = new int[patternLength]; // Create new function f.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  failure[0] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  while (indexI < patternLength) {
+\end_layout
+
+\begin_layout Plain Layout
+    if (Pattern[indexJ] == Pattern[indexI]) {
+\end_layout
+
+\begin_layout Plain Layout
+      failure[indexI++] = ++indexJ;
+\end_layout
+
+\begin_layout Plain Layout
+    } else if (indexJ > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+      indexJ = failure[indexJ - 1];
+\end_layout
+
+\begin_layout Plain Layout
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+      failure[indexI++] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  return failure;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * Utilise the KMP Substring search algorithm to find a pattern in text.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param Text Pointer to the text to be searched.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param textLength Length of the text to be processed.
+\end_layout
+
+\begin_layout Plain Layout
+ * @param Pattern Pointer to the pattern to find within the text
+\end_layout
+
+\begin_layout Plain Layout
+ * @param patternLength Length of the pattern string
+\end_layout
+
+\begin_layout Plain Layout
+ * @return Index of pattern in text, otherwise -1 if not found.
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+int KMPMatch(char* Text, int textLength, char* Pattern, int patternLength)
+ {
+\end_layout
+
+\begin_layout Plain Layout
+  int* failure = KMPFailure(Pattern, patternLength);
+\end_layout
+
+\begin_layout Plain Layout
+  int indexI = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  int indexJ = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  while (indexI < textLength) {
+\end_layout
+
+\begin_layout Plain Layout
+    if (Pattern[indexJ] == Text[indexI]) {
+\end_layout
+
+\begin_layout Plain Layout
+      if (indexJ == (patternLength - 1)) {
+\end_layout
+
+\begin_layout Plain Layout
+        delete [] failure;
+\end_layout
+
+\begin_layout Plain Layout
+        return (indexI - patternLength + 1);
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      indexI++;
+\end_layout
+
+\begin_layout Plain Layout
+      indexJ++;
+\end_layout
+
+\begin_layout Plain Layout
+    } else if (indexJ > 0) { // No match but advanced in P.
+\end_layout
+
+\begin_layout Plain Layout
+      indexJ = failure[indexJ - 1]; // Move forward appropriate amount.
+\end_layout
+
+\begin_layout Plain Layout
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+      indexI++;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  delete [] failure;
+\end_layout
+
+\begin_layout Plain Layout
+  return -1;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/*
+\end_layout
+
+\begin_layout Plain Layout
+ * Main Function
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+int main() {
+\end_layout
+
+\begin_layout Plain Layout
+  scanf("%d
+\backslash
+n", &testCases);
+\end_layout
+
+\begin_layout Plain Layout
+  while (testCases--) {
+\end_layout
+
+\begin_layout Plain Layout
+    // Read in our pattern and text
+\end_layout
+
+\begin_layout Plain Layout
+    gets(pattern);
+\end_layout
+
+\begin_layout Plain Layout
+    gets(text);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // found our pattern in text
+ and report the location
+\lang english
+.
+\end_layout
+
+\begin_layout Plain Layout
+    index = KMPMatch(text, strlen(text), pattern, strlen(pattern));
+\end_layout
+
+\begin_layout Plain Layout
+    if (index == -1) {
+\end_layout
+
+\begin_layout Plain Layout
+      printf("%d NOT FOUND
+\backslash
+n", testCount++);
+\end_layout
+
+\begin_layout Plain Layout
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+      printf("%d %d
+\backslash
+n", testCount++, index);
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+  return 0;
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to Big String Search (C++)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Bis"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Big String Problem is a relatively simple problem that relies on the
+ string search algorithm to be correct.
+ As can be seen in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Bis"
+
+\end_inset
+
+, within the main() function, while-loop comprises of simply reading in
+ the pattern and text strings, performing the search function and reporting
+ the results of the search.
+\end_layout
+
+\begin_layout Standard
+Sample test cases include:
+\end_layout
+
+\begin_layout Itemize
+Pattern and Text length being 1.
+\end_layout
+
+\begin_layout Itemize
+Pattern length being greater than the text length.
+\end_layout
+
+\begin_layout Subsection
+Graph Theory (Basic)
+\end_layout
+
+\begin_layout Standard
+Graph Theory form one of the principle area of modern computer science due
+ to its ability to be applied to a wide range of problems and areas.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Subsubsection
+Representation as adjacency matrix and adjacency list.
 \end_layout
 
 \begin_layout Standard
