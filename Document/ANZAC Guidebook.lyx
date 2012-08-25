@@ -17446,52 +17446,57 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * KMP Failure function.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param Pattern Pointer to the pattern to be processed to derive the failure
 \end_layout
 
 \begin_layout Plain Layout
 
- *                
-\lang english
-function.
+ *                function.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param patternLength Length of pattern.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @return The failure function (array of int).
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 int *KMPFailure(char *Pattern, int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
-  int indexI = 
-1
-\lang english
-;
+
+  int indexI = 1;
 \end_layout
 
 \begin_layout Plain Layout
+
   int indexJ = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   int* failure = new int[patternLength]; // Create new function f.
 \end_layout
 
@@ -17500,50 +17505,62 @@ int *KMPFailure(char *Pattern, int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
   failure[0] = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   while (indexI < patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
     if (Pattern[indexJ] == Pattern[indexI]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       failure[indexI++] = ++indexJ;
 \end_layout
 
 \begin_layout Plain Layout
+
     } else if (indexJ > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
       indexJ = failure[indexJ - 1];
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       failure[indexI++] = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   return failure;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -17552,119 +17569,148 @@ int *KMPFailure(char *Pattern, int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * Utilise the KMP Substring search algorithm to find a pattern in text.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param Text Pointer to the text to be searched.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param textLength Length of the text to be processed.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param Pattern Pointer to the pattern to find within the text
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param patternLength Length of the pattern string
 \end_layout
 
 \begin_layout Plain Layout
+
  * @return Index of pattern in text, otherwise -1 if not found.
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 int KMPMatch(char* Text, int textLength, char* Pattern, int patternLength)
  {
 \end_layout
 
 \begin_layout Plain Layout
+
   char* failure = KMPFailure(Pattern, patternLength);
 \end_layout
 
 \begin_layout Plain Layout
+
   int indexI = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   int indexJ = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   while (indexI < textLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
     if (Pattern[indexJ] == Text[indexI]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (indexJ == (patternLength - 1)) {
 \end_layout
 
 \begin_layout Plain Layout
+
         delete(failure); // Found a match, so return the index.
 \end_layout
 
 \begin_layout Plain Layout
+
         return (indexI - patternLength + 1);
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       indexI++;
 \end_layout
 
 \begin_layout Plain Layout
+
       indexJ++;
 \end_layout
 
 \begin_layout Plain Layout
+
     } else if (indexJ > 0) { // No match but advanced in P.
 \end_layout
 
 \begin_layout Plain Layout
+
       indexJ = failure[indexJ - 1]; // Move forward appropriate amount.
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       indexI++;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   delete(failure);
 \end_layout
 
 \begin_layout Plain Layout
+
   return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -17673,7 +17719,6 @@ int KMPMatch(char* Text, int textLength, char* Pattern, int patternLength)
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 KMP String Match (C++)
 \begin_inset CommandInset label
 LatexCommand label
@@ -17859,14 +17904,17 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 #include <cstdlib>
 \end_layout
 
 \begin_layout Plain Layout
+
 #include <cstdio>
 \end_layout
 
 \begin_layout Plain Layout
+
 #include <cstring>
 \end_layout
 
@@ -17875,6 +17923,7 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+
 using namespace std;
 \end_layout
 
@@ -17883,10 +17932,12 @@ using namespace std;
 \end_layout
 
 \begin_layout Plain Layout
+
 #define MAX_PATTERN_LENGTH 100000
 \end_layout
 
 \begin_layout Plain Layout
+
 #define MAX_TEXT_LENGTH 500000
 \end_layout
 
@@ -17895,14 +17946,17 @@ using namespace std;
 \end_layout
 
 \begin_layout Plain Layout
+
 int testCases = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 char pattern[MAX_PATTERN_LENGTH];
 \end_layout
 
 \begin_layout Plain Layout
+
 char text[MAX_TEXT_LENGTH];
 \end_layout
 
@@ -17911,10 +17965,12 @@ char text[MAX_TEXT_LENGTH];
 \end_layout
 
 \begin_layout Plain Layout
+
 int index = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 int testCount = 1;
 \end_layout
 
@@ -17923,45 +17979,53 @@ int testCount = 1;
 \end_layout
 
 \begin_layout Plain Layout
+
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * KMP Failure function.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param Pattern Pointer to the pattern to be processed to derive the failure
- 
-\lang english
-function.
+ function.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param patternLength Length of pattern.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @return The failure function (array of int).
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 int *KMPFailure(char *Pattern, int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
   int indexI = 1;
 \end_layout
 
 \begin_layout Plain Layout
+
   int indexJ = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   int* failure = new int[patternLength]; // Create new function f.
 \end_layout
 
@@ -17970,50 +18034,62 @@ int *KMPFailure(char *Pattern, int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
   failure[0] = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   while (indexI < patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
     if (Pattern[indexJ] == Pattern[indexI]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       failure[indexI++] = ++indexJ;
 \end_layout
 
 \begin_layout Plain Layout
+
     } else if (indexJ > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
       indexJ = failure[indexJ - 1];
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       failure[indexI++] = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   return failure;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -18022,119 +18098,148 @@ int *KMPFailure(char *Pattern, int patternLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * Utilise the KMP Substring search algorithm to find a pattern in text.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param Text Pointer to the text to be searched.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param textLength Length of the text to be processed.
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param Pattern Pointer to the pattern to find within the text
 \end_layout
 
 \begin_layout Plain Layout
+
  * @param patternLength Length of the pattern string
 \end_layout
 
 \begin_layout Plain Layout
+
  * @return Index of pattern in text, otherwise -1 if not found.
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 int KMPMatch(char* Text, int textLength, char* Pattern, int patternLength)
  {
 \end_layout
 
 \begin_layout Plain Layout
+
   int* failure = KMPFailure(Pattern, patternLength);
 \end_layout
 
 \begin_layout Plain Layout
+
   int indexI = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   int indexJ = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   while (indexI < textLength) {
 \end_layout
 
 \begin_layout Plain Layout
+
     if (Pattern[indexJ] == Text[indexI]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (indexJ == (patternLength - 1)) {
 \end_layout
 
 \begin_layout Plain Layout
+
         delete [] failure;
 \end_layout
 
 \begin_layout Plain Layout
+
         return (indexI - patternLength + 1);
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       indexI++;
 \end_layout
 
 \begin_layout Plain Layout
+
       indexJ++;
 \end_layout
 
 \begin_layout Plain Layout
+
     } else if (indexJ > 0) { // No match but advanced in P.
 \end_layout
 
 \begin_layout Plain Layout
+
       indexJ = failure[indexJ - 1]; // Move forward appropriate amount.
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       indexI++;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   delete [] failure;
 \end_layout
 
 \begin_layout Plain Layout
+
   return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -18143,40 +18248,49 @@ int KMPMatch(char* Text, int textLength, char* Pattern, int patternLength)
 \end_layout
 
 \begin_layout Plain Layout
+
 /*
 \end_layout
 
 \begin_layout Plain Layout
+
  * Main Function
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 int main() {
 \end_layout
 
 \begin_layout Plain Layout
+
   scanf("%d
 \backslash
 n", &testCases);
 \end_layout
 
 \begin_layout Plain Layout
+
   while (testCases--) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Read in our pattern and text
 \end_layout
 
 \begin_layout Plain Layout
+
     gets(pattern);
 \end_layout
 
 \begin_layout Plain Layout
+
     gets(text);
 \end_layout
 
@@ -18185,49 +18299,56 @@ n", &testCases);
 \end_layout
 
 \begin_layout Plain Layout
-    // found our pattern in text
- and report the location
-\lang english
-.
+
+    // found our pattern in text and report the location.
 \end_layout
 
 \begin_layout Plain Layout
+
     index = KMPMatch(text, strlen(text), pattern, strlen(pattern));
 \end_layout
 
 \begin_layout Plain Layout
+
     if (index == -1) {
 \end_layout
 
 \begin_layout Plain Layout
+
       printf("%d NOT FOUND
 \backslash
 n", testCount++);
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       printf("%d %d
 \backslash
 n", testCount++, index);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   return 0;
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -18288,16 +18409,240 @@ Graph Theory (Basic)
 \end_layout
 
 \begin_layout Standard
-Graph Theory form one of the principle area of modern computer science due
- to its ability to be applied to a wide range of problems and areas.
+Graph Theory forms one of the principle areas of modern computer science
+ due to its ability to be applied to a wide range of problems and areas
+ of study.
 \end_layout
 
 \begin_layout Standard
+When viewed abstractly, a 
+\series bold
+graph
+\series default
+ 
+\shape italic
+G
+\shape default
+ is simply a set of 
+\shape italic
+V
+\shape default
+ of 
+\series bold
+vertices
+\series default
+ and a collection of 
+\shape italic
+E
+\shape default
+ of pairs of vertices from 
+\shape italic
+V
+\shape default
+, called 
+\series bold
+edges
+\series default
+.
+ Thus, a graph is a way of representing connections or relationships between
+ pairs of objects from some set 
+\shape italic
+V
+\shape default
+.
+ Egdes in a graph are either 
+\series bold
+directed
+\series default
+ or 
+\series bold
+undirected
+\series default
+, that is an edge may only allow connection in a single direction between
+ vertices.
+ Egdes may also have a 
+\series bold
+weight
+\series default
+ applied that defines the cost
+\begin_inset Foot
+status collapsed
 
+\begin_layout Plain Layout
+A weight may have either a positive or negative value depending on what
+ is being modelled.
+\end_layout
+
+\end_inset
+
+ of utilising the edge for some defined operation.
+\end_layout
+
+\begin_layout Standard
+Using the graph in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Basic-Graph"
+
+\end_inset
+
+ as an example, each location (town/suburb) is a vertex, and the road is
+ an edge between locations.
+ The directions denote if the road is a one-way street or two-way, and the
+ weight is the defined time to travel on that road to get between the vertices.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Graph Basic Description.eps
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Basic Graph
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Basic-Graph"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the graph as shown, some examples include:
+\end_layout
+
+\begin_layout Itemize
+It's quicker to travel from Caboolture to Samford Valley via Brisbane, than
+ it is to go via a direct route.
+ (70 vs 90)
+\end_layout
+
+\begin_layout Itemize
+For someone living in Logan, in order to travel to Brisbane, must travel
+ either through Ipswich or the Gold Coast.
+ (via Ipswich offers the shortest time).
+\end_layout
+
+\begin_layout Itemize
+The only way to travel from the Gold Coast to Samford Valley is via Brisbane.
+\end_layout
+
+\begin_layout Itemize
+And if you arrive in Samford Valley, there is no road that leads out!
+\end_layout
+
+\begin_layout Standard
+Other terminology that is often applied to Graph Theory includes:
+\end_layout
+
+\begin_layout Itemize
+A 
+\series bold
+degree
+\series default
+ of 
+\shape italic
+V
+\shape default
+, denoted 
+\shape italic
+deg(v)
+\shape default
+, is the number of edges incident to 
+\shape italic
+V
+\shape default
+.
+ This may also be broken down into in-degree and ou-degree when applied
+ with a directed graph.
+ (The count of the edges leading to or from the vertex respectively).
+\end_layout
+
+\begin_layout Itemize
+A 
+\series bold
+trail
+\series default
+ in a graph, is a sequences of necessiarily distinct vertices, but distinct
+ edges.
+\end_layout
+
+\begin_layout Itemize
+A 
+\series bold
+path
+\series default
+ is a trail in which all vertices are distinct.
+\end_layout
+
+\begin_layout Itemize
+A 
+\series bold
+circuit
+\series default
+ is a trail in which the starting vertex is the same as the ending vertex.
+\end_layout
+
+\begin_layout Itemize
+A 
+\series bold
+cycle
+\series default
+ is a path in which the starting vertex is the same as the ending vertex.
+\end_layout
+
+\begin_layout Itemize
+A 
+\series bold
+Hamiltonian cycle
+\series default
+ is a cycle that contains all the vertices of a graph.
+\end_layout
+
+\begin_layout Standard
+Other terms commonly used within Graph Theory will be introduced later through
+ out this guide as needed, especially when utilised within description of
+ an algorithm.
 \end_layout
 
 \begin_layout Subsubsection
 Representation as adjacency matrix and adjacency list.
+\end_layout
+
+\begin_layout Standard
+Graphs may be represented in two forms, either as an adjacency matrix or
+ as an adjacency list.
 \end_layout
 
 \begin_layout Standard
