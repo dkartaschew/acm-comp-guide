@@ -16481,7 +16481,7 @@ O(n+m)
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -21222,6 +21222,7 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 public class AdjacencyMatrix<E> {
 \end_layout
 
@@ -21230,10 +21231,12 @@ public class AdjacencyMatrix<E> {
 \end_layout
 
 \begin_layout Plain Layout
+
   private E[][] matrix;
 \end_layout
 
 \begin_layout Plain Layout
+
   private boolean directedGraph = false;
 \end_layout
 
@@ -21242,75 +21245,93 @@ public class AdjacencyMatrix<E> {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Create a new adjacency matrix of size n.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param numberOfVertex The number of vertices in the graph.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param directedGraph If the graph is directed or undirected.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void AdjacencyMatrix(int numberOfVertex, boolean directedGraph)
  {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Create a matrix
 \end_layout
 
 \begin_layout Plain Layout
+
     matrix = (E[][]) new Object[numberOfVertex][numberOfVertex];
 \end_layout
 
 \begin_layout Plain Layout
+
     // Set all egdes to 0.
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int i = 0; i < numberOfVertex; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int j = 0; j < numberOfVertex; j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         setEdge(i, j, null);
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     // Set if graph is directed.
 \end_layout
 
 \begin_layout Plain Layout
+
     this.directedGraph = directedGraph;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -21319,42 +21340,52 @@ public class AdjacencyMatrix<E> {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Find if the specified edge exists.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param i Source vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param j Destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return true, if an edge is present otherwise false.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public boolean isEdge(int i, int j) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return (matrix[i][j] != null);
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -21363,63 +21394,78 @@ public class AdjacencyMatrix<E> {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Set the weight of an edge.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param i Source vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param j Destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param weight The new weight to be applied to this edge.
  (May be zero to
 \end_layout
 
 \begin_layout Plain Layout
+
    * remove the edge from the graph).
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void setEdge(int i, int j, E weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
     matrix[i][j] = weight;
 \end_layout
 
 \begin_layout Plain Layout
+
     if (!directedGraph) {
 \end_layout
 
 \begin_layout Plain Layout
+
       // If undirected graph then set the back edge as well.
 \end_layout
 
 \begin_layout Plain Layout
+
       matrix[j][i] = weight;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -21428,82 +21474,102 @@ public class AdjacencyMatrix<E> {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Get the weight of an edge.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param i Source vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param j Destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The current weight of an edge, or null if no edge.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public E getEdge(int i, int j) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return matrix[i][j];
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
   
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Retrieve the matrix as a string suitable for printing.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return String representation of the matrix.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   @Override
 \end_layout
 
 \begin_layout Plain Layout
+
   public String toString(){
 \end_layout
 
 \begin_layout Plain Layout
+
     return matrix.toString();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -21516,7 +21582,6 @@ public class AdjacencyMatrix<E> {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Adjacency Matrix (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -21789,6 +21854,7 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -21797,6 +21863,7 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class AdjacencyMatrixProblem {
 \end_layout
 
@@ -21805,10 +21872,12 @@ public class AdjacencyMatrixProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     int[][] adjacencyMatrix;
 \end_layout
 
@@ -21817,6 +21886,7 @@ public class AdjacencyMatrixProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner in = new Scanner(System.in);
 \end_layout
 
@@ -21825,22 +21895,27 @@ public class AdjacencyMatrixProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
     // get first line and get the number of cases to test.
 \end_layout
 
 \begin_layout Plain Layout
+
     int caseCount = Integer.parseInt(in.nextLine());
 \end_layout
 
 \begin_layout Plain Layout
+
     int loopCount = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     while (caseCount - loopCount > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
       String line = in.nextLine();
 \end_layout
 
@@ -21849,18 +21924,22 @@ public class AdjacencyMatrixProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
       // extract numbers, this is the node count and edge count.
 \end_layout
 
 \begin_layout Plain Layout
+
       Scanner sc = new Scanner(line);
 \end_layout
 
 \begin_layout Plain Layout
+
       int vertexCount = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       int edgeCount = sc.nextInt();
 \end_layout
 
@@ -21869,156 +21948,194 @@ public class AdjacencyMatrixProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Create the matrix, and clear the contents.
 \end_layout
 
 \begin_layout Plain Layout
+
       adjacencyMatrix = new int[vertexCount][vertexCount];
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < vertexCount; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         for (int j = 0; j < vertexCount; j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
           adjacencyMatrix[i][j] = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       
 \end_layout
 
 \begin_layout Plain Layout
+
       // Read in all the edges.
 \end_layout
 
 \begin_layout Plain Layout
+
       while (edgeCount-- > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
         // Get our next edge...
 \end_layout
 
 \begin_layout Plain Layout
+
         line = in.nextLine();
 \end_layout
 
 \begin_layout Plain Layout
+
         // extract numbers, this is the node count and edge count.
 \end_layout
 
 \begin_layout Plain Layout
+
         sc = new Scanner(line);
 \end_layout
 
 \begin_layout Plain Layout
+
         int source = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         int destination = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         int weight = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         adjacencyMatrix[source][destination] = weight;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       
 \end_layout
 
 \begin_layout Plain Layout
+
       // Print out the matrix.
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf("%d
 \backslash
 n    ", ++loopCount);
 \end_layout
 
 \begin_layout Plain Layout
+
       // Print the row header.
 \end_layout
 
 \begin_layout Plain Layout
+
       for(int i = 0; i < vertexCount; i++){
 \end_layout
 
 \begin_layout Plain Layout
+
         System.out.printf("%5d", i);
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.println();
 \end_layout
 
 \begin_layout Plain Layout
+
       // Print the matrix contents
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < vertexCount; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         System.out.printf("%4d", i); // Row number
 \end_layout
 
 \begin_layout Plain Layout
+
         for (int j = 0; j < vertexCount; j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
           System.out.printf("%5d",adjacencyMatrix[i][j]); // Cell
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
         System.out.println();
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -22027,7 +22144,6 @@ n    ", ++loopCount);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Adjacency Matrix Problem
 \begin_inset CommandInset label
 LatexCommand label
@@ -22069,6 +22185,1968 @@ A graph with zero edges.
 
 \begin_layout Itemize
 Ensuring correct spacing when displaying the matrix.
+\end_layout
+
+\begin_layout Subsubsection
+Graph Traversal
+\end_layout
+
+\begin_layout Standard
+A common operation on a graph is to visit every vertex and perform an operation
+ on it.
+ This can be performed systematically through either a Breadth First Search
+ (BFS) or a Depth First Search (DFS).
+ Both DFS and BFS will visit all vertices in a graph, with the difference
+ being in the order in which they visit each vertex.
+\end_layout
+
+\begin_layout Standard
+Breadth First Search, after visting a given vertex 
+\shape italic
+n
+\shape default
+, will visit every unvisited vertex adjacent to 
+\shape italic
+n
+\shape default
+ before visiting any other nodes.
+ Depth First Search, from a given vertex 
+\shape italic
+n
+\shape default
+, will proceed along a path from 
+\shape italic
+n
+\shape default
+ as deeply into the graph as possible before backtracking.
+ With both algorithms, at any point we need to know:
+\end_layout
+
+\begin_layout Itemize
+Which nodes we have visited.
+\end_layout
+
+\begin_layout Itemize
+Which nodes we have found but need to visit.
+\end_layout
+
+\begin_layout Standard
+Essentially the same algorithm is used for both BFS and DFS, however the
+ datastructures to store the above knowledge points allow the algorithm
+ to work differently.
+ A BFS will use a queue datastructure, whilst DFS will use a stack datastructure
+ to implement those knowledge points.
+ The similarities can be seen comparing both Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Breadth-First-Search"
+
+\end_inset
+
+ and Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Depth-First-Search"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A Graph $G$ and a vertex $s$.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure A vertices are visited in a BFS fashion
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{BFS}{$G, s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$L 
+\backslash
+gets 
+\backslash
+textsc{queue}()$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$L$.enqueue $ 
+\backslash
+gets s$} 
+\backslash
+Comment {enqueue $s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$L$ is not empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$v 
+\backslash
+gets L$.dequeue} 
+\backslash
+Comment {dequeue $v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {visit $v$ and mark as visited} 
+\backslash
+Comment {perform operation on $v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {node $n$ adjacent to $v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$n$ is not visited 
+\backslash
+textbf{and} not on queue}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$L$.enqueue $ 
+\backslash
+gets n$} 
+\backslash
+Comment {enqeue $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Breadth First Search
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Breadth-First-Search"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A Graph $G$ and a vertex $s$.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure A vertices are visited in a DFS fashion
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{DFS}{$G, s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$L 
+\backslash
+gets 
+\backslash
+textsc{stack}()$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$L$.push $ 
+\backslash
+gets s$} 
+\backslash
+Comment {push $s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$L$ is not empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$v 
+\backslash
+gets L$.pop} 
+\backslash
+Comment {pop $v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {visit $v$ and mark as visited} 
+\backslash
+Comment {perform operation on $v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {node $n$ adjacent to $v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$n$ is not visited 
+\backslash
+textbf{and} not on stack}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$L$.push $ 
+\backslash
+gets n$} 
+\backslash
+Comment {push $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Depth First Search
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Depth-First-Search"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of Working
+\end_layout
+
+\begin_layout Standard
+The Depth First Search is considered an adventurous algorithm, in that it
+ simple wanders the graph from vertex to vertex until it reaches a vertex
+ in which it has no unexplored vertices adjacent to the current vertex.
+ Once it reaches this point, it will backtrack until it finds a vertex which
+ has unexplored neighbours and then continue on from this point, until all
+ vertices have been visited.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DFE-Example"
+
+\end_inset
+
+ displays an example of the DFS travesal, where the edges incident of a
+ vertex are explored by alphabetical order of the adjacent vertices, starting
+ at Vertex A.
+ (The direction of travel is displayed by the arrows.
+ In this example, no backtracking has taken place).
+ The order of travesal in this instance is: A, B, C, E, D, F, G.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/DFS.eps
+	width 80text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+DFE Example
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DFE-Example"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Breadth First Search is less adventurous than DFS, however instead of
+ wandering the graph, BFS proceeds in rounds and subdivides the vertices
+ into levels.
+ Breadth First Search, after visting a given vertex 
+\shape italic
+n
+\shape default
+, will visit every unvisited vertex adjacent to 
+\shape italic
+n
+\shape default
+ before visiting any other nodes.
+ For an unweighted graph, BFS therefore provides the shortests paths from
+ the root vertex to all other vertices.
+ BFS is also the basic implementation for a number of shortest paths algorithms.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:BFS-example"
+
+\end_inset
+
+ displays an example of the BFS traversal, where the edges incident of a
+ vertex are explored by alphabetical order of the adjacent vertices, starting
+ at Vertex A.
+ (The discovery edges are shown with bold lines and the crossed edges with
+ a dash line: (a) graph before the traversal; (b) discovery at level 1;
+ (c) discovery at level 2; (d) discovery at level 3.).
+ The order of travesal in this instance is: A, B, D, C, E, F, G.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/BFS.eps
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+BFS Example
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:BFS-example"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On comparing both implementations, it is considered that the DFS travesal
+ is better for answering complex connectivity questions, such as determining
+ if every pair of vertices in a graph can be connected by two disjoint paths.
+ Whilst BFS is better for finding shortest path between a root vertex and
+ a destination vertex.
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the DFS algorithm in Java can be seen in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Breadth-Search-First"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.LinkedList;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class BFS {
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Traverse a graph (as represented by an Adjacency Matrix) starting at
+\end_layout
+
+\begin_layout Plain Layout
+
+   * root, printing the Vertex ID to console.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param matrix The Adjacency Matrix representing the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param root The starting vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void BFSTravese(int[][] matrix, int root){
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Create a queue
+\end_layout
+
+\begin_layout Plain Layout
+
+    LinkedList<Integer> queue = new LinkedList<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Create a visited list.
+\end_layout
+
+\begin_layout Plain Layout
+
+    ArrayList<Integer> visited = new ArrayList<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Insert the start vertex into the queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+    queue.offer(root);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    // While the queue is not empty
+\end_layout
+
+\begin_layout Plain Layout
+
+    while(!queue.isEmpty()){
+\end_layout
+
+\begin_layout Plain Layout
+
+      int node = queue.poll();
+\end_layout
+
+\begin_layout Plain Layout
+
+      visited.add(node);
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("%d ", node); // Print the node ID to console.
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+      for(int i = 0; i < matrix.length; i++){
+\end_layout
+
+\begin_layout Plain Layout
+
+        // If node not in queue or in visited add to queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+        if(matrix[node][i] != 0){ // Make sure we are an edge
+\end_layout
+
+\begin_layout Plain Layout
+
+          if(!queue.contains(i) && !visited.contains(i)){
+\end_layout
+
+\begin_layout Plain Layout
+
+            queue.offer(i);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Breadth Search First (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Breadth-Search-First"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An implementation of the Depth First Search can be seen in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Depth-Search-First"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Stack;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class DFS {
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Traverse a graph (as represented by an Adjacency Matrix) starting at
+\end_layout
+
+\begin_layout Plain Layout
+
+   * root, printing the Vertex ID to console.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param matrix The Adjacency Matrix representing the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param root The starting vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void DFSTravese(int[][] matrix, int root){
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Create a queue
+\end_layout
+
+\begin_layout Plain Layout
+
+    Stack<Integer> stack = new Stack<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Create a visited list.
+\end_layout
+
+\begin_layout Plain Layout
+
+    ArrayList<Integer> visited = new ArrayList<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Insert the start vertex into the queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+    stack.push(root);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    // While the queue is not empty
+\end_layout
+
+\begin_layout Plain Layout
+
+    while(!stack.isEmpty()){
+\end_layout
+
+\begin_layout Plain Layout
+
+      int node = stack.pop();
+\end_layout
+
+\begin_layout Plain Layout
+
+      visited.add(node);
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("%d ", node); // Print the node ID to console.
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+      for(int i = 0; i < matrix.length; i++){
+\end_layout
+
+\begin_layout Plain Layout
+
+        // If node not in queue or in visited add to queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+        if(matrix[node][i] != 0){ // Make sure we are an edge
+\end_layout
+
+\begin_layout Plain Layout
+
+          if(!stack.contains(i) && !visited.contains(i)){
+\end_layout
+
+\begin_layout Plain Layout
+
+            stack.push(i);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Depth Search First (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Depth-Search-First"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Monks
+\end_layout
+
+\begin_layout Standard
+The order of Avidly Calculating Monks have their ashram high in the Sierra
+ Nevada mountains east of Silicon Valley.
+ After many years of training, each novice is faced with a final test before
+ he can become a full member of the ACM.
+ 
+\end_layout
+
+\begin_layout Standard
+In this test, the novice is led into a room containing three large urns,
+ each containing a number of delicate glass beads.
+ His task is to completely empty one of the urns using the following special
+ procedure.
+ Each day, the novice must select two of the urns, the source, and the destinati
+on.
+ He must then carefully move beads from the source urn to the destination
+ urn, never breaking one, until the original contents of the destination
+ urn are doubled.
+ No other beads may be moved.
+ 
+\end_layout
+
+\begin_layout Standard
+So for example, if the number of beads in the three urns were respectively
+ 
+\end_layout
+
+\begin_layout Standard
+115, 200 and 256 beads 
+\end_layout
+
+\begin_layout Standard
+then the novice might choose the second urn as the source and the first
+ as the destination which would result in new contents of 
+\end_layout
+
+\begin_layout Standard
+230, 85 and 256 beads
+\end_layout
+
+\begin_layout Standard
+at the end of the first day.
+ Then on the second day the novice might choose the urn with 256 beads as
+ the source, and that with 85 as the destination leaving 
+\end_layout
+
+\begin_layout Standard
+230, 170 and 171 beads 
+\end_layout
+
+\begin_layout Standard
+at the end of the second day.
+ If the original contents were 12, 30, and 12 beads, then choosing the first
+ as source and the third as destination would result in 0, 30, and 24 beads
+ and completion of the task.
+ 
+\end_layout
+
+\begin_layout Standard
+The chief guru of the ACM always likes to have available a crib sheet indicating
+ how many days the novices should take if they use as few transfers as possible
+ to empty one of the urns.
+ Your task is to provide this crib sheet.
+ 
+\end_layout
+
+\begin_layout Standard
+Given a sequence of scenarios, each with a triple of non-negative integers
+ representing the urn contents, determine for each scenario the smallest
+ possible number of days required to empty one of the urns.
+ This problem is guaranteed to have a solution in each case.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+Input will consist of a sequence of lines, each line representing a scenario.
+ Each line consists of three integers in the range from 0 to 500 representing
+ the initial urn contents, separated by single spaces.
+ Input is terminated by the line “
+\family typewriter
+0 0 0
+\family default
+”, which is not processed.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+0 3 5 
+\begin_inset Newline newline
+\end_inset
+
+5 0 3 
+\begin_inset Newline newline
+\end_inset
+
+1 1 1 
+\begin_inset Newline newline
+\end_inset
+
+2 3 4 
+\begin_inset Newline newline
+\end_inset
+
+12 3 8 
+\begin_inset Newline newline
+\end_inset
+
+0 0 0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each scenario “
+\family typewriter
+a b c
+\family default
+”, output a line of the form 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+a b c d
+\family default
+ 
+\end_layout
+
+\begin_layout Standard
+where d is the smallest possible number of days required to empty an urn
+ beginning from contents 
+\family typewriter
+a
+\family default
+, 
+\family typewriter
+b
+\family default
+, and 
+\family typewriter
+c
+\family default
+.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+0 3 5 0
+\begin_inset Newline newline
+\end_inset
+
+5 0 3 0
+\begin_inset Newline newline
+\end_inset
+
+1 1 1 1
+\begin_inset Newline newline
+\end_inset
+
+2 3 4 2
+\begin_inset Newline newline
+\end_inset
+
+12 3 8 5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Monks problem can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Monks"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.LinkedList;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+/**
+\end_layout
+
+\begin_layout Plain Layout
+ * Jar Class to hold an instance of a set of Jars.
+\end_layout
+
+\begin_layout Plain Layout
+ */
+\end_layout
+
+\begin_layout Plain Layout
+class Jars {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public final static int A = 0;
+\end_layout
+
+\begin_layout Plain Layout
+  public final static int B = 1;
+\end_layout
+
+\begin_layout Plain Layout
+  public final static int C = 2;
+\end_layout
+
+\begin_layout Plain Layout
+  private int[] jars = {0, 0, 0};
+\end_layout
+
+\begin_layout Plain Layout
+  public int count;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Constructor
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param JarA the number of beads in Jar A.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param JarB the number of beads in Jar B.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param JarC the number of beads in Jar C.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public Jars(int JarA, int JarB, int JarC) {
+\end_layout
+
+\begin_layout Plain Layout
+    jars[A] = JarA;
+\end_layout
+
+\begin_layout Plain Layout
+    jars[B] = JarB;
+\end_layout
+
+\begin_layout Plain Layout
+    jars[C] = JarC;
+\end_layout
+
+\begin_layout Plain Layout
+    count = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    Sort();
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Copy Constructor
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param other The Jars to copy.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public Jars(Jars other) {
+\end_layout
+
+\begin_layout Plain Layout
+    this.jars[A] = other.jars[A];
+\end_layout
+
+\begin_layout Plain Layout
+    this.jars[B] = other.jars[B];
+\end_layout
+
+\begin_layout Plain Layout
+    this.jars[C] = other.jars[C];
+\end_layout
+
+\begin_layout Plain Layout
+    this.count = other.count;
+\end_layout
+
+\begin_layout Plain Layout
+    Sort();
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Sort the contents of the jars into numerical order.
+ Thus: a < b < c
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public final void Sort() {
+\end_layout
+
+\begin_layout Plain Layout
+    int tmp;
+\end_layout
+
+\begin_layout Plain Layout
+    if (jars[B] < jars[A]) {
+\end_layout
+
+\begin_layout Plain Layout
+      tmp = jars[B];
+\end_layout
+
+\begin_layout Plain Layout
+      jars[B] = jars[A];
+\end_layout
+
+\begin_layout Plain Layout
+      jars[A] = tmp;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    if (jars[C] < jars[B]) {
+\end_layout
+
+\begin_layout Plain Layout
+      tmp = jars[C];
+\end_layout
+
+\begin_layout Plain Layout
+      jars[C] = jars[B];
+\end_layout
+
+\begin_layout Plain Layout
+      jars[B] = tmp;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    if (jars[B] < jars[A]) {
+\end_layout
+
+\begin_layout Plain Layout
+      tmp = jars[B];
+\end_layout
+
+\begin_layout Plain Layout
+      jars[B] = jars[A];
+\end_layout
+
+\begin_layout Plain Layout
+      jars[B] = tmp;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Get if there is an empty Jar within the set.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public boolean EmptyJar() {
+\end_layout
+
+\begin_layout Plain Layout
+    return ((jars[A] == 0) || (jars[B] == 0) || (jars[C] == 0));
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Move beads from one jar to another.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param source The jar to take beads from.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param destination The jar to add beads to.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public void moveBeads(int source, int destination) {
+\end_layout
+
+\begin_layout Plain Layout
+    jars[source] -= jars[destination];
+\end_layout
+
+\begin_layout Plain Layout
+    jars[destination] += jars[destination];
+\end_layout
+
+\begin_layout Plain Layout
+    Sort(); // The resulting jar counts MUST be sorted.
+\end_layout
+
+\begin_layout Plain Layout
+    count++; // Increment the move count.
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class Monks {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Main.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Read in lines as needed.
+\end_layout
+
+\begin_layout Plain Layout
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+    String line = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+    // Quit when our input is "0 0 0"
+\end_layout
+
+\begin_layout Plain Layout
+    while (!line.equals("0 0 0")) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      Scanner sc = new Scanner(line);
+\end_layout
+
+\begin_layout Plain Layout
+      // Output the minimum moves required.
+\end_layout
+
+\begin_layout Plain Layout
+      System.out.printf("%s %d
+\backslash
+n", line,
+\end_layout
+
+\begin_layout Plain Layout
+              LeastMoves(new Jars(sc.nextInt(), sc.nextInt(), sc.nextInt())));
+\end_layout
+
+\begin_layout Plain Layout
+      line = in.nextLine(); // Get next line.
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Find the minimum number of moves required to move beads until at least
+ 1
+\end_layout
+
+\begin_layout Plain Layout
+   * jar is empty.
+ This function is a modified BFS algorithm, with each vertex
+\end_layout
+
+\begin_layout Plain Layout
+   * to search next being derived from the current vertex contents.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param jars The starting jar contents.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return The minimum number of moves.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  static int LeastMoves(Jars jars) {
+\end_layout
+
+\begin_layout Plain Layout
+    // Check for empty jar
+\end_layout
+
+\begin_layout Plain Layout
+    if (jars.EmptyJar()) {
+\end_layout
+
+\begin_layout Plain Layout
+      return 0; // If our start set of jars has an empty jar, then exit.
+\end_layout
+
+\begin_layout Plain Layout
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+      int leastMoves = 0; // result
+\end_layout
+
+\begin_layout Plain Layout
+      LinkedList<Jars> moves = new LinkedList<Jars>(); // create queue
+\end_layout
+
+\begin_layout Plain Layout
+      moves.offer(jars); // add initial jars state to queue
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      while ((!moves.isEmpty()) && (leastMoves == 0)) {
+\end_layout
+
+\begin_layout Plain Layout
+        Jars current = new Jars(moves.poll()); // remove first in queue
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+        // Process the current set of Jars, first check for empty jar
+\end_layout
+
+\begin_layout Plain Layout
+        if (current.EmptyJar()) {
+\end_layout
+
+\begin_layout Plain Layout
+          leastMoves = current.count; // store result
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+        } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+          // Visit all neighbouring vertices (or Jars derived from the
+\end_layout
+
+\begin_layout Plain Layout
+          // current Jar).
+\end_layout
+
+\begin_layout Plain Layout
+          // Since all Jars are stored in numerical order (a<b<c), we
+\end_layout
+
+\begin_layout Plain Layout
+          // can reduce the number of tests to perform, and this also
+\end_layout
+
+\begin_layout Plain Layout
+          // ensures that any subtraction doesn't result in a negative
+\end_layout
+
+\begin_layout Plain Layout
+          // bead count.
+\end_layout
+
+\begin_layout Plain Layout
+          Jars moveBtoA = new Jars(current);
+\end_layout
+
+\begin_layout Plain Layout
+          moveBtoA.moveBeads(Jars.B, Jars.A);
+\end_layout
+
+\begin_layout Plain Layout
+          moves.offer(moveBtoA); // add result to queue
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+          Jars moveCtoA = new Jars(current);
+\end_layout
+
+\begin_layout Plain Layout
+          moveCtoA.moveBeads(Jars.C, Jars.A);
+\end_layout
+
+\begin_layout Plain Layout
+          moves.offer(moveCtoA); // add result to queue
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+          current.moveBeads(Jars.C, Jars.B); 
+\end_layout
+
+\begin_layout Plain Layout
+          moves.offer(current); // add result to queue
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      return leastMoves;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Monks Problem
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Monks"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The use of the BFS algorithm highlights the breadth of the application of
+ the algorithm.
+ Figure demonstrates the core method LeastMoves() of the sample solution.
+\end_layout
+
+\begin_layout Standard
+There are few challenging cases within the Monks problem.
+ Ensuring that the jar bead counts are stored in numerical order allows
+ a reduction in the number of edges to explore, as well as removing the
+ requirement to ensure a subtraction from one jar does not result in a negative
+ bead count within a jar.
 \end_layout
 
 \begin_layout Standard
