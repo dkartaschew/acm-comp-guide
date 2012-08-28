@@ -23485,10 +23485,12 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.LinkedList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -23497,18 +23499,22 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * Jar Class to hold an instance of a set of Jars.
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 class Jars {
 \end_layout
 
@@ -23517,22 +23523,27 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   public final static int A = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   public final static int B = 1;
 \end_layout
 
 \begin_layout Plain Layout
+
   public final static int C = 2;
 \end_layout
 
 \begin_layout Plain Layout
+
   private int[] jars = {0, 0, 0};
 \end_layout
 
 \begin_layout Plain Layout
+
   public int count;
 \end_layout
 
@@ -23541,58 +23552,72 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Constructor
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param JarA the number of beads in Jar A.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param JarB the number of beads in Jar B.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param JarC the number of beads in Jar C.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public Jars(int JarA, int JarB, int JarC) {
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[A] = JarA;
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[B] = JarB;
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[C] = JarC;
 \end_layout
 
 \begin_layout Plain Layout
+
     count = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     Sort();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -23601,50 +23626,62 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Copy Constructor
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param other The Jars to copy.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public Jars(Jars other) {
 \end_layout
 
 \begin_layout Plain Layout
+
     this.jars[A] = other.jars[A];
 \end_layout
 
 \begin_layout Plain Layout
+
     this.jars[B] = other.jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
     this.jars[C] = other.jars[C];
 \end_layout
 
 \begin_layout Plain Layout
+
     this.count = other.count;
 \end_layout
 
 \begin_layout Plain Layout
+
     Sort();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -23653,87 +23690,187 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
+   * Compare one set of Jars to another.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param other The Jars to compare.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return true if the values are the same.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+  public boolean equals(Object other) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (this.jars[A] == ((Jars)other).jars[A]
+\end_layout
+
+\begin_layout Plain Layout
+
+            && this.jars[B] == ((Jars)other).jars[B]
+\end_layout
+
+\begin_layout Plain Layout
+
+            && this.jars[C] == ((Jars)other).jars[C]) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return true;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return false;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
    * Sort the contents of the jars into numerical order.
  Thus: a < b < c
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public final void Sort() {
 \end_layout
 
 \begin_layout Plain Layout
+
     int tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars[B] < jars[A]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       tmp = jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = jars[A];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[A] = tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars[C] < jars[B]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       tmp = jars[C];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[C] = jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars[B] < jars[A]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       tmp = jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = jars[A];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -23742,26 +23879,32 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Get if there is an empty Jar within the set.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public boolean EmptyJar() {
 \end_layout
 
 \begin_layout Plain Layout
+
     return ((jars[A] == 0) || (jars[B] == 0) || (jars[C] == 0));
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -23770,54 +23913,67 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Move beads from one jar to another.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param source The jar to take beads from.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param destination The jar to add beads to.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void moveBeads(int source, int destination) {
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[source] -= jars[destination];
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[destination] += jars[destination];
 \end_layout
 
 \begin_layout Plain Layout
+
     Sort(); // The resulting jar counts MUST be sorted.
 \end_layout
 
 \begin_layout Plain Layout
+
     count++; // Increment the move count.
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -23826,6 +23982,7 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
 public class Monks {
 \end_layout
 
@@ -23834,18 +23991,22 @@ public class Monks {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
@@ -23854,22 +24015,27 @@ public class Monks {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Read in lines as needed.
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner in = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
+
     String line = in.nextLine();
 \end_layout
 
 \begin_layout Plain Layout
+
     // Quit when our input is "0 0 0"
 \end_layout
 
 \begin_layout Plain Layout
+
     while (!line.equals("0 0 0")) {
 \end_layout
 
@@ -23878,32 +24044,39 @@ public class Monks {
 \end_layout
 
 \begin_layout Plain Layout
+
       Scanner sc = new Scanner(line);
 \end_layout
 
 \begin_layout Plain Layout
+
       // Output the minimum moves required.
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf("%s %d
 \backslash
 n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
               LeastMoves(new Jars(sc.nextInt(), sc.nextInt(), sc.nextInt())));
 \end_layout
 
 \begin_layout Plain Layout
+
       line = in.nextLine(); // Get next line.
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -23912,68 +24085,84 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Find the minimum number of moves required to move beads until at least
  1
 \end_layout
 
 \begin_layout Plain Layout
+
    * jar is empty.
  This function is a modified BFS algorithm, with each vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * to search next being derived from the current vertex contents.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param jars The starting jar contents.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The minimum number of moves.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   static int LeastMoves(Jars jars) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Check for empty jar
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars.EmptyJar()) {
 \end_layout
 
 \begin_layout Plain Layout
+
       return 0; // If our start set of jars has an empty jar, then exit.
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       int leastMoves = 0; // result
 \end_layout
 
 \begin_layout Plain Layout
+
       LinkedList<Jars> moves = new LinkedList<Jars>(); // create queue
 \end_layout
 
 \begin_layout Plain Layout
+
       moves.offer(jars); // add initial jars state to queue
 \end_layout
 
@@ -23982,10 +24171,12 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
       while ((!moves.isEmpty()) && (leastMoves == 0)) {
 \end_layout
 
 \begin_layout Plain Layout
+
         Jars current = new Jars(moves.poll()); // remove first in queue
 \end_layout
 
@@ -23994,14 +24185,17 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
         // Process the current set of Jars, first check for empty jar
 \end_layout
 
 \begin_layout Plain Layout
+
         if (current.EmptyJar()) {
 \end_layout
 
 \begin_layout Plain Layout
+
           leastMoves = current.count; // store result
 \end_layout
 
@@ -24010,6 +24204,7 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
         } else {
 \end_layout
 
@@ -24018,39 +24213,63 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
           // Visit all neighbouring vertices (or Jars derived from the
 \end_layout
 
 \begin_layout Plain Layout
+
           // current Jar).
 \end_layout
 
 \begin_layout Plain Layout
+
           // Since all Jars are stored in numerical order (a<b<c), we
 \end_layout
 
 \begin_layout Plain Layout
+
           // can reduce the number of tests to perform, and this also
 \end_layout
 
 \begin_layout Plain Layout
+
           // ensures that any subtraction doesn't result in a negative
 \end_layout
 
 \begin_layout Plain Layout
+
           // bead count.
 \end_layout
 
 \begin_layout Plain Layout
+
           Jars moveBtoA = new Jars(current);
 \end_layout
 
 \begin_layout Plain Layout
+
           moveBtoA.moveBeads(Jars.B, Jars.A);
 \end_layout
 
 \begin_layout Plain Layout
-          moves.offer(moveBtoA); // add result to queue
+
+          if (!moves.contains(moveBtoA)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            // add result to queue if not already on queue
+\end_layout
+
+\begin_layout Plain Layout
+
+            moves.offer(moveBtoA); 
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
 \end_layout
 
 \begin_layout Plain Layout
@@ -24058,34 +24277,67 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
           Jars moveCtoA = new Jars(current);
 \end_layout
 
 \begin_layout Plain Layout
+
           moveCtoA.moveBeads(Jars.C, Jars.A);
 \end_layout
 
 \begin_layout Plain Layout
-          moves.offer(moveCtoA); // add result to queue
+
+          // add result to queue if not already on queue
 \end_layout
 
 \begin_layout Plain Layout
 
+          if (!moves.contains(moveCtoA)) {
 \end_layout
 
 \begin_layout Plain Layout
-          current.moveBeads(Jars.C, Jars.B); 
+
+            moves.offer(moveCtoA); // add result to queue
 \end_layout
 
 \begin_layout Plain Layout
-          moves.offer(current); // add result to queue
+
+          }
 \end_layout
 
 \begin_layout Plain Layout
+
+          
+\end_layout
+
+\begin_layout Plain Layout
+
+          current.moveBeads(Jars.C, Jars.B);
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (!moves.contains(current)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            moves.offer(current); // add result to queue
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -24094,19 +24346,27 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
       return leastMoves;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -24114,8 +24374,7 @@ n", line,
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
-Solution to Monks Problem
+Solution to Monks Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
 name "lis:Solution-to-Monks"
@@ -24138,7 +24397,85 @@ name "lis:Solution-to-Monks"
 \begin_layout Standard
 The use of the BFS algorithm highlights the breadth of the application of
  the algorithm.
- Figure demonstrates the core method LeastMoves() of the sample solution.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Monks-Solution-Diagram"
+
+\end_inset
+
+ demonstrates the core method LeastMoves() of the sample solution.
+ You will notice immediately that the resulting calculations that define
+ new jar values form a tree (which is a type of grah), that allows us to
+ the BFS to solve the problems as presented.
+ The key difference, is that new vertices (or Jars) to explore are derived
+ at runtime, and not part of a set graph to explore.
+ This allows the solution to scale to very large graphs of possible jar
+ combinations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Monks.eps
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Monks Solution Diagram
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Monks-Solution-Diagram"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At Step 1, there are no empty jars, so add the three resulting calculations
+ for the new jar values to the queue.
+ At Step 2, take this jar from the stack, inspect, and since there are no
+ empty jars, add the three resulting calculations for the new jar values
+ to the queue, if the queue already doesn't contain a set of jars with the
+ same value present.
+ This stops the implementation from retesting values that are already on
+ queue to tested.
+ This can be seen at step 2, in that the value {2, 3, 4} and {2, 3, 4} are
+ not added to the queue, as they are already on the queue.
+ (The head of the queue is the set of values to be tested at step 3 which
+ incidently is {2, 3, 4}).
+\end_layout
+
+\begin_layout Standard
+Repeat this process for steps 3 and 4.
+ Since Step 5 has an empty jar we terminate algorithm and return the current
+ count value.
 \end_layout
 
 \begin_layout Standard
@@ -24147,6 +24484,24 @@ There are few challenging cases within the Monks problem.
  a reduction in the number of edges to explore, as well as removing the
  requirement to ensure a subtraction from one jar does not result in a negative
  bead count within a jar.
+ 
+\end_layout
+
+\begin_layout Standard
+A further improvement can be made to the implementation, is to avoid placing
+ jars that contain the same values as those already tested onto the queue.
+ The implementation does this to a limited fashion, by looking at the current
+ queue of values to test, but does not do this for all values that have
+ been previously tested.
+ However maintaining this separate known values storage container adds some
+ overhead to each iteration of the implementation, so was omitted in this
+ instance, since the maximum values in the jars is quite low, and this keeps
+ the queue length low as well.
+ (It is a design trade-off between complexity and performance).
+\end_layout
+
+\begin_layout Subsubsection
+Minimum Spanning Tree
 \end_layout
 
 \begin_layout Standard

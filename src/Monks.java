@@ -2,6 +2,7 @@
 import java.util.LinkedList;
 import java.util.Scanner;
 
+
 /**
  * Jar Class to hold an instance of a set of Jars.
  */
@@ -39,6 +40,16 @@ class Jars {
     this.jars[C] = other.jars[C];
     this.count = other.count;
     Sort();
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (this.jars[A] == ((Jars)other).jars[A]
+            && this.jars[B] == ((Jars)other).jars[B]
+            && this.jars[C] == ((Jars)other).jars[C]) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -139,14 +150,22 @@ public class Monks {
           // bead count.
           Jars moveBtoA = new Jars(current);
           moveBtoA.moveBeads(Jars.B, Jars.A);
-          moves.offer(moveBtoA); // add result to queue
+          if (!moves.contains(moveBtoA)) {
+            // add result to queue if not already on queue
+            moves.offer(moveBtoA); 
+          }
 
           Jars moveCtoA = new Jars(current);
           moveCtoA.moveBeads(Jars.C, Jars.A);
+          // add result to queue if not already on queue
+          if (!moves.contains(moveCtoA)) {
           moves.offer(moveCtoA); // add result to queue
-
-          current.moveBeads(Jars.C, Jars.B); 
-          moves.offer(current); // add result to queue
+          }
+          
+          current.moveBeads(Jars.C, Jars.B);
+          if (!moves.contains(current)) {
+            moves.offer(current); // add result to queue
+          }
         }
       }
 
