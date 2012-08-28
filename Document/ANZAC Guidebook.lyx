@@ -24462,19 +24462,18 @@ At Step 1, there are no empty jars, so add the three resulting calculations
  for the new jar values to the queue.
  At Step 2, take this jar from the stack, inspect, and since there are no
  empty jars, add the three resulting calculations for the new jar values
- to the queue, if the queue already doesn't contain a set of jars with the
- same value present.
- This stops the implementation from retesting values that are already on
- queue to tested.
- This can be seen at step 2, in that the value {2, 3, 4} and {2, 3, 4} are
- not added to the queue, as they are already on the queue.
- (The head of the queue is the set of values to be tested at step 3 which
- incidently is {2, 3, 4}).
+ to the queue, if the visited list or queue already doesn't contain a set
+ of jars with the same value present.
+ This stops the implementation from retesting values that have already been
+ tested.
+ This can be seen at step 1, in that the value {2, 3, 4} is not added to
+ the queue, as this value has already been visited.
+ 
 \end_layout
 
 \begin_layout Standard
-Repeat this process for steps 3 and 4.
- Since Step 5 has an empty jar we terminate algorithm and return the current
+Repeat this process for step 3.
+ Since Step 4 has an empty jar we terminate algorithm and return the current
  count value.
 \end_layout
 
@@ -24484,24 +24483,1670 @@ There are few challenging cases within the Monks problem.
  a reduction in the number of edges to explore, as well as removing the
  requirement to ensure a subtraction from one jar does not result in a negative
  bead count within a jar.
- 
+ The main tricky case, is that when the starting bead count is such that
+ there is no solution, that even after an infinite number of moves no solution
+ is found.
 \end_layout
 
 \begin_layout Standard
-A further improvement can be made to the implementation, is to avoid placing
- jars that contain the same values as those already tested onto the queue.
- The implementation does this to a limited fashion, by looking at the current
- queue of values to test, but does not do this for all values that have
- been previously tested.
- However maintaining this separate known values storage container adds some
- overhead to each iteration of the implementation, so was omitted in this
- instance, since the maximum values in the jars is quite low, and this keeps
- the queue length low as well.
- (It is a design trade-off between complexity and performance).
+The way the solution has been implementated ensures that if there is no
+ solution to moving beads, that the search will terminate as well, since
+ it won't retest values that have already been tested.
+ Therefore it's possible to exhaust all combinations, and the main loop
+ will terminate in a timely manner.
 \end_layout
 
 \begin_layout Subsubsection
 Minimum Spanning Tree
+\end_layout
+
+\begin_layout Standard
+Minimum spanning trees are a useful operation on a graph that allow you
+ to construct a tree
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A tree is a graph, where there are no cycles
+\end_layout
+
+\end_inset
+
+ that only includes the minimum number of egdes that also has the property
+ that the sum of all edge weights is the minimum possible.
+\end_layout
+
+\begin_layout Standard
+This is useful for when we wish to find the quickest or cheapest way to
+ implement a network (be it Local Area Network, or Wide Area Network), when
+ we wish to minimise the amount of network cabling needed to connect all
+ computers in a location, etc.
+\end_layout
+
+\begin_layout Standard
+For some graphs there may be multiple minimum spanning trees possible
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+This is true for unweighted graphs, or for graphs were most edges share
+ the same weight
+\end_layout
+
+\end_inset
+
+, which may be derived differently based on which algorithm is used to derive
+ the tree.
+ The two common algorithms utilised today are Kruskal's Algorithm and The
+ Prim-Jarník Algorithm, whilst the original MST algorithm Barůvka's Algorithm
+ is not utilised as much due to lesser performance compared to the other
+ two.
+\end_layout
+
+\begin_layout Standard
+For this section I will describe and implement The Prim-Jarník Algorithm,
+ as it offers good performance while remaining relatively simple to implement.
+\end_layout
+
+\begin_layout Standard
+The Prim-Jarník Algorithm works by walking the graph, following the the
+ edges with the least weight until all vertices have been visited.
+ The full algorithm can be found in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:The-Prim-Jarník-Algorithm"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A Graph $G$ which is a fully connected graph.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure A tree $T$ whose properties match those of a Minimum Spanning Tree.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{PrimJarníkMST}{$G$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Pick any vertex $v$ of $G$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$D[v] 
+\backslash
+gets 0$} 
+\backslash
+Comment {$D[u]$ stores the weight of the best current edge} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {vertex $u 
+\backslash
+neq v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$D[u] 
+\backslash
+gets +
+\backslash
+infty$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Initialise $T 
+\backslash
+gets 
+\backslash
+emptyset$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Initialise Priority Queue $Q$ with an item (($u$,null, $D[u]$) for
+ each vertex $u$.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$Q$ is not empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$(u,e) 
+\backslash
+gets Q$.removeMin()}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Add vertex $u$ and edge $e$ to $T$.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {vertex $z$ adjacent to $u$ such that $z$ is in $Q$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$w((u,z)) < D[z]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$D[z] 
+\backslash
+gets w((u,z))$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Change to $(z,(u,z))$ the element of vertex $z$ in $Q$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Change to $D[z]$ the key of vertex $z$ in $Q$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+The Prim-Jarník Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:The-Prim-Jarník-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Standard
+The algorithm essentially builds the minimum spanning tree based on the
+ least weight of edges that lead to vertices that are not part of the tree.
+\end_layout
+
+\begin_layout Standard
+This is achieved through the use of a priority queue, that holds the next
+ least cost edge of all current vertices within the tree.
+ On each iteration, it will remove the next least cost edge, add it to the
+ tree, then add any new edges to the priority queue for processing.
+ The algorithm terminates when all vertices are present in the tree.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-Prim-Jarník-Algorithm"
+
+\end_inset
+
+demonstrates the algorithm, based on the initial graph in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Basic-Graph-Example"
+
+\end_inset
+
+, starting at vertex D.
+\end_layout
+
+\begin_layout Standard
+Starting at Vertex D, all edges that are incident are added to the priority
+ queue, and the edge with the least weight is removed from the queue.
+ At step (a), this is the edge (d,b).
+ This edge is then added to the resulting MST, as shown in the bold line.
+ This process is then repeated at Vertex B (step b), in which all edges
+ are added to the queue (or if in the queue is adjusted if a new lower weight
+ has been found).
+ The edge with the least weight is then removed from the queue.
+ This edge may be adjacent to either Vertex D or Vertex B, as the algorithm
+ only cares about the minimum weight, not the current vertex.
+ This process is repeated, until all vertices are within the MST T (step
+ (f)).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Prim.eps
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+The Prim-Jarník Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-Prim-Jarník-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of The Prim-Jarník Algorithm can be seen in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Prim-Jarník-Algorithm-(Java)"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class PrimMST {
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Construct a MST based on the Prim-Jarnik Algorithm.
+ As this implementation
+\end_layout
+
+\begin_layout Plain Layout
+
+   * is based on an Adjacency Matrix, offers O(n^2) performance.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param matrix An adjacency matrix defining a graph
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param root The starting vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return An array with the connecting vertex ID in each element
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static int[] PrimJarnikMST(int[][] matrix, int root) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // shortest known distance to MST, typically this may be a priority
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+    // queue, but here we use an array, and linear scan the array to find
+\end_layout
+
+\begin_layout Plain Layout
+
+    // the lowest value.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] distance = new int[matrix.length];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // preceeding vertex in tree
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] pred = new int[matrix.length];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    boolean[] visited = new boolean[matrix.length]; // all false initially
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Set all distances to inf, except root vertex, which we set to 0,
+\end_layout
+
+\begin_layout Plain Layout
+
+    // so that the main loop starts at this vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < distance.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      distance[i] = Integer.MAX_VALUE;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    distance[root] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Main loop, which terminates when all vertices have been visited.
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < distance.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      int next = minVertex(distance, visited); // Get next lowest cost edge
+\end_layout
+
+\begin_layout Plain Layout
+
+      visited[next] = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // The edge from pred[next] to next is in the MST (if next != root)
+\end_layout
+
+\begin_layout Plain Layout
+
+      int[] neighbours = getNeighbours(matrix,next);
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int j = 0; j < neighbours.length; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int vertex = neighbours[j];
+\end_layout
+
+\begin_layout Plain Layout
+
+        int weight = matrix[next][vertex];
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (distance[vertex] > weight || distance[vertex] == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          distance[vertex] = weight; // Update best weight
+\end_layout
+
+\begin_layout Plain Layout
+
+          pred[vertex] = next; // Set best vertex to reach this vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return pred;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Find the minimum distance in the current best distance vector
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param dist The vector of current minimum distance.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param v An array of vertices that have been visited.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The shortest known distance to an unvisited vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private static int minVertex(int[] distance, boolean[] visited) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int weight = Integer.MAX_VALUE;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int vertex = -1;   // graph not connected, or no unvisited vertices
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < distance.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!visited[i] && distance[i] < weight) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertex = i; // set lowest weight vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+        weight = distance[i]; // get the weight, for later comparison
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return vertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  private static int[] getNeighbours(int[][] matrix, int row){
+\end_layout
+
+\begin_layout Plain Layout
+
+    ArrayList<Integer> neighbours = new ArrayList<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(int i = 0; i < matrix.length; i++){
+\end_layout
+
+\begin_layout Plain Layout
+
+      if(matrix[row][i] > 0){
+\end_layout
+
+\begin_layout Plain Layout
+
+        neighbours.add(i);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] temp = new int[neighbours.size()];
+\end_layout
+
+\begin_layout Plain Layout
+
+    int i = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    for(Integer vertex: neighbours){
+\end_layout
+
+\begin_layout Plain Layout
+
+      temp[i++] = vertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return temp;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Prim-Jarník Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Prim-Jarník-Algorithm-(Java)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Minimum Spanning Tree
+\end_layout
+
+\begin_layout Standard
+Construct the minimum spanning tree for a weighted undirected graph.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line of input will be a number on a line by itself which is the
+ number of test cases to run.
+ For each test case, the first line will be two numbers separated by a space
+ 
+\shape italic
+N
+\shape default
+ and 
+\shape italic
+E
+\shape default
+, where
+\shape italic
+ N
+\shape default
+ (
+\shape italic
+1
+\shape default
+ <= 
+\shape italic
+N
+\shape default
+ <= 5000) is the number of nodes in the graph and 
+\shape italic
+E
+\shape default
+ (1 <= 
+\shape italic
+E
+\shape default
+ <= 10000) is the number of edges.
+ The graph nodes will be numbered 0 to 
+\shape italic
+N
+\shape default
+-1.
+ Each of the next 
+\shape italic
+E
+\shape default
+ lines contain three numbers 
+\shape italic
+S, D
+\shape default
+ and 
+\shape italic
+W
+\shape default
+ each separated by a space representing an edge in the graph from 
+\shape italic
+S
+\shape default
+ (0 <= 
+\shape italic
+S
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) to 
+\shape italic
+D
+\shape default
+ (0 <= 
+\shape italic
+D
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) with weight 
+\shape italic
+W
+\shape default
+ (0 < 
+\shape italic
+W
+\shape default
+ <= 
+\shape italic
+1000
+\shape default
+).
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+5 7 
+\begin_inset Newline newline
+\end_inset
+
+0 1 10
+\begin_inset Newline newline
+\end_inset
+
+1 3 2 
+\begin_inset Newline newline
+\end_inset
+
+1 4 6 
+\begin_inset Newline newline
+\end_inset
+
+3 4 3 
+\begin_inset Newline newline
+\end_inset
+
+2 4 6 
+\begin_inset Newline newline
+\end_inset
+
+0 4 20 
+\begin_inset Newline newline
+\end_inset
+
+0 2 30 
+\begin_inset Newline newline
+\end_inset
+
+5 6 
+\begin_inset Newline newline
+\end_inset
+
+0 1 8 
+\begin_inset Newline newline
+\end_inset
+
+0 3 2 
+\begin_inset Newline newline
+\end_inset
+
+0 4 5 
+\begin_inset Newline newline
+\end_inset
+
+1 2 6 
+\begin_inset Newline newline
+\end_inset
+
+2 3 4 
+\begin_inset Newline newline
+\end_inset
+
+3 4 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output the following message on a new line: 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+Test x, minimum spanning tree weight = y 
+\end_layout
+
+\begin_layout Standard
+where 
+\family typewriter
+x
+\family default
+ is the test case number and y is the total weight of the edges of the minimum
+ spanning tree.
+ See the example output below.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+Test 1, minimum spanning tree weight = 21 
+\begin_inset Newline newline
+\end_inset
+
+Test 2, minimum spanning tree weight = 15
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Minimum Spanning Tree problem can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Minimum"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Comparator;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.LinkedList;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class SpanningTreeProblem {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  static int vertexCount;
+\end_layout
+
+\begin_layout Plain Layout
+  static int edgeCount;
+\end_layout
+
+\begin_layout Plain Layout
+  static PriorityQueue<edge> edges;
+\end_layout
+
+\begin_layout Plain Layout
+  static Boolean[] visited;
+\end_layout
+
+\begin_layout Plain Layout
+  private final static String OUTPUT_STRING 
+\end_layout
+
+\begin_layout Plain Layout
+          = "Test %d, minimum spanning tree weight = %d
+\backslash
+n";
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+    new SpanningTreeProblem().run();
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+    int caseCount = Integer.parseInt(in.nextLine());
+\end_layout
+
+\begin_layout Plain Layout
+    int loopCount = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Keep looping while we have cases to test.
+\end_layout
+
+\begin_layout Plain Layout
+    while (caseCount - loopCount > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+      int minimumWeight = 0;
+\end_layout
+
+\begin_layout Plain Layout
+      vertexCount = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+      edgeCount = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Construct our priority queue, and visited map.
+\end_layout
+
+\begin_layout Plain Layout
+      edges = new PriorityQueue<edge>(edgeCount, new edge(0, 0, 0));
+\end_layout
+
+\begin_layout Plain Layout
+      visited = new Boolean[vertexCount];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Set all vertices to not visited.
+\end_layout
+
+\begin_layout Plain Layout
+      for (int n = 0; n < vertexCount; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+        visited[n] = false;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Read all edges into the priority queue.
+\end_layout
+
+\begin_layout Plain Layout
+      while (edgeCount-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+        edges.add(new edge(in.nextInt(), in.nextInt(), in.nextInt()));
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Set our source vertex to be visited.
+\end_layout
+
+\begin_layout Plain Layout
+      visited[edges.peek().sourceVertex] = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // While not visited all vertices, continue to loop
+\end_layout
+
+\begin_layout Plain Layout
+      while (!visitedAllVertices()) {
+\end_layout
+
+\begin_layout Plain Layout
+        LinkedList<edge> tmpEdges = new LinkedList<edge>();
+\end_layout
+
+\begin_layout Plain Layout
+        int sourceVertex, destinationVertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+        edge minEdge = edges.poll();
+\end_layout
+
+\begin_layout Plain Layout
+        Boolean useThisEdge = false;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+        // find min edge with one node in tree and one node not in tree
+\end_layout
+
+\begin_layout Plain Layout
+        do {
+\end_layout
+
+\begin_layout Plain Layout
+          sourceVertex = minEdge.sourceVertex;
+\end_layout
+
+\begin_layout Plain Layout
+          destinationVertex = minEdge.destinationVertex;
+\end_layout
+
+\begin_layout Plain Layout
+          
+\end_layout
+
+\begin_layout Plain Layout
+          // check for source being visited and destination not visited
+\end_layout
+
+\begin_layout Plain Layout
+          if (visited[sourceVertex] && !visited[destinationVertex]) {
+\end_layout
+
+\begin_layout Plain Layout
+            useThisEdge = true;
+\end_layout
+
+\begin_layout Plain Layout
+          } else if (!visited[sourceVertex] && visited[destinationVertex])
+ {
+\end_layout
+
+\begin_layout Plain Layout
+            // check for other direction
+\end_layout
+
+\begin_layout Plain Layout
+            int tmp = sourceVertex; // swap source and destination
+\end_layout
+
+\begin_layout Plain Layout
+            sourceVertex = destinationVertex;
+\end_layout
+
+\begin_layout Plain Layout
+            destinationVertex = tmp;
+\end_layout
+
+\begin_layout Plain Layout
+            useThisEdge = true;
+\end_layout
+
+\begin_layout Plain Layout
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+          if (!useThisEdge) {
+\end_layout
+
+\begin_layout Plain Layout
+            tmpEdges.add(minEdge); // store unused edges for later
+\end_layout
+
+\begin_layout Plain Layout
+            minEdge = edges.poll(); // get next edge to try
+\end_layout
+
+\begin_layout Plain Layout
+          }
+\end_layout
+
+\begin_layout Plain Layout
+        } while (!useThisEdge);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+        minimumWeight += minEdge.weight;
+\end_layout
+
+\begin_layout Plain Layout
+        visited[destinationVertex] = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+        // copy unused edges back to priority queue
+\end_layout
+
+\begin_layout Plain Layout
+        for(edge e: tmpEdges){
+\end_layout
+
+\begin_layout Plain Layout
+          edges.add(e);
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      System.out.printf(OUTPUT_STRING, ++loopCount, minimumWeight);
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public Boolean visitedAllVertices() {
+\end_layout
+
+\begin_layout Plain Layout
+    for (Boolean v : visited) {
+\end_layout
+
+\begin_layout Plain Layout
+      if (!v) {
+\end_layout
+
+\begin_layout Plain Layout
+        return false;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    return true;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public class edge implements Comparator<edge> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    public int sourceVertex, destinationVertex, weight;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    public edge(int s, int d, int w) {
+\end_layout
+
+\begin_layout Plain Layout
+      sourceVertex = s;
+\end_layout
+
+\begin_layout Plain Layout
+      destinationVertex = d;
+\end_layout
+
+\begin_layout Plain Layout
+      weight = w;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+    public int compare(edge e1, edge e2) {
+\end_layout
+
+\begin_layout Plain Layout
+      if (e1.weight < e2.weight) {
+\end_layout
+
+\begin_layout Plain Layout
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+      } else if (e1.weight > e2.weight) {
+\end_layout
+
+\begin_layout Plain Layout
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+        return 0;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Minimum Spanning Tree Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Minimum"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
