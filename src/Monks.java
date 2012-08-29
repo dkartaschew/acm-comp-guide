@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Jar Class to hold an instance of a set of Jars.
  */
 class Jars {
-  
+
   public final static int A = 0;
   public final static int B = 1;
   public final static int C = 2;
@@ -39,16 +39,6 @@ class Jars {
     this.jars[C] = other.jars[C];
     this.count = other.count;
     Sort();
-  }
-  
-  @Override
-  public boolean equals(Object other) {
-    if (this.jars[A] == ((Jars) other).jars[A]
-            && this.jars[B] == ((Jars) other).jars[B]
-            && this.jars[C] == ((Jars) other).jars[C]) {
-      return true;
-    }
-    return false;
   }
 
   /**
@@ -106,7 +96,7 @@ public class Monks {
     String line = in.nextLine();
     // Quit when our input is "0 0 0"
     while (!line.equals("0 0 0")) {
-      
+
       Scanner sc = new Scanner(line);
       // Output the minimum moves required.
       System.out.printf("%s %d\n", line,
@@ -129,13 +119,11 @@ public class Monks {
       return 0; // If our start set of jars has an empty jar, then exit.
     } else {
       int leastMoves = 0; // result
-      LinkedList<Jars> visited = new LinkedList<Jars>();
       LinkedList<Jars> moves = new LinkedList<Jars>(); // create queue
       moves.offer(jars); // add initial jars state to queue
-      
+
       while ((!moves.isEmpty()) && (leastMoves == 0)) {
         Jars current = new Jars(moves.poll()); // remove first in queue
-        visited.add(current); // and add it to the visited list.
         // Process the current set of Jars, first check for empty jar
         if (current.EmptyJar()) {
           leastMoves = current.count; // store result
@@ -143,33 +131,24 @@ public class Monks {
         } else {
 
           // Visit all neighbouring vertices (or Jars derived from the
-          // current Jar) if they aren't in queue or we haven't already
-          // visited them.
+          // current Jar).
           // Since all Jars are stored in numerical order (a<b<c), we
           // can reduce the number of tests to perform, and this also
           // ensures that any subtraction doesn't result in a negative
           // bead count.
           Jars moveBtoA = new Jars(current);
           moveBtoA.moveBeads(Jars.B, Jars.A);
-          if (!moves.contains(moveBtoA) && !visited.contains(moveBtoA)) {
-            // add result to queue if not already on queue
-            moves.offer(moveBtoA);
-          }
-          
+          moves.offer(moveBtoA);
+
           Jars moveCtoA = new Jars(current);
           moveCtoA.moveBeads(Jars.C, Jars.A);
-          // add result to queue if not already on queue
-          if (!moves.contains(moveCtoA) && !visited.contains(moveCtoA)) {
-            moves.offer(moveCtoA); // add result to queue
-          }
-          
+          moves.offer(moveCtoA); // add result to queue
+
           current.moveBeads(Jars.C, Jars.B);
-          if (!moves.contains(current) && !visited.contains(current)) {
-            moves.offer(current); // add result to queue
-          }
+          moves.offer(current); // add result to queue
         }
       }
-      
+      // We have found a empty jar set
       return leastMoves;
     }
   }

@@ -23696,85 +23696,6 @@ class Jars {
 
 \begin_layout Plain Layout
 
-   * Compare one set of Jars to another.
-\end_layout
-
-\begin_layout Plain Layout
-
-   *
-\end_layout
-
-\begin_layout Plain Layout
-
-   * @param other The Jars to compare.
-\end_layout
-
-\begin_layout Plain Layout
-
-   * @return true if the values are the same.
-\end_layout
-
-\begin_layout Plain Layout
-
-   */
-\end_layout
-
-\begin_layout Plain Layout
-
-  @Override
-\end_layout
-
-\begin_layout Plain Layout
-
-  public boolean equals(Object other) {
-\end_layout
-
-\begin_layout Plain Layout
-
-    if (this.jars[A] == ((Jars)other).jars[A]
-\end_layout
-
-\begin_layout Plain Layout
-
-            && this.jars[B] == ((Jars)other).jars[B]
-\end_layout
-
-\begin_layout Plain Layout
-
-            && this.jars[C] == ((Jars)other).jars[C]) {
-\end_layout
-
-\begin_layout Plain Layout
-
-      return true;
-\end_layout
-
-\begin_layout Plain Layout
-
-    }
-\end_layout
-
-\begin_layout Plain Layout
-
-    return false;
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  /**
-\end_layout
-
-\begin_layout Plain Layout
-
    * Sort the contents of the jars into numerical order.
  Thus: a < b < c
 \end_layout
@@ -24182,10 +24103,6 @@ n", line,
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
         // Process the current set of Jars, first check for empty jar
 \end_layout
 
@@ -24254,22 +24171,7 @@ n", line,
 
 \begin_layout Plain Layout
 
-          if (!moves.contains(moveBtoA)) {
-\end_layout
-
-\begin_layout Plain Layout
-
-            // add result to queue if not already on queue
-\end_layout
-
-\begin_layout Plain Layout
-
-            moves.offer(moveBtoA); 
-\end_layout
-
-\begin_layout Plain Layout
-
-          }
+          moves.offer(moveBtoA);
 \end_layout
 
 \begin_layout Plain Layout
@@ -24288,27 +24190,11 @@ n", line,
 
 \begin_layout Plain Layout
 
-          // add result to queue if not already on queue
+          moves.offer(moveCtoA); // add result to queue
 \end_layout
 
 \begin_layout Plain Layout
 
-          if (!moves.contains(moveCtoA)) {
-\end_layout
-
-\begin_layout Plain Layout
-
-            moves.offer(moveCtoA); // add result to queue
-\end_layout
-
-\begin_layout Plain Layout
-
-          }
-\end_layout
-
-\begin_layout Plain Layout
-
-          
 \end_layout
 
 \begin_layout Plain Layout
@@ -24318,17 +24204,7 @@ n", line,
 
 \begin_layout Plain Layout
 
-          if (!moves.contains(current)) {
-\end_layout
-
-\begin_layout Plain Layout
-
-            moves.offer(current); // add result to queue
-\end_layout
-
-\begin_layout Plain Layout
-
-          }
+          moves.offer(current); // add result to queue
 \end_layout
 
 \begin_layout Plain Layout
@@ -24343,6 +24219,7 @@ n", line,
 
 \begin_layout Plain Layout
 
+      // We have found a empty jar set
 \end_layout
 
 \begin_layout Plain Layout
@@ -24363,10 +24240,6 @@ n", line,
 \begin_layout Plain Layout
 
 }
-\end_layout
-
-\begin_layout Plain Layout
-
 \end_layout
 
 \begin_layout Plain Layout
@@ -24462,18 +24335,9 @@ At Step 1, there are no empty jars, so add the three resulting calculations
  for the new jar values to the queue.
  At Step 2, take this jar from the stack, inspect, and since there are no
  empty jars, add the three resulting calculations for the new jar values
- to the queue, if the visited list or queue already doesn't contain a set
- of jars with the same value present.
- This stops the implementation from retesting values that have already been
- tested.
- This can be seen at step 1, in that the value {2, 3, 4} is not added to
- the queue, as this value has already been visited.
- 
-\end_layout
-
-\begin_layout Standard
-Repeat this process for step 3.
- Since Step 4 has an empty jar we terminate algorithm and return the current
+ to the queue.
+ The process repeats for steps 3, 4, 5 and 6.
+ Since Step 7 has an empty jar we terminate algorithm and return the current
  count value.
 \end_layout
 
@@ -24486,14 +24350,41 @@ There are few challenging cases within the Monks problem.
  The main tricky case, is that when the starting bead count is such that
  there is no solution, that even after an infinite number of moves no solution
  is found.
+ (The problem statement indicates that this is not an issue with the supplied
+ sets to test, so this possibility is ignored).
 \end_layout
 
 \begin_layout Standard
-The way the solution has been implementated ensures that if there is no
- solution to moving beads, that the search will terminate as well, since
- it won't retest values that have already been tested.
- Therefore it's possible to exhaust all combinations, and the main loop
- will terminate in a timely manner.
+One possible optimisation or option to explore would be to have a list of
+ known tested values, so these don't get re-added to the queue, thus minimising
+ the number of tests to be done.
+ However it should be considered, that the time needed to inspect the 
+\begin_inset Quotes eld
+\end_inset
+
+known value
+\begin_inset Quotes erd
+\end_inset
+
+ list before adding an element to the queue to be processed will actually
+ take longer than utilising the naïve approach demonstrated.
+ For example, if there are 30 items on queue, using a binary search will
+ still take at most 6 searches to find if the item is on queue, before adding
+ it, however you could process 6 items on the queue in the same time it
+ takes to add just 1 item to the queue! That is a lot of time just to figure
+ out if you should process the item! As the number of items on the 
+\begin_inset Quotes eld
+\end_inset
+
+known value
+\begin_inset Quotes erd
+\end_inset
+
+ list scales up over 1024 items, a binary search will still require 10 iteration
+s! While these times are listed with a binary search, in reality, most list
+ implementations use a linear search, which make this possible optimisation
+ even slower! (Moral: being intelligent with the implementation, may actually
+ slow you down).
 \end_layout
 
 \begin_layout Subsubsection
@@ -25641,18 +25532,22 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Comparator;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.LinkedList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.PriorityQueue;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -25661,6 +25556,7 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class SpanningTreeProblem {
 \end_layout
 
@@ -25669,26 +25565,32 @@ public class SpanningTreeProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   static int vertexCount;
 \end_layout
 
 \begin_layout Plain Layout
+
   static int edgeCount;
 \end_layout
 
 \begin_layout Plain Layout
+
   static PriorityQueue<edge> edges;
 \end_layout
 
 \begin_layout Plain Layout
+
   static Boolean[] visited;
 \end_layout
 
 \begin_layout Plain Layout
+
   private final static String OUTPUT_STRING 
 \end_layout
 
 \begin_layout Plain Layout
+
           = "Test %d, minimum spanning tree weight = %d
 \backslash
 n";
@@ -25699,14 +25601,17 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     new SpanningTreeProblem().run();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -25715,18 +25620,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner in = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
+
     int caseCount = Integer.parseInt(in.nextLine());
 \end_layout
 
 \begin_layout Plain Layout
+
     int loopCount = 0;
 \end_layout
 
@@ -25735,22 +25644,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     // Keep looping while we have cases to test.
 \end_layout
 
 \begin_layout Plain Layout
+
     while (caseCount - loopCount > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
       int minimumWeight = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
       vertexCount = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       edgeCount = in.nextInt();
 \end_layout
 
@@ -25759,14 +25673,17 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Construct our priority queue, and visited map.
 \end_layout
 
 \begin_layout Plain Layout
+
       edges = new PriorityQueue<edge>(edgeCount, new edge(0, 0, 0));
 \end_layout
 
 \begin_layout Plain Layout
+
       visited = new Boolean[vertexCount];
 \end_layout
 
@@ -25775,18 +25692,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Set all vertices to not visited.
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int n = 0; n < vertexCount; n++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         visited[n] = false;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -25795,18 +25716,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Read all edges into the priority queue.
 \end_layout
 
 \begin_layout Plain Layout
+
       while (edgeCount-- > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
         edges.add(new edge(in.nextInt(), in.nextInt(), in.nextInt()));
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -25815,10 +25740,12 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Set our source vertex to be visited.
 \end_layout
 
 \begin_layout Plain Layout
+
       visited[edges.peek().sourceVertex] = true;
 \end_layout
 
@@ -25827,18 +25754,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // While not visited all vertices, continue to loop
 \end_layout
 
 \begin_layout Plain Layout
+
       while (!visitedAllVertices()) {
 \end_layout
 
 \begin_layout Plain Layout
+
         LinkedList<edge> tmpEdges = new LinkedList<edge>();
 \end_layout
 
 \begin_layout Plain Layout
+
         int sourceVertex, destinationVertex;
 \end_layout
 
@@ -25847,10 +25778,12 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
         edge minEdge = edges.poll();
 \end_layout
 
 \begin_layout Plain Layout
+
         Boolean useThisEdge = false;
 \end_layout
 
@@ -25859,63 +25792,78 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
         // find min edge with one node in tree and one node not in tree
 \end_layout
 
 \begin_layout Plain Layout
+
         do {
 \end_layout
 
 \begin_layout Plain Layout
+
           sourceVertex = minEdge.sourceVertex;
 \end_layout
 
 \begin_layout Plain Layout
+
           destinationVertex = minEdge.destinationVertex;
 \end_layout
 
 \begin_layout Plain Layout
+
           
 \end_layout
 
 \begin_layout Plain Layout
+
           // check for source being visited and destination not visited
 \end_layout
 
 \begin_layout Plain Layout
+
           if (visited[sourceVertex] && !visited[destinationVertex]) {
 \end_layout
 
 \begin_layout Plain Layout
+
             useThisEdge = true;
 \end_layout
 
 \begin_layout Plain Layout
+
           } else if (!visited[sourceVertex] && visited[destinationVertex])
  {
 \end_layout
 
 \begin_layout Plain Layout
+
             // check for other direction
 \end_layout
 
 \begin_layout Plain Layout
+
             int tmp = sourceVertex; // swap source and destination
 \end_layout
 
 \begin_layout Plain Layout
+
             sourceVertex = destinationVertex;
 \end_layout
 
 \begin_layout Plain Layout
+
             destinationVertex = tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
             useThisEdge = true;
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
@@ -25924,22 +25872,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
           if (!useThisEdge) {
 \end_layout
 
 \begin_layout Plain Layout
+
             tmpEdges.add(minEdge); // store unused edges for later
 \end_layout
 
 \begin_layout Plain Layout
+
             minEdge = edges.poll(); // get next edge to try
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
 \begin_layout Plain Layout
+
         } while (!useThisEdge);
 \end_layout
 
@@ -25948,10 +25901,12 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
         minimumWeight += minEdge.weight;
 \end_layout
 
 \begin_layout Plain Layout
+
         visited[destinationVertex] = true;
 \end_layout
 
@@ -25960,22 +25915,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
         // copy unused edges back to priority queue
 \end_layout
 
 \begin_layout Plain Layout
+
         for(edge e: tmpEdges){
 \end_layout
 
 \begin_layout Plain Layout
+
           edges.add(e);
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -25984,14 +25944,17 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf(OUTPUT_STRING, ++loopCount, minimumWeight);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -26000,34 +25963,42 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   public Boolean visitedAllVertices() {
 \end_layout
 
 \begin_layout Plain Layout
+
     for (Boolean v : visited) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (!v) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return false;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return true;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -26036,6 +26007,7 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   public class edge implements Comparator<edge> {
 \end_layout
 
@@ -26044,6 +26016,7 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     public int sourceVertex, destinationVertex, weight;
 \end_layout
 
@@ -26052,22 +26025,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     public edge(int s, int d, int w) {
 \end_layout
 
 \begin_layout Plain Layout
+
       sourceVertex = s;
 \end_layout
 
 \begin_layout Plain Layout
+
       destinationVertex = d;
 \end_layout
 
 \begin_layout Plain Layout
+
       weight = w;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -26076,50 +26054,62 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     @Override
 \end_layout
 
 \begin_layout Plain Layout
+
     public int compare(edge e1, edge e2) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (e1.weight < e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (e1.weight > e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 0;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -26128,7 +26118,6 @@ n";
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Minimum Spanning Tree Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
