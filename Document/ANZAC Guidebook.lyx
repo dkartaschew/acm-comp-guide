@@ -1110,6 +1110,24 @@ Submit
 .
 \end_layout
 
+\begin_layout Subsubsection
+Scoring
+\end_layout
+
+\begin_layout Standard
+If you solve a problem, you get one point for solving the problem.
+ The time of submission since the start of the competition is also recorded.
+ A submission which is judged to be not correct attracts a time penalty,
+ usually twenty minutes, but the penalty does not apply until the problem
+ has been judged correct.
+\end_layout
+
+\begin_layout Standard
+The ordering of the teams is based on the number of correct problems descending
+ and then on the total amount of time used by the team ascending.
+ An example of how the total time is calculated is given in the next section.
+\end_layout
+
 \begin_layout Subsection
 Software Languages
 \end_layout
@@ -1349,16 +1367,17 @@ All debugging facilities may be utilised within Eclipse with no restrictions.
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
 	filename images/Eclipse1.png
-	width 80text%
+	width 75text%
 
 \end_inset
 
@@ -2250,6 +2269,124 @@ Yes
 \family default
 \series default
  response.
+\end_layout
+
+\begin_layout Subsection
+Competition Strategy
+\end_layout
+
+\begin_layout Standard
+It is important to identify the easier problems in the problem set and solve
+ them correctly before moving on to problems that are more difficult.
+ At the beginning of the competition, the team should quickly identify an
+ easy problem and assign one of the team to solve this problem while the
+ other two try to prioritize the remaining problems based on their understanding
+ of the problems and their abilities to solve them.
+\end_layout
+
+\begin_layout Standard
+Problems should be submitted as soon as the team believes that they have
+ a correct solution.
+ This is based on the scoring system where total time is used to break ties
+ between teams who have solved the same number of problems.
+\end_layout
+
+\begin_layout Standard
+Given that there are three people in the team, more than one problem should
+ be worked on at a time.
+\end_layout
+
+\begin_layout Standard
+At least one of the team members should be writing an algorithm for the
+ next problem to be attempted.
+ There are some benefits to be gained from pair programming while the third
+ team member is working on algorithms.
+\end_layout
+
+\begin_layout Standard
+Alternatively, one person can be writing source code while the other two
+ are working on algorithms.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Teams should also build their own test cases to run against their solutions
+\series default
+.
+ This is a very important aspect of the competition and care must be taken
+ to account for the constraints given in the problem specification.
+ The sample data 
+\series bold
+will not
+\series default
+ cover all test cases.
+ The judges’ data will.
+\end_layout
+
+\begin_layout Standard
+Many problems are posed that will require the selection of a correct algorithm
+ that runs inside the two minute time limit.
+\end_layout
+
+\begin_layout Standard
+Another important aspect to be aware of is the range of values that may
+ be required in calculations.
+ Some problems are posed that have inputs in a 32 byte integer range (
+\family typewriter
+int
+\family default
+) and an output in the same range 32 byte range but intermediate calculations
+ will overflow the range of the data type, therefore requiring a 64 byte
+ long integer range (
+\family typewriter
+long
+\family default
+).
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Output specifications can sometimes be quite picky.
+
+\series default
+ Some problems will require capitalization of some words and some will require
+ specific punctuations.
+ Problems are judged by matching string output, so if the characters are
+ in the wrong case or the string lacks punctuation, it will be judged to
+ be a Wrong Answer.
+\end_layout
+
+\begin_layout Standard
+Some problems will be easier to solve if you create your own data types,
+ classes or structs.
+ These must all be included in the same source code file.
+ Ensure you know how to include more than class or struct in a single file.
+\end_layout
+
+\begin_layout Standard
+Ensure that you know how to read input from the keyboard (Standard Input
+ device) using the language or languages that you are likely to use in the
+ competition.
+\end_layout
+
+\begin_layout Standard
+Ensure that you know how to format output to the monitor using the language
+ or languages that you are likely to use.
+\end_layout
+
+\begin_layout Standard
+As part of any preparation for programming competitions it would probably
+ be a good idea to prepare implementations of some of the more complex algorithm
+s that are likely to be encountered.
+ For example, problems in the medium to difficult range can sometimes be
+ transformed into a problem based on a well known graph theory problem e.g.
+ minimum spanning tree, depth first search, shortest path or maximum matching.
+ In order to recognize a problem description as something that can be solved
+ using one of these well known algorithms, it is necessary to know these
+ algorithms and have implemented them before.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -5022,6 +5159,200 @@ reference "lis:Java-Input-and"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsection
+Program Structure
+\end_layout
+
+\begin_layout Standard
+For all solutions to ACM and ANZAC problems, the entire solution must be
+ written in one file.
+ It is suggested for clarity during the competition that you name your programs
+ simply.
+ Problems will usually be associated with a letter (A – I) or a number (1
+ – 9).
+ Name your main class (if applicable) and therefore the source code file
+ for the problem, something that represents the problem being presented.
+\end_layout
+
+\begin_layout Subsubsection
+C# and Java
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:CS-and-Java"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For both Java and C#, due to the pure OOP paradigm being presented there
+ are few recommendations
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+These are recommendations, not hard rules.
+ Feel free to break them or ignore them completely as needed.
+\end_layout
+
+\end_inset
+
+ that may assist in development of yout solutions.
+\end_layout
+
+\begin_layout Standard
+The main class will naturally require a main method.
+ It is suggested that you instantiate an object of this class and write
+ a non-static method that can access any global instance variables you may
+ need for multiple test cases.
+ (An example is shown in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Java-Program-Structure"
+
+\end_inset
+
+).
+ Attempt to avoid writing all the methods as static methods, as this can
+ lead to some complications if not done carefully.
+\end_layout
+
+\begin_layout Standard
+There should be no need to use public or private modifiers for your instance
+ variables.
+ There is no need for the strict OO rules to be followed, just as long as
+ you understand what side effects you are writing in to your methods.
+\end_layout
+
+\begin_layout Standard
+If the problem requires you to define a class it needs to be in the same
+ file.
+ If you make it an inner class of the class you write for your main program,
+ all instance variables of that inner class will not need to be declared
+ public for accessibility.
+\end_layout
+
+\begin_layout Standard
+If your program requires you to do specific output from this inner data
+ class, make sure you use a 
+\family typewriter
+toString()
+\family default
+ (Java) or 
+\family typewriter
+ToString()
+\family default
+ (C#) method to format that output as required.
+ Because the 
+\family typewriter
+toString()
+\family default
+ method would be overriding the 
+\family typewriter
+toString()
+\family default
+ method from the Object base class, it must have the public modifier.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// imports go first 
+\end_layout
+
+\begin_layout Plain Layout
+
+public class PA { 
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new PA().run()
+\end_layout
+
+\begin_layout Plain Layout
+
+  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() { 
+\end_layout
+
+\begin_layout Plain Layout
+
+    // start of solution goes here 
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Java Program Structure
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Java-Program-Structure"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+C++
+\end_layout
+
+\begin_layout Standard
+Due to C++ being a language that allows both OOP and Structured Programming
+ paradigms, there are no special considerations required.
+ However some of the recommendations may be followed as those defined in
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:CS-and-Java"
+
+\end_inset
+
+ as needed.
 \end_layout
 
 \begin_layout Standard
@@ -16325,7 +16656,11 @@ The Where's Waldorf problem, can be solved a number of ways, with the two
 Move through each letter in the grid, and attempt to find the word in one
  of the eight directions leading from the current character, until a match
  is found.
- (This is roughly 
+ (This requires 
+\begin_inset Formula $8n^{2}$
+\end_inset
+
+ searches or 
 \series bold
 O(n
 \begin_inset script superscript
@@ -16340,18 +16675,24 @@ O(n
 
 )
 \series default
- performance).
+ performance, not including the complexity of the string matching algorithm).
+ An enhancement of this technique would be limit the search to places where
+ the word would fit in the grid, reducing the number of tests.
 \end_layout
 
 \begin_layout Enumerate
 Move along the outer most characters only, and attempt to find the word
  in three directions that look inward into the grid, utilising a pattern
  search algorithm.
- (This roughly 
+ (This requires 
+\begin_inset Formula $12n$
+\end_inset
+
+ searches or 
 \series bold
-O(12n)
+O(n)
 \series default
- performance).
+ performance, not including the complexity of the string matching algorithm).
 \end_layout
 
 \begin_layout Standard
@@ -16388,6 +16729,7 @@ reference "fig:Scanning-Grid-for"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -16430,6 +16772,15 @@ name "fig:Scanning-Grid-for"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+For the sample implementation I utilised the Brute Force String Matching
+ Algorithm simply to demonstarte it's use.
+ However, in a real competition environment I would utilise a more efficient
+ pattern matching algorithm to ensure the best possible performance.
+ One such algorithm that could be used is in place of the Brute Force String
+ Matching Algorithm described in the next section.
 \end_layout
 
 \begin_layout Standard
@@ -16478,7 +16829,7 @@ O(n+m)
 
 \begin_layout Standard
 \begin_inset Float algorithm
-placement H
+placement !h
 wide false
 sideways false
 status open
@@ -16679,7 +17030,57 @@ EndProcedure
 
 
 \backslash
-State
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Knuth-Morris-Pratt Substring Search
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Knuth-Morris-Pratt-Substring-Sea"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
 \end_layout
 
 \begin_layout Plain Layout
@@ -16864,10 +17265,10 @@ end{algorithmic}
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Knuth-Morris-Pratt Substring Search
+Knuth-Morris-Pratt Substring Search Failure Function
 \begin_inset CommandInset label
 LatexCommand label
-name "alg:Knuth-Morris-Pratt-Substring-Sea"
+name "alg:Knuth-Morris-Pratt-Substring-Sea-1"
 
 \end_inset
 
@@ -16942,6 +17343,13 @@ The KMP pattern matching algorithm, shown in Algorithm
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:Knuth-Morris-Pratt-Substring-Sea"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Knuth-Morris-Pratt-Substring-Sea-1"
 
 \end_inset
 
@@ -17067,10 +17475,44 @@ reference "fig:Failure-Function-for"
 \end_layout
 
 \begin_layout Standard
+The failure function utilised within the KMP Algorithm is also shown in
+ Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Knuth-Morris-Pratt-Substring-Sea-1"
+
+\end_inset
+
+.
+ This algorithm is another example of a bootstrapping process quite similar
+ to that used in the 
+\shape smallcaps
+KMPMatch
+\shape default
+ procedure.
+ We compare the pattern to itself as in the KMP Algorithm.
+ Each time we have two characters that match, we set 
+\begin_inset Formula $f(i)=j+1$
+\end_inset
+
+.
+ Note that since we have 
+\begin_inset Formula $i>j$
+\end_inset
+
+ throughtout the execution of the algorithm, 
+\begin_inset Formula $f(j-1)$
+\end_inset
+
+ is always defined when we need to use it.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -17114,9 +17556,10 @@ name "fig:Illustration-of-the"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Quote
 Consider the pattern string 
@@ -17389,39 +17832,6 @@ name "fig:Failure-Function-for"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-The failure function utilised within the KMP Algorithm is also shown in
- Algorithm 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "alg:Knuth-Morris-Pratt-Substring-Sea"
-
-\end_inset
-
-.
- This algorithm is another example of a bootstrapping process quite similar
- to that used in the 
-\shape smallcaps
-KMPMatch
-\shape default
- procedure.
- We compare the pattern to itself as in the KMP Algorithm.
- Each time we have two characters that match, we set 
-\begin_inset Formula $f(i)=j+1$
-\end_inset
-
-.
- Note that since we have 
-\begin_inset Formula $i>j$
-\end_inset
-
- throughtout the execution of the algorithm, 
-\begin_inset Formula $f(j-1)$
-\end_inset
-
- is always defined when we need to use it.
 \end_layout
 
 \begin_layout Paragraph
@@ -22144,7 +22554,7 @@ n    ", ++loopCount);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Solution to Adjacency Matrix Problem
+Solution to Adjacency Matrix Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
 name "lis:Solution-to-Adjacency-1"
@@ -24792,13 +25202,6 @@ name "fig:The-Prim-Jarník-Algorithm"
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
 \begin_layout Paragraph
 Implementation
 \end_layout
@@ -25506,6 +25909,10 @@ Test 2, minimum spanning tree weight = 15
 
 \end_layout
 
+\begin_layout Standard
+
+\end_layout
+
 \begin_layout Paragraph
 Sample Solution
 \end_layout
@@ -25524,12 +25931,9 @@ reference "lis:Solution-to-Minimum"
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 
@@ -26139,6 +26543,203 @@ name "lis:Solution-to-Minimum"
 \end_layout
 
 \begin_layout Standard
+The solution to the Minimum Spanning Tree problem is implemented slightly
+ different to the algorithm implementation shown in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Prim-Jarník-Algorithm-(Java)"
+
+\end_inset
+
+, in that the problem solution utilises an 
+\begin_inset Quotes eld
+\end_inset
+
+edge list
+\begin_inset Quotes erd
+\end_inset
+
+ priority queue rather than an adjacency matrix to hold the representation
+ of the graph.
+ An 
+\begin_inset Quotes eld
+\end_inset
+
+edge list
+\begin_inset Quotes erd
+\end_inset
+
+ is a simple linked list that holds all the edges which represents a graph,
+ and is a third way (in addition to adjacency matrix and adjacency list)
+ but less common method of representing a graph.
+\end_layout
+
+\begin_layout Standard
+Using an edge list in this solution fits the problem, as we are not interested
+ in the tree itself, but rather the sum of the resulting weights that make
+ up the tree.
+ 
+\end_layout
+
+\begin_layout Standard
+The core loop 
+\family typewriter
+while(!v i s i t e d A l l V e r t i c e s ()) {}
+\family default
+ is the implementation of the Prim-Jarník Algorithm itself.
+ Since we are given all edges at the start of the problem, we simply place
+ all these into a priority queue
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+A priority queue, is a queue that is sorted from smallest to largest (or
+ from largest to smallest) based on a comparison method defined by the programme
+r.
+ The head of the queue will be the smallest (or largest) item in the queue,
+ whilst the tail will hold the item to be processed last based on it's value.
+\end_layout
+
+\end_inset
+
+, so that the head of the queue is always the next lowest weight edge.
+ Within the main loop, we simply take the head of the proirity queue, determine
+ if either the source or destination is within the current tree, and if
+ so use this edge as the next in the tree.
+ If the inspected egde vetrices are not in the tree, we store the edge for
+ future inspection in the 
+\family typewriter
+tmpEdges
+\family default
+ list.
+ Once we have found an edge that has it's source or destination in the tree,
+ we add it's weight to the sum of weight for the tree.
+ (If we wanted to know the minimum spanning tree, we would store the edge
+ in another tree list, rather than discarding the edge as done within the
+ solution).
+ At the end of the loop, we simply add all the edges in the 
+\family typewriter
+tmpEdges
+\family default
+ list, back into the priority queue so that they can be reprocessed within
+ the main loop, as these are viable edges to utilise.
+\end_layout
+
+\begin_layout Standard
+The few edge cases to consider would be very dense graphs, very sparse graphs,
+ or graphs that contain zero edges.
+ An graph with all edges having the same weight, whilst will derive a different
+ minimum spanning tree, is not a problem with the solution implementation,
+ due to it's use of the priority queue.
+ Another item to consider is how to handle cycles within the graph representatio
+n, that is a new edge, that has both source and destination vertex already
+ in the resulting tree.
+ (These should simply be discarded).
+\end_layout
+
+\begin_layout Subsubsection
+Single Source Shortest Path
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Paragraph
+Description of Working
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem- xxxxxxxxxx
+\end_layout
+
+\begin_layout Standard
+Constr
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The f
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For 
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+T
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
 
@@ -26182,6 +26783,32 @@ Algorithm Design: Foundations, Analysis and Internet Examples
 Additionally, the following sections were derived from the following sources:
 \end_layout
 
+\begin_layout Itemize
+Section 2.5 - Competition Strategy, derived from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Corney, M.
+ (2011).
+ ACM Style Programming Competitions.pdf (part of INB204 Special Topic Advanced
+ Algorithms, Semester 2, 2011, Notes).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Section 4.2 - Program Structure, derived from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Corney, M.
+ (2010).
+ Program Structure - Java.pdf (part of INB204 Special Topic Advanced Algorithms,
+ Semester 2, 2011, Notes).
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 Section 5.3.1 - Array Performance, Timing Values and Cache layouts, derived
  from:
