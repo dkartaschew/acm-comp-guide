@@ -17,8 +17,10 @@ class Jars {
 
   @Override
   public int hashCode() {
-    int hash = 3;
-    hash = 83 * hash + Arrays.hashCode(this.jars);
+    int hash = 1;
+    hash = 503 * hash + this.jars[0];
+    hash = 503 * hash + this.jars[1];
+    hash = 503 * hash + this.jars[2];
     return hash;
   }
 
@@ -143,6 +145,7 @@ public class Monks {
       while ((!moves.isEmpty()) && (leastMoves == 0)) {
         Jars current = new Jars(moves.poll()); // remove first in queue
         visited.add(current.hashCode());
+        
         // Process the current set of Jars, first check for empty jar
         if (current.EmptyJar()) {
           leastMoves = current.count; // store result
