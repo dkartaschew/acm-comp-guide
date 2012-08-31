@@ -1,84 +1,25 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class AdjacencyList {
 
-  /**
-   * Define generic Vertex class to hold our information.
-   */
-  public static class Vertex {
-
-    public int vertexID;
-    public Edge edgeList;
-    // Insert additional information related to the Vertex here.
-
-    /**
-     * Adds the edge into the adjacency list.
-     *
-     * @param source
-     * @param destination
-     */
-    public void addEdge(Vertex[] adjacencyList, int source, int destination) {
-
-      // Get edge list for source.
-      Edge edge = adjacencyList[source].edgeList;
-      if (edge != null) {
-        while (edge.next != null && edge.node.vertexID != destination) {
-          edge = edge.next;
-        }
-        if (edge.node.vertexID != destination) {
-          edge.next = new Edge(adjacencyList[destination], 0, edge.next);
-        }
-
-      } else {
-        // Doesn't exist, so add it in.
-        adjacencyList[source].edgeList = 
-                  new Edge(adjacencyList[destination], 0, null);
-      }
-
-      // Repeat same in reverse, as this is an undirected graph.
-      edge = adjacencyList[destination].edgeList;
-      if (edge != null) {
-        while (edge.next != null && edge.node.vertexID != source) {
-          edge = edge.next;
-        }
-        if (edge.node.vertexID != source) {
-          edge.next = new Edge(adjacencyList[source], 0, edge.next);
-        }
-
-      } else {
-        // Doesn't exist, so add it in.
-        adjacencyList[destination].edgeList = 
-                  new Edge(adjacencyList[source], 0, null);
-      }
-    }
-  }
-
-  /**
-   * Generic Edge List to store our edge information.
-   */
-  public static class Edge {
-
-    public Vertex node = null;
-    public int weight = 0;
-    public Edge next = null;
-
-    public Edge(Vertex vertex, int weight, Edge edge) {
-      node = vertex;
-      this.weight = weight;
-      next = edge;
-    }
-  }
+  static ArrayList<ArrayList<edge>> adjacencyList;
+  static ArrayList<HashSet<Integer>> adjacencyEdges;
 
   /**
    * Main
    */
   public static void main(String[] args) {
+    new AdjacencyList().run();
+  }
 
-    Vertex[] adjacencyList;
-
+  /**
+   * Run interface to be called from main().
+   */
+  public void run() {
     Scanner in = new Scanner(System.in);
 
     // get first line and get the number of cases to test.
@@ -92,47 +33,95 @@ public class AdjacencyList {
       int vertexCount = sc.nextInt();
       int edgeCount = sc.nextInt();
 
-      // Create the vector of Vertices, and set the vertex number in each Vertex
-      adjacencyList = new Vertex[vertexCount];
-      for (int i = 0; i < vertexCount; i++) {
-        adjacencyList[i] = new Vertex();
-        adjacencyList[i].vertexID = i;
+      // Create the adjacency List.
+      adjacencyList = new ArrayList<ArrayList<edge>>();
+      adjacencyEdges = new ArrayList<HashSet<Integer>>();
+      for (int n = 0; n < vertexCount; n++) {
+        adjacencyList.add(new ArrayList<edge>());
+        adjacencyEdges.add(new HashSet<Integer>());
       }
-      
+
       while (edgeCount-- > 0) {
         // Get our next edge...
         line = in.nextLine();
         // extract numbers, this is the node count and edge count.
         sc = new Scanner(line);
         int source = sc.nextInt();
-        int destination = sc.nextInt();
-        adjacencyList[0].addEdge(adjacencyList, source, destination);
+        int dest = sc.nextInt();
+        edge edge1 = new edge(dest, 0);
+        edge edge2 = new edge(source, 0);
+        if (!adjacencyEdges.get(source).contains(edge1.hashCode())) {
+          adjacencyEdges.get(source).add(edge1.hashCode());
+          adjacencyList.get(source).add(edge1);
+        }
+        if (!adjacencyEdges.get(dest).contains(edge2.hashCode())) {
+          adjacencyEdges.get(dest).add(edge2.hashCode());
+          adjacencyList.get(dest).add(edge2);
+        }
       }
 
       System.out.printf("%d\n", ++loopCount);
       // Print the resulting adjacency list.
       for (int i = 0; i < vertexCount; i++) {
         // Print the vertex number.
-        System.out.printf("%d: ", adjacencyList[i].vertexID);
-        Edge edge = adjacencyList[i].edgeList;
-        // Cycle through all the edges, and add to array list.
-        ArrayList<Integer> edges = new ArrayList<Integer>();
-        while (edge != null) {
-          edges.add(edge.node.vertexID);
-          edge = edge.next;
-        }
+        System.out.printf("%d: ", i);
+        ArrayList<edge> edges = adjacencyList.get(i);
         // Sort the array list.
         Collections.sort(edges);
         // Print the contents of the array list.
-        for(int node = 0; node < edges.size(); node++){
-          if(node+1 == edges.size()){
-            System.out.print(edges.get(node));
+        for (int node = 0; node < edges.size(); node++) {
+          if (node + 1 == edges.size()) {
+            System.out.print(edges.get(node).vertex);
           } else {
-            System.out.printf("%d, ", edges.get(node));
+            System.out.printf("%d, ", edges.get(node).vertex);
           }
         }
         System.out.println();
       }
+    }
+  }
+
+  /**
+   * Generic Edge List to store our edge information.
+   */
+  public class edge implements Comparable<edge> {
+
+    /**
+     * destination vertex and weight.
+     */
+    public int vertex, weight;
+
+    /**
+     * Constructor
+     *
+     * @param v The destination vertex
+     * @param w The weight of the edge.
+     */
+    public edge(int v, int w) {
+      vertex = v;
+      weight = w;
+    }
+
+    /**
+     * Compare function for collection sort.
+     */
+    @Override
+    public int compareTo(edge o) {
+      if (this.vertex < o.vertex) {
+        return -1;
+      } else if (this.vertex > o.vertex) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+
+    @Override
+    public int hashCode() {
+      int hash = 1;
+      hash = 100007 * hash + this.vertex;
+      hash = 100007 * hash + this.weight;
+      return hash;
     }
   }
 }

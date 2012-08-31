@@ -19635,32 +19635,41 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
-  /**
+  public ArrayList<ArrayList<edge>> adjacencyList;
 \end_layout
 
 \begin_layout Plain Layout
 
-   * Define generic Vertex class to hold our information.
 \end_layout
 
 \begin_layout Plain Layout
 
-   */
+  public AdjacencyList(int vertexCount){
 \end_layout
 
 \begin_layout Plain Layout
 
-  public class Vertex<V> {
+    // Create the arraylist of arraylist of edges.
 \end_layout
 
 \begin_layout Plain Layout
 
-    public V node;
+    adjacencyList = new ArrayList<ArrayList<edge>>();
 \end_layout
 
 \begin_layout Plain Layout
 
-    public Edge edgeList;
+    for (int n = 0; n < vertexCount; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      adjacencyList.add(new ArrayList<edge>());
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
 \end_layout
 
 \begin_layout Plain Layout
@@ -19670,7 +19679,6 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
-  
 \end_layout
 
 \begin_layout Plain Layout
@@ -19690,52 +19698,159 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
-  public class Edge{
+  public class edge implements Comparable<edge> {
 \end_layout
 
 \begin_layout Plain Layout
 
-    public Vertex node = null;
 \end_layout
 
 \begin_layout Plain Layout
 
-    public int weight = 0;
+    /**
 \end_layout
 
 \begin_layout Plain Layout
 
-    public Edge next = null;
+     * destination vertex and weight.
 \end_layout
 
 \begin_layout Plain Layout
 
-  }
+     */
 \end_layout
 
 \begin_layout Plain Layout
 
-  
+    public int vertex, weight;
 \end_layout
 
 \begin_layout Plain Layout
 
-  /**
 \end_layout
 
 \begin_layout Plain Layout
 
-   * The Adjacency list.
+    /**
 \end_layout
 
 \begin_layout Plain Layout
 
-   */
+     * Constructor
 \end_layout
 
 \begin_layout Plain Layout
 
-  public Vertex<V>[] adjacencyList;
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param v The destination vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param w The weight of the edge.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public edge(int v, int w) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertex = v;
+\end_layout
+
+\begin_layout Plain Layout
+
+      weight = w;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Compare function for collection sort.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(edge o) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (this.vertex < o.vertex) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (this.vertex > o.vertex) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }  
 \end_layout
 
 \begin_layout Plain Layout
@@ -20015,6 +20130,11 @@ import java.util.Collections;
 
 \begin_layout Plain Layout
 
+import java.util.HashSet;
+\end_layout
+
+\begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -20033,324 +20153,12 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
-  /**
+  static ArrayList<ArrayList<edge>> adjacencyList;
 \end_layout
 
 \begin_layout Plain Layout
 
-   * Define generic Vertex class to hold our information.
-\end_layout
-
-\begin_layout Plain Layout
-
-   */
-\end_layout
-
-\begin_layout Plain Layout
-
-  public static class Vertex {
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    public int vertexID;
-\end_layout
-
-\begin_layout Plain Layout
-
-    public Edge edgeList;
-\end_layout
-
-\begin_layout Plain Layout
-
-    // Insert additional information related to the Vertex here.
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    /**
-\end_layout
-
-\begin_layout Plain Layout
-
-     * Adds the edge into the adjacency list.
-\end_layout
-
-\begin_layout Plain Layout
-
-     *
-\end_layout
-
-\begin_layout Plain Layout
-
-     * @param source The source vertex ID
-\end_layout
-
-\begin_layout Plain Layout
-
-     * @param destination The destination vertex ID
-\end_layout
-
-\begin_layout Plain Layout
-
-     */
-\end_layout
-
-\begin_layout Plain Layout
-
-    public void addEdge(Vertex[] adjacencyList, int source, int destination)
- {
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-      // Get edge list for source.
-\end_layout
-
-\begin_layout Plain Layout
-
-      Edge edge = adjacencyList[source].edgeList;
-\end_layout
-
-\begin_layout Plain Layout
-
-      if (edge != null) {
-\end_layout
-
-\begin_layout Plain Layout
-
-        while (edge.next != null && edge.node.vertexID != destination) {
-\end_layout
-
-\begin_layout Plain Layout
-
-          edge = edge.next;
-\end_layout
-
-\begin_layout Plain Layout
-
-        }
-\end_layout
-
-\begin_layout Plain Layout
-
-        if (edge.node.vertexID != destination) {
-\end_layout
-
-\begin_layout Plain Layout
-
-          edge.next = new Edge(adjacencyList[destination], 0, edge.next);
-\end_layout
-
-\begin_layout Plain Layout
-
-        }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-      } else {
-\end_layout
-
-\begin_layout Plain Layout
-
-        // Doesn't exist, so add it in.
-\end_layout
-
-\begin_layout Plain Layout
-
-        adjacencyList[source].edgeList = 
-\end_layout
-
-\begin_layout Plain Layout
-
-                     new Edge(adjacencyList[destination], 0, null);
-\end_layout
-
-\begin_layout Plain Layout
-
-      }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-      // Repeat same in reverse, as this is an undirected graph.
-\end_layout
-
-\begin_layout Plain Layout
-
-      edge = adjacencyList[destination].edgeList;
-\end_layout
-
-\begin_layout Plain Layout
-
-      if (edge != null) {
-\end_layout
-
-\begin_layout Plain Layout
-
-        while (edge.next != null && edge.node.vertexID != source) {
-\end_layout
-
-\begin_layout Plain Layout
-
-          edge = edge.next;
-\end_layout
-
-\begin_layout Plain Layout
-
-        }
-\end_layout
-
-\begin_layout Plain Layout
-
-        if (edge.node.vertexID != source) {
-\end_layout
-
-\begin_layout Plain Layout
-
-          edge.next = new Edge(adjacencyList[source], 0, edge.next);
-\end_layout
-
-\begin_layout Plain Layout
-
-        }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-      } else {
-\end_layout
-
-\begin_layout Plain Layout
-
-        // Doesn't exist, so add it in.
-\end_layout
-
-\begin_layout Plain Layout
-
-        adjacencyList[destination].edgeList = 
-\end_layout
-
-\begin_layout Plain Layout
-
-                     new Edge(adjacencyList[source], 0, null);
-\end_layout
-
-\begin_layout Plain Layout
-
-      }
-\end_layout
-
-\begin_layout Plain Layout
-
-    }
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-  /**
-\end_layout
-
-\begin_layout Plain Layout
-
-   * Generic Edge List to store our edge information.
-\end_layout
-
-\begin_layout Plain Layout
-
-   */
-\end_layout
-
-\begin_layout Plain Layout
-
-  public static class Edge {
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    public Vertex node = null;
-\end_layout
-
-\begin_layout Plain Layout
-
-    public int weight = 0;
-\end_layout
-
-\begin_layout Plain Layout
-
-    public Edge next = null;
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-    public Edge(Vertex vertex, int weight, Edge edge) {
-\end_layout
-
-\begin_layout Plain Layout
-
-      node = vertex;
-\end_layout
-
-\begin_layout Plain Layout
-
-      this.weight = weight;
-\end_layout
-
-\begin_layout Plain Layout
-
-      next = edge;
-\end_layout
-
-\begin_layout Plain Layout
-
-    }
-\end_layout
-
-\begin_layout Plain Layout
-
-  }
+  static ArrayList<HashSet<Integer>> adjacencyEdges;
 \end_layout
 
 \begin_layout Plain Layout
@@ -20379,15 +20187,36 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
+    new AdjacencyList().run();
 \end_layout
 
 \begin_layout Plain Layout
 
-    Vertex[] adjacencyList;
+  }
 \end_layout
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Run interface to be called from main().
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
 \end_layout
 
 \begin_layout Plain Layout
@@ -20454,28 +20283,32 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
-      // Create the vector of Vertices, and set the vertex number in each
- Vertex
+      // Create the adjacency List.
 \end_layout
 
 \begin_layout Plain Layout
 
-      adjacencyList = new Vertex[vertexCount];
+      adjacencyList = new ArrayList<ArrayList<edge>>();
 \end_layout
 
 \begin_layout Plain Layout
 
-      for (int i = 0; i < vertexCount; i++) {
+      adjacencyEdges = new ArrayList<HashSet<Integer>>();
 \end_layout
 
 \begin_layout Plain Layout
 
-        adjacencyList[i] = new Vertex();
+      for (int n = 0; n < vertexCount; n++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-        adjacencyList[i].vertexID = i;
+        adjacencyList.add(new ArrayList<edge>());
+\end_layout
+
+\begin_layout Plain Layout
+
+        adjacencyEdges.add(new HashSet<Integer>());
 \end_layout
 
 \begin_layout Plain Layout
@@ -20485,7 +20318,6 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
-      
 \end_layout
 
 \begin_layout Plain Layout
@@ -20520,12 +20352,57 @@ public class AdjacencyList {
 
 \begin_layout Plain Layout
 
-        int destination = sc.nextInt();
+        int dest = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
 
-        adjacencyList[0].addEdge(adjacencyList, source, destination);
+        edge edge1 = new edge(dest, 0);
+\end_layout
+
+\begin_layout Plain Layout
+
+        edge edge2 = new edge(source, 0);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (!adjacencyEdges.get(source).contains(edge1.hashCode())) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          adjacencyEdges.get(source).add(edge1.hashCode());
+\end_layout
+
+\begin_layout Plain Layout
+
+          adjacencyList.get(source).add(edge1);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (!adjacencyEdges.get(dest).contains(edge2.hashCode())) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          adjacencyEdges.get(dest).add(edge2.hashCode());
+\end_layout
+
+\begin_layout Plain Layout
+
+          adjacencyList.get(dest).add(edge2);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
 \end_layout
 
 \begin_layout Plain Layout
@@ -20561,42 +20438,12 @@ n", ++loopCount);
 
 \begin_layout Plain Layout
 
-        System.out.printf("%d: ", adjacencyList[i].vertexID);
+        System.out.printf("%d: ", i);
 \end_layout
 
 \begin_layout Plain Layout
 
-        Edge edge = adjacencyList[i].edgeList;
-\end_layout
-
-\begin_layout Plain Layout
-
-        // Cycle through all the edges, and add to array list.
-\end_layout
-
-\begin_layout Plain Layout
-
-        ArrayList<Integer> edges = new ArrayList<Integer>();
-\end_layout
-
-\begin_layout Plain Layout
-
-        while (edge != null) {
-\end_layout
-
-\begin_layout Plain Layout
-
-          edges.add(edge.node.vertexID);
-\end_layout
-
-\begin_layout Plain Layout
-
-          edge = edge.next;
-\end_layout
-
-\begin_layout Plain Layout
-
-        }
+        ArrayList<edge> edges = adjacencyList.get(i);
 \end_layout
 
 \begin_layout Plain Layout
@@ -20616,17 +20463,17 @@ n", ++loopCount);
 
 \begin_layout Plain Layout
 
-        for(int node = 0; node < edges.size(); node++){
+        for (int node = 0; node < edges.size(); node++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-          if(node+1 == edges.size()){
+          if (node + 1 == edges.size()) {
 \end_layout
 
 \begin_layout Plain Layout
 
-            System.out.print(edges.get(node));
+            System.out.print(edges.get(node).vertex);
 \end_layout
 
 \begin_layout Plain Layout
@@ -20636,7 +20483,7 @@ n", ++loopCount);
 
 \begin_layout Plain Layout
 
-            System.out.printf("%d, ", edges.get(node));
+            System.out.printf("%d, ", edges.get(node).vertex);
 \end_layout
 
 \begin_layout Plain Layout
@@ -20671,7 +20518,230 @@ n", ++loopCount);
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Generic Edge List to store our edge information.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class edge implements Comparable<edge> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * destination vertex and weight.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int vertex, weight;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Constructor
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param v The destination vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param w The weight of the edge.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public edge(int v, int w) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertex = v;
+\end_layout
+
+\begin_layout Plain Layout
+
+      weight = w;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Compare function for collection sort.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(edge o) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (this.vertex < o.vertex) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (this.vertex > o.vertex) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int hashCode() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      int hash = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      hash = 100007 * hash + this.vertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+      hash = 100007 * hash + this.weight;
+\end_layout
+
+\begin_layout Plain Layout
+
+      return hash;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
 }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -20709,10 +20779,14 @@ reference "lis:Solution-to-Adjacency-1"
 
 \end_inset
 
-, within the main() function, while-loop comprises of simply reading in
- the vertex information for each graph, building a list in memory.
+, within the run() method, while-loop comprises of simply reading in the
+ vertex information for each graph, building a list in memory.
  The only main complication is the list being printed in an ascending manner,
- which is solved by creating an ArrayList of just then edges, sorting it
+ which is solved by sorting it with 
+\family typewriter
+Collectio.sort()
+\family default
+
 \begin_inset Foot
 status open
 
@@ -23079,7 +23153,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/DFS.eps
-	width 80text%
+	width 65text%
 
 \end_inset
 
@@ -23147,6 +23221,7 @@ reference "fig:BFS-example"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -23894,18 +23969,22 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.Arrays;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.HashSet;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.LinkedList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -23914,18 +23993,22 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 /**
 \end_layout
 
 \begin_layout Plain Layout
+
  * Jar Class to hold an instance of a set of Jars.
 \end_layout
 
 \begin_layout Plain Layout
+
  */
 \end_layout
 
 \begin_layout Plain Layout
+
 class Jars {
 \end_layout
 
@@ -23934,22 +24017,27 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   public final static int A = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
   public final static int B = 1;
 \end_layout
 
 \begin_layout Plain Layout
+
   public final static int C = 2;
 \end_layout
 
 \begin_layout Plain Layout
+
   private int[] jars = {0, 0, 0};
 \end_layout
 
 \begin_layout Plain Layout
+
   public int count;
 \end_layout
 
@@ -23958,34 +24046,42 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   @Override
 \end_layout
 
 \begin_layout Plain Layout
+
   public int hashCode() {
 \end_layout
 
 \begin_layout Plain Layout
+
     int hash = 1;
 \end_layout
 
 \begin_layout Plain Layout
+
     hash = 503 * hash + this.jars[0];
 \end_layout
 
 \begin_layout Plain Layout
+
     hash = 503 * hash + this.jars[1];
 \end_layout
 
 \begin_layout Plain Layout
+
     hash = 503 * hash + this.jars[2];
 \end_layout
 
 \begin_layout Plain Layout
+
     return hash;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -23994,30 +24090,37 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   @Override
 \end_layout
 
 \begin_layout Plain Layout
+
   public boolean equals(Object obj) {
 \end_layout
 
 \begin_layout Plain Layout
+
     final Jars other = (Jars) obj;
 \end_layout
 
 \begin_layout Plain Layout
+
     return ((this.jars[A] == other.jars[A]) 
 \end_layout
 
 \begin_layout Plain Layout
+
             && (this.jars[B] == other.jars[B]) 
 \end_layout
 
 \begin_layout Plain Layout
+
             && (this.jars[C] == other.jars[C]));
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -24026,58 +24129,72 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Constructor
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param JarA the number of beads in Jar A.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param JarB the number of beads in Jar B.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param JarC the number of beads in Jar C.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public Jars(int JarA, int JarB, int JarC) {
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[A] = JarA;
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[B] = JarB;
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[C] = JarC;
 \end_layout
 
 \begin_layout Plain Layout
+
     count = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     Sort();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -24086,50 +24203,62 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Copy Constructor
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param other The Jars to copy.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public Jars(Jars other) {
 \end_layout
 
 \begin_layout Plain Layout
+
     this.jars[A] = other.jars[A];
 \end_layout
 
 \begin_layout Plain Layout
+
     this.jars[B] = other.jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
     this.jars[C] = other.jars[C];
 \end_layout
 
 \begin_layout Plain Layout
+
     this.count = other.count;
 \end_layout
 
 \begin_layout Plain Layout
+
     Sort();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -24138,87 +24267,108 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Sort the contents of the jars into numerical order.
  Thus: a < b < c
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public final void Sort() {
 \end_layout
 
 \begin_layout Plain Layout
+
     int tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars[B] < jars[A]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       tmp = jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = jars[A];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[A] = tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars[C] < jars[B]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       tmp = jars[C];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[C] = jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars[B] < jars[A]) {
 \end_layout
 
 \begin_layout Plain Layout
+
       tmp = jars[B];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = jars[A];
 \end_layout
 
 \begin_layout Plain Layout
+
       jars[B] = tmp;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -24227,26 +24377,32 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Get if there is an empty Jar within the set.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public boolean EmptyJar() {
 \end_layout
 
 \begin_layout Plain Layout
+
     return ((jars[A] == 0) || (jars[B] == 0) || (jars[C] == 0));
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -24255,54 +24411,67 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Move beads from one jar to another.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param source The jar to take beads from.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param destination The jar to add beads to.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void moveBeads(int source, int destination) {
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[source] -= jars[destination];
 \end_layout
 
 \begin_layout Plain Layout
+
     jars[destination] += jars[destination];
 \end_layout
 
 \begin_layout Plain Layout
+
     Sort(); // The resulting jar counts MUST be sorted.
 \end_layout
 
 \begin_layout Plain Layout
+
     count++; // Increment the move count.
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -24311,6 +24480,7 @@ class Jars {
 \end_layout
 
 \begin_layout Plain Layout
+
 public class Monks {
 \end_layout
 
@@ -24319,18 +24489,22 @@ public class Monks {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
@@ -24339,22 +24513,27 @@ public class Monks {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Read in lines as needed.
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner in = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
+
     String line = in.nextLine();
 \end_layout
 
 \begin_layout Plain Layout
+
     // Quit when our input is "0 0 0"
 \end_layout
 
 \begin_layout Plain Layout
+
     while (!line.equals("0 0 0")) {
 \end_layout
 
@@ -24363,32 +24542,39 @@ public class Monks {
 \end_layout
 
 \begin_layout Plain Layout
+
       Scanner sc = new Scanner(line);
 \end_layout
 
 \begin_layout Plain Layout
+
       // Output the minimum moves required.
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf("%s %d
 \backslash
 n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
               LeastMoves(new Jars(sc.nextInt(), sc.nextInt(), sc.nextInt())));
 \end_layout
 
 \begin_layout Plain Layout
+
       line = in.nextLine(); // Get next line.
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -24397,72 +24583,89 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Find the minimum number of moves required to move beads until at least
  1
 \end_layout
 
 \begin_layout Plain Layout
+
    * jar is empty.
  This function is a modified BFS algorithm, with each vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * to search next being derived from the current vertex contents.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param jars The starting jar contents.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The minimum number of moves.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   static int LeastMoves(Jars jars) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Check for empty jar
 \end_layout
 
 \begin_layout Plain Layout
+
     if (jars.EmptyJar()) {
 \end_layout
 
 \begin_layout Plain Layout
+
       return 0; // If our start set of jars has an empty jar, then exit.
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       int leastMoves = 0; // result
 \end_layout
 
 \begin_layout Plain Layout
+
       LinkedList<Jars> moves = new LinkedList<Jars>(); // create queue
 \end_layout
 
 \begin_layout Plain Layout
+
       HashSet<Integer> visited = new HashSet<Integer>();
 \end_layout
 
 \begin_layout Plain Layout
+
       moves.offer(jars); // add initial jars state to queue
 \end_layout
 
@@ -24471,30 +24674,37 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
       while ((!moves.isEmpty()) && (leastMoves == 0)) {
 \end_layout
 
 \begin_layout Plain Layout
+
         Jars current = new Jars(moves.poll()); // remove first in queue
 \end_layout
 
 \begin_layout Plain Layout
+
         visited.add(current.hashCode());
 \end_layout
 
 \begin_layout Plain Layout
+
         
 \end_layout
 
 \begin_layout Plain Layout
+
         // Process the current set of Jars, first check for empty jar
 \end_layout
 
 \begin_layout Plain Layout
+
         if (current.EmptyJar()) {
 \end_layout
 
 \begin_layout Plain Layout
+
           leastMoves = current.count; // store result
 \end_layout
 
@@ -24503,6 +24713,7 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
         } else {
 \end_layout
 
@@ -24511,62 +24722,77 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
           // Visit all neighbouring vertices (or Jars derived from the
 \end_layout
 
 \begin_layout Plain Layout
+
           // current Jar).
 \end_layout
 
 \begin_layout Plain Layout
+
           // Since all Jars are stored in numerical order (a<b<c), we
 \end_layout
 
 \begin_layout Plain Layout
+
           // can reduce the number of tests to perform, and this also
 \end_layout
 
 \begin_layout Plain Layout
+
           // ensures that any subtraction doesn't result in a negative
 \end_layout
 
 \begin_layout Plain Layout
+
           // bead count.
 \end_layout
 
 \begin_layout Plain Layout
+
           // We maintain a hash set with all visited states to ensure
 \end_layout
 
 \begin_layout Plain Layout
+
           // don't revisit them in future
 \end_layout
 
 \begin_layout Plain Layout
+
           Jars moveBtoA = new Jars(current);
 \end_layout
 
 \begin_layout Plain Layout
+
           moveBtoA.moveBeads(Jars.B, Jars.A);
 \end_layout
 
 \begin_layout Plain Layout
+
           int hash = moveBtoA.hashCode();
 \end_layout
 
 \begin_layout Plain Layout
+
           if (!visited.contains(hash)) {
 \end_layout
 
 \begin_layout Plain Layout
+
             moves.offer(moveBtoA);
 \end_layout
 
 \begin_layout Plain Layout
+
             visited.add(hash);
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
@@ -24575,30 +24801,37 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
           Jars moveCtoA = new Jars(current);
 \end_layout
 
 \begin_layout Plain Layout
+
           moveCtoA.moveBeads(Jars.C, Jars.A);
 \end_layout
 
 \begin_layout Plain Layout
+
           hash = moveCtoA.hashCode();
 \end_layout
 
 \begin_layout Plain Layout
+
           if (!visited.contains(hash)) {
 \end_layout
 
 \begin_layout Plain Layout
+
             moves.offer(moveCtoA); // add result to queue
 \end_layout
 
 \begin_layout Plain Layout
+
             visited.add(hash);
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
@@ -24607,54 +24840,67 @@ n", line,
 \end_layout
 
 \begin_layout Plain Layout
+
           current.moveBeads(Jars.C, Jars.B);
 \end_layout
 
 \begin_layout Plain Layout
+
           hash = current.hashCode();
 \end_layout
 
 \begin_layout Plain Layout
+
           if (!visited.contains(hash)) {
 \end_layout
 
 \begin_layout Plain Layout
+
             moves.offer(current); // add result to queue
 \end_layout
 
 \begin_layout Plain Layout
+
             visited.add(hash);
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       // We have found a empty jar set
 \end_layout
 
 \begin_layout Plain Layout
+
       return leastMoves;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -25959,22 +26205,18 @@ inline false
 status open
 
 \begin_layout Plain Layout
+import java.util.ArrayList;
+\end_layout
 
+\begin_layout Plain Layout
 import java.util.Comparator;
 \end_layout
 
 \begin_layout Plain Layout
-
-import java.util.LinkedList;
-\end_layout
-
-\begin_layout Plain Layout
-
 import java.util.PriorityQueue;
 \end_layout
 
 \begin_layout Plain Layout
-
 import java.util.Scanner;
 \end_layout
 
@@ -25983,7 +26225,6 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
-
 public class SpanningTreeProblem {
 \end_layout
 
@@ -25992,33 +26233,28 @@ public class SpanningTreeProblem {
 \end_layout
 
 \begin_layout Plain Layout
-
   static int vertexCount;
 \end_layout
 
 \begin_layout Plain Layout
-
   static int edgeCount;
 \end_layout
 
 \begin_layout Plain Layout
-
   static PriorityQueue<edge> edges;
 \end_layout
 
 \begin_layout Plain Layout
+  static ArrayList<ArrayList<edge>> adjacencyList;
+\end_layout
 
+\begin_layout Plain Layout
   static Boolean[] visited;
 \end_layout
 
 \begin_layout Plain Layout
-
-  private final static String OUTPUT_STRING 
-\end_layout
-
-\begin_layout Plain Layout
-
-          = "Test %d, minimum spanning tree weight = %d
+  private final static String OUTPUT_STRING = "Test %d, minimum spanning
+ tree weight = %d
 \backslash
 n";
 \end_layout
@@ -26028,17 +26264,26 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+  /**
+\end_layout
 
+\begin_layout Plain Layout
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
-
     new SpanningTreeProblem().run();
 \end_layout
 
 \begin_layout Plain Layout
-
   }
 \end_layout
 
@@ -26047,22 +26292,30 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+  /**
+\end_layout
 
+\begin_layout Plain Layout
+   * Run interface to be called from main().
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
-
     Scanner in = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
-
     int caseCount = Integer.parseInt(in.nextLine());
 \end_layout
 
 \begin_layout Plain Layout
-
     int loopCount = 0;
 \end_layout
 
@@ -26071,27 +26324,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
     // Keep looping while we have cases to test.
 \end_layout
 
 \begin_layout Plain Layout
-
     while (caseCount - loopCount > 0) {
 \end_layout
 
 \begin_layout Plain Layout
-
       int minimumWeight = 0;
 \end_layout
 
 \begin_layout Plain Layout
-
       vertexCount = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
-
       edgeCount = in.nextInt();
 \end_layout
 
@@ -26100,41 +26348,54 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
-      // Construct our priority queue, and visited map.
+      // Construct visited map and adjacency list.
 \end_layout
 
 \begin_layout Plain Layout
-
-      edges = new PriorityQueue<edge>(edgeCount, new edge(0, 0, 0));
-\end_layout
-
-\begin_layout Plain Layout
-
       visited = new Boolean[vertexCount];
 \end_layout
 
 \begin_layout Plain Layout
-
+      adjacencyList = new ArrayList<ArrayList<edge>>();
 \end_layout
 
 \begin_layout Plain Layout
 
-      // Set all vertices to not visited.
+\end_layout
+
+\begin_layout Plain Layout
+      // Create priority queue.
+\end_layout
+
+\begin_layout Plain Layout
+      edge comp = new edge( 0, 0);
+\end_layout
+
+\begin_layout Plain Layout
+			edges = new PriorityQueue<edge>(edgeCount, comp);
 \end_layout
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+      // Set all vertices to not visited and ensure Adjacency list has items.
+\end_layout
+
+\begin_layout Plain Layout
       for (int n = 0; n < vertexCount; n++) {
 \end_layout
 
 \begin_layout Plain Layout
-
         visited[n] = false;
 \end_layout
 
 \begin_layout Plain Layout
+        adjacencyList.add(new ArrayList<edge>());
+\end_layout
 
+\begin_layout Plain Layout
       }
 \end_layout
 
@@ -26143,22 +26404,34 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
-      // Read all edges into the priority queue.
+      // Read all edges into the adjacency list.
 \end_layout
 
 \begin_layout Plain Layout
-
       while (edgeCount-- > 0) {
 \end_layout
 
 \begin_layout Plain Layout
-
-        edges.add(new edge(in.nextInt(), in.nextInt(), in.nextInt()));
+        int source = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+        int dest = in.nextInt();
+\end_layout
 
+\begin_layout Plain Layout
+        int weight = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+        adjacencyList.get(source).add(new edge(dest, weight));
+\end_layout
+
+\begin_layout Plain Layout
+        adjacencyList.get(dest).add(new edge(source, weight));
+\end_layout
+
+\begin_layout Plain Layout
       }
 \end_layout
 
@@ -26167,13 +26440,11 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
       // Set our source vertex to be visited.
 \end_layout
 
 \begin_layout Plain Layout
-
-      visited[edges.peek().sourceVertex] = true;
+      visited[0] = true;
 \end_layout
 
 \begin_layout Plain Layout
@@ -26181,23 +26452,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+      // Add all vertex 0 edges to the priority queue
+\end_layout
 
+\begin_layout Plain Layout
+      addEdges(0);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
       // While not visited all vertices, continue to loop
 \end_layout
 
 \begin_layout Plain Layout
-
-      while (!visitedAllVertices()) {
+      while (!edges.isEmpty()) {
 \end_layout
 
 \begin_layout Plain Layout
-
-        LinkedList<edge> tmpEdges = new LinkedList<edge>();
-\end_layout
-
-\begin_layout Plain Layout
-
-        int sourceVertex, destinationVertex;
+        edge e = edges.poll();
 \end_layout
 
 \begin_layout Plain Layout
@@ -26205,93 +26480,11 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
-        edge minEdge = edges.poll();
+        // if vertex is not yet connected
 \end_layout
 
 \begin_layout Plain Layout
-
-        Boolean useThisEdge = false;
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-        // find min edge with one node in tree and one node not in tree
-\end_layout
-
-\begin_layout Plain Layout
-
-        do {
-\end_layout
-
-\begin_layout Plain Layout
-
-          sourceVertex = minEdge.sourceVertex;
-\end_layout
-
-\begin_layout Plain Layout
-
-          destinationVertex = minEdge.destinationVertex;
-\end_layout
-
-\begin_layout Plain Layout
-
-          
-\end_layout
-
-\begin_layout Plain Layout
-
-          // check for source being visited and destination not visited
-\end_layout
-
-\begin_layout Plain Layout
-
-          if (visited[sourceVertex] && !visited[destinationVertex]) {
-\end_layout
-
-\begin_layout Plain Layout
-
-            useThisEdge = true;
-\end_layout
-
-\begin_layout Plain Layout
-
-          } else if (!visited[sourceVertex] && visited[destinationVertex])
- {
-\end_layout
-
-\begin_layout Plain Layout
-
-            // check for other direction
-\end_layout
-
-\begin_layout Plain Layout
-
-            int tmp = sourceVertex; // swap source and destination
-\end_layout
-
-\begin_layout Plain Layout
-
-            sourceVertex = destinationVertex;
-\end_layout
-
-\begin_layout Plain Layout
-
-            destinationVertex = tmp;
-\end_layout
-
-\begin_layout Plain Layout
-
-            useThisEdge = true;
-\end_layout
-
-\begin_layout Plain Layout
-
-          }
+        if (visited[e.vertex] == false) {
 \end_layout
 
 \begin_layout Plain Layout
@@ -26299,70 +26492,26 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
-          if (!useThisEdge) {
+          // take edge and process all edges incident to this edge
 \end_layout
 
 \begin_layout Plain Layout
-
-            tmpEdges.add(minEdge); // store unused edges for later
+          // each edge is in priority queue only once
 \end_layout
 
 \begin_layout Plain Layout
-
-            minEdge = edges.poll(); // get next edge to try
+          minimumWeight += e.weight;
 \end_layout
 
 \begin_layout Plain Layout
-
-          }
+          addEdges(e.vertex);
 \end_layout
 
 \begin_layout Plain Layout
-
-        } while (!useThisEdge);
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-        minimumWeight += minEdge.weight;
-\end_layout
-
-\begin_layout Plain Layout
-
-        visited[destinationVertex] = true;
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-        // copy unused edges back to priority queue
-\end_layout
-
-\begin_layout Plain Layout
-
-        for(edge e: tmpEdges){
-\end_layout
-
-\begin_layout Plain Layout
-
-          edges.add(e);
-\end_layout
-
-\begin_layout Plain Layout
-
         }
 \end_layout
 
 \begin_layout Plain Layout
-
       }
 \end_layout
 
@@ -26371,17 +26520,14 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
       System.out.printf(OUTPUT_STRING, ++loopCount, minimumWeight);
 \end_layout
 
 \begin_layout Plain Layout
-
     }
 \end_layout
 
 \begin_layout Plain Layout
-
   }
 \end_layout
 
@@ -26390,42 +26536,59 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
-  public Boolean visitedAllVertices() {
+  /**
 \end_layout
 
 \begin_layout Plain Layout
-
-    for (Boolean v : visited) {
+   * Add edges of vertex to the priority queue, whose edge has not been
+ visited.
 \end_layout
 
 \begin_layout Plain Layout
-
-      if (!v) {
+   *
 \end_layout
 
 \begin_layout Plain Layout
-
-        return false;
+   * @param vertex
 \end_layout
 
 \begin_layout Plain Layout
+   */
+\end_layout
 
+\begin_layout Plain Layout
+  public void addEdges(int vertex) {
+\end_layout
+
+\begin_layout Plain Layout
+    visited[vertex] = true;
+\end_layout
+
+\begin_layout Plain Layout
+    for (edge e : adjacencyList.get(vertex)) {
+\end_layout
+
+\begin_layout Plain Layout
+      // Add in edge, if neighbour has NOT been visited, to avoid cycles.
+\end_layout
+
+\begin_layout Plain Layout
+      if (visited[e.vertex] == false) {
+\end_layout
+
+\begin_layout Plain Layout
+        edges.add(e);
+\end_layout
+
+\begin_layout Plain Layout
       }
 \end_layout
 
 \begin_layout Plain Layout
-
     }
 \end_layout
 
 \begin_layout Plain Layout
-
-    return true;
-\end_layout
-
-\begin_layout Plain Layout
-
   }
 \end_layout
 
@@ -26434,7 +26597,18 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+  /**
+\end_layout
 
+\begin_layout Plain Layout
+   * Edge container class.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
   public class edge implements Comparator<edge> {
 \end_layout
 
@@ -26443,8 +26617,19 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+    /**
+\end_layout
 
-    public int sourceVertex, destinationVertex, weight;
+\begin_layout Plain Layout
+     * destination vertex and weight.
+\end_layout
+
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
+    public int vertex, weight;
 \end_layout
 
 \begin_layout Plain Layout
@@ -26452,27 +26637,38 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
-
-    public edge(int s, int d, int w) {
+    /**
 \end_layout
 
 \begin_layout Plain Layout
-
-      sourceVertex = s;
+     * Constructor
 \end_layout
 
 \begin_layout Plain Layout
-
-      destinationVertex = d;
+     * @param v The destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+     * @param w The weight of the edge.
+\end_layout
 
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
+    public edge(int v, int w) {
+\end_layout
+
+\begin_layout Plain Layout
+      vertex = v;
+\end_layout
+
+\begin_layout Plain Layout
       weight = w;
 \end_layout
 
 \begin_layout Plain Layout
-
     }
 \end_layout
 
@@ -26481,63 +26677,67 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+    /**
+\end_layout
 
+\begin_layout Plain Layout
+     * Compare function for priority queue.
+\end_layout
+
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
     @Override
 \end_layout
 
 \begin_layout Plain Layout
-
     public int compare(edge e1, edge e2) {
 \end_layout
 
 \begin_layout Plain Layout
-
       if (e1.weight < e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
-
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
-
       } else if (e1.weight > e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
-
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
-
       } else {
 \end_layout
 
 \begin_layout Plain Layout
-
         return 0;
 \end_layout
 
 \begin_layout Plain Layout
-
       }
 \end_layout
 
 \begin_layout Plain Layout
-
     }
 \end_layout
 
 \begin_layout Plain Layout
-
   }
 \end_layout
 
 \begin_layout Plain Layout
-
 }
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -26574,78 +26774,32 @@ reference "lis:Prim-Jarník-Algorithm-(Java)"
 
 \end_inset
 
-, in that the problem solution utilises an 
-\begin_inset Quotes eld
-\end_inset
-
-edge list
-\begin_inset Quotes erd
-\end_inset
-
- priority queue rather than an adjacency matrix to hold the representation
- of the graph.
- An 
-\begin_inset Quotes eld
-\end_inset
-
-edge list
-\begin_inset Quotes erd
-\end_inset
-
- is a simple linked list that holds all the edges which represents a graph,
- and is a third way (in addition to adjacency matrix and adjacency list)
- but less common method of representing a graph.
+, in that the problem solution utilises an adjacency list to represent the
+ graph rather than an adjacency matrix.
+ This suits the problem well, as we are interested in the sum of the tree
+ and not the tree itself.
 \end_layout
 
 \begin_layout Standard
-Using an edge list in this solution fits the problem, as we are not interested
- in the tree itself, but rather the sum of the resulting weights that make
- up the tree.
- 
-\end_layout
-
-\begin_layout Standard
-The core loop 
-\family typewriter
-while(!v i s i t e d A l l V e r t i c e s ()) {}
-\family default
- is the implementation of the Prim-Jarník Algorithm itself.
- Since we are given all edges at the start of the problem, we simply place
- all these into a priority queue
+The implementation, utilises a priority queue
 \begin_inset Foot
 status collapsed
 
 \begin_layout Plain Layout
-A priority queue, is a queue that is sorted from smallest to largest (or
- from largest to smallest) based on a comparison method defined by the programme
-r.
- The head of the queue will be the smallest (or largest) item in the queue,
- whilst the tail will hold the item to be processed last based on it's value.
+The priority queue is primed with edges incident to vertex 0.
 \end_layout
 
 \end_inset
 
-, so that the head of the queue is always the next lowest weight edge.
- Within the main loop, we simply take the head of the proirity queue, determine
- if either the source or destination is within the current tree, and if
- so use this edge as the next in the tree.
- If the inspected egde vetrices are not in the tree, we store the edge for
- future inspection in the 
-\family typewriter
-tmpEdges
-\family default
- list.
- Once we have found an edge that has it's source or destination in the tree,
- we add it's weight to the sum of weight for the tree.
- (If we wanted to know the minimum spanning tree, we would store the edge
- in another tree list, rather than discarding the edge as done within the
- solution).
- At the end of the loop, we simply add all the edges in the 
-\family typewriter
-tmpEdges
-\family default
- list, back into the priority queue so that they can be reprocessed within
- the main loop, as these are viable edges to utilise.
+ of edges that are located incident to the edges that have been explored,
+ and removes the head of the queue.
+ If this edge has not been visited, we add it's weight to the sum of the
+ tree, and note that we have visited the vertex.
+ We then add all edges incident to the vertex just visited to the priority
+ queue.
+ We continue looping until the priority queue has been exhausted (which
+ indicates that we have visited all vertices in the graph that are reachable
+ from vertex 0).
 \end_layout
 
 \begin_layout Standard
@@ -26653,11 +26807,11 @@ The few edge cases to consider would be very dense graphs, very sparse graphs,
  or graphs that contain zero edges.
  An graph with all edges having the same weight, whilst will derive a different
  minimum spanning tree, is not a problem with the solution implementation,
- due to it's use of the priority queue.
+ due to it’s use of the priority queue.
  Another item to consider is how to handle cycles within the graph representatio
 n, that is a new edge, that has both source and destination vertex already
  in the resulting tree.
- (These should simply be discarded).
+ (These should simply be discarded, and are within the implementation).
 \end_layout
 
 \begin_layout Paragraph
