@@ -28112,8 +28112,8 @@ One of the key aspects of the algorithm is the method used to determining
 
  is true or false as well as performing the merge operation between the
  two clusters (or sub-trees).
- To achieve this we utilise a union find algorithm, that offers high performance
- in both checking if 
+ To achieve this we utilise a union find data structure, that offers high
+ performance in both checking if 
 \begin_inset Formula $C(v)\neq C(u)$
 \end_inset
 
