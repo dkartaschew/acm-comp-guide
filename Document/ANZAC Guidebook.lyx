@@ -9174,7 +9174,7 @@ reference "alg:Array-Rotation-AntiClockwise"
 
  depict both clockwise and anti-clock array rotation respectively.
  Simply, both perform substitution of x and y values for the target array.
- An additionl variable is needed to hold an offset, so that the new array
+ An additional variable is needed to hold an offset, so that the new array
  offsets may be calculated correctly
 \begin_inset Foot
 status collapsed
@@ -9340,8 +9340,8 @@ status open
 
 \begin_layout Plain Layout
 
-public void ArrayAntiRotateClockWise(E[][] source, E[][] T, int width, int
- height){
+public void ArrayAntiRotateClockWise(E[][] source, E[][] target, int width,
+ int height){
 \end_layout
 
 \begin_layout Plain Layout
@@ -9576,7 +9576,7 @@ A solution to the sample problem utilising an array rotation can be seen
  in Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "lis:Solution-to-Array"
+reference "lis:Solution-to-Array-Flip"
 
 \end_inset
 
@@ -10086,7 +10086,7 @@ For {$x$ = 0 to $n-1$}
 
 
 \backslash
-State $T[m-y][x] 
+State $T[m-y-1][x] 
 \backslash
 leftarrow S[y][x]$ 
 \backslash
@@ -10215,7 +10215,7 @@ For {$x$ = 0 to $n-1$}
 
 
 \backslash
-State $T[y][n-x] 
+State $T[y][n-x-1] 
 \backslash
 leftarrow S[y][x]$ 
 \backslash
@@ -10285,7 +10285,886 @@ As both of these algorithms access both the source and target arrays row
  misses.
 \end_layout
 
+\begin_layout Paragraph
+Description of working
+\end_layout
+
 \begin_layout Standard
+Algoritms 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Array-Mirror-Vertical"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Array-Mirror-Horizon"
+
+\end_inset
+
+ depict both vertical and horizontal flipping respectively.
+ Simply, both perform substitution of x and y values for the target array.
+ Figure shows the clockwise rotation operation in effect.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Array Flip.eps
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Array Flipping
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Mirror-Array-Along-1"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Mirror-Array-Along"
+
+\end_inset
+
+ show implementations of vertical and horizontal mirroing respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public void ArrayVerticalFlip(E[][] source, E[][] target, int width, int
+ height){
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int y = 0; y < height; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int x = 0; x < width; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      target[(height-y-1)][x] = source[y][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Mirror Array Along Vertical Axis(Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Mirror-Array-Along-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public void ArrayHorizontalFlip(E[][] source, E[][] target, int width, int
+ height){
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (int y = 0; y < height; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int x = 0; x < width; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      target[y][(width-x-1)] = source[y][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Mirror Array Along Horizontal Axis(Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Mirror-Array-Along"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem- Matrix Flipping
+\end_layout
+
+\begin_layout Standard
+Given a two dimension matrix measuring n 
+\begin_inset Formula $\times$
+\end_inset
+
+ m, flip the matrix in a vertical direction, followed by a horizontal direction.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+Input consists of one or more lines, with the first line being the size
+ of the matrix to flip in width and height.
+ The width and height will be in a range between 0 and 79.
+ The application should exit when the size given is 
+\begin_inset Quotes eld
+\end_inset
+
+0 0
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The following lines denote the matrix to be flipped, with each element being
+ a 1 or 0, separated by a space.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3 3
+\begin_inset Newline newline
+\end_inset
+
+1 0 1
+\begin_inset Newline newline
+\end_inset
+
+0 0 0
+\begin_inset Newline newline
+\end_inset
+
+1 0 0
+\begin_inset Newline newline
+\end_inset
+
+2 2
+\begin_inset Newline newline
+\end_inset
+
+1 0
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+0 0 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+The output of each flip operation should be the resultant matrix, without
+ spaces between each column in the matrix.
+ There must a blank line separating each resultant matrix.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+001
+\begin_inset Newline newline
+\end_inset
+
+000
+\begin_inset Newline newline
+\end_inset
+
+101
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+00
+\begin_inset Newline newline
+\end_inset
+
+10
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A solution to the sample problem utilising an array rotation can be seen
+ in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Array-Flip"
+
+\end_inset
+
+.
+ The solution performs the following:
+\end_layout
+
+\begin_layout Enumerate
+Reads in the width and height values.
+ If these are not 0 and 0, continue the main loop body, otherwise exit.
+\end_layout
+
+\begin_layout Enumerate
+If either of the values is 0, (indicating a 0 width or height), skip attempting
+ to read in a matrix, and go back to step 1.
+\end_layout
+
+\begin_layout Enumerate
+Create a new array of size width, height to hold integers.
+ Read in the values from stdin, and fill in these values into the respective
+ position within the array.
+\end_layout
+
+\begin_layout Enumerate
+Create a new array to hold the result of the flip.
+ Flip the array vertically, then horizontally, and print the results.
+ Goto step 1.
+\end_layout
+
+\begin_layout Standard
+As this challenge is very simple, the only issue to account for is if either
+ the width or height is given as 0 (zero), in which case a blank line should
+ be returned.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class ArrayFlip {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Flip an Array in a vertical direction
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param source The source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param target The target array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param width The width of the source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param height The height of the source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void ArrayVerticalFlip(int[][] source, int[][] target, int
+ width, 
+\end_layout
+
+\begin_layout Plain Layout
+
+                                       int height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int y = 0; y < height; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int x = 0; x < width; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        target[(height - y - 1 )][x] = source[y][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Flip an Array in a horizontal direction
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param source The source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param target The target array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param width The width of the source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param height The height of the source array
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void ArrayHorizontalFlip(int[][] source, int[][] target,
+ int width, 
+\end_layout
+
+\begin_layout Plain Layout
+
+                                         int height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int y = 0; y < height; y++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int x = 0; x < width; x++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        target[y][(width - x - 1)] = source[y][x];
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // get the size of the matrix to rotate.
+\end_layout
+
+\begin_layout Plain Layout
+
+    String matrixSizeLine = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner matrixSize = new Scanner(matrixSizeLine);
+\end_layout
+
+\begin_layout Plain Layout
+
+    int width = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    int height = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep reading in a matrix until exit condition
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!((width == 0) && (height == 0))) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Ignore the line if either width or height = 0.
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!((width == 0) || (height == 0))) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Read in our matrix.
+\end_layout
+
+\begin_layout Plain Layout
+
+        int[][] matrix = new int[height][width];
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int count = 0; count < height; count++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          String[] matrixLine = in.nextLine().split("
+\backslash
+
+\backslash
+s+");
+\end_layout
+
+\begin_layout Plain Layout
+
+          for (int element = 0; element < matrixLine.length; element++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            matrix[count][element] = Integer.parseInt(matrixLine[element]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Flip the matrix and print.
+\end_layout
+
+\begin_layout Plain Layout
+
+        int[][] target = new int[height][width];
+\end_layout
+
+\begin_layout Plain Layout
+
+        ArrayVerticalFlip(matrix, target, width, height);
+\end_layout
+
+\begin_layout Plain Layout
+
+        ArrayHorizontalFlip(target, matrix, width, height);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Print the resultant matrix.
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int row = 0; row < width; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          for (int column = 0; column < height; column++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            System.out.print(matrix[row][column]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          System.out.println();
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Print line between each matrix output
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println();
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // get the size of the matrix to rotate.
+\end_layout
+
+\begin_layout Plain Layout
+
+      matrixSizeLine = in.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+      matrixSize = new Scanner(matrixSizeLine);
+\end_layout
+
+\begin_layout Plain Layout
+
+      width = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      height = matrixSize.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to Array Flipping Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Array-Flip"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset Newpage newpage
 \end_inset
 
@@ -23164,7 +24043,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-DFE Example
+DFS Example
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:DFE-Example"
@@ -25132,7 +26011,7 @@ reference "alg:The-Prim-Jarník-Algorithm"
 \begin_inset Float algorithm
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -25419,6 +26298,30 @@ Starting at Vertex D, all edges that are incident are added to the priority
  only cares about the minimum weight, not the current vertex.
  This process is repeated, until all vertices are within the MST T (step
  (f)).
+\end_layout
+
+\begin_layout Standard
+The Prim-Jarník Algorithm depending on the implemetation will have a running
+ time of 
+\series bold
+O(m log n)
+\series default
+ when an adjacency list is utilised or
+\series bold
+ O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ when an adjacency matrix is utilised.
 \end_layout
 
 \begin_layout Standard
@@ -26205,18 +27108,22 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.ArrayList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Comparator;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.PriorityQueue;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -26225,6 +27132,7 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class SpanningTreeProblem {
 \end_layout
 
@@ -26233,26 +27141,32 @@ public class SpanningTreeProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   static int vertexCount;
 \end_layout
 
 \begin_layout Plain Layout
+
   static int edgeCount;
 \end_layout
 
 \begin_layout Plain Layout
+
   static PriorityQueue<edge> edges;
 \end_layout
 
 \begin_layout Plain Layout
+
   static ArrayList<ArrayList<edge>> adjacencyList;
 \end_layout
 
 \begin_layout Plain Layout
+
   static Boolean[] visited;
 \end_layout
 
 \begin_layout Plain Layout
+
   private final static String OUTPUT_STRING = "Test %d, minimum spanning
  tree weight = %d
 \backslash
@@ -26264,26 +27178,32 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     new SpanningTreeProblem().run();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -26292,30 +27212,37 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Run interface to be called from main().
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner in = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
+
     int caseCount = Integer.parseInt(in.nextLine());
 \end_layout
 
 \begin_layout Plain Layout
+
     int loopCount = 0;
 \end_layout
 
@@ -26324,22 +27251,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     // Keep looping while we have cases to test.
 \end_layout
 
 \begin_layout Plain Layout
+
     while (caseCount - loopCount > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
       int minimumWeight = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
       vertexCount = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       edgeCount = in.nextInt();
 \end_layout
 
@@ -26348,14 +27280,17 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Construct visited map and adjacency list.
 \end_layout
 
 \begin_layout Plain Layout
+
       visited = new Boolean[vertexCount];
 \end_layout
 
 \begin_layout Plain Layout
+
       adjacencyList = new ArrayList<ArrayList<edge>>();
 \end_layout
 
@@ -26364,14 +27299,17 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Create priority queue.
 \end_layout
 
 \begin_layout Plain Layout
+
       edge comp = new edge( 0, 0);
 \end_layout
 
 \begin_layout Plain Layout
+
 			edges = new PriorityQueue<edge>(edgeCount, comp);
 \end_layout
 
@@ -26380,22 +27318,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Set all vertices to not visited and ensure Adjacency list has items.
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int n = 0; n < vertexCount; n++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         visited[n] = false;
 \end_layout
 
 \begin_layout Plain Layout
+
         adjacencyList.add(new ArrayList<edge>());
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -26404,34 +27347,42 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Read all edges into the adjacency list.
 \end_layout
 
 \begin_layout Plain Layout
+
       while (edgeCount-- > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
         int source = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         int dest = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         int weight = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         adjacencyList.get(source).add(new edge(dest, weight));
 \end_layout
 
 \begin_layout Plain Layout
+
         adjacencyList.get(dest).add(new edge(source, weight));
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -26440,10 +27391,12 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Set our source vertex to be visited.
 \end_layout
 
 \begin_layout Plain Layout
+
       visited[0] = true;
 \end_layout
 
@@ -26452,10 +27405,12 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Add all vertex 0 edges to the priority queue
 \end_layout
 
 \begin_layout Plain Layout
+
       addEdges(0);
 \end_layout
 
@@ -26464,14 +27419,17 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // While not visited all vertices, continue to loop
 \end_layout
 
 \begin_layout Plain Layout
+
       while (!edges.isEmpty()) {
 \end_layout
 
 \begin_layout Plain Layout
+
         edge e = edges.poll();
 \end_layout
 
@@ -26480,10 +27438,12 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
         // if vertex is not yet connected
 \end_layout
 
 \begin_layout Plain Layout
+
         if (visited[e.vertex] == false) {
 \end_layout
 
@@ -26492,26 +27452,32 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
           // take edge and process all edges incident to this edge
 \end_layout
 
 \begin_layout Plain Layout
+
           // each edge is in priority queue only once
 \end_layout
 
 \begin_layout Plain Layout
+
           minimumWeight += e.weight;
 \end_layout
 
 \begin_layout Plain Layout
+
           addEdges(e.vertex);
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -26520,14 +27486,17 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf(OUTPUT_STRING, ++loopCount, minimumWeight);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -26536,59 +27505,73 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Add edges of vertex to the priority queue, whose edge has not been
  visited.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void addEdges(int vertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     visited[vertex] = true;
 \end_layout
 
 \begin_layout Plain Layout
+
     for (edge e : adjacencyList.get(vertex)) {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Add in edge, if neighbour has NOT been visited, to avoid cycles.
 \end_layout
 
 \begin_layout Plain Layout
+
       if (visited[e.vertex] == false) {
 \end_layout
 
 \begin_layout Plain Layout
+
         edges.add(e);
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -26597,18 +27580,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Edge container class.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class edge implements Comparator<edge> {
 \end_layout
 
@@ -26617,18 +27604,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * destination vertex and weight.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     public int vertex, weight;
 \end_layout
 
@@ -26637,38 +27628,47 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Constructor
 \end_layout
 
 \begin_layout Plain Layout
+
      * @param v The destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
      * @param w The weight of the edge.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     public edge(int v, int w) {
 \end_layout
 
 \begin_layout Plain Layout
+
       vertex = v;
 \end_layout
 
 \begin_layout Plain Layout
+
       weight = w;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -26677,62 +27677,77 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Compare function for priority queue.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     @Override
 \end_layout
 
 \begin_layout Plain Layout
+
     public int compare(edge e1, edge e2) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (e1.weight < e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (e1.weight > e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 0;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -26815,15 +27830,353 @@ n, that is a new edge, that has both source and destination vertex already
 \end_layout
 
 \begin_layout Paragraph
-Kurskal's with Union Find Algorithm 
+Kruskal's with Union Find Algorithm 
 \end_layout
 
-\begin_layout Subparagraph
-Implementation
+\begin_layout Standard
+Kruskal's Minimum Spanning Tree Algorithm works in a very similar manner
+ to that described of The Prim-Jarník Algorithm, with one exception, that
+ egdes are added to the tree in order of lowest cost irrespective of the
+ edge they incident with, unless addition of the edge results in a cycle
+ forming.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A Graph $G$ which is a fully connected graph.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure A tree $T$ whose properties match those of a Minimum Spanning Tree.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{KruskalsMST}{$G$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {vertex $v$ in $G$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Define an elementary cluster $C(v) 
+\backslash
+gets {v}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Initialise priority queue $Q$ to contains all edges in $G$, using
+ weights as keys.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$T 
+\backslash
+gets 
+\backslash
+emptyset$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$T$ has fewer than $n-1$ egdes}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$(v,u) 
+\backslash
+gets Q.
+\backslash
+textsf{removeMin()}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Let $C(v)$ be the cluster containing $v$, and let $C(u)$ be the cluster
+ containing $u$.}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$C(v) 
+\backslash
+neq C(u)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Add edge $(v,u)$ to $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Merge $C(v)$ and $C(u)$ into one cluster.
+ ($C(v) 
+\backslash
+cup C(u)$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Kruskal's Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Kruskal's-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subparagraph
 Description of Working
+\end_layout
+
+\begin_layout Standard
+The algorithm like Prim's essentially builds the minimum spanning tree based
+ on the least weight of edges that lead to vertices that are not part of
+ the tree.
+\end_layout
+
+\begin_layout Standard
+This is achieved through the use of a single priority queue, that holds
+ all edges of the graph, with the least weighted egdes being at the start/head
+ of the queue.
+ On each iteration, it will remove the next least cost edge, add it to the
+ tree, if and only if the addition of the edge does not result in a cycle
+ within the tree.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Kruskal's-Algorithm"
+
+\end_inset
+
+ demonstrates the algorithm, based on the initial graph in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Basic-Graph-Example"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Based on the weights, of edges within the graph depicted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Kruskal's-Algorithm"
+
+\end_inset
+
+(a), will be stored in the priority queue in the following order: {(f,g),
+ (b,e), (b,d), (d,e), (a,b), (b,c), (e,g), (c,e), (d,f), (a,d), (e,f)}.
+ In (a), the first edge is automatically added to the Tree (as there are
+ no other edges currently in the tree).
+ (b), (c) add additional edges to form a second sub-tree.
+ In (d), the next edge in the priority queue is (d,e), however this is not
+ added as it would create a cycle within the tree.
+ The rest of the edges are added into the tree, until the number of edges
+ in the resulting Tree is equal to the number of vertices - 1.
+\end_layout
+
+\begin_layout Standard
+One of the key aspects of the algorithm is the method used to determining
+ if 
+\begin_inset Formula $C(v)\neq C(u)$
+\end_inset
+
+ is true or false as well as performing the merge operation between the
+ two clusters (or sub-trees).
+ To achieve this we utilise a union find algorithm, that offers high performance
+ in both checking if 
+\begin_inset Formula $C(v)\neq C(u)$
+\end_inset
+
+ and also performing the merge operation.
+\end_layout
+
+\begin_layout Standard
+Kruskal's Algorithm will typically have a performance complexity of 
+\series bold
+O(m log n)
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Kruskals.eps
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Kruskal's Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Kruskal's-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subparagraph
+Implementation
 \end_layout
 
 \begin_layout Subparagraph
@@ -26850,11 +28203,11 @@ Single Source Shortest Path
 \end_layout
 
 \begin_layout Paragraph
-Implementation
+Description of Working
 \end_layout
 
 \begin_layout Paragraph
-Description of Working
+Implementation
 \end_layout
 
 \begin_layout Paragraph
