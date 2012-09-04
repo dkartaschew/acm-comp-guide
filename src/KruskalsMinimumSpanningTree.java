@@ -44,14 +44,14 @@ public class KruskalsMinimumSpanningTree {
       }
 
       // Build connectivity map for Union-Find operation.
-      unode[] vertexMap = new unode[edgeCount];
-      for(int i = 0; i < edgeCount; i++){
+      unode[] vertexMap = new unode[vertexCount];
+      for(int i = 0; i < vertexCount; i++){
         // Set all vertices to be in their own trees.
         vertexMap[i] = new unode(null, 0);
       }
       
       // Begin Kruskal's Algorithm with Union-Find
-      for (int i = 0; i < edgeCount; i++) {
+      while (!edges.isEmpty()) {
         edge currentEdge = edges.poll();
         unode p = find(vertexMap[currentEdge.source]); // Get parent of tree that source is in
         unode q = find(vertexMap[currentEdge.destination]); // Get parent of tree that dest is in.
