@@ -28756,7 +28756,6 @@ public class Kruskals {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Kruskal's Algorithm (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -28815,18 +28814,22 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.ArrayList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Comparator;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.PriorityQueue;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -28835,6 +28838,7 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class KruskalsMinimumSpanningTree {
 \end_layout
 
@@ -28843,22 +28847,27 @@ public class KruskalsMinimumSpanningTree {
 \end_layout
 
 \begin_layout Plain Layout
+
   int vertexCount;
 \end_layout
 
 \begin_layout Plain Layout
+
   int edgeCount;
 \end_layout
 
 \begin_layout Plain Layout
+
   PriorityQueue<edge> edges;
 \end_layout
 
 \begin_layout Plain Layout
+
   ArrayList<edge> tree;
 \end_layout
 
 \begin_layout Plain Layout
+
   private final static String OUTPUT_STRING = "Test %d, minimum spanning
  tree weight = %d
 \backslash
@@ -28870,26 +28879,32 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     new KruskalsMinimumSpanningTree().run();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -28898,30 +28913,37 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Run interface to be called from main().
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner in = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
+
     int caseCount = Integer.parseInt(in.nextLine());
 \end_layout
 
 \begin_layout Plain Layout
+
     int loopCount = 0;
 \end_layout
 
@@ -28930,22 +28952,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     // Keep looping while we have cases to test.
 \end_layout
 
 \begin_layout Plain Layout
+
     while (caseCount - loopCount > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
       int minimumWeight = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
       vertexCount = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       edgeCount = in.nextInt();
 \end_layout
 
@@ -28954,18 +28981,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Create priority queue and MST.
 \end_layout
 
 \begin_layout Plain Layout
+
       edge comp = new edge(0, 0, 0);
 \end_layout
 
 \begin_layout Plain Layout
+
       edges = new PriorityQueue<edge>(edgeCount, comp);
 \end_layout
 
 \begin_layout Plain Layout
+
       tree = new ArrayList<edge>();
 \end_layout
 
@@ -28974,18 +29005,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Read all edges into the adjacency list.
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < edgeCount; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         edges.add(new edge(in.nextInt(), in.nextInt(), in.nextInt()));
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -28994,92 +29029,114 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
       // Build connectivity map for Union-Find operation.
 \end_layout
 
 \begin_layout Plain Layout
+
       unode[] vertexMap = new unode[vertexCount];
 \end_layout
 
 \begin_layout Plain Layout
+
       for(int i = 0; i < vertexCount; i++){
 \end_layout
 
 \begin_layout Plain Layout
+
         // Set all vertices to be in their own trees.
 \end_layout
 
 \begin_layout Plain Layout
+
         vertexMap[i] = new unode(null, 0);
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       
 \end_layout
 
 \begin_layout Plain Layout
+
       // Begin Kruskal's Algorithm with Union-Find
 \end_layout
 
 \begin_layout Plain Layout
+
       while (!edges.isEmpty()) {
 \end_layout
 
 \begin_layout Plain Layout
+
         edge currentEdge = edges.poll();
 \end_layout
 
 \begin_layout Plain Layout
+
         unode p = find(vertexMap[currentEdge.source]); // Get parent of tree
  that source is in
 \end_layout
 
 \begin_layout Plain Layout
+
         unode q = find(vertexMap[currentEdge.destination]); // Get parent
  of tree that dest is in.
 \end_layout
 
 \begin_layout Plain Layout
+
         if(q != p){
 \end_layout
 
 \begin_layout Plain Layout
+
           // If different parents, add the edge in.
 \end_layout
 
 \begin_layout Plain Layout
+
           tree.add(currentEdge);
 \end_layout
 
 \begin_layout Plain Layout
+
           minimumWeight += currentEdge.weight;
 \end_layout
 
 \begin_layout Plain Layout
+
           union(p,q); // Join the two, ensuring minimum depth.
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf(OUTPUT_STRING, ++loopCount, minimumWeight);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -29088,18 +29145,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Edge container class.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class edge implements Comparator<edge> {
 \end_layout
 
@@ -29108,18 +29169,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * destination vertex and weight.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     public int source, destination, weight;
 \end_layout
 
@@ -29128,46 +29193,57 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Constructor
 \end_layout
 
 \begin_layout Plain Layout
+
      *
 \end_layout
 
 \begin_layout Plain Layout
+
      * @param v The destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
      * @param w The weight of the edge.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     public edge(int source, int destination, int weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
       this.source = source;
 \end_layout
 
 \begin_layout Plain Layout
+
       this.destination = destination;
 \end_layout
 
 \begin_layout Plain Layout
+
       this.weight = weight;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -29176,58 +29252,72 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Compare function for priority queue.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     @Override
 \end_layout
 
 \begin_layout Plain Layout
+
     public int compare(edge e1, edge e2) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (e1.weight < e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (e1.weight > e2.weight) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 0;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -29236,18 +29326,22 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Parent container class for Union-Find data structure.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class unode {
 \end_layout
 
@@ -29256,10 +29350,12 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     public unode parent;
 \end_layout
 
 \begin_layout Plain Layout
+
     public int depth;
 \end_layout
 
@@ -29268,22 +29364,27 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
     public unode(unode parent, int depth) {
 \end_layout
 
 \begin_layout Plain Layout
+
       this.parent = parent;
 \end_layout
 
 \begin_layout Plain Layout
+
       this.depth = depth;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -29292,38 +29393,47 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * FIND method.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public unode find(unode current) {
 \end_layout
 
 \begin_layout Plain Layout
+
     if (current.parent == null) {
 \end_layout
 
 \begin_layout Plain Layout
+
       return current;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return (current.parent = find(current.parent));
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -29332,58 +29442,72 @@ n";
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * UNION method.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void union(unode p, unode q) {
 \end_layout
 
 \begin_layout Plain Layout
+
     if (p.depth > q.depth) {
 \end_layout
 
 \begin_layout Plain Layout
+
       q.parent = p;
 \end_layout
 
 \begin_layout Plain Layout
+
     } else if (p.depth < q.depth) {
 \end_layout
 
 \begin_layout Plain Layout
+
       p.parent = q;
 \end_layout
 
 \begin_layout Plain Layout
+
     } else {
 \end_layout
 
 \begin_layout Plain Layout
+
       p.parent = q;
 \end_layout
 
 \begin_layout Plain Layout
+
       p.depth += 1;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -29396,7 +29520,6 @@ n";
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Minimum Spanning Tree Problem (Kruskal's) (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -29678,6 +29801,17 @@ infty$}
 
 
 \backslash
+State {$P[u] 
+\backslash
+gets $undefined} 
+\backslash
+Comment {Vector $P$ to hold previous vertex}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 EndFor
 \end_layout
 
@@ -29728,6 +29862,15 @@ If {$D[u] + w((u,z)) < D[z]$}
 State {$D[z] 
 \backslash
 gets D[u]+w((u,z))$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$P[z] 
+\backslash
+gets u$}
 \end_layout
 
 \begin_layout Plain Layout
@@ -32459,13 +32602,530 @@ name "fig:Dijsktra's-Algorithm"
 
 \end_layout
 
+\begin_layout Standard
+As shown, Dijkstra's Algorithm gives you the weight of the shortest path
+ to each other vertice, not the actual path itself.
+ To find the actual path, Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Dijkstra's-Algorithm-1"
+
+\end_inset
+
+ is needed.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require Vector $P$ of previously visited vertices (constructed in Dijkstra's
+ Algorithm), source vertex $v$ and target vertex $t$ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Vector $Path$ with path from $v$ to $u$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{DijkstrasShortestPath}{$P, v, t$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$Path 
+\backslash
+gets 
+\backslash
+emptyset$} 
+\backslash
+Comment{stack datatype}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$u 
+\backslash
+gets t$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$P[u] 
+\backslash
+neq $ undefined}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$Path .
+\backslash
+textsf{push()} 
+\backslash
+gets u$} 
+\backslash
+Comment{push $u$ onto stack}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$u 
+\backslash
+gets P[u]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $Pa$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Dijkstra's Algorithm (Find Path)
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Dijkstra's-Algorithm-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This additional part to the algorithm simply walks backwards through the
+ Previous Vertex Vector, until the next path is undefined (meaning we are
+ at the start or origin vertex).
+\end_layout
+
+\begin_layout Standard
+Dijkstra's algorithm when implemented correctly with an efficient priority
+ queue implementation, will offer 
+\series bold
+O(m log n)
+\series default
+ performance when used with an adjacency list representation of a graph.
+\end_layout
+
 \begin_layout Paragraph
 Implementation
 \end_layout
 
 \begin_layout Standard
-An implementation of Dijkstra's Algorithm can be seen in Listing .
- 
+An implementation of Dijkstra's Algorithm can be seen in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Dijkstra's-Algorithm-(Java)"
+
+\end_inset
+
+.
+ This implementation utilises an adjacency matrix as the graph represention
+ data structure, thus offers 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ performance.
+ I've utilised an adjacency matrix in this example, as will allows easier/quicke
+r understanding of the algorithm.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.Stack;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class DijkstrasAlgorithm {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Find the shortest path from source vertex to destination vertex
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param adjacencyMatrix The graph represented as an adjacency matrix.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param sourceVertex The vertex to start from.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param destinationVertex The destination vertex
+\end_layout
+
+\begin_layout Plain Layout
+   * @return A stack with the path from source to destination.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public Stack<Integer> DijkstraShortestPath(int[][] adjacencyMatrix, int
+ sourceVertex,
+\end_layout
+
+\begin_layout Plain Layout
+
+                                               
+\lang english
+int destinationVertex) {
+\end_layout
+
+\begin_layout Plain Layout
+    final int UNDEFINED = -1;
+\end_layout
+
+\begin_layout Plain Layout
+    
+\end_layout
+
+\begin_layout Plain Layout
+    // Define data structures needed for implementation.
+\end_layout
+
+\begin_layout Plain Layout
+    Stack<Integer> path = new Stack<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+    boolean[] visited = new boolean[adjacencyMatrix.length];
+\end_layout
+
+\begin_layout Plain Layout
+    int[] previousVertex = new int[adjacencyMatrix.length];
+\end_layout
+
+\begin_layout Plain Layout
+    int[] pathWeights = new int[adjacencyMatrix.length];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Clear all arrays being used.
+\end_layout
+
+\begin_layout Plain Layout
+    for (int i = 0; i < adjacencyMatrix.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+      pathWeights[i] = Integer.MAX_VALUE; // Infinity
+\end_layout
+
+\begin_layout Plain Layout
+      previousVertex[i] = UNDEFINED;
+\end_layout
+
+\begin_layout Plain Layout
+      visited[i] = false;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Set the starting vertex.
+\end_layout
+
+\begin_layout Plain Layout
+    pathWeights[sourceVertex] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Follow all vertices, calculating paths/distances.
+\end_layout
+
+\begin_layout Plain Layout
+    for (int k = 0; k < adjacencyMatrix.length; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+      int min = -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Find shortest path to vertex not yet visited.
+\end_layout
+
+\begin_layout Plain Layout
+      for (int i = 0; i < adjacencyMatrix.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+        if (!visited[i] && (min == -1 || pathWeights[i] < pathWeights[min]))
+ {
+\end_layout
+
+\begin_layout Plain Layout
+          min = i;
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Flag we are at a new vertex.
+\end_layout
+
+\begin_layout Plain Layout
+      visited[min] = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // perform edge relaxation
+\end_layout
+
+\begin_layout Plain Layout
+      for (int i = 0; i < adjacencyMatrix.length; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+        if (adjacencyMatrix[min][i] > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+          if (pathWeights[min] + adjacencyMatrix[min][i] < pathWeights[i])
+ {
+\end_layout
+
+\begin_layout Plain Layout
+            pathWeights[i] = pathWeights[min] + adjacencyMatrix[min][i];
+\end_layout
+
+\begin_layout Plain Layout
+            previousVertex[i] = min;
+\end_layout
+
+\begin_layout Plain Layout
+          }
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // All vertices have been visited, so now construct a path
+\end_layout
+
+\begin_layout Plain Layout
+    path.push(destinationVertex);
+\end_layout
+
+\begin_layout Plain Layout
+    while (previousVertex[destinationVertex] != UNDEFINED) {
+\end_layout
+
+\begin_layout Plain Layout
+      path.push(previousVertex[destinationVertex]);
+\end_layout
+
+\begin_layout Plain Layout
+      destinationVertex = previousVertex[destinationVertex];
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    return path;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Dijkstra's Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Dijkstra's-Algorithm-(Java)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
