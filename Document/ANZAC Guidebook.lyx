@@ -30042,7 +30042,7 @@ reference "fig:Dijsktra's-Algorithm"
 
 \end_inset
 
- illustrates how Dijkstra's Algorithm works utilsing the graph in Figure
+ illustrates how Dijkstra's Algorithm works utilising the graph in Figure
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -32819,7 +32819,21 @@ O(n
 \series default
  performance.
  I've utilised an adjacency matrix in this example, as will allows easier/quicke
-r understanding of the algorithm.
+r understanding of the algorithm, as well as making to easily translatable
+ to other programming languages such as C
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The only modification to be usable in C, would be to implement the Stack<E>
+ datastructure, which can be easily done with a linked list datastructure,
+ or even just a normal array (and maintaining a pointer/index to the last
+ element in the array).
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -32829,6 +32843,7 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.Stack;
 \end_layout
 
@@ -32837,6 +32852,7 @@ import java.util.Stack;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class DijkstrasAlgorithm {
 \end_layout
 
@@ -32845,74 +32861,88 @@ public class DijkstrasAlgorithm {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Find the shortest path from source vertex to destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param adjacencyMatrix The graph represented as an adjacency matrix.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param sourceVertex The vertex to start from.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param destinationVertex The destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return A stack with the path from source to destination.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public Stack<Integer> DijkstraShortestPath(int[][] adjacencyMatrix, int
  sourceVertex,
 \end_layout
 
 \begin_layout Plain Layout
 
-                                               
-\lang english
-int destinationVertex) {
+                                               int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     final int UNDEFINED = -1;
 \end_layout
 
 \begin_layout Plain Layout
+
     
 \end_layout
 
 \begin_layout Plain Layout
+
     // Define data structures needed for implementation.
 \end_layout
 
 \begin_layout Plain Layout
+
     Stack<Integer> path = new Stack<Integer>();
 \end_layout
 
 \begin_layout Plain Layout
+
     boolean[] visited = new boolean[adjacencyMatrix.length];
 \end_layout
 
 \begin_layout Plain Layout
+
     int[] previousVertex = new int[adjacencyMatrix.length];
 \end_layout
 
 \begin_layout Plain Layout
+
     int[] pathWeights = new int[adjacencyMatrix.length];
 \end_layout
 
@@ -32921,26 +32951,32 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Clear all arrays being used.
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int i = 0; i < adjacencyMatrix.length; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       pathWeights[i] = Integer.MAX_VALUE; // Infinity
 \end_layout
 
 \begin_layout Plain Layout
+
       previousVertex[i] = UNDEFINED;
 \end_layout
 
 \begin_layout Plain Layout
+
       visited[i] = false;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -32949,10 +32985,12 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Set the starting vertex.
 \end_layout
 
 \begin_layout Plain Layout
+
     pathWeights[sourceVertex] = 0;
 \end_layout
 
@@ -32961,14 +32999,17 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Follow all vertices, calculating paths/distances.
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int k = 0; k < adjacencyMatrix.length; k++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       int min = -1;
 \end_layout
 
@@ -32977,27 +33018,33 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Find shortest path to vertex not yet visited.
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < adjacencyMatrix.length; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         if (!visited[i] && (min == -1 || pathWeights[i] < pathWeights[min]))
  {
 \end_layout
 
 \begin_layout Plain Layout
+
           min = i;
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -33006,10 +33053,12 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Flag we are at a new vertex.
 \end_layout
 
 \begin_layout Plain Layout
+
       visited[min] = true;
 \end_layout
 
@@ -33018,43 +33067,53 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
       // perform edge relaxation
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < adjacencyMatrix.length; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         if (adjacencyMatrix[min][i] > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
           if (pathWeights[min] + adjacencyMatrix[min][i] < pathWeights[i])
  {
 \end_layout
 
 \begin_layout Plain Layout
+
             pathWeights[i] = pathWeights[min] + adjacencyMatrix[min][i];
 \end_layout
 
 \begin_layout Plain Layout
+
             previousVertex[i] = min;
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -33063,26 +33122,32 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // All vertices have been visited, so now construct a path
 \end_layout
 
 \begin_layout Plain Layout
+
     path.push(destinationVertex);
 \end_layout
 
 \begin_layout Plain Layout
+
     while (previousVertex[destinationVertex] != UNDEFINED) {
 \end_layout
 
 \begin_layout Plain Layout
+
       path.push(previousVertex[destinationVertex]);
 \end_layout
 
 \begin_layout Plain Layout
+
       destinationVertex = previousVertex[destinationVertex];
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -33091,14 +33156,17 @@ int destinationVertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return path;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -33107,7 +33175,6 @@ int destinationVertex) {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Dijkstra's Algorithm (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -33129,11 +33196,12 @@ name "lis:Dijkstra's-Algorithm-(Java)"
 \end_layout
 
 \begin_layout Paragraph
-Sample Problem- xxxxxxxxxx
+Sample Problem - Single Source Shortest Path
 \end_layout
 
 \begin_layout Standard
-Constr
+Find the shortest path between a given node and all the other nodes in a
+ weighted directed graph.
 \end_layout
 
 \begin_layout Standard
@@ -33141,7 +33209,104 @@ INPUT
 \end_layout
 
 \begin_layout Standard
-The f
+The first line of input will be a number on a line by itself which is the
+ number of test cases to run.
+ For each test case, the first line will be three each numbers separated
+ by a space 
+\shape italic
+N
+\shape default
+, 
+\shape italic
+E
+\shape default
+ and 
+\shape italic
+X
+\shape default
+, where 
+\shape italic
+N
+\shape default
+ (1 <= 
+\shape italic
+N
+\shape default
+ <= 5000) is the number of nodes in the graph, 
+\shape italic
+E
+\shape default
+ (1 <= 
+\shape italic
+E
+\shape default
+ <= 10000) is the number of edges and 
+\shape italic
+X
+\shape default
+ (0 <= 
+\shape italic
+X
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) is the source node for the shortest paths.
+ The graph nodes will be numbered 0 to 
+\shape italic
+N
+\shape default
+-1.
+ Each of the next 
+\shape italic
+E
+\shape default
+ lines contain three numbers 
+\shape italic
+S
+\shape default
+, 
+\shape italic
+D
+\shape default
+ and 
+\shape italic
+W
+\shape default
+ each separated by a space representing an edge in the graph from 
+\shape italic
+S
+\shape default
+ (0 <= 
+\shape italic
+S
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) to 
+\shape italic
+D
+\shape default
+ (0 <= 
+\shape italic
+D
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) with weight 
+\shape italic
+W
+\shape default
+ (0 < 
+\shape italic
+W
+\shape default
+ <= 1000).
 \end_layout
 
 \begin_layout Standard
@@ -33169,7 +33334,63 @@ status open
 \begin_inset Newline newline
 \end_inset
 
+5 7 0
+\begin_inset Newline newline
+\end_inset
 
+0 1 10 
+\begin_inset Newline newline
+\end_inset
+
+1 3 2 
+\begin_inset Newline newline
+\end_inset
+
+1 4 6 
+\begin_inset Newline newline
+\end_inset
+
+3 4 3 
+\begin_inset Newline newline
+\end_inset
+
+2 4 6 
+\begin_inset Newline newline
+\end_inset
+
+0 4 20 
+\begin_inset Newline newline
+\end_inset
+
+0 2 30 
+\begin_inset Newline newline
+\end_inset
+
+5 6 1 
+\begin_inset Newline newline
+\end_inset
+
+0 1 8 
+\begin_inset Newline newline
+\end_inset
+
+0 3 2 
+\begin_inset Newline newline
+\end_inset
+
+0 4 5 
+\begin_inset Newline newline
+\end_inset
+
+1 2 6 
+\begin_inset Newline newline
+\end_inset
+
+2 3 4 
+\begin_inset Newline newline
+\end_inset
+
+3 4 3
 \end_layout
 
 \end_inset
@@ -33182,7 +33403,11 @@ OUTPUT
 \end_layout
 
 \begin_layout Standard
-For 
+For each test case, output the test case number on a line followed by a
+ space and then a space separated list shortest path weights for each node
+ in ascending node number order.
+ If there is no path from the source node to another node print ‘NP’.
+ See the example output below.
 \end_layout
 
 \begin_layout Standard
@@ -33206,7 +33431,19 @@ status open
 \begin_layout Plain Layout
 
 \family typewriter
-T
+1 
+\begin_inset Newline newline
+\end_inset
+
+0 10 30 12 15 
+\begin_inset Newline newline
+\end_inset
+
+2 
+\begin_inset Newline newline
+\end_inset
+
+NP 0 6 10 13
 \end_layout
 
 \end_inset
@@ -33216,6 +33453,1381 @@ T
 
 \begin_layout Paragraph
 Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Single Source Shortest Path problem can be found
+ in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Single"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Comparator;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class ShortestPathProblem {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  private static int INFINITY = Integer.MAX_VALUE;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new ShortestPathProblem().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    Vertex[] vertexList;  // List of all vertices in graph
+\end_layout
+
+\begin_layout Plain Layout
+
+    PriorityQueue<Vertex> verticesQueue;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner scn = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    int testCount = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Loop through all test cases.
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int testItem = 1; testItem <= testCount; testItem++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      int numVertices = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      int numEdges = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      int sourceVertex = scn.nextInt(); // source vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // create array to store N vertices
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertexList = new Vertex[numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int n = 0; n < numVertices; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertexList[n] = new Vertex(numVertices);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // set source vertex (distance = 0 at source!)
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertexList[sourceVertex].distance = 0; 
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int edge = 0; edge < numEdges; edge++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int s = scn.nextInt(); // source vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+        int d = scn.nextInt(); // destination vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+        int w = scn.nextInt(); // distance from s to d
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // add to adjacency list
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertexList[s].adjacencyList[d] = w;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Create priority queue of N elements, and queue all elements.
+\end_layout
+
+\begin_layout Plain Layout
+
+      Vertex comp = new Vertex(numVertices);
+\end_layout
+
+\begin_layout Plain Layout
+
+      verticesQueue = new PriorityQueue<Vertex>(numVertices, comp);
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (Vertex v : vertexList) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        verticesQueue.add(v);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Start main Dijkstra'a Algorithm
+\end_layout
+
+\begin_layout Plain Layout
+
+      while (!verticesQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        Vertex uVertex = verticesQueue.poll();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (uVertex.distance == INFINITY) // vertex can't be reached
+\end_layout
+
+\begin_layout Plain Layout
+
+        {
+\end_layout
+
+\begin_layout Plain Layout
+
+          break;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Loop through all neighbouring vertices
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int n = 0; n < numVertices; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (uVertex.adjacencyList[n] != INFINITY 
+\end_layout
+
+\begin_layout Plain Layout
+
+                 && verticesQueue.contains(vertexList[n])) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            verticesQueue.remove(vertexList[n]); // Remove old D[n] value.
+\end_layout
+
+\begin_layout Plain Layout
+
+            vertexList[n].setDist(uVertex.distance + uVertex.adjacencyList[n]);
+\end_layout
+
+\begin_layout Plain Layout
+
+            verticesQueue.add(vertexList[n]); // Add updated D[n] value to
+ Queue
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Output the resulting Distance from source.
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("%d
+\backslash
+n", testItem);
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (Vertex vertex : vertexList) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertex.printDistance();
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.println();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Class to define a vertex, including it's neighbouring vertices.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Vertex implements Comparator<Vertex> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int distance;  // known distance from source vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int[] adjacencyList; // weights to neighbouring vertices.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Default Constructor.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param numNeighbours The number of vertices in the graph.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Vertex(int numNeighbours) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      distance = INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Create a list of weights to neighbours and set the weight to INFINITY.
+\end_layout
+
+\begin_layout Plain Layout
+
+      adjacencyList = new int[numNeighbours];
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int i = 0; i < numNeighbours; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        adjacencyList[i] = INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Update the distance for this vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param newDistance 
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void setDist(int newDistance) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (newDistance != INFINITY) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (distance == INFINITY || newDistance < distance) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          distance = newDistance;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Print the distance from source vertex to this vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void printDistance() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (distance == INFINITY) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.print("NP ");
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.printf("%d ", distance);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Comparator method for priority queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compare(Vertex o1, Vertex o2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (o1.distance < o2.distance) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (o1.distance > o2.distance) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Single Source Shortest Path Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Single"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The few edge cases to consider would be very dense graphs, very sparse graphs,
+ or graphs that contain zero edges.
+ Another edge case that should be considered is the maximum weight between
+ vertices, and ensuring that the data type that holds the weight from source
+ to destination is capable of representing the value without overflow.
+ (That is any possible weight from source to destination is less than the
+ maximum value used to hold the weight).
+\end_layout
+
+\begin_layout Standard
+As the problem focuses around the algorithm itself, the implementation of
+ the algorithm is the key factor in success with this problem.
+ Two items to note about the implemention of the sample solution compared
+ to the reference implementation, is that we don't maintain a data structure
+ to find a path from a source to destination vertex, and the use of the
+ priority queue.
+\end_layout
+
+\begin_layout Standard
+The priority queue itself offers a significant improvement over the sample
+ implementation in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Dijkstra's-Algorithm-(Java)"
+
+\end_inset
+
+, by providing a single datastructure that maintains a list of unvisited
+ vertices and also sorts the vertices by weight, so the head of the queue
+ is the next unvisited vertex with the least weight.
+ This implementation as shown should offer 
+\series bold
+O((n+m) log n)
+\series default
+ performance.
+\end_layout
+
+\begin_layout Subsubsection
+All Pairs Shortest Path
+\end_layout
+
+\begin_layout Standard
+While is it extremely useful to find the shortest path from a source vertex
+ to any other vertex within a graph, an alternative is to find the shortest
+ path from any vertex to any other vertex in a graph utilising a single
+ algorithm.
+ This is extremely useful if the paths and path options will remain static
+ throughout the operation of the software system, as is typically found
+ within computer games.
+ Thereby, rather than having to recalculate the path for each entity within
+ the game, we can simply lookup the information as it has been precomputed.
+ (Effectively a 
+\series bold
+O(1)
+\series default
+ operation vs a 
+\series bold
+O((n+m) log n)
+\series default
+ operation).
+\end_layout
+
+\begin_layout Standard
+A popular algorithm to perform this is the Floyd-Warshall Algorithm.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A directed Graph $
+\backslash
+vec{G}$ with non-negative edge weights.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure A numbering $v_{1}, v_{2}, 
+\backslash
+ldots , v_{n}$ of vertices of $
+\backslash
+vec{G}$ and a matrix $D$, such that $D[i,j]$ is the distance from $v_{i}$
+ to $v_{j}$ in $
+\backslash
+vec{G}$.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{AllPairsShortestPaths}{$
+\backslash
+vec{G}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {let $v_{1}, v_{2}, 
+\backslash
+ldots , v_{n}$ be an abitrary numbering of the vertices of $
+\backslash
+vec{G}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$i 
+\backslash
+gets 1$ to $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$j 
+\backslash
+gets 1$ to $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$i=j$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$D^{0}[i,i] 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$(v_{i}, v_{j})$ is an edge in $
+\backslash
+vec{G}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$D^{0}[i,j] 
+\backslash
+gets w((v_{i}, v_{j}))$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$D^{0}[i,j] 
+\backslash
+gets +
+\backslash
+infty$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$k 
+\backslash
+gets 1$ to $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$i 
+\backslash
+gets 1$ to $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$j 
+\backslash
+gets 1$ to $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$D^{k}[i,j] 
+\backslash
+gets 
+\backslash
+min
+\backslash
+{D^{k-1}[i,j], D^{k-1}[i,k] + D^{k-1}[k,j] 
+\backslash
+}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $D^{n}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Floyd-Warshall Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Floyd-Warshall-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of Working
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - All Pairs Shortest Path Problem
+\end_layout
+
+\begin_layout Standard
+Find the shortest path between every pair of nodes in a weighted directed
+ graph.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line of input will be a number on a line by itself which is the
+ number of test cases to run.
+ For each test case, the first line will be two numbers separated by a space
+ 
+\shape italic
+N
+\shape default
+ and 
+\shape italic
+E
+\shape default
+, where 
+\shape italic
+N 
+\shape default
+(1 <= 
+\shape italic
+N
+\shape default
+ <= 1000) is the number of nodes in the graph and 
+\shape italic
+E
+\shape default
+ (1 <= 
+\shape italic
+E
+\shape default
+ <= 10000) is the number of edges.
+ The graph nodes will be numbered 0 to 
+\shape italic
+N
+\shape default
+-1.
+ Each of the next 
+\shape italic
+E
+\shape default
+ lines contain three numbers 
+\shape italic
+S
+\shape default
+, 
+\shape italic
+D
+\shape default
+ and 
+\shape italic
+W
+\shape default
+ each separated by a space representing an edge in the graph from 
+\shape italic
+S
+\shape default
+ (0 <= 
+\shape italic
+S
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) to 
+\shape italic
+D
+\shape default
+ (0 <= 
+\shape italic
+D
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) with weight 
+\shape italic
+W
+\shape default
+ (0 < 
+\shape italic
+W
+\shape default
+ <= 1000).
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+5 7 
+\begin_inset Newline newline
+\end_inset
+
+0 1 10 
+\begin_inset Newline newline
+\end_inset
+
+1 3 2 
+\begin_inset Newline newline
+\end_inset
+
+1 4 6 
+\begin_inset Newline newline
+\end_inset
+
+3 4 3 
+\begin_inset Newline newline
+\end_inset
+
+2 4 6 
+\begin_inset Newline newline
+\end_inset
+
+0 4 20 
+\begin_inset Newline newline
+\end_inset
+
+0 2 30 
+\begin_inset Newline newline
+\end_inset
+
+5 6 
+\begin_inset Newline newline
+\end_inset
+
+0 1 8 
+\begin_inset Newline newline
+\end_inset
+
+0 3 2 
+\begin_inset Newline newline
+\end_inset
+
+0 4 5 
+\begin_inset Newline newline
+\end_inset
+
+1 2 6 
+\begin_inset Newline newline
+\end_inset
+
+2 3 4 
+\begin_inset Newline newline
+\end_inset
+
+3 4 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output the test case number on a line by itself.
+ The following lines will contain the shortest paths matrix.
+ That is the next 
+\shape italic
+n
+\shape default
+ (0 <= 
+\shape italic
+n
+\shape default
+ < 
+\shape italic
+N
+\shape default
+) lines will each contain a space separated list of the shortest path weight
+ between node n and each other node in ascending node number order.
+ If no path exists between a pair of node print ‘NP’.
+ See the example output below.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+1 
+\begin_inset Newline newline
+\end_inset
+
+0 10 30 12 15 
+\begin_inset Newline newline
+\end_inset
+
+NP 0 NP 2 5 
+\begin_inset Newline newline
+\end_inset
+
+NP NP 0 NP 6 
+\begin_inset Newline newline
+\end_inset
+
+NP NP NP 0 3 
+\begin_inset Newline newline
+\end_inset
+
+NP NP NP NP 0 
+\begin_inset Newline newline
+\end_inset
+
+2 
+\begin_inset Newline newline
+\end_inset
+
+0 8 14 2 5 
+\begin_inset Newline newline
+\end_inset
+
+NP 0 6 10 13 
+\begin_inset Newline newline
+\end_inset
+
+NP NP 0 4 7 
+\begin_inset Newline newline
+\end_inset
+
+NP NP NP 0 3 
+\begin_inset Newline newline
+\end_inset
+
+NP NP NP NP 0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the All Pairs Shortest Path problem can be found in
+ Listing
 \end_layout
 
 \begin_layout Standard
