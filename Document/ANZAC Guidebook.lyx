@@ -32727,7 +32727,7 @@ EndWhile
 \backslash
 State {
 \backslash
-textbf{return} $Pa$}
+textbf{return} $Path$}
 \end_layout
 
 \begin_layout Plain Layout
@@ -34160,7 +34160,6 @@ n", testItem);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Single Source Shortest Path Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -34245,11 +34244,20 @@ O((n+m) log n)
 \end_layout
 
 \begin_layout Standard
-A popular algorithm to perform this is the Floyd-Warshall Algorithm.
+A popular algorithm to perform this is the Floyd-Warshall Algorithm, as
+ shown in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Floyd-Warshall-Algorithm"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement h
 wide false
 sideways false
 status open
@@ -34271,7 +34279,7 @@ begin{algorithmic}
 \backslash
 Require A directed Graph $
 \backslash
-vec{G}$ with non-negative edge weights.
+vec{G}$ with non-negative edge weights, with $n$ vertices.
 \end_layout
 
 \begin_layout Plain Layout
@@ -34532,8 +34540,720 @@ name "alg:Floyd-Warshall-Algorithm"
 Description of Working
 \end_layout
 
+\begin_layout Standard
+The Floyd-Warshall Algorithm is an example of dynamic programming that compares
+ all possible paths through the graph between each pair of vertices.
+ The remarkable aspect of the algorithm is the simplicity of the design,
+ as well as having a runtime performance of only 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+3
+\end_layout
+
+\end_inset
+
+)
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+If we define 
+\begin_inset Formula $f(i,j,k)$
+\end_inset
+
+ as the shortest distance from 
+\begin_inset Formula $i$
+\end_inset
+
+ to 
+\begin_inset Formula $j$
+\end_inset
+
+, using 
+\begin_inset Formula $1\ldots k$
+\end_inset
+
+ as intermediated vertex, we find that:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $f(i,j,n)$
+\end_inset
+
+is the shortest distance from 
+\begin_inset Formula $i$
+\end_inset
+
+ to 
+\begin_inset Formula $j$
+\end_inset
+
+, and
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $f(i,j,0)$
+\end_inset
+
+is the cost of
+\begin_inset Formula $(i,j)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Understanding that the optimal part for 
+\begin_inset Formula $f(i,j,k)$
+\end_inset
+
+, may or may not have 
+\begin_inset Formula $k$
+\end_inset
+
+ as an intermediate vertex, we find:
+\end_layout
+
+\begin_layout Itemize
+If it does, 
+\begin_inset Formula $f(i,j,k)=f(i,k,k-1)-f(k,j,k-1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Otherwise, 
+\begin_inset Formula $f(i,j,k)=f(i,j,k-1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Which leads to 
+\begin_inset Formula $f(i,j,k)$
+\end_inset
+
+ being the minimum of the two quantities above.
+ If the above properties are extended to all vertices within the graph,
+ we may find all paths in one easy operation!
+\end_layout
+
+\begin_layout Standard
+Like Dijkstra's Algorithm, the Floyd-Warshall Algorithm only finds the minimum
+ weight of the path, however with a small modification it is possible to
+ determine the path as well.
+\end_layout
+
+\begin_layout Standard
+In order to determine the path between two vertices, we are required to
+ maintain an additional matrix that defines the path 
+\begin_inset Formula $P$
+\end_inset
+
+.
+ If the new new weight is less than the previous weight, then we store 
+\begin_inset Formula $k$
+\end_inset
+
+ at 
+\begin_inset Formula $P(i,j)$
+\end_inset
+
+.
+ Once all weights have been determined we use Alogrithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Floyd-Warshall-Algorithm-(Find"
+
+\end_inset
+
+ to determine the path.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require Matrix $P$ of previously visited vertices (constructed in Floyd-Warshall
+ Algorithm), source vertex $i$ and target vertex $j$ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Vector $Path$ with path from $i$ to $j$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{define} $Path 
+\backslash
+gets 
+\backslash
+emptyset$} 
+\backslash
+Comment{Global data, Queue datatype}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{FloydWarshallShortestPath}{$P, i, j$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If{$P[i,j] = $ null}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$Path .
+\backslash
+textsf{add()} 
+\backslash
+gets P[i,j]$} 
+\backslash
+Comment{add $k$ onto end of queue}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textsf{FloydWarshallShortestPath}($P, i, P[i,j]$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textsf{FloydWarshallShortestPath}($P, P[i,j], j$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Floyd-Warshall Algorithm (Find Path)
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Floyd-Warshall-Algorithm-(Find"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the Floyd-Warshall Algorithm is shown in Listing .
+ This implementation expects that the adjacency matrix is complete with
+ information, and that path information is required.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class FloydWarshall {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int[][] path;
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int[][] pathWeights;
+\end_layout
+
+\begin_layout Plain Layout
+
+  ArrayList<Integer> sdpath;
+\end_layout
+
+\begin_layout Plain Layout
+
+  private final static int NULL = -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform Floyd-Warshall Algorithm on weighted directed graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param matrix Adjacency Matrix representation of grpah.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return Matrx of costs for graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public int[][] AllPairsShortestPath(int[][] matrix) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int numberVertices = matrix.length;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // create new storage container for path and weight information
+\end_layout
+
+\begin_layout Plain Layout
+
+    path = new int[numberVertices][numberVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+    pathWeights = new int[numberVertices][numberVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Initialise containers;
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < numberVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int j = 0; j < numberVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // If no direct path, set weight to Infinity.
+\end_layout
+
+\begin_layout Plain Layout
+
+        pathWeights[i][j] = matrix[i][j] > 0 ? matrix[i][j] : Integer.MAX_VALUE;
+\end_layout
+
+\begin_layout Plain Layout
+
+        if(i == j){
+\end_layout
+
+\begin_layout Plain Layout
+
+          pathWeights[i][j] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        path[i][j] = NULL;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Main loop.
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int k = 0; k < numberVertices; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int i = 0; i < numberVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int j = 0; j < numberVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          // Cast these to long to avoid overflow!
+\end_layout
+
+\begin_layout Plain Layout
+
+          if ((long)pathWeights[i][j] > (long)pathWeights[i][k]+(long)pathWeight
+s[k][j]) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            // Store new min weight
+\end_layout
+
+\begin_layout Plain Layout
+
+            pathWeights[i][j] = pathWeights[i][k] + pathWeights[k][j];
+\end_layout
+
+\begin_layout Plain Layout
+
+            // Store new path through k.
+\end_layout
+
+\begin_layout Plain Layout
+
+            path[i][j] = k;
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return pathWeights;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Find the shortest Path from source to destination, based on a previous
+\end_layout
+
+\begin_layout Plain Layout
+
+   * run of the Floyd-Warshall algorithm.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param source Source Vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param destination Destination Vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return Path from source to destination
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public ArrayList<Integer> ShortestPath(int source, int destination) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    sdpath = new ArrayList<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    SPath(source, destination);
+\end_layout
+
+\begin_layout Plain Layout
+
+    return sdpath;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Recursively follow the path from source to destination.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private void SPath(int source, int destination) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (path[source][destination] == NULL) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      sdpath.add(path[source][destination]);
+\end_layout
+
+\begin_layout Plain Layout
+
+    } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+      SPath(source, path[source][destination]);
+\end_layout
+
+\begin_layout Plain Layout
+
+      SPath(path[source][destination], destination);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Floyd-Warshall Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Floyd-Warshall-Algorithm-(Java)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -34827,7 +35547,1035 @@ Sample Solution
 
 \begin_layout Standard
 A sample solution to the All Pairs Shortest Path problem can be found in
- Listing
+ Listing .
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class AllPairsShortestProblem {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  private int[][] pathWeights;
+\end_layout
+
+\begin_layout Plain Layout
+  private int[][] adjacencyMatrix;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+    new AllPairsShortestProblem().run();
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+    Scanner scn = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+    int testCount = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Loop through all test cases.
+\end_layout
+
+\begin_layout Plain Layout
+    for (int testItem = 1; testItem <= testCount; testItem++) {
+\end_layout
+
+\begin_layout Plain Layout
+      int numVertices = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+      int numEdges = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // create adjacency Matrix
+\end_layout
+
+\begin_layout Plain Layout
+      adjacencyMatrix = new int[numVertices][numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+      for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+        for (int j = 0; j < numVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+          adjacencyMatrix[i][j] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      for (int edge = 0; edge < numEdges; edge++) {
+\end_layout
+
+\begin_layout Plain Layout
+        int s = scn.nextInt(); // source vertex
+\end_layout
+
+\begin_layout Plain Layout
+        int d = scn.nextInt(); // destination vertex
+\end_layout
+
+\begin_layout Plain Layout
+        int w = scn.nextInt(); // distance from s to d
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+        // add to adjacency matrix
+\end_layout
+
+\begin_layout Plain Layout
+        adjacencyMatrix[s][d] = w;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      
+\end_layout
+
+\begin_layout Plain Layout
+      // Create the matrix with wieght values.
+\end_layout
+
+\begin_layout Plain Layout
+      AllPairsShortestPath(adjacencyMatrix);
+\end_layout
+
+\begin_layout Plain Layout
+      
+\end_layout
+
+\begin_layout Plain Layout
+      // Output the resulting Distance from source.
+\end_layout
+
+\begin_layout Plain Layout
+      System.out.printf("%d
+\backslash
+n", testItem);
+\end_layout
+
+\begin_layout Plain Layout
+      for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+        for (int j = 0; j < numVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+          if(pathWeights[i][j] == Integer.MAX_VALUE){
+\end_layout
+
+\begin_layout Plain Layout
+            System.out.print("NP ");
+\end_layout
+
+\begin_layout Plain Layout
+          } else {
+\end_layout
+
+\begin_layout Plain Layout
+            System.out.printf("%d ", pathWeights[i][j]);
+\end_layout
+
+\begin_layout Plain Layout
+          }
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+        System.out.println();
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public void AllPairsShortestPath(int[][] matrix) {
+\end_layout
+
+\begin_layout Plain Layout
+    int numberVertices = matrix.length;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // create new storage container for path and weight information
+\end_layout
+
+\begin_layout Plain Layout
+    pathWeights = new int[numberVertices][numberVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Initialise containers;
+\end_layout
+
+\begin_layout Plain Layout
+    for (int i = 0; i < numberVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+      for (int j = 0; j < numberVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+        // If no direct path, set weight to Infinity.
+\end_layout
+
+\begin_layout Plain Layout
+        pathWeights[i][j] = matrix[i][j] > 0 ? matrix[i][j] : Integer.MAX_VALUE;
+\end_layout
+
+\begin_layout Plain Layout
+        if(i == j){
+\end_layout
+
+\begin_layout Plain Layout
+          pathWeights[i][j] = 0;
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+      
+\end_layout
+
+\begin_layout Plain Layout
+    // Main loop.
+\end_layout
+
+\begin_layout Plain Layout
+    for (int k = 0; k < numberVertices; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+      for (int i = 0; i < numberVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+        for (int j = 0; j < numberVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+          // Cast these to long to avoid overflow! 
+\end_layout
+
+\begin_layout Plain Layout
+          if ((long)pathWeights[i][j] > (long)pathWeights[i][k]+(long)pathWeight
+s[k][j]) {
+\end_layout
+
+\begin_layout Plain Layout
+            // Store new min weight
+\end_layout
+
+\begin_layout Plain Layout
+            pathWeights[i][j] = pathWeights[i][k] + pathWeights[k][j];
+\end_layout
+
+\begin_layout Plain Layout
+          }
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to All Pairs Shortest Path Problem
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-All"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The few edge cases to consider would be very dense graphs, very sparse graphs,
+ or graphs that contain zero edges.
+ Another edge case that should be considered is the maximum weight between
+ vertices, and ensuring that the data type that holds the weight from source
+ to destination is capable of representing the value without overflow.
+ (That is any possible weight from source to destination is less than the
+ maximum value used to hold the weight).
+\end_layout
+
+\begin_layout Subsubsection
+A* Shortest Path
+\end_layout
+
+\begin_layout Standard
+Another shortest path and graph traversal algorithm is the A*
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The A* algorithm is pronounced as 
+\begin_inset Quotes eld
+\end_inset
+
+A star
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ Algorithm which offers improved runtime performance in the cases that both
+ the source and destination vertex within the graph are known prior to running
+ the algorithm.
+ It is an extension of Dijkstra's Algorithm and A* achieves better performance
+ (with respect to time) by using heuristics.
+\end_layout
+
+\begin_layout Standard
+A* is commonly utilised in real-time robotics for path finding on dynamic
+ graphs, or within navigation aids (such as in car GPS devices).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A vertex $start$, and vertex $goal$ defining the source and destination
+ vertices within an undirected graph.
+ (The vertex data structure holds an adjacency list internally).
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure Weight of the shortest path
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{A*Search}{$start, goal$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$visited 
+\backslash
+gets 
+\backslash
+emptyset$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$Q 
+\backslash
+gets start$} 
+\backslash
+Comment {$Q$ Priority queue}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$Q$ is not empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$current 
+\backslash
+gets Q.
+\backslash
+textsf{removeMin()}$} 
+\backslash
+Comment{Remove next best from queue}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$current = goal$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $goal.gScore$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$visited.
+\backslash
+textsf{add()} 
+\backslash
+gets current$} 
+\backslash
+Comment{Add $current$ to the $visited$ set}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {vertex adjacent to $current$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$adj$ not in $visited$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$gScore 
+\backslash
+gets current.gScore + $distance($current, adj$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If{$adj$ not in $Q$ 
+\backslash
+textbf{or} $gScore < adj.gScore$ }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$adj.gScore 
+\backslash
+gets gScore$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$adj.hScore 
+\backslash
+gets$ distance($adj, goal$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$adj.fScore 
+\backslash
+gets adj.gScore + adj.hScorce$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {update $adj$ on $Q$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} FAILURE}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:AStar-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of Working
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Shortest Road Trip
+\end_layout
+
+\begin_layout Standard
+Road trip! It’s time to hit the road from your home town and travel to some
+ randomly selected town on the map.
+ Your map has 
+\begin_inset Formula $x$
+\end_inset
+
+, 
+\begin_inset Formula $y$
+\end_inset
+
+ co-ordinates for all towns and the government has done an amazing job of
+ laying perfectly straight roads between some of the towns as shown on the
+ map.
+ 
+\end_layout
+
+\begin_layout Standard
+The distance, 
+\begin_inset Formula $d$
+\end_inset
+
+, between two towns, 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ is defined as the Euclidean distance between the coordinates 
+\begin_inset Formula $(x_{a},y_{a})$
+\end_inset
+
+ and 
+\begin_inset Formula $(x_{b},y_{b})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+d=\sqrt{(x_{a}-x_{b})^{2}+(y_{a}-y_{b})^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line of input will be a number on a line by itself which is the
+ number of test cases to run.
+ For each test case, the first line will have four numbers.
+ The first number, 
+\shape italic
+N
+\shape default
+ (2 ≤ 
+\shape italic
+N
+\shape default
+ ≤ 10,000), is the number of towns on the map.
+ The second number, 
+\shape italic
+E
+\shape default
+ (1 ≤ 
+\shape italic
+E
+\shape default
+ ≤ 20,000), is the number of roads on the map.
+ The third and fourth numbers, 
+\shape italic
+S
+\shape default
+ (0 ≤ 
+\shape italic
+S
+\shape default
+ ≤
+\shape italic
+ N
+\shape default
+ – 1) and 
+\shape italic
+D
+\shape default
+ (0 ≤ 
+\shape italic
+D
+\shape default
+ ≤ 
+\shape italic
+N
+\shape default
+ – 1) are the numbers of the start and destination towns.
+ 
+\end_layout
+
+\begin_layout Standard
+Each of the next 
+\shape italic
+N
+\shape default
+ lines has two integers, 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ (-50,000 ≤ 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ ≤ 50,000), giving the coordinates of the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ town on the map.
+ 
+\end_layout
+
+\begin_layout Standard
+Each of the next 
+\shape italic
+E
+\shape default
+ lines of input has two integers, 
+\begin_inset Formula $n_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $n_{j}$
+\end_inset
+
+ (0 ≤ 
+\begin_inset Formula $n_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $n_{j}$
+\end_inset
+
+ ≤ 
+\shape italic
+N
+\shape default
+ – 1) giving the end towns of the roads.
+ Roads only connect their start and destination towns.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+5 7 0 4 
+\begin_inset Newline newline
+\end_inset
+
+0 0 
+\begin_inset Newline newline
+\end_inset
+
+0 10 
+\begin_inset Newline newline
+\end_inset
+
+5 7 
+\begin_inset Newline newline
+\end_inset
+
+5 3 
+\begin_inset Newline newline
+\end_inset
+
+5 -3 
+\begin_inset Newline newline
+\end_inset
+
+0 1 
+\begin_inset Newline newline
+\end_inset
+
+3 0 
+\begin_inset Newline newline
+\end_inset
+
+3 1 
+\begin_inset Newline newline
+\end_inset
+
+0 2 
+\begin_inset Newline newline
+\end_inset
+
+2 3 
+\begin_inset Newline newline
+\end_inset
+
+4 3 
+\begin_inset Newline newline
+\end_inset
+
+1 2 
+\begin_inset Newline newline
+\end_inset
+
+3 1 0 2 
+\begin_inset Newline newline
+\end_inset
+
+0 0 
+\begin_inset Newline newline
+\end_inset
+
+0 10 
+\begin_inset Newline newline
+\end_inset
+
+10 0 
+\begin_inset Newline newline
+\end_inset
+
+1 0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each road trip in the input, output the shortest distance between the
+ start and destination towns in the format shown below.
+ If the destination town is not reachable output IMPOSSIBLE.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+Road Trip 1: 11.83 
+\begin_inset Newline newline
+\end_inset
+
+Road Trip 2: IMPOSSIBLE
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
 \end_layout
 
 \begin_layout Standard
