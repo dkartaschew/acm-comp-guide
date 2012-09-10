@@ -2390,6 +2390,42 @@ s that are likely to be encountered.
 \end_layout
 
 \begin_layout Standard
+Familiarise yourself with your language of choice, especially the associated
+ libraries that are available.
+ Also take careful note on the available collection classes that are available.
+\end_layout
+
+\begin_layout Standard
+Identify the category of the problem, if it's mathematical / dynamic programming
+ / graph theory etc.
+ Ask yourself how familiar are you with it.
+ After doing this you should make decisions regarding the order in which
+ you'll solve them; this goes hand to hand with the next point...
+ 
+\end_layout
+
+\begin_layout Standard
+You want to understand the problem completely before typing.
+ Solve the right problem.
+ In my first competitions I thought that if I wasn't typing, I was wasting
+ my time.
+ I later found that this was a mistake.
+ 
+\end_layout
+
+\begin_layout Standard
+Don't think comments are a waste of time.
+ At least in "clever" code, you don't want to go debugging line-by-line
+ to see what went wrong (that is a real waste of time).
+ Value clarity.
+ 
+\end_layout
+
+\begin_layout Standard
+Have fun.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
 
@@ -2559,7 +2595,7 @@ reference "tab:Big-O-runtimes"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -4662,7 +4698,7 @@ t
 
 \begin_layout Standard
 There are has been some debate over the performance aspects of the two methods,
- often siting that there is no performance difference.
+ often citing that there is no performance difference.
  Utilising the source code in Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -5158,6 +5194,57 @@ reference "lis:Java-Input-and"
 
 \end_inset
 
+.
+\end_layout
+
+\begin_layout Paragraph
+Special Notes
+\end_layout
+
+\begin_layout Standard
+In addition to primitive data types found in other languages such as 
+\family typewriter
+int
+\family default
+, 
+\family typewriter
+double
+\family default
+, 
+\family typewriter
+float
+\family default
+, 
+\family typewriter
+string
+\family default
+, Java also has a 
+\family typewriter
+BigInteger
+\family default
+ and 
+\family typewriter
+BigDecimal
+\family default
+ data types that is capable of dealing with numbers that 
+\family typewriter
+double
+\family default
+ and 
+\family typewriter
+long
+\family default
+ cannot deal with.
+ The use of these two data types may allow some problems to be easily solved,
+ that would otherwise necessitate complex code when dealing with numbers
+ that cannot be represented by either 
+\family typewriter
+long
+\family default
+ or 
+\family typewriter
+double
+\family default
 .
 \end_layout
 
@@ -12369,6 +12456,15 @@ N
 N
 \shape default
 .
+ During the main loop, we set the next composite value to be 
+\begin_inset Formula $index^{2}$
+\end_inset
+
+, as all lower multiple of 
+\begin_inset Formula $index$
+\end_inset
+
+, have already been flagged as being known.
  Once it has cycled through the array, all the numbers that are left are
  primes.
  Figure 
@@ -14044,7 +14140,7 @@ Typically, we allow
 \shape italic
 A
 \shape default
- to be a alphabet (finite set), with:
+ to be an alphabet (finite set), with:
 \end_layout
 
 \begin_layout Itemize
@@ -21663,7 +21759,7 @@ reference "lis:Solution-to-Adjacency-1"
  The only main complication is the list being printed in an ascending manner,
  which is solved by sorting it with 
 \family typewriter
-Collectio.sort()
+Collections.sort()
 \family default
 
 \begin_inset Foot
@@ -34847,7 +34943,14 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-An implementation of the Floyd-Warshall Algorithm is shown in Listing .
+An implementation of the Floyd-Warshall Algorithm is shown in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Floyd-Warshall-Algorithm-(Java)"
+
+\end_inset
+
+.
  This implementation expects that the adjacency matrix is complete with
  information, and that path information is required.
 \end_layout
@@ -35235,7 +35338,6 @@ s[k][j]) {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Floyd-Warshall Algorithm (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -35547,7 +35649,14 @@ Sample Solution
 
 \begin_layout Standard
 A sample solution to the All Pairs Shortest Path problem can be found in
- Listing .
+ Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-All"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -35557,6 +35666,7 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -35565,6 +35675,7 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class AllPairsShortestProblem {
 \end_layout
 
@@ -35573,10 +35684,12 @@ public class AllPairsShortestProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   private int[][] pathWeights;
 \end_layout
 
 \begin_layout Plain Layout
+
   private int[][] adjacencyMatrix;
 \end_layout
 
@@ -35585,14 +35698,17 @@ public class AllPairsShortestProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     new AllPairsShortestProblem().run();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -35601,14 +35717,17 @@ public class AllPairsShortestProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner scn = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
+
     int testCount = scn.nextInt();
 \end_layout
 
@@ -35617,18 +35736,22 @@ public class AllPairsShortestProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Loop through all test cases.
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int testItem = 1; testItem <= testCount; testItem++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       int numVertices = scn.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       int numEdges = scn.nextInt();
 \end_layout
 
@@ -35637,30 +35760,37 @@ public class AllPairsShortestProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
       // create adjacency Matrix
 \end_layout
 
 \begin_layout Plain Layout
+
       adjacencyMatrix = new int[numVertices][numVertices];
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < numVertices; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         for (int j = 0; j < numVertices; j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
           adjacencyMatrix[i][j] = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -35669,18 +35799,22 @@ public class AllPairsShortestProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int edge = 0; edge < numEdges; edge++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         int s = scn.nextInt(); // source vertex
 \end_layout
 
 \begin_layout Plain Layout
+
         int d = scn.nextInt(); // destination vertex
 \end_layout
 
 \begin_layout Plain Layout
+
         int w = scn.nextInt(); // distance from s to d
 \end_layout
 
@@ -35689,92 +35823,109 @@ public class AllPairsShortestProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
         // add to adjacency matrix
 \end_layout
 
 \begin_layout Plain Layout
+
         adjacencyMatrix[s][d] = w;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       
 \end_layout
 
 \begin_layout Plain Layout
+
       // Create the matrix with wieght values.
 \end_layout
 
 \begin_layout Plain Layout
+
       AllPairsShortestPath(adjacencyMatrix);
 \end_layout
 
 \begin_layout Plain Layout
+
       
 \end_layout
 
 \begin_layout Plain Layout
+
       // Output the resulting Distance from source.
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf("%d
 \backslash
 n", testItem);
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < numVertices; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         for (int j = 0; j < numVertices; j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
           if(pathWeights[i][j] == Integer.MAX_VALUE){
 \end_layout
 
 \begin_layout Plain Layout
+
             System.out.print("NP ");
 \end_layout
 
 \begin_layout Plain Layout
+
           } else {
 \end_layout
 
 \begin_layout Plain Layout
+
             System.out.printf("%d ", pathWeights[i][j]);
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
         System.out.println();
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
   }
 \end_layout
 
@@ -35783,10 +35934,12 @@ n", testItem);
 \end_layout
 
 \begin_layout Plain Layout
+
   public void AllPairsShortestPath(int[][] matrix) {
 \end_layout
 
 \begin_layout Plain Layout
+
     int numberVertices = matrix.length;
 \end_layout
 
@@ -35795,10 +35948,12 @@ n", testItem);
 \end_layout
 
 \begin_layout Plain Layout
+
     // create new storage container for path and weight information
 \end_layout
 
 \begin_layout Plain Layout
+
     pathWeights = new int[numberVertices][numberVertices];
 \end_layout
 
@@ -35807,103 +35962,128 @@ n", testItem);
 \end_layout
 
 \begin_layout Plain Layout
+
     // Initialise containers;
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int i = 0; i < numberVertices; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int j = 0; j < numberVertices; j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         // If no direct path, set weight to Infinity.
 \end_layout
 
 \begin_layout Plain Layout
+
         pathWeights[i][j] = matrix[i][j] > 0 ? matrix[i][j] : Integer.MAX_VALUE;
 \end_layout
 
 \begin_layout Plain Layout
+
         if(i == j){
 \end_layout
 
 \begin_layout Plain Layout
+
           pathWeights[i][j] = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
       
 \end_layout
 
 \begin_layout Plain Layout
+
     // Main loop.
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int k = 0; k < numberVertices; k++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < numberVertices; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         for (int j = 0; j < numberVertices; j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
           // Cast these to long to avoid overflow! 
 \end_layout
 
 \begin_layout Plain Layout
+
           if ((long)pathWeights[i][j] > (long)pathWeights[i][k]+(long)pathWeight
 s[k][j]) {
 \end_layout
 
 \begin_layout Plain Layout
+
             // Store new min weight
 \end_layout
 
 \begin_layout Plain Layout
+
             pathWeights[i][j] = pathWeights[i][k] + pathWeights[k][j];
 \end_layout
 
 \begin_layout Plain Layout
+
           }
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -35916,7 +36096,6 @@ s[k][j]) {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to All Pairs Shortest Path Problem
 \begin_inset CommandInset label
 LatexCommand label
@@ -35978,13 +36157,8 @@ A star
 \end_layout
 
 \begin_layout Standard
-A* is commonly utilised in real-time robotics for path finding on dynamic
- graphs, or within navigation aids (such as in car GPS devices).
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float algorithm
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -36254,12 +36428,1174 @@ name "alg:AStar-Algorithm"
 
 \end_layout
 
+\begin_layout Standard
+A* is commonly utilised in real-time robotics for path finding on dynamic
+ graphs, or within navigation aids (such as in car GPS devices).
+\end_layout
+
 \begin_layout Paragraph
 Description of Working
 \end_layout
 
+\begin_layout Standard
+A* utilises additional information within each vertex data structure to
+ able to perform a heuristic search of the graph.
+ In addition to the vertex location (x,y co-ordinates (Euclidean or Manhattan))
+ and list of vertices adjacent, these are:
+\end_layout
+
+\begin_layout Itemize
+gScore - cost from the start along the best path.
+\end_layout
+
+\begin_layout Itemize
+hScore - heuristic estimate from the current location to the goal.
+\end_layout
+
+\begin_layout Itemize
+fScore - gScrore + hScore
+\end_layout
+
+\begin_layout Standard
+The algorithm also uses a priority queue of Vertices, that the lowest fScore
+ has priority to be used for searching for the next vertex to traverse.
+ And a Set of visited vertices, to ensure we don't search a vertex already
+ searched.
+\end_layout
+
+\begin_layout Standard
+The key variable in the algorithm, is the fScore, in that this is used to
+ select the next vertex to traverse to in order to find the optimal path
+ to the goal vertex.
+ As noted above the vertex with the lowest fScore should lead to the shortest
+ path, as it is an estimate of the current path cost, and the estimated
+ cost left to the goal.
+\end_layout
+
+\begin_layout Standard
+A demonstration of the A* Shortest Path Algorithm can be seen in Figures
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map"
+
+\end_inset
+
+ to 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-6"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For the purposes of the demonstration, we have divided the search area into
+ a square grid, with the start location being the Green Square (A) and the
+ goal location being the Red Square (B) (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map"
+
+\end_inset
+
+).
+ Simplifying the search area, as we have done here, is the first step in
+ pathfinding with A*.
+ This particular method reduces our search area to a simple two dimensional
+ array.
+ Each item in the array represents one of the squares on the grid, and its
+ status is recorded as walkable or unwalkable.
+ The path is found by figuring out which squares we should take to get from
+ A to B.
+ Once the path is found, our entity or object moves from the center of one
+ square to the center of the next until the target is reached.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AStar1.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* Initial Map
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AStar-Initial-Map"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Once we have simplified the search area, the next step is to start searching
+ the grid to find our shortest path.
+ We simply search all adjacent vertices, placing them onto the priority
+ queue of vertices.
+ (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-1"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AStar2.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* Default Search Pattern
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AStar-Initial-Map-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We start the first iteration by path scoring our adjacent vertices, then
+ place them onto the priority queue.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-2"
+
+\end_inset
+
+ demonstrates the gScores, hScores and fScores given to each vertex based
+ on the initial search.
+ (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-2"
+
+\end_inset
+
+ is prior to removing the first vertex from the priorty queue).
+ It should be noted, that the hScore can be estimated in a number of ways.
+ The method we use here is called the Manhattan method, where you calculate
+ the total number of squares moved horizontally and vertically to reach
+ the target square from the current square, ignoring diagonal movement,
+ and ignoring any obstacles that may be in the way.
+ We then multiply the total by 10, our cost for moving one square horizontally
+ or vertically.
+ This is (probably) called the Manhattan method because it is like calculating
+ the number of city blocks from one place to another, where you can’t cut
+ across the block diagonally.
+ 
+\end_layout
+
+\begin_layout Standard
+While typically the hScore is the best guess, it does not represent the
+ minimum number of squares in a direct line of sight from the current vertex
+ to the goal vertex, but rather a best guess at the number of squares between
+ the current and goal vertices.
+ (The better the guess, the quicker the algorithm works).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AStar3.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* First Iteration
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AStar-Initial-Map-2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-3"
+
+\end_inset
+
+ displays the first vertex to move to as part of the first iteration.
+ This vertex, has the lowest fScore of 40 (shown with black border).
+ On arriving, all adjacent vertices are added to the priority queue, however
+ in this instance none are added.
+ (All new vertices are obstacle vertices which can't be traversed).
+ When add this vertex to the visited Set, and remove the vertex from the
+ priority queue.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AStar4.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* First Iteration Step
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AStar-Initial-Map-3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-4"
+
+\end_inset
+
+ shows the next vertex being removed from the proirity queue (below the
+ first vertex in this case), with it's adjacent vertices added to the priority
+ queue, with the various Scores being shown.
+ This time, when we check the adjacent squares we find that the one to the
+ immediate right is a wall square, so we ignore that.
+ The same goes for the one just above that.
+ We also ignore the square just below the wall.
+ Why? Because you can’t get to that square directly from the current square
+ without cutting across the corner of the nearby wall.
+ You really need to go down first and then move over to that square, moving
+ around the corner in the process.
+ (Note: This rule on cutting corners is optional.
+ Its use depends on how your vertices are placed.)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AStar5.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* Second Iteration
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AStar-Initial-Map-4"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We simply repeat this process, until we have a map as displayed in Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-5"
+
+\end_inset
+
+.
+ As can been seen, we have added some of the squares to the priority queue
+ that are above starting point as well.
+ This is due to the vertices already in the priority queue.
+ After adding the two new vertices in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-4"
+
+\end_inset
+
+, the next vertex with the lowest fScore, is actually above and right of
+ the start point! So we add those vertices to the priority queue as well.
+ However on selection of the next vertex, we end up below the last vertex
+ visited and continue on that path.
+ (The final path could go either below or above the obstacle depending on
+ how the priority queue is implementated, but for the sake of the demonstration
+ we assume the oldest item is taken first even if two items have the same
+ priority).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AStar6.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* Final Iteration
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AStar-Initial-Map-5"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-5"
+
+\end_inset
+
+, displays the map after the final iteration of the algorithm.
+ Take note that the path follows the lowest fScore through out the traversal.
+ (Now that the current vertex is the same as the goal vertex, we terminate
+ the algorithm.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AStar7.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+A* Path
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:AStar-Initial-Map-6"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To determine the actual path followed, we start at the goal square and work
+ backwards moving from one square to its parent, following the arrows.
+ This will eventually take you back to the starting square, and that’s your
+ path.
+ It should look like the the illustration in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:AStar-Initial-Map-6"
+
+\end_inset
+
+.
+ Moving from the starting square A to the destination square B is simply
+ a matter of moving from the center of each square (the vertex) to the center
+ of the next square on the path, until you reach the target.
+\end_layout
+
 \begin_layout Paragraph
 Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the A* Shortest Path Algorithm is shown in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:AStar-Shortest-Path"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.HashSet;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+/**
+\end_layout
+
+\begin_layout Plain Layout
+
+ * A* Search for Vertices that exist in 2D space.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ */
+\end_layout
+
+\begin_layout Plain Layout
+
+public class aStar {
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform a search from start vertex to goal vertex, and return the cost
+ of
+\end_layout
+
+\begin_layout Plain Layout
+
+   * the path
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vertices An Array of Vertices within the graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param start The ID of the starting vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param end The ID of the goal vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The weight of the path, or Double.POSITIVE_INFINITY if no path!
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public Double aStarSearch(Vertex[] vertices, int start, int goal) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    vertices[start].gScore = 0.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    vertices[goal].isGoal = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+    vertexQueue.add(vertices[start]);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!vertexQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+      Vertex current = vertexQueue.poll();
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (current.isGoal) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return vertices[goal].gScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      current.visited = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertices[current.vertexID].visited = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // for all vertex adjacent to current do
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int n = 0; n < vertices.length; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (current.adjList.contains(n) && !vertices[n].visited) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          Vertex adj = vertices[n];
+\end_layout
+
+\begin_layout Plain Layout
+
+          Double gScore = current.gScore + euclidianDistance(current, adj);
+\end_layout
+
+\begin_layout Plain Layout
+
+          
+\end_layout
+
+\begin_layout Plain Layout
+
+          // if adj not in Q or gScore < adj.gScore 
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (!vertexQueue.contains(adj) || gScore < adj.gScore) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            // Update the Scores for the adjacent vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+            vertexQueue.remove(adj);
+\end_layout
+
+\begin_layout Plain Layout
+
+            adj.gScore = gScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+            adj.hScore = euclidianDistance(adj, vertices[goal]);
+\end_layout
+
+\begin_layout Plain Layout
+
+            adj.fScore = adj.gScore + adj.hScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+            // Add this vertex back into the priority queue with updated
+ information.
+\end_layout
+
+\begin_layout Plain Layout
+
+            vertexQueue.add(adj);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return Double.POSITIVE_INFINITY; // failed
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Return the distance between vertex A and vertex B, using euclidian
+ distance
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vertexA The first vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vertexB The second vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The distance between to two vertices.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private  Double euclidianDistance(Vertex vertexA, Vertex vertexB) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Double dist = Math.sqrt(
+\end_layout
+
+\begin_layout Plain Layout
+
+              Math.pow((double)(vertexA.xCoordinate - vertexB.xCoordinate),
+ 2.0)
+\end_layout
+
+\begin_layout Plain Layout
+
+            + Math.pow((double)(vertexA.yCoordinate - vertexB.yCoordinate),
+ 2.0));
+\end_layout
+
+\begin_layout Plain Layout
+
+    return dist;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Class definition of the Vertex Information, with vertices in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Vertex implements Comparable<Vertex> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int xCoordinate; // Coordinate in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int yCoordinate; // Coordinate in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int vertexID;  // The id of the Vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Double gScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Double fScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Double hScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public HashSet<Integer> adjList;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Boolean visited; // Has this vertex been visited.
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Boolean isGoal; // Is this the goal vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Default constructor.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param xCoord X Coordinate in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param yCoord Y Coordinate in 3D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param entityId The id of the Vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Vertex(int xCoord, int yCoord, int entityId) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      xCoordinate = xCoord;
+\end_layout
+
+\begin_layout Plain Layout
+
+      yCoordinate = yCoord;
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertexID = entityId;
+\end_layout
+
+\begin_layout Plain Layout
+
+      gScore = Double.POSITIVE_INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      fScore = Double.POSITIVE_INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      hScore = Double.POSITIVE_INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      adjList = new HashSet<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+      visited = false;
+\end_layout
+
+\begin_layout Plain Layout
+
+      isGoal = false;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(Vertex o) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (fScore < o.fScore) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (fScore > o.fScore) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+A* Shortest Path (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:AStar-Shortest-Path"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -36579,6 +37915,881 @@ Sample Solution
 \end_layout
 
 \begin_layout Standard
+A sample solution to the Shortest Road Trip problem can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Shortest"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.HashSet;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class ShortestRoadTrip {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new ShortestRoadTrip().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int numTowns, numRoads, startTown, destinationTown;
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner scn = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    int numTests = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int test = 1; test <= numTests; test++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      numTowns = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      numRoads = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      startTown = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      destinationTown = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Array of all towns.
+\end_layout
+
+\begin_layout Plain Layout
+
+      Vertex[] towns = new Vertex[numTowns]; 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Get Town Co-ordinates.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int town = 0; town < numTowns; town++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int x = scn.nextInt(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+        int y = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+        towns[town] = new Vertex(x, y, town);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Get our road information.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int road = 0; road < numRoads; road++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        int source = scn.nextInt(); // input roads
+\end_layout
+
+\begin_layout Plain Layout
+
+        int destination = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+        towns[source].adjList.add(destination); // set towns adjacency
+\end_layout
+
+\begin_layout Plain Layout
+
+        towns[destination].adjList.add(source); // i.e.
+ connected by road
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Perform Search
+\end_layout
+
+\begin_layout Plain Layout
+
+      Double tripDistance = aStarSearch(towns, startTown, destinationTown);
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Output Results
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("Road Trip %d: ", test); 
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!tripDistance.isInfinite()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.printf("%.2f
+\backslash
+n", tripDistance);
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("IMPOSSIBLE");
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform a search from start vertex to goal vertex, and return the cost
+ of
+\end_layout
+
+\begin_layout Plain Layout
+
+   * the path
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vertices An Array of Vertices within the graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param start The ID of the starting vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param end The ID of the goal vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The weight of the path, or Double.POSITIVE_INFINITY if no path!
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public Double aStarSearch(Vertex[] vertices, int start, int goal) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    vertices[start].gScore = 0.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    vertices[goal].isGoal = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+    vertexQueue.add(vertices[start]);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!vertexQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      Vertex current = vertexQueue.poll();
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (current.isGoal) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return vertices[goal].gScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      current.visited = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertices[current.vertexID].visited = true;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // for all vertex adjacent to current do
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int n = 0; n < vertices.length; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (current.adjList.contains(n) && !vertices[n].visited) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          Vertex adj = vertices[n];
+\end_layout
+
+\begin_layout Plain Layout
+
+          Double gScore = current.gScore + euclidianDistance(current, adj);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+          // if adj not in Q or gScore < adj.gScore 
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (!vertexQueue.contains(adj) || gScore < adj.gScore) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            // Update the Scores for the adjacent vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+            vertexQueue.remove(adj);
+\end_layout
+
+\begin_layout Plain Layout
+
+            adj.gScore = gScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+            adj.hScore = euclidianDistance(adj, vertices[goal]);
+\end_layout
+
+\begin_layout Plain Layout
+
+            adj.fScore = adj.gScore + adj.hScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+            // Add this vertex back into the priority queue with updated
+ information.
+\end_layout
+
+\begin_layout Plain Layout
+
+            vertexQueue.add(adj);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return Double.POSITIVE_INFINITY; // failed
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Return the distance between vertex A and vertex B, using euclidian
+ distance
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vertexA The first vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param vertexB The second vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The distance between to two vertices.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private Double euclidianDistance(Vertex vertexA, Vertex vertexB) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Double dist = Math.sqrt(
+\end_layout
+
+\begin_layout Plain Layout
+
+              Math.pow((double)(vertexA.xCoordinate - vertexB.xCoordinate),
+ 2.0)
+\end_layout
+
+\begin_layout Plain Layout
+
+            + Math.pow((double)(vertexA.yCoordinate - vertexB.yCoordinate),
+ 2.0));
+\end_layout
+
+\begin_layout Plain Layout
+
+    return dist;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Class definition of the Vertex Information, with vertices in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Vertex implements Comparable<Vertex> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int xCoordinate; // Coordinate in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int yCoordinate; // Coordinate in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int vertexID;  // The id of the Vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Double gScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Double fScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Double hScore;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public HashSet<Integer> adjList;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Boolean visited; // Has this vertex been visited.
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Boolean isGoal; // Is this the goal vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Default constructor.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param xCoord X Coordinate in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param yCoord Y Coordinate in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param entityId The id of the Vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Vertex(int xCoord, int yCoord, int entityId) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      xCoordinate = xCoord;
+\end_layout
+
+\begin_layout Plain Layout
+
+      yCoordinate = yCoord;
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertexID = entityId;
+\end_layout
+
+\begin_layout Plain Layout
+
+      gScore = Double.POSITIVE_INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      fScore = Double.POSITIVE_INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      hScore = Double.POSITIVE_INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      adjList = new HashSet<Integer>();
+\end_layout
+
+\begin_layout Plain Layout
+
+      visited = false;
+\end_layout
+
+\begin_layout Plain Layout
+
+      isGoal = false;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(Vertex o) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (fScore < o.fScore) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (fScore > o.fScore) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Shortest Road Trip (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Shortest"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The few edge cases to consider would be very dense graphs, very sparse graphs,
+ or graphs that contain zero edges.
+ Another edge case that should be considered is the maximum weight between
+ vertices, and ensuring that the data type that holds the weight from source
+ to destination is capable of representing the value without overflow or
+ even underflow.
+ (That is when calculating the distance, we don't experience either overflow
+ or underflow in regards when using the 
+\family typewriter
+pow()
+\family default
+ or 
+\family typewriter
+sqrt() 
+\family default
+methods).
+ 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
 
@@ -36713,6 +38924,25 @@ Wikipedia (n.d.), Sieve of Eratosthenes, Retrieved August 15, 2012, from
 \begin_inset CommandInset href
 LatexCommand href
 target "http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Section 6.3.6.1 - A* Search, Figures, derived from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Lester, P.
+ (2005), A* Pathfinding for Beginners, Retrived September 10, 2012, from
+ 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.policyalmanac.org/games/aStarTutorial.htm"
 
 \end_inset
 
