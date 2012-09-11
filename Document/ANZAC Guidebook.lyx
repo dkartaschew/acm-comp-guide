@@ -36161,7 +36161,7 @@ A star
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -37577,7 +37577,6 @@ public class aStar {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 A* Shortest Path (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -38748,7 +38747,6 @@ n", tripDistance);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Shortest Road Trip (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -38787,6 +38785,1508 @@ sqrt()
 \family default
 methods).
  
+\end_layout
+
+\begin_layout Subsubsection
+Topological Sort
+\end_layout
+
+\begin_layout Standard
+Directed graphs wihtou direct cycles are encountered in many applications.
+ Such a diagrap is often referred to as a 
+\series bold
+directed acyclic graph
+\series default
+ or 
+\series bold
+dag
+\series default
+, for short.
+ Applications of such graphs include:
+\end_layout
+
+\begin_layout Itemize
+Inheritence between C++ classes or Java Interfaces.
+\end_layout
+
+\begin_layout Itemize
+Prerequistes between courses of a degree program.
+\end_layout
+
+\begin_layout Itemize
+Scheduling constraints between tasks or a project.
+\end_layout
+
+\begin_layout Standard
+Being able to sort a directed graph based on hierarchies or dependencies
+ allows us to determine the order in which items may be done, or if there
+ is a circular dependency in which we won't be able to complete our work.
+ (That is task A relies on Task B to be completed, but Task B relies on
+ Task A to be completed first.
+ This is also known as the Chicken and Egg Problem).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A directed graph $
+\backslash
+vec{G}$ with $n$ vertices.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure A topological ordering $v_{1}, 
+\backslash
+dots, v_{n}$ of $
+\backslash
+vec{G}$ or an indication that $
+\backslash
+vec{G}$ has a directed cycle.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{TopologicalSort}{$
+\backslash
+vec{G}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$S 
+\backslash
+gets 
+\backslash
+emptyset$} 
+\backslash
+Comment {Let $S$ be an empty Stack}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {vertex $u$ of $
+\backslash
+vec{G}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {incounter($u$) $
+\backslash
+gets$ indeg($u$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {incounter($u$) = 0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$S$.
+\backslash
+textsf{push} $
+\backslash
+gets u$}	
+\backslash
+Comment {Push $u$ onto stack $S$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While{$S$ is not empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$u 
+\backslash
+gets S$.
+\backslash
+textsf{pop}}	
+\backslash
+Comment {Pop Stack}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {number $u$ as the $i$-th vertex $v_{i}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$i 
+\backslash
+gets i + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {egde $e 
+\backslash
+in 
+\backslash
+vec{G}$.
+\backslash
+textsf{outIncidentEdges}($u$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$w 
+\backslash
+gets 
+\backslash
+vec{G}$.
+\backslash
+textsf{opposite}($u,e$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {incounter($w$) $
+\backslash
+gets$ incounter($w$)$-1$ }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {incounter($w$) = 0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$S$.
+\backslash
+textsf{push} $
+\backslash
+gets w$}	
+\backslash
+Comment {Push $w$ onto stack $S$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If{$i > n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $v_{1}, 
+\backslash
+dots, v_{n}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} "digraph $
+\backslash
+vec{G}$ has a directed cycle"}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Topological Sort Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Topological-Sort-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Description of Working
+\end_layout
+
+\begin_layout Standard
+The alogrithm itself is based on the same principles as DFS, in that we
+ first find all the vertices with an indegree of 0, and use these as our
+ starting point.
+ (We add these to a stack).
+ The main 
+\family typewriter
+while()
+\family default
+ loop runs until this stack is empty.
+ Within the main loop, we record the current vertex we are at, and then
+ add all vertices incident to the current that have an indegree of 0 (when
+ the current edge between the current vertex and adjacent vertex is removed)
+ to stack for further processing.
+\end_layout
+
+\begin_layout Standard
+At the end of the algorithm, if the number of edges processed is less than
+ the total edge count, then we have detected a directed cycle in the graph
+ (in which case we return an error), otherwise return a vector of order
+ in which vertices were visited.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Topological-Sort"
+
+\end_inset
+
+ demonstrates the algorithm in action.
+ (a) demonstrates the initial configuration; (b-h) after each while-loop
+ iteration.
+ The vertex labels give the vertex number and the current incounter value.
+ The edges tarversed in previous iterations are drawn with thick solid lines.
+ The edges traversed in the current iteration are drawn in dotted lines.
+\end_layout
+
+\begin_layout Standard
+Within the example, the topological sort order would be: {A, D, F, B, C,
+ E, G}.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Topological Sort.eps
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Topological Sort
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Topological-Sort"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the Topological Sort Algorithm can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Topological-Sort-Algorithm"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Stack;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class TopologicalSort {
+\end_layout
+
+\begin_layout Plain Layout
+  
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Perform a topological sort of the graph.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param graph The graph to sort.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return A List of vertices processed in order, or null if a cycle was
+ detected.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public ArrayList<Vertex> TSort(ArrayList<Vertex> graph){
+\end_layout
+
+\begin_layout Plain Layout
+    
+\end_layout
+
+\begin_layout Plain Layout
+    Stack<Vertex> vertexStack = new Stack<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+    ArrayList<Vertex> vertexVisitedOrder = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+    
+\end_layout
+
+\begin_layout Plain Layout
+    // Add all vertices with an indegree of 0 to the stack.
+\end_layout
+
+\begin_layout Plain Layout
+    for(Vertex vertex: graph){
+\end_layout
+
+\begin_layout Plain Layout
+      if(vertex.inCount == 0){
+\end_layout
+
+\begin_layout Plain Layout
+        vertexStack.push(vertex);
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    
+\end_layout
+
+\begin_layout Plain Layout
+    //initialise the vis
+i
+\lang english
+ted index.
+\end_layout
+
+\begin_layout Plain Layout
+    int i = 1;
+\end_layout
+
+\begin_layout Plain Layout
+    
+\end_layout
+
+\begin_layout Plain Layout
+    while(!vertexStack.empty()){
+\end_layout
+
+\begin_layout Plain Layout
+      // get our next vertex from the stack, and add it to the visited array.
+\end_layout
+
+\begin_layout Plain Layout
+      Vertex currentVertex = vertexStack.pop();
+\end_layout
+
+\begin_layout Plain Layout
+      currentVertex.order = i++;
+\end_layout
+
+\begin_layout Plain Layout
+      vertexVisitedOrder.add(currentVertex);
+\end_layout
+
+\begin_layout Plain Layout
+      
+\end_layout
+
+\begin_layout Plain Layout
+      // Get all edges from this vertex.
+\end_layout
+
+\begin_layout Plain Layout
+      for(Vertex w: currentVertex.adjList){
+\end_layout
+
+\begin_layout Plain Layout
+        w.inCount--;
+\end_layout
+
+\begin_layout Plain Layout
+        // Decrement the in degree count, and if 0, add to the processing
+ list.
+\end_layout
+
+\begin_layout Plain Layout
+        if(w.inCount == 0){
+\end_layout
+
+\begin_layout Plain Layout
+          vertexStack.add(w);
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    // If we have processed all edges, then return the visited order array.
+\end_layout
+
+\begin_layout Plain Layout
+    if(i > graph.size()){
+\end_layout
+
+\begin_layout Plain Layout
+      return vertexVisitedOrder;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    return null; // return an error.
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Class definition of the Vertex Information, with vertices in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public class Vertex {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    public int id = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    public int order = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    public ArrayList<Vertex> adjList;
+\end_layout
+
+\begin_layout Plain Layout
+    public int inCount = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+     * Default constructor.
+\end_layout
+
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
+    public Vertex(int vertexID, int indeg) {
+\end_layout
+
+\begin_layout Plain Layout
+      this.id = vertexID;
+\end_layout
+
+\begin_layout Plain Layout
+      this.inCount = indeg;
+\end_layout
+
+\begin_layout Plain Layout
+      adjList = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Topological Sort Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Topological-Sort-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Spreadsheet
+\end_layout
+
+\begin_layout Standard
+In 1979, Dan Bricklin and Bob Frankston wrote VisiCalc, the first spreadsheet
+ application.
+ It became a huge success and, at that time, was the killer application
+ for the Apple II computers.
+ Today, spreadsheets are found on most desktop computers.
+ 
+\end_layout
+
+\begin_layout Standard
+The idea behind spreadsheets is very simple, though powerful.
+ A spreadsheet consists of a table where each cell contains either a number
+ or a formula.
+ A formula can compute an expression that depends on the values of other
+ cells.
+ Text and graphics can be added for presentation purposes.
+ 
+\end_layout
+
+\begin_layout Standard
+You are to write a very simple spreadsheet application.
+ Your program should accept several spreadsheets.
+ Each cell of the spreadsheet contains either a numeric value (integers
+ only) or a formula, which only support sums.
+ If it is possible to compute all of the values of all of the formulas,
+ then your program should output the resulting spreadsheet where all formulas
+ have been replaced by their value.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="7">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+Naming of the top left cells.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line of the input file contains the number of spreadsheets to
+ follow.
+ A spreadsheet starts with a line consisting of two integer numbers, separated
+ by a space, giving the number of columns and rows.
+ The following lines of the spreadsheet each contain a row.
+ A row consists of the cells of that row, separated by a single space.
+ 
+\end_layout
+
+\begin_layout Standard
+A cell consists either of a numeric integer value or of a formula.
+ A formula starts with an equal sign (=).
+ After that, one or more cell names follow, separated by plus signs (+).
+ The value of such a formula is the sum of all values found in the referenced
+ cells.
+ These cells may again contain a formula.
+ There are no spaces within a formula.
+ 
+\end_layout
+
+\begin_layout Standard
+The name of a cell consists of one to three letters for the column followed
+ by a number between 1 and 999 (including) for the row.
+ The letters for the column form the following series: A, B, C, ..., Z, AA,
+ AB, AC, ..., AZ, BA, ..., BZ, CA, ..., ZZ, AAA, AAB, ..., AAZ, ABA, ..., ABZ, ACA, ..., ZZZ.
+ These letters correspond to the number from 1 to 18278.
+ The top left cell has the name A1 (see table above).
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+4 3 
+\begin_inset Newline newline
+\end_inset
+
+10 34 37 =A1+B1+C1 
+\begin_inset Newline newline
+\end_inset
+
+40 17 34 =A2+B2+C2 
+\begin_inset Newline newline
+\end_inset
+
+=A1+A2 =B1+B2 =C1+C2 =D1+D2 
+\begin_inset Newline newline
+\end_inset
+
+4 3 
+\begin_inset Newline newline
+\end_inset
+
+10 34 37 =A1+B1+C1 
+\begin_inset Newline newline
+\end_inset
+
+40 17 34 =A2+B2+C2 
+\begin_inset Newline newline
+\end_inset
+
+=A1+A2 =B1+B2 =C1+C2 =D1+D2+D3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output the test case number followed by a colon on a
+ line by itself.
+ If the spreadsheet can be completely computed then, the following lines
+ should contain the values of the cells of the spreadsheet printed in the
+ same format as that of the input with all formulas replaced by values.
+ If the spreadsheet cannot be completely computed because of cyclic references,
+ then the line following the test case number should contain “Not computable!”.
+ See the sample below.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+1: 
+\begin_inset Newline newline
+\end_inset
+
+10 34 37 81 
+\begin_inset Newline newline
+\end_inset
+
+40 17 34 91 
+\begin_inset Newline newline
+\end_inset
+
+50 51 71 172 
+\begin_inset Newline newline
+\end_inset
+
+2: 
+\begin_inset Newline newline
+\end_inset
+
+Not computable!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Spreadsheet problem can be found in Listing .
 \end_layout
 
 \begin_layout Standard
