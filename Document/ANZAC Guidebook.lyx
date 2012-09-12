@@ -520,7 +520,7 @@ Intel Core 2 Quad, Q9400 @ 2.66GHz (Quad core, 2.66GHz, 6MB L2 cache, 64bit
 \end_layout
 
 \begin_layout Itemize
-250GB 7200rpm HDD
+250GB 7200rpm HDD + 2TB 7200rpm HDD
 \end_layout
 
 \begin_layout Itemize
@@ -2839,13 +2839,311 @@ name "tab:Big-O-runtimes"
 \end_layout
 
 \begin_layout Standard
+Based on the information in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Big-O-runtimes"
+
+\end_inset
+
+, should 2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+ algorithms be avoided? Absolutely not, if the algorithm solves the problem
+ quickly and easily on provision that the number of elements to be processed
+ is relatively small.
+ To illustrate, suppose the each operation can be done in 4 microseconds,
+ but we only have 16 elements to be processed.
+ The respective worst case runtimes for each function is shown in Table
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Big-O-runtimes-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Function
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Time
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+log
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16 microseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+64 microseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+nlog
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+256 microseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1024 microseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16 milliseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+256 milliseconds
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Big O runtimes
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Big-O-runtimes-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With this comparison, algorithm selection is not merely about the one with
+ the least Order value, but also about understanding the number of items
+ to be processed compared to the implementation complexity of the algorithm
+ itself.
+ (One would use an algorithm with 
+\series bold
+O(2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+n
+\end_layout
+
+\end_inset
+
+)
+\series default
+ complexity if implementation only takes 5 minutes, versus an algorithm
+ with 
+\series bold
+O(n)
+\series default
+ complexity if it takes hours to implement and test, if the number of input
+ elements is small).
+ Sometimes brute force is better than perfect elegance in the competition!
+\end_layout
+
+\begin_layout Standard
 The information within this section is a very brief introduction to BigO
- notation, is included to help you choose between two different algorithms
+ notation, has been included to help you choose between two different algorithms
  to complete a task based on the Order function given in the algorithm descripti
 on.
  Much research has been completed on algorithm analysis, with many text
  books and reference books being authored on this one subject of Computer
  Science.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -3489,7 +3787,7 @@ Liberal use of global variables utlised by direct access.
 \end_layout
 
 \begin_layout Enumerate
-Libreal use of function pointers and jump tables in C++.
+Liberal use of function pointers and jump tables in C++.
 \end_layout
 
 \begin_layout Enumerate
@@ -3610,7 +3908,13 @@ System.Console
 status collapsed
 
 \begin_layout Plain Layout
-http://msdn.microsoft.com/en-us/library/system.console.aspx
+\begin_inset CommandInset href
+LatexCommand href
+target "http://msdn.microsoft.com/en-us/library/system.console.aspx"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -4735,6 +5039,43 @@ cout time = 67240 msec
 
 \begin_layout Enumerate
 printf() time = 280 msec
+\end_layout
+
+\begin_layout Standard
+It should be heavily stressed, that the above times are indicative of worst
+ cases only, and in practice and real-word the difference is less pronounced.
+ For example, enabling all compiler optimisations that enable SSE4 and auto-para
+llelisation support reduces the difference to:
+\end_layout
+
+\begin_layout Enumerate
+cout time = 700 msec
+\end_layout
+
+\begin_layout Enumerate
+printf() time = 280 msec
+\end_layout
+
+\begin_layout Standard
+Indicating a time penality of just over 2 times.
+ While this penalty isn't as poor as earlier indicated, within the competition
+ it may mean the difference between getting a 
+\begin_inset Quotes eld
+\end_inset
+
+Yes
+\begin_inset Quotes erd
+\end_inset
+
+ response and a 
+\begin_inset Quotes eld
+\end_inset
+
+Time Overrrun
+\begin_inset Quotes erd
+\end_inset
+
+ response.
 \end_layout
 
 \begin_layout Standard
@@ -22573,7 +22914,7 @@ name "tab:Adjacency-Matrix"
 \end_layout
 
 \begin_layout Subparagraph
-Description of Working
+Description of working
 \end_layout
 
 \begin_layout Standard
@@ -24088,7 +24429,7 @@ name "alg:Depth-First-Search"
 \end_layout
 
 \begin_layout Paragraph
-Description of Working
+Description of working
 \end_layout
 
 \begin_layout Standard
@@ -28145,7 +28486,7 @@ name "alg:Kruskal's-Algorithm"
 \end_layout
 
 \begin_layout Subparagraph
-Description of Working
+Description of working
 \end_layout
 
 \begin_layout Standard
@@ -30050,7 +30391,7 @@ name "alg:Dijkstra's-Algorithm"
 \end_layout
 
 \begin_layout Paragraph
-Description of Working
+Description of working
 \end_layout
 
 \begin_layout Standard
@@ -34633,7 +34974,7 @@ name "alg:Floyd-Warshall-Algorithm"
 \end_layout
 
 \begin_layout Paragraph
-Description of Working
+Description of working
 \end_layout
 
 \begin_layout Standard
@@ -36434,7 +36775,7 @@ A* is commonly utilised in real-time robotics for path finding on dynamic
 \end_layout
 
 \begin_layout Paragraph
-Description of Working
+Description of working
 \end_layout
 
 \begin_layout Standard
@@ -36520,7 +36861,7 @@ reference "fig:AStar-Initial-Map"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -36969,6 +37310,16 @@ reference "fig:AStar-Initial-Map-6"
  Moving from the starting square A to the destination square B is simply
  a matter of moving from the center of each square (the vertex) to the center
  of the next square on the path, until you reach the target.
+\end_layout
+
+\begin_layout Standard
+The time complexity of the A* Shortest Path algorithm is deterministic on
+ the hueristic function choosen, and how well it can guess the hScore value.
+ This is due to the number of cells or paths that will be tested during
+ the course of the algorithm running will vary accordingly to how accurate
+ the estimation is.
+ The absolute worst case will see A* function equivalent to Dijkstra's Algorithm.
+ (However this rarely is the case).
 \end_layout
 
 \begin_layout Paragraph
@@ -39203,6 +39554,15 @@ Within the example, the topological sort order would be: {A, D, F, B, C,
 \end_layout
 
 \begin_layout Standard
+A described Topological Sort algorithm has an expected runtime complexity
+ of 
+\series bold
+O(n + m)
+\series default
+.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -39271,10 +39631,12 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.ArrayList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Stack;
 \end_layout
 
@@ -39283,179 +39645,219 @@ import java.util.Stack;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class TopologicalSort {
 \end_layout
 
 \begin_layout Plain Layout
+
   
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Perform a topological sort of the graph.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param graph The graph to sort.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return A List of vertices processed in order, or null if a cycle was
  detected.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public ArrayList<Vertex> TSort(ArrayList<Vertex> graph){
 \end_layout
 
 \begin_layout Plain Layout
+
     
 \end_layout
 
 \begin_layout Plain Layout
+
     Stack<Vertex> vertexStack = new Stack<Vertex>();
 \end_layout
 
 \begin_layout Plain Layout
+
     ArrayList<Vertex> vertexVisitedOrder = new ArrayList<Vertex>();
 \end_layout
 
 \begin_layout Plain Layout
+
     
 \end_layout
 
 \begin_layout Plain Layout
+
     // Add all vertices with an indegree of 0 to the stack.
 \end_layout
 
 \begin_layout Plain Layout
+
     for(Vertex vertex: graph){
 \end_layout
 
 \begin_layout Plain Layout
+
       if(vertex.inCount == 0){
 \end_layout
 
 \begin_layout Plain Layout
+
         vertexStack.push(vertex);
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     
 \end_layout
 
 \begin_layout Plain Layout
-    //initialise the vis
-i
-\lang english
-ted index.
+
+    //initialise the visited index.
 \end_layout
 
 \begin_layout Plain Layout
+
     int i = 1;
 \end_layout
 
 \begin_layout Plain Layout
+
     
 \end_layout
 
 \begin_layout Plain Layout
+
     while(!vertexStack.empty()){
 \end_layout
 
 \begin_layout Plain Layout
+
       // get our next vertex from the stack, and add it to the visited array.
 \end_layout
 
 \begin_layout Plain Layout
+
       Vertex currentVertex = vertexStack.pop();
 \end_layout
 
 \begin_layout Plain Layout
+
       currentVertex.order = i++;
 \end_layout
 
 \begin_layout Plain Layout
+
       vertexVisitedOrder.add(currentVertex);
 \end_layout
 
 \begin_layout Plain Layout
+
       
 \end_layout
 
 \begin_layout Plain Layout
+
       // Get all edges from this vertex.
 \end_layout
 
 \begin_layout Plain Layout
+
       for(Vertex w: currentVertex.adjList){
 \end_layout
 
 \begin_layout Plain Layout
+
         w.inCount--;
 \end_layout
 
 \begin_layout Plain Layout
+
         // Decrement the in degree count, and if 0, add to the processing
  list.
 \end_layout
 
 \begin_layout Plain Layout
+
         if(w.inCount == 0){
 \end_layout
 
 \begin_layout Plain Layout
+
           vertexStack.add(w);
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     // If we have processed all edges, then return the visited order array.
 \end_layout
 
 \begin_layout Plain Layout
+
     if(i > graph.size()){
 \end_layout
 
 \begin_layout Plain Layout
+
       return vertexVisitedOrder;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return null; // return an error.
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -39464,18 +39866,22 @@ ted index.
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Class definition of the Vertex Information, with vertices in 2D space.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class Vertex {
 \end_layout
 
@@ -39484,18 +39890,22 @@ ted index.
 \end_layout
 
 \begin_layout Plain Layout
+
     public int id = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     public int order = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     public ArrayList<Vertex> adjList;
 \end_layout
 
 \begin_layout Plain Layout
+
     public int inCount = 0;
 \end_layout
 
@@ -39504,42 +39914,52 @@ ted index.
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Default constructor.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     public Vertex(int vertexID, int indeg) {
 \end_layout
 
 \begin_layout Plain Layout
+
       this.id = vertexID;
 \end_layout
 
 \begin_layout Plain Layout
+
       this.inCount = indeg;
 \end_layout
 
 \begin_layout Plain Layout
+
       adjList = new ArrayList<Vertex>();
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -39548,7 +39968,6 @@ ted index.
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Topological Sort Algorithm (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -40286,7 +40705,1523 @@ Sample Solution
 \end_layout
 
 \begin_layout Standard
-A sample solution to the Spreadsheet problem can be found in Listing .
+A sample solution to the Spreadsheet problem can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Spreadsheet"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Stack;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class SpreadSheet {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  static Vertex[][] cells;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new SpreadSheet().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  private void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int numCols;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int numRows;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner sc = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    int numSheets = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int sheet = 1; sheet <= numSheets; sheet++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      numCols = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      numRows = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      sc.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Create a new spread sheet.
+\end_layout
+
+\begin_layout Plain Layout
+
+      cells = new Vertex[numRows][numCols];
+\end_layout
+
+\begin_layout Plain Layout
+
+      ArrayList<Vertex> graph = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Read in our rows.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int row = 0; row < numRows; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        String rowStr = sc.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+        String[] columns = rowStr.split(" ");
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int col = 0; col < numCols; col++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (cells[row][col] == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            cells[row][col] = new Vertex(row, col, columns[col]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+            cells[row][col].setContents(columns[col]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          // Add in all the vertices into the main graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+          graph.add(cells[row][col]);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Get our path around the spread sheet.
+\end_layout
+
+\begin_layout Plain Layout
+
+      //ArrayList<Vertex> path = TopologicalSort(graph);
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("%d:
+\backslash
+n", sheet);
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!TopologicalSort(graph)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // No path found, so print we have no path.
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println("Not computable!");
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // print the output.
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (int row = 0; row < numRows; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          for (int col = 0; col < numCols; col++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            System.out.printf("%d ", cells[row][col].value);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          System.out.println();
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform a topological sort of the graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param graph The graph to sort.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return true if all edges processed and a order was found.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public boolean TopologicalSort(ArrayList<Vertex> graph) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    Stack<Vertex> vertexStack = new Stack<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    //ArrayList<Vertex> vertexVisitedOrder = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Add all vertices with an indegree of 0 to the stack.
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (Vertex vertex : graph) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (vertex.inCount == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertexStack.push(vertex);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    //initialise the vistied index.
+\end_layout
+
+\begin_layout Plain Layout
+
+    int i = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!vertexStack.empty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // get our next vertex from the stack, and add it to the visited array.
+\end_layout
+
+\begin_layout Plain Layout
+
+      Vertex currentVertex = vertexStack.pop();
+\end_layout
+
+\begin_layout Plain Layout
+
+      currentVertex.order = i++;
+\end_layout
+
+\begin_layout Plain Layout
+
+      //vertexVisitedOrder.add(currentVertex);
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Process the dependencies immediately, rather than delaying processing
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Based on a derived path.
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!currentVertex.adjList.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // have dependencies, so calculate
+\end_layout
+
+\begin_layout Plain Layout
+
+        currentVertex.calculate();
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Get all edges from this vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (Cell cell : currentVertex.adjList) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        Vertex w = cells[cell.row][cell.column];
+\end_layout
+
+\begin_layout Plain Layout
+
+        w.inCount--;
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Decrement the in degree count, and if 0, add to the processing
+ list.
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (w.inCount == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          vertexStack.add(w);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    // If we have processed all edges, then return the visited order array.
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (i > graph.size()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return true; // We found a parh, and processed all edges 
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return false; // return an error.
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Basic class to hold the location of a Cell (used in the adjacent list).
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Cell {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int row = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int column = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Basic constructor to build via row, col values.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param row
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param col
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Cell(int row, int col) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.row = row;
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.column = col;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Basic constructor to build via a spreadsheet cell reference.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param cellID The reference to this cell in A0 format.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Cell(String cellID) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      setAddress(cellID);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Set the cell address via the spreadsheet cell reference format.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param address
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    private void setAddress(String address) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      int index = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Find the first number in the address reference
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int cindex = 0; cindex < address.length(); cindex++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (Character.isLetter(address.charAt(cindex))) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          index = cindex + 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // create a new array of char to hold the alpha part of the address.
+\end_layout
+
+\begin_layout Plain Layout
+
+      char[] colAddress = new char[index];
+\end_layout
+
+\begin_layout Plain Layout
+
+      address.getChars(0, index, colAddress, 0);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Convert both to column and row references.
+\end_layout
+
+\begin_layout Plain Layout
+
+      column = convertToColNum(colAddress);
+\end_layout
+
+\begin_layout Plain Layout
+
+      row = Integer.parseInt(address.substring(index)) - 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Convert a column Alphabet reference to a zero indexed number.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param column array of char to convert to number format.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @return
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    private int convertToColNum(char[] column) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      int colAddress = -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      String alpha = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // A = 1, Z = 26
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int c = 0; c < column.length; c++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        colAddress += alpha.indexOf(column[c]) * Math.pow(26, column.length
+ - c - 1);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      return colAddress;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Class definition of the Vertex Information, with vertices in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Vertex {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int order = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public ArrayList<Cell> adjList;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int inCount = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int value = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int row;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int col;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Default constructor.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Vertex(int row, int col) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.row = row;
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.col = col;
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.inCount = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      adjList = new ArrayList<Cell>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Default Constructor.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param row Row of this vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param col Column of this vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param contents The contents of this cell.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Vertex(int row, int col, String contents) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.row = row;
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.col = col;
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.inCount = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      adjList = new ArrayList<Cell>();
+\end_layout
+
+\begin_layout Plain Layout
+
+      setContents(contents);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Set the value to be contained in this cell
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param contents
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public final void setContents(String contents) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Attempt to get a plain number.
+\end_layout
+
+\begin_layout Plain Layout
+
+      try {
+\end_layout
+
+\begin_layout Plain Layout
+
+        value = Integer.parseInt(contents);
+\end_layout
+
+\begin_layout Plain Layout
+
+      } catch (NumberFormatException e) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Must have a formula.
+\end_layout
+
+\begin_layout Plain Layout
+
+        String f = contents.substring(1); //remove leading "="
+\end_layout
+
+\begin_layout Plain Layout
+
+        String[] elements = f.split("
+\backslash
+
+\backslash
++");
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Add each element in the formula.
+\end_layout
+
+\begin_layout Plain Layout
+
+        for (String item : elements) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          Cell element = new Cell(item);
+\end_layout
+
+\begin_layout Plain Layout
+
+          // See if our reference already exists?
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (cells[element.row][element.column] == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            // create a new vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+            cells[element.row][element.column] = new Vertex(element.row, element.col
+umn);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+          // Add that we have a cell that we reference.
+\end_layout
+
+\begin_layout Plain Layout
+
+          this.inCount++;
+\end_layout
+
+\begin_layout Plain Layout
+
+          // Let the cell we reference, know that we reference it.
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+          // (add us to it's adjacency list).
+\end_layout
+
+\begin_layout Plain Layout
+
+          cells[element.row][element.column].adjList.add(new Cell(this.row, this.col))
+;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Update the value of vertex
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void calculate() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Update the value of the cells, on our adjacent list with our value.
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (Cell element : adjList) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        cells[element.row][element.column].value += this.value;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to Spreadsheet Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Spreadsheet"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When utilising a topological sort within the spreadsheet problem, there
+ are few issues with the problem.
+\end_layout
+
+\begin_layout Standard
+Test cases to consider would be a spreadsheet with a single cell, a cell
+ that is self referencing (that is, in cell A1, contains the formula 
+\begin_inset Quotes eld
+\end_inset
+
+=A1
+\begin_inset Quotes erd
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+In development of a solution, special care should be taken in regards to
+ development of the method that creates a row, column reference from the
+ spread sheet style reference of A1.
+ Input test cases should include both A1, and ZZZ999, ensuring that the
+ row count is calculated correctly.
+ Utilisation of regular expressions could help in determine the start of
+ the number in the cell reference, however consideration for the penalities
+ on using the regular expression engine, verses perfoming a linear search
+ for at most 3 characters should also be considered.
+\end_layout
+
+\begin_layout Standard
+Another test case to be considered is a cell's formula that may have multiple
+ references to the same cell, for example 
+\begin_inset Quotes eld
+\end_inset
+
+=A1+A1+
+\begin_inset Formula $\ldots$
+\end_inset
+
++A1
+\begin_inset Quotes erd
+\end_inset
+
+, and that the number of cells referenced in the formula in essentially
+ unlimited in length.
+\end_layout
+
+\begin_layout Standard
+The solution as presented as a slight modification to the main algorithm,
+ in that rather than adding the current vertex being operated on to the
+ sorted path, we simple process the dependency calculation in place.
+ This was done to save cycling through the path list later on, when it can
+ be done in place in the middle of the algorithm.
+\end_layout
+
+\begin_layout Subsection
+Graph Theory (Advanced)
+\end_layout
+
+\begin_layout Subsubsection
+Maximal Matching
+\end_layout
+
+\begin_layout Standard
+Description of Working
+\end_layout
+
+\begin_layout Standard
+Implementation
+\end_layout
+
+\begin_layout Standard
+Sample Problem -
+\end_layout
+
+\begin_layout Standard
+Sample Solution
+\end_layout
+
+\begin_layout Subsubsection
+Network Flow (minimum cost, maximum flow)
+\end_layout
+
+\begin_layout Standard
+Description of Working
+\end_layout
+
+\begin_layout Standard
+Implementation
+\end_layout
+
+\begin_layout Standard
+Sample Problem -
+\end_layout
+
+\begin_layout Standard
+Sample Solution
+\end_layout
+
+\begin_layout Subsection
+Computational Geometery
+\end_layout
+
+\begin_layout Subsubsection
+Line Segment Intersection
+\end_layout
+
+\begin_layout Standard
+Description of Working
+\end_layout
+
+\begin_layout Standard
+Implementation
+\end_layout
+
+\begin_layout Standard
+Sample Problem -
+\end_layout
+
+\begin_layout Standard
+Sample Solution
+\end_layout
+
+\begin_layout Subsubsection
+Convex Hull
+\end_layout
+
+\begin_layout Standard
+Description of Working
+\end_layout
+
+\begin_layout Standard
+Implementation
+\end_layout
+
+\begin_layout Standard
+Sample Problem -
+\end_layout
+
+\begin_layout Standard
+Sample Solution
+\end_layout
+
+\begin_layout Subsection
+Dynamic Programming
+\end_layout
+
+\begin_layout Subsubsection
+Knapsack Problem
+\end_layout
+
+\begin_layout Standard
+Description of Working
+\end_layout
+
+\begin_layout Standard
+Implementation
+\end_layout
+
+\begin_layout Standard
+Sample Problem -
+\end_layout
+
+\begin_layout Standard
+Sample Solution
+\end_layout
+
+\begin_layout Subsubsection
+Edit Distance
+\end_layout
+
+\begin_layout Standard
+Description of Working
+\end_layout
+
+\begin_layout Standard
+Implementation
+\end_layout
+
+\begin_layout Standard
+Sample Problem -
+\end_layout
+
+\begin_layout Standard
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Afterword
 \end_layout
 
 \begin_layout Standard

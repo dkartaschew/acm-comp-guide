@@ -44,19 +44,12 @@ public class SpreadSheet {
       }
 
       // Get our path around the spread sheet.
-      ArrayList<Vertex> path = TopologicalSort(graph);
+      //ArrayList<Vertex> path = TopologicalSort(graph);
       System.out.printf("%d:\n", sheet);
-      if (path == null) {
+      if (!TopologicalSort(graph)) {
         // No path found, so print we have no path.
         System.out.println("Not computable!");
       } else {
-        // Path found, so update the values in each cell.
-        for (Vertex vertex : path) {
-          if (!vertex.adjList.isEmpty()) {
-            // have dependencies, so calculate
-            vertex.calculate();
-          }
-        }
         // print the output.
         for (int row = 0; row < numRows; row++) {
           for (int col = 0; col < numCols; col++) {
@@ -75,10 +68,10 @@ public class SpreadSheet {
    * @return A List of vertices processed in order, or null if a cycle was
    * detected.
    */
-  public ArrayList<Vertex> TopologicalSort(ArrayList<Vertex> graph) {
+  public boolean TopologicalSort(ArrayList<Vertex> graph) {
 
     Stack<Vertex> vertexStack = new Stack<Vertex>();
-    ArrayList<Vertex> vertexVisitedOrder = new ArrayList<Vertex>();
+    //ArrayList<Vertex> vertexVisitedOrder = new ArrayList<Vertex>();
 
     // Add all vertices with an indegree of 0 to the stack.
     for (Vertex vertex : graph) {
@@ -94,8 +87,14 @@ public class SpreadSheet {
       // get our next vertex from the stack, and add it to the visited array.
       Vertex currentVertex = vertexStack.pop();
       currentVertex.order = i++;
-      vertexVisitedOrder.add(currentVertex);
-
+      //vertexVisitedOrder.add(currentVertex);
+      
+      // Process the dependencies immediately, rather than delaying processing
+      // Based on a derived path.
+      if (!currentVertex.adjList.isEmpty()) {
+        // have dependencies, so calculate
+        currentVertex.calculate();
+      }
       // Get all edges from this vertex.
       for (Cell cell : currentVertex.adjList) {
         Vertex w = cells[cell.row][cell.column];
@@ -108,9 +107,9 @@ public class SpreadSheet {
     }
     // If we have processed all edges, then return the visited order array.
     if (i > graph.size()) {
-      return vertexVisitedOrder;
+      return true; // We found a parh, and processed all edges 
     }
-    return null; // return an error.
+    return false; // return an error.
   }
 
   /**
@@ -123,8 +122,9 @@ public class SpreadSheet {
 
     /**
      * Basic constructor to build via row, col values.
+     *
      * @param row
-     * @param col 
+     * @param col
      */
     public Cell(int row, int col) {
       this.row = row;
@@ -133,6 +133,7 @@ public class SpreadSheet {
 
     /**
      * Basic constructor to build via a spreadsheet cell reference.
+     *
      * @param cellID The reference to this cell in A0 format.
      */
     public Cell(String cellID) {
@@ -141,7 +142,8 @@ public class SpreadSheet {
 
     /**
      * Set the cell address via the spreadsheet cell reference format.
-     * @param address 
+     *
+     * @param address
      */
     private void setAddress(String address) {
       int index = 0;
@@ -163,8 +165,9 @@ public class SpreadSheet {
 
     /**
      * Convert a column Alphabet reference to a zero indexed number.
+     *
      * @param column array of char to convert to number format.
-     * @return 
+     * @return
      */
     private int convertToColNum(char[] column) {
       int colAddress = -1;
@@ -202,6 +205,7 @@ public class SpreadSheet {
 
     /**
      * Default Constructor.
+     *
      * @param row Row of this vertex
      * @param col Column of this vertex
      * @param contents The contents of this cell.
@@ -216,7 +220,8 @@ public class SpreadSheet {
 
     /**
      * Set the value to be contained in this cell
-     * @param contents 
+     *
+     * @param contents
      */
     public final void setContents(String contents) {
       // Attempt to get a plain number.
