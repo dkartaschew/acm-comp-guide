@@ -42173,24 +42173,1106 @@ Sample Solution
 Dynamic Programming
 \end_layout
 
-\begin_layout Subsubsection
-Knapsack Problem
+\begin_layout Standard
+Dynamic Programming is a problem solving approach and not a specific algorithm,
+ and thus maybe used to solve a multitude of different problems.
 \end_layout
 
 \begin_layout Standard
+The primary aspect of Dynamic Programming is the ability to break larger
+ complex problems into simple problems, however to use Dynamic Programming,
+ a problem should exhibit properties of overlapping subproblems and/or optimal
+ substructure.
+\end_layout
+
+\begin_layout Standard
+Overlapping subproblem refers to if the problem can be broken down into
+ subproblems which are reused several times or a recursive algorithm for
+ the problem solves the same subproblem over and over rather than always
+ generating new subproblem.
+ For example, the problem of computing the Fibonacci sequence exhibits overlappi
+ng subproblems.
+ The problem of computing the nth Fibonacci number F(n), can be broken down
+ into the subproblems of computing F(n − 1) and F(n − 2), and then adding
+ the two.
+ The subproblem of computing F(n − 1) can itself be broken down into a subproble
+m that involves computing F(n − 2).
+ Therefore the computation of F(n − 2) is reused, and the Fibonacci sequence
+ thus exhibits overlapping subproblems.
+\end_layout
+
+\begin_layout Standard
+A problem is defined to have optimal substructure if an optimal solution
+ can be constructed efficiently from optimal solutions of its subproblems.
+ Optimal Substructure This property is used to determine the usefulness
+ of dynamic programming and greedy algorithms in a problem.
+ Typically, a greedy algorithm is used to solve a problem with optimal substruct
+ure if it can be proved by induction that this is optimal at each step.
+ Otherwise, providing the problem exhibits overlapping subproblems as well,
+ dynamic programming is used.
+ If there are no appropriate greedy algorithms and the problem fails to
+ exhibit overlapping subproblems, often a lengthy but straightforward search
+ of the solution space is the best alternative.
+\end_layout
+
+\begin_layout Subsubsection
+Knapsack Problem
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Knapsack-Problem"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Knapsack Problem is a problem of combinational optimisation, where given
+ a set of items of differing weights, attempt to find the optimal list of
+ items to be included based on value within set total weight constriants.
+ The problem derives its name from the challenge faced by someone who is
+ constrained by a fixed-size knapsack and must fill it with the most valuable
+ items.
+\end_layout
+
+\begin_layout Standard
+The problem often arises in areas where resource allocation is to occur
+ where there are financial or physical restraints associated with activities
+ and is useful for applications such as producing the least wasteful method
+ of cutting raw materials, selection of investments, as well as generating
+ keys for the Merkle–Hellman knapsack cryptosystem.
+\end_layout
+
+\begin_layout Standard
+The knapsack problem formally is attempting to achieve:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+maximise 
+\begin_inset Formula $\sum\limits _{i\in S}b_{i}$
+\end_inset
+
+ subject to 
+\begin_inset Formula $\sum\limits _{i\in S}w_{i}\leq W$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $S$
+\end_inset
+
+ is a set of items, each item 
+\begin_inset Formula $i$
+\end_inset
+
+ has a weight 
+\begin_inset Formula $w_{i}$
+\end_inset
+
+ and a benefit value 
+\begin_inset Formula $b_{i}$
+\end_inset
+
+, whic is the utility value assigned to item 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A set $S$ of $n$ items, such that item $i$ has positive benefit
+ $b_{i}$, and positive integer weight $w_{i}$; positive integer maximum
+ total weigth $W$.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure For $w=0,
+\backslash
+dots,W$, maximum benefit $B[w]$ of a subet of $S$ with total weight as most
+ $w$.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{01Knapsack}{$S,W$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$w 
+\backslash
+gets 0$ to $W$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$B[w] 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$k 
+\backslash
+gets 1$ to $n$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$w 
+\backslash
+gets W$ down to $w_{k}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$B[w - w_{k}] + b_{k} > B[w]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$B[w] 
+\backslash
+gets B[w - w_{k}] + b_{k}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Knapsack Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Knapsack-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Description of Working
 \end_layout
 
 \begin_layout Standard
+The Knapsack Problem can be solved by utilising an exhaustive search of
+ the combination space, however requires that all subset combinations be
+ calculated which often leads to 
+\series bold
+O(2
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+
+)
+\series default
+ type performance.
+\end_layout
+
+\begin_layout Standard
+However the Knapsack Algorithm shown in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Knapsack-Algorithm"
+
+\end_inset
+
+, simplifies the solution by breaking down the larger problem into smaller
+ problems.
+ This is formulated by defining the benefit for each item to be based on
+ the weight of the item, and the number of items available, that is 
+\begin_inset Formula $B[k,w]$
+\end_inset
+
+, and by examining the algorithm we see that 
+\begin_inset Formula $B[k,w]$
+\end_inset
+
+ is built from 
+\begin_inset Formula $B[k-1,w]$
+\end_inset
+
+ and possibly 
+\begin_inset Formula $B[k-1,w-w_{k}]$
+\end_inset
+
+.
+ Thus we have a subproblem definition that is simple (it involves just two
+ parameters) and satisfies the subproblem optimisation condition.
+ Moreover, it has subproblem overlap, for an optimal subset of total weight
+ at most 
+\begin_inset Formula $w$
+\end_inset
+
+ may be used by many future problems.
+\end_layout
+
+\begin_layout Standard
+The running time of the Knapsack algorithm is dominated by the two nested
+ for-loops, where the one iterates 
+\begin_inset Formula $n$
+\end_inset
+
+ times and the inner one iterates at most 
+\begin_inset Formula $W$
+\end_inset
+
+ times.
+ After it completes we can find the optimal value by locating the value
+ 
+\begin_inset Formula $B[w]$
+\end_inset
+
+ that is greatest among all 
+\begin_inset Formula $w\leq W$
+\end_inset
+
+.
+ Typically the Knapsack algorithm will be in the order of 
+\series bold
+O(nW)
+\series default
+, however it is common to refer to the algorithm as running in pseudo-polynomina
+l time, for it's running time depends on the magnitude of a number of given
+ input.
+ 
+\end_layout
+
+\begin_layout Paragraph
 Implementation
 \end_layout
 
 \begin_layout Standard
-Sample Problem -
+An implementation of the Kanpsack Algorithm can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Knapsack-Algorithm-(Java)"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class Knapsack {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Default class to hold an item.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Item {
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int value;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int weight;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Determine the maximum weight to hold.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param items Array of Item to be considered.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param capacity The maximum capacity of the container.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The maximum weight of items.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public int Knapsack(Item[] items, int capacity) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[][] solution = new int[capacity+1][items.length + 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int k = 1; k < items.length + 1; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int w = 1; w < capacity+1; w++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (items[k - 1].weight > w) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          solution[w][k] = solution[w][k - 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+        } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+          solution[w][k] = Math.max(solution[w][k - 1],
+\end_layout
+
+\begin_layout Plain Layout
+
+                  solution[w - items[k - 1].weight][k - 1] + items[k - 1].value);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return solution[capacity][items.length];
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Knapsack Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Knapsack-Algorithm-(Java)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Knapsack
+\end_layout
+
+\begin_layout Standard
+Given weights and values for a set of items, determine the maximum value
+ of items that can be carried in a vehicle with a given carrying capacity
+ without exceeding that capacity.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The input begins with a line containing a single integer, 
+\begin_inset Formula $T$
+\end_inset
+
+, the number of test cases which follow, 1 ≤ 
+\begin_inset Formula $T$
+\end_inset
+
+ ≤ 100.
+ 
+\end_layout
+
+\begin_layout Standard
+For each test case, 4 lines of integers follow.
+ 
+\end_layout
+
+\begin_layout Itemize
+The first line contains the capacity of the vehicle, 
+\begin_inset Formula $W,100\leq W\leq5000$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+The second line contains the number of items available to choose from, 
+\begin_inset Formula $N,1\leq N\leq1000$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+The third line contains weights for the individual items 
+\begin_inset Formula $w_{1}\ldots w_{n},1\leq w_{i}\leq1000$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+The fourth line contains values for the individual items, 
+\begin_inset Formula $v_{1}\ldots v_{n},1\leq v_{i}\leq1000$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+5 
+\begin_inset Newline newline
+\end_inset
+
+4 
+\begin_inset Newline newline
+\end_inset
+
+2 1 3 2 
+\begin_inset Newline newline
+\end_inset
+
+12 10 20 15 
+\begin_inset Newline newline
+\end_inset
+
+10 
+\begin_inset Newline newline
+\end_inset
+
+4 
+\begin_inset Newline newline
+\end_inset
+
+7 3 4 5 
+\begin_inset Newline newline
+\end_inset
+
+42 12 40 25
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case output the maximum value of the load that fits in the
+ capacity of the vehicle on a line by itself.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+37
+\begin_inset Newline newline
+\end_inset
+
+65
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Knapsack problem can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Knapsack"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class KnapsackProblem {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+    new KnapsackProblem().run();
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+    int vehicleCapacity;
+\end_layout
+
+\begin_layout Plain Layout
+    int numItems;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    Scanner in = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    int testCases = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+    while (testCases-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Get our vehicle capacity, and maximum number of items.
+\end_layout
+
+\begin_layout Plain Layout
+      vehicleCapacity = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+      numItems = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      Item[] items = new Item[numItems];
+\end_layout
+
+\begin_layout Plain Layout
+      // Read in the weights and values for our items.
+\end_layout
+
+\begin_layout Plain Layout
+      for (int i = 0; i < numItems; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+        items[i] = new Item();
+\end_layout
+
+\begin_layout Plain Layout
+        items[i].weight = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      for (int i = 0; i < numItems; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+        items[i].value = in.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Calculate the max weight and output.
+\end_layout
+
+\begin_layout Plain Layout
+      System.out.println(Knapsack(items, vehicleCapacity));
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Default class to hold an item.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public class Item {
+\end_layout
+
+\begin_layout Plain Layout
+    public int value;
+\end_layout
+
+\begin_layout Plain Layout
+    public int weight;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determine the maximum weight to hold.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param items Array of Item to be considered.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param capacity The maximum capacity of the container.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return The maximum weight of items.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public int Knapsack(Item[] items, int capacity) {
+\end_layout
+
+\begin_layout Plain Layout
+    int[][] solution = new int[capacity+1][items.length + 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    for (int k = 1; k < items.length + 1; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+      for (int w = 1; w < capacity+1; w++) {
+\end_layout
+
+\begin_layout Plain Layout
+        if (items[k - 1].weight > w) {
+\end_layout
+
+\begin_layout Plain Layout
+          solution[w][k] = solution[w][k - 1];
+\end_layout
+
+\begin_layout Plain Layout
+        } else {
+\end_layout
+
+\begin_layout Plain Layout
+          solution[w][k] = Math.max(solution[w][k - 1],
+\end_layout
+
+\begin_layout Plain Layout
+                  solution[w - items[k - 1].weight][k - 1] + items[k - 1].value);
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    return solution[capacity][items.length];
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Knapsack Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Knapsack"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+\end_layout
+
+\begin_layout Standard
+Some sample cases that must be considered are:
+\end_layout
+
+\begin_layout Itemize
+Only a single item exists in the list of items.
+\end_layout
+
+\begin_layout Itemize
+Only a single item exists in the list of items, and it's weight exceeds
+ the maximum weight.
+ 
+\end_layout
+
+\begin_layout Itemize
+All items have weights that exceed the maximum weight.
+\end_layout
+
+\begin_layout Standard
+However there is no requirement for explicit testing of these conditions
+ within the algorithm, as the algorithm naturally handles these conditions.
 \end_layout
 
 \begin_layout Subsubsection
@@ -42378,6 +43460,30 @@ Lester, P.
 \begin_inset CommandInset href
 LatexCommand href
 target "http://www.policyalmanac.org/games/aStarTutorial.htm"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Knapsack-Problem"
+
+\end_inset
+
+ - Knapsack Description, excerpts taken from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Wikipedia (n.d.), Knapsack problem, Retrieved September 17, 2012, from 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://en.wikipedia.org/wiki/Knapsack_problem"
 
 \end_inset
 
