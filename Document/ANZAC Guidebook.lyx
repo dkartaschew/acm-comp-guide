@@ -39182,7 +39182,7 @@ Being able to sort a directed graph based on hierarchies or dependencies
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -42946,6 +42946,7 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -42954,6 +42955,7 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class KnapsackProblem {
 \end_layout
 
@@ -42962,26 +42964,32 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     new KnapsackProblem().run();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -42990,14 +42998,17 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
+
     int vehicleCapacity;
 \end_layout
 
 \begin_layout Plain Layout
+
     int numItems;
 \end_layout
 
@@ -43006,6 +43017,7 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner in = new Scanner(System.in);
 \end_layout
 
@@ -43014,10 +43026,12 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
     int testCases = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
     while (testCases-- > 0) {
 \end_layout
 
@@ -43026,14 +43040,17 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Get our vehicle capacity, and maximum number of items.
 \end_layout
 
 \begin_layout Plain Layout
+
       vehicleCapacity = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       numItems = in.nextInt();
 \end_layout
 
@@ -43042,38 +43059,47 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
       Item[] items = new Item[numItems];
 \end_layout
 
 \begin_layout Plain Layout
+
       // Read in the weights and values for our items.
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < numItems; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         items[i] = new Item();
 \end_layout
 
 \begin_layout Plain Layout
+
         items[i].weight = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int i = 0; i < numItems; i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         items[i].value = in.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -43082,18 +43108,22 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Calculate the max weight and output.
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.println(Knapsack(items, vehicleCapacity));
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43102,30 +43132,37 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Default class to hold an item.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class Item {
 \end_layout
 
 \begin_layout Plain Layout
+
     public int value;
 \end_layout
 
 \begin_layout Plain Layout
+
     public int weight;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43134,34 +43171,42 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determine the maximum weight to hold.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param items Array of Item to be considered.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param capacity The maximum capacity of the container.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The maximum weight of items.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public int Knapsack(Item[] items, int capacity) {
 \end_layout
 
 \begin_layout Plain Layout
+
     int[][] solution = new int[capacity+1][items.length + 1];
 \end_layout
 
@@ -43170,54 +43215,67 @@ public class KnapsackProblem {
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int k = 1; k < items.length + 1; k++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int w = 1; w < capacity+1; w++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         if (items[k - 1].weight > w) {
 \end_layout
 
 \begin_layout Plain Layout
+
           solution[w][k] = solution[w][k - 1];
 \end_layout
 
 \begin_layout Plain Layout
+
         } else {
 \end_layout
 
 \begin_layout Plain Layout
+
           solution[w][k] = Math.max(solution[w][k - 1],
 \end_layout
 
 \begin_layout Plain Layout
+
                   solution[w - items[k - 1].weight][k - 1] + items[k - 1].value);
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return solution[capacity][items.length];
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -43226,7 +43284,6 @@ public class KnapsackProblem {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Knapsack Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -43280,19 +43337,1271 @@ Edit Distance
 \end_layout
 
 \begin_layout Standard
+The Edit Distance Problem defines the edit distance for a pair of strings,
+ as being the minimum number of edits needed to transform one string to
+ the the other string.
+ A number of allowed transactions are permitted for the transformation,
+ these include:
+\end_layout
+
+\begin_layout Itemize
+insertion of a character.
+\end_layout
+
+\begin_layout Itemize
+deletion of a character.
+\end_layout
+
+\begin_layout Itemize
+substitution of a single character.
+\end_layout
+
+\begin_layout Standard
+For example, the edit distance between 
+\begin_inset Quotes eld
+\end_inset
+
+hamlet
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+camelot
+\begin_inset Quotes erd
+\end_inset
+
+ is 3.
+\end_layout
+
+\begin_layout Verse
+hamlet 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ camlet 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ camelet 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ camelot.
+\end_layout
+
+\begin_layout Standard
+Various applications for calculating the edit distance include:
+\end_layout
+
+\begin_layout Itemize
+File Revision - The UNIX command 
+\family typewriter
+diff
+\family default
+ finds the difference between two text files, producing an edit script to
+ convert the first file into the second.
+\end_layout
+
+\begin_layout Itemize
+Spelling Correction - Algorithms related to the edit distance may be used
+ in spelling correctors.
+ If a text contains a word, w, that is not in the dictionary, a `close'
+ word, i.e.
+ one with a small edit distance to w, may be suggested as a correction.
+ Transposition errors are common in written text.
+ A transposition can be treated as a deletion plus an insertion, but a simple
+ variation on the algorithm can treat a transposition as a single point
+ mutation.
+ 
+\end_layout
+
+\begin_layout Itemize
+Plagiarism Detection - The edit distance provides an indication of similarity
+ that might be too close in some situations.
+\end_layout
+
+\begin_layout Itemize
+Molecular Biology - The edit distance gives an indication of how `close'
+ two strings are.
+ Similar measures are used to compute a distance between DNA sequences (strings
+ over {A,C,G,T}, or protein sequences (over an alphabet of 20 amino acids),
+ for various purposes, e.g.:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+to find genes or proteins that may have shared functions or properties 
+\end_layout
+
+\begin_layout Enumerate
+to infer family relationships and evolutionary trees over different organisms
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Speech Recognition - Algorithms similar to those for the edit-distance problem
+ are used in some speech recognition systems: find a close match between
+ a new utterance and one in a library of classified utterances.
+ 
+\end_layout
+
+\begin_layout Standard
+Additionally there are different algorithms for Edit Distance, each refined
+ to serve a particular set of requirements or the domain in which they will
+ exist, with most of these focused on the length of the alphabet to be processed
+ and the length of strings to be processed.
+ The algorithm described is also known as the Levenshtein distance.
+\end_layout
+
+\begin_layout Standard
+Mathematically, edit distance between two strings 
+\begin_inset Formula $a,b$
+\end_inset
+
+ is given by 
+\begin_inset Formula $E{}_{a,b}(\left|a\right|,\left|b\right|)$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+E{}_{a,b}(i,j)=\begin{cases}
+0 & ,i=j=0\\
+i & ,j=0\wedge i>0\\
+j & ,i=0\wedge j>0\\
+\min\begin{cases}
+E_{a,b}(i-1,j)+1\\
+E_{a,b}(i,j-1)+1\\
+E_{a,b}(i-1,j-1)+[a_{i}\neq b_{j}]
+\end{cases} & ,\textrm{else}
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require Two strings $a$ and $b$ of non-zero length.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The edit distance from $a$ to $b$.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{EditDistance}{$a, b$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$len_a 
+\backslash
+gets a$.length}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$len_b 
+\backslash
+gets b$.length}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$cost 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$a[0] 
+\backslash
+neq b[0]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$cost 
+\backslash
+gets 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$len_a = 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $len_b$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ElsIf {$len_b = 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $len_a$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $
+\backslash
+min (
+\backslash
+textsf{EditDistance}(a[1
+\backslash
+dots len_a], b) + 1 ,$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+indent
+\backslash
+indent
+\backslash
+indent$
+\backslash
+textsf{EditDistance}(a, b[1
+\backslash
+dots len_b]) + 1 ,$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+indent
+\backslash
+indent
+\backslash
+indent$
+\backslash
+textsf{EditDistance}(a[1
+\backslash
+dots len_a], b[1
+\backslash
+dots len_b]) + cost)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Edit Distance Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Edit-Distance-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Description of Working
 \end_layout
 
 \begin_layout Standard
+The Edit Distance Algorithm as shown in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Edit-Distance-Algorithm"
+
+\end_inset
+
+, creates 4 cases that define the problem.
+ The first cases defines, then when both strings are 0 length, the distance
+ is 0.
+ The second and third cases are simply that is the length of one of the
+ string arguments is 0, then the edit distance is simply the length of the
+ alternate argument string.
+ (These are the base cases for the algorithm).
+ These 3 cases are clearly displayed in the mathematical description given
+ above.
+\end_layout
+
+\begin_layout Standard
+The final and fourth case breaks the main problem into a set of subproblems,
+ in that this may be E(
+\begin_inset Formula $a,b-1$
+\end_inset
+
+), E(
+\begin_inset Formula $a-1,b$
+\end_inset
+
+) and E
+\begin_inset Formula $(a-1,b-1)+[a_{i}\neq b_{j}]$
+\end_inset
+
+ respectively.
+ As it's not possible to determine the correct course of action, we attempt
+ all 3 subproblems and take the minimum of the three.
+\end_layout
+
+\begin_layout Standard
+Since examination of the relations reveals that E(
+\begin_inset Formula $a,b$
+\end_inset
+
+) depends only on E(
+\begin_inset Formula $a',b'$
+\end_inset
+
+) where 
+\begin_inset Formula $a'$
+\end_inset
+
+ is shorter than 
+\begin_inset Formula $a$
+\end_inset
+
+, or 
+\begin_inset Formula $b'$
+\end_inset
+
+ is shorter than 
+\begin_inset Formula $b$
+\end_inset
+
+, or both.
+ This allows the dynamic programming technique to be used, in that a two
+ dimension matrix 
+\begin_inset Formula $m$
+\end_inset
+
+ can be used to hold the distance values and the matrix can be computed
+ row by row.
+ That is row 
+\begin_inset Formula $m$
+\end_inset
+
+[i,] depends only on row 
+\begin_inset Formula $m[i-1,]$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+This has multiple advantages, in that we avoid recursion of the main algorithm,
+ and previously calculated values are not recaculated.
+\end_layout
+
+\begin_layout Standard
+The gives the a performance complexity of 
+\series bold
+O(|a|.|b|)
+\series default
+ or 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ if 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+ have similar lengths.
+\end_layout
+
+\begin_layout Paragraph
 Implementation
 \end_layout
 
 \begin_layout Standard
-Sample Problem -
+An implementation of the Edit Distance Algorithm can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Edit-Distance-Algorithm"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+public class EditDistance {
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Return the the cost of the difference between the two characters.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param a The first character
+\end_layout
+
+\begin_layout Plain Layout
+   * @param b The second character
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public int diff(char a, char b) {
+\end_layout
+
+\begin_layout Plain Layout
+    return (a == b ? 0 : 1);
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Calculate the edit distance between the two strings.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param source The source string
+\end_layout
+
+\begin_layout Plain Layout
+   * @param target The resulting string.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return The distance between both strings
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public int editDistance(String source, String target) {
+\end_layout
+
+\begin_layout Plain Layout
+    // create the matrix
+\end_layout
+
+\begin_layout Plain Layout
+    int editMatrix[][] = new int[source.length() + 1][target.length() + 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // initialise first column
+\end_layout
+
+\begin_layout Plain Layout
+    for (int i = 0; i <= source.length(); i++) {
+\end_layout
+
+\begin_layout Plain Layout
+      editMatrix[i][0] = i;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // initialise first row
+\end_layout
+
+\begin_layout Plain Layout
+    for (int i = 0; i <= target.length(); i++) {
+\end_layout
+
+\begin_layout Plain Layout
+      editMatrix[0][i] = i;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Complete the matrix
+\end_layout
+
+\begin_layout Plain Layout
+    for (int i = 1; i <= source.length(); i++) {
+\end_layout
+
+\begin_layout Plain Layout
+      for (int j = 1; j <= target.length(); j++) {
+\end_layout
+
+\begin_layout Plain Layout
+        editMatrix[i][j] = Math.min(Math.min(editMatrix[i - 1][j] + 1,
+\end_layout
+
+\begin_layout Plain Layout
+             editMatrix[i][j - 1] + 1),
+\end_layout
+
+\begin_layout Plain Layout
+             editMatrix[i - 1][j - 1] + diff(source.charAt(i - 1), target.charAt(j
+ - 1)));
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    return editMatrix[source.length()][target.length()];
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Edit Distance Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Edit-Distance-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Edit Distance
+\end_layout
+
+\begin_layout Standard
+Calculate the Levenshtein Distance between two stings 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+.
+ The cost of deletion is 1, the cost of insertion is 1, and the cost of
+ substitution is 1.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The input begins with a line containing a single integer, 
+\begin_inset Formula $T$
+\end_inset
+
+, the number of test cases which follow.
+ For each test case, two lines of text, each with length between 0 and 1000
+ folllow.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+polynomial 
+\begin_inset Newline newline
+\end_inset
+
+exponential 
+\begin_inset Newline newline
+\end_inset
+
+virtual 
+\begin_inset Newline newline
+\end_inset
+
+ritual 
+\begin_inset Newline newline
+\end_inset
+
+four 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+four
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case output the Levenshtein Distance between the two strings
+ on a line by itself.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+6
+\begin_inset Newline newline
+\end_inset
+
+2
+\begin_inset Newline newline
+\end_inset
+
+4
+\begin_inset Newline newline
+\end_inset
+
+4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Edit Distance problem can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Edit"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class EditDistanceProblem {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new EditDistanceProblem().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner sc = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    // number of test cases
+\end_layout
+
+\begin_layout Plain Layout
+
+    int cases = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    sc.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (cases-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // calculate the distance and output
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.println(editDistance(sc.nextLine(), sc.nextLine()));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Return the the cost of the difference between the two characters.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param a The first character
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param b The second character
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public int diff(char a, char b) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (a == b ? 0 : 1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Calculate the edit distance between the two strings.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param source The source string
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param target The resulting string.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The distance between both strings
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public int editDistance(String source, String target) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // create the matrix
+\end_layout
+
+\begin_layout Plain Layout
+
+    int editMatrix[][] = new int[source.length() + 1][target.length() + 1];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // initialise first column
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i <= source.length(); i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      editMatrix[i][0] = i;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // initialise first row
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i <= target.length(); i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      editMatrix[0][i] = i;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Complete the matrix
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 1; i <= source.length(); i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int j = 1; j <= target.length(); j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        editMatrix[i][j] = Math.min(Math.min(editMatrix[i - 1][j] + 1,
+\end_layout
+
+\begin_layout Plain Layout
+
+             editMatrix[i][j - 1] + 1),
+\end_layout
+
+\begin_layout Plain Layout
+
+             editMatrix[i - 1][j - 1] + diff(source.charAt(i - 1), target.charAt(j
+ - 1)));
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return editMatrix[source.length()][target.length()];
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Edit Distance Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Edit"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+\end_layout
+
+\begin_layout Standard
+Some sample cases that must be considered are:
+\end_layout
+
+\begin_layout Itemize
+Zero Length Strings.
+\end_layout
+
+\begin_layout Standard
+However there is no requirement for explicit testing of these conditions
+ within the algorithm, as the algorithm naturally handles these conditions.
 \end_layout
 
 \begin_layout Standard
