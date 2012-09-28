@@ -42134,18 +42134,575 @@ Line Segment Intersection
 \end_layout
 
 \begin_layout Standard
+Determination if two line segments intersect is a key component for many
+ math related problems found in computational geometery.
+ The fields of application include:
+\end_layout
+
+\begin_layout Itemize
+2D and 3D graphics, determining if two lines intersect, primarily for game
+ logic, entity mapping, path boundaries, etc.
+\end_layout
+
+\begin_layout Itemize
+Locations where roads or paths cross when determining wildlife paths, which
+ may require fencing or some form of safe travel path for wildlife.
+\end_layout
+
+\begin_layout Standard
+To determine if two line segments intersection requires the use of some
+ mathematics and a quick glossary of terms.
+\end_layout
+
+\begin_layout Standard
+A line segment, when plotted on a Cartesian graph has a start location 
+\begin_inset Formula $P_{1}=(x_{1},y_{1})$
+\end_inset
+
+ and an end location 
+\begin_inset Formula $P_{2}=(x_{2},y_{2})$
+\end_inset
+
+, and the line (or vector) itself is defined as 
+\begin_inset Formula $L_{1}=(P_{1},P_{2})$
+\end_inset
+
+.
+ To determine if two line segments as shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Line-Intersection"
+
+\end_inset
+
+, requires some transformation of the problem.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/LineIntersection.eps
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Line Intersection
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Line-Intersection"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As can be seen in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Line-Intersection"
+
+\end_inset
+
+, there are 2 line segments, 
+\begin_inset Formula $L_{1}=(P_{1},P_{2})$
+\end_inset
+
+ and 
+\begin_inset Formula $L_{2}=(P_{3},P_{4})$
+\end_inset
+
+.
+ In order to determine the point in which they intersect, we define the
+ line-segments by their end points.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P_{a}=P_{1}+U_{a}(P_{2}-P_{1})
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+P_{b}=P_{3}+U_{b}(P_{4}-P_{3})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that if you put in zero for U, you’ll get the start point, if you
+ put in one, you’ll get the end point.
+ Also the point of intersection would be where they are equal.
+ That is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P_{a}=P_{b}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+P_{1}+U_{a}(P_{2}-P_{1})=P_{3}+U_{b}(P_{4}-P_{3})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However since we need this in terms of x and y, we can rewrite that last
+ equation as the following two:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x_{1}+U_{a}(x_{2}-x_{1})=x_{3}+U_{b}(x_{4}-x_{3})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+y_{1}+U_{a}(y_{2}-y_{1})=y_{3}+U_{b}(y_{4}-y_{3})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can use those to now solve for 
+\begin_inset Formula $U$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U_{a}=\frac{(x_{4}-x_{3})(y_{1}-y_{3})-(y_{4}-y_{3})(x_{1}-x_{3})}{(y_{4}-y_{3})(x_{2}-x_{1})-(x_{4}-x_{3})(y_{2}-y_{1})}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+U_{b}=\frac{(x_{2}-x_{1})(y_{1}-y_{3})-(y_{2}-y_{1})(x_{1}-x_{3})}{(y_{4}-y_{3})(x_{2}-x_{1})-(x_{4}-x_{3})(y_{2}-y_{1})}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that the denominator on both of those equations is the same.
+ Solve for that first, if it is zero, then the lines are parallel and we’re
+ done.
+ (If both numerators are also zero, then the two line segments are coincident.)
+\end_layout
+
+\begin_layout Standard
+Since these equations treat the lines as infinitely long lines instead of
+ line segments we want, there is guaranteed to be an intersection point
+ if the lines aren’t parallel.
+ To determine if it happens in the segments we’ve specified, we need to
+ see if 
+\begin_inset Formula $U$
+\end_inset
+
+ is between zero and one.
+ Verify that both of these are true:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+0\leq U_{a}\leq1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+0\leq U_{b}\leq1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we’ve gotten this far, then our line segments intersect, and we just
+ need to find the point at which they do and then we’re done.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x=x_{1}+U_{a}(x_{2}-x_{1})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+y=y_{1}+U_{b}(y_{2}-y_{1})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A source code implementation of the above math can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Line-Intersection-(Java)"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+public class LineSegmentIntersection {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Generic class to hold a point.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public class Point {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    public double x = 0.0;
+\end_layout
+
+\begin_layout Plain Layout
+    public double y = 0.0;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determine if 2 lines intersect, and provide intersection point.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param Line1 The vector of the first line
+\end_layout
+
+\begin_layout Plain Layout
+   * @param Line2 The vector of the second line
+\end_layout
+
+\begin_layout Plain Layout
+   * @return Point if there is an intersection, otherwise null.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public Point GetLineIntersection(Point[] Line1, Point[] Line2) {
+\end_layout
+
+\begin_layout Plain Layout
+    Point result = new Point();
+\end_layout
+
+\begin_layout Plain Layout
+    // Precalculate some points;
+\end_layout
+
+\begin_layout Plain Layout
+    double x4_x3 = (Line2[1].x - Line2[0].x);
+\end_layout
+
+\begin_layout Plain Layout
+    double x2_x1 = (Line1[1].x - Line1[0].x);
+\end_layout
+
+\begin_layout Plain Layout
+    double y4_y3 = (Line2[1].y - Line2[0].y);
+\end_layout
+
+\begin_layout Plain Layout
+    double y2_y1 = (Line1[1].y - Line1[0].y);
+\end_layout
+
+\begin_layout Plain Layout
+    double x1_x3 = (Line1[0].x - Line2[0].x);
+\end_layout
+
+\begin_layout Plain Layout
+    double y1_y3 = (Line1[0].y - Line2[0].y);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Get the demonitator
+\end_layout
+
+\begin_layout Plain Layout
+    double dem = (y4_y3 * x2_x1) - (x4_x3 * y2_y1);
+\end_layout
+
+\begin_layout Plain Layout
+    
+\end_layout
+
+\begin_layout Plain Layout
+    // Avoid overflow.
+ Lines are parallel in this case.
+\end_layout
+
+\begin_layout Plain Layout
+    if (dem < 0.0000001) {
+\end_layout
+
+\begin_layout Plain Layout
+      return null;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    
+\end_layout
+
+\begin_layout Plain Layout
+    // Determine U values.
+\end_layout
+
+\begin_layout Plain Layout
+    double Ua = ((x4_x3 * y1_y3) - (y4_y3 * x1_x3)) / dem;
+\end_layout
+
+\begin_layout Plain Layout
+    double Ub = ((x2_x1 * y1_y3) - (y2_y1 * x1_x3)) / dem;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Ensure our U values are in scope
+\end_layout
+
+\begin_layout Plain Layout
+    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1) {
+\end_layout
+
+\begin_layout Plain Layout
+      return null;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Calculate the intersection point.
+\end_layout
+
+\begin_layout Plain Layout
+    result.x = Line1[0].x + Ua * (x2_x1);
+\end_layout
+
+\begin_layout Plain Layout
+    result.y = Line1[0].y + Ub * (y2_y1);
+\end_layout
+
+\begin_layout Plain Layout
+    return result;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Line Intersection (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Line-Intersection-(Java)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With this method, we can determine if 2 lines intersect.
+ However if we choose to determine in n-line segments intersect there are
+ a number of approaches, with a naive approach would simple compare all
+ lines with all other lines.
+ This unfortunately would yield 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ performance.
+ A more efficient method would be to use a Sweep Line Algorithm.
+\end_layout
+
+\begin_layout Paragraph
 Description of Working
 \end_layout
 
-\begin_layout Standard
+\begin_layout Paragraph
 Implementation
 \end_layout
 
-\begin_layout Standard
+\begin_layout Paragraph
 Sample Problem -
 \end_layout
 
-\begin_layout Standard
+\begin_layout Paragraph
 Sample Solution
 \end_layout
 
@@ -43873,42 +44430,52 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 public class EditDistance {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Return the the cost of the difference between the two characters.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param a The first character
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param b The second character
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public int diff(char a, char b) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return (a == b ? 0 : 1);
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43917,42 +44484,52 @@ public class EditDistance {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Calculate the edit distance between the two strings.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param source The source string
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param target The resulting string.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The distance between both strings
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public int editDistance(String source, String target) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // create the matrix
 \end_layout
 
 \begin_layout Plain Layout
+
     int editMatrix[][] = new int[source.length() + 1][target.length() + 1];
 \end_layout
 
@@ -43961,18 +44538,22 @@ public class EditDistance {
 \end_layout
 
 \begin_layout Plain Layout
+
     // initialise first column
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int i = 0; i <= source.length(); i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       editMatrix[i][0] = i;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -43981,18 +44562,22 @@ public class EditDistance {
 \end_layout
 
 \begin_layout Plain Layout
+
     // initialise first row
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int i = 0; i <= target.length(); i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       editMatrix[0][i] = i;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -44001,35 +44586,43 @@ public class EditDistance {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Complete the matrix
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int i = 1; i <= source.length(); i++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (int j = 1; j <= target.length(); j++) {
 \end_layout
 
 \begin_layout Plain Layout
+
         editMatrix[i][j] = Math.min(Math.min(editMatrix[i - 1][j] + 1,
 \end_layout
 
 \begin_layout Plain Layout
+
              editMatrix[i][j - 1] + 1),
 \end_layout
 
 \begin_layout Plain Layout
+
              editMatrix[i - 1][j - 1] + diff(source.charAt(i - 1), target.charAt(j
  - 1)));
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -44038,14 +44631,17 @@ public class EditDistance {
 \end_layout
 
 \begin_layout Plain Layout
+
     return editMatrix[source.length()][target.length()];
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -44054,7 +44650,6 @@ public class EditDistance {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Edit Distance Algorithm (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -44565,7 +45160,6 @@ public class EditDistanceProblem {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Edit Distance Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
