@@ -39182,7 +39182,7 @@ Being able to sort a directed graph based on hierarchies or dependencies
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -42432,6 +42432,7 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 public class LineSegmentIntersection {
 \end_layout
 
@@ -42440,18 +42441,22 @@ public class LineSegmentIntersection {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Generic class to hold a point.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class Point {
 \end_layout
 
@@ -42460,14 +42465,17 @@ public class LineSegmentIntersection {
 \end_layout
 
 \begin_layout Plain Layout
+
     public double x = 0.0;
 \end_layout
 
 \begin_layout Plain Layout
+
     public double y = 0.0;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -42476,66 +42484,82 @@ public class LineSegmentIntersection {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determine if 2 lines intersect, and provide intersection point.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param Line1 The vector of the first line
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param Line2 The vector of the second line
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return Point if there is an intersection, otherwise null.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public Point GetLineIntersection(Point[] Line1, Point[] Line2) {
 \end_layout
 
 \begin_layout Plain Layout
+
     Point result = new Point();
 \end_layout
 
 \begin_layout Plain Layout
+
     // Precalculate some points;
 \end_layout
 
 \begin_layout Plain Layout
+
     double x4_x3 = (Line2[1].x - Line2[0].x);
 \end_layout
 
 \begin_layout Plain Layout
+
     double x2_x1 = (Line1[1].x - Line1[0].x);
 \end_layout
 
 \begin_layout Plain Layout
+
     double y4_y3 = (Line2[1].y - Line2[0].y);
 \end_layout
 
 \begin_layout Plain Layout
+
     double y2_y1 = (Line1[1].y - Line1[0].y);
 \end_layout
 
 \begin_layout Plain Layout
+
     double x1_x3 = (Line1[0].x - Line2[0].x);
 \end_layout
 
 \begin_layout Plain Layout
+
     double y1_y3 = (Line1[0].y - Line2[0].y);
 \end_layout
 
@@ -42544,47 +42568,58 @@ public class LineSegmentIntersection {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Get the demonitator
 \end_layout
 
 \begin_layout Plain Layout
+
     double dem = (y4_y3 * x2_x1) - (x4_x3 * y2_y1);
 \end_layout
 
 \begin_layout Plain Layout
+
     
 \end_layout
 
 \begin_layout Plain Layout
+
     // Avoid overflow.
  Lines are parallel in this case.
 \end_layout
 
 \begin_layout Plain Layout
+
     if (dem < 0.0000001) {
 \end_layout
 
 \begin_layout Plain Layout
+
       return null;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     
 \end_layout
 
 \begin_layout Plain Layout
+
     // Determine U values.
 \end_layout
 
 \begin_layout Plain Layout
+
     double Ua = ((x4_x3 * y1_y3) - (y4_y3 * x1_x3)) / dem;
 \end_layout
 
 \begin_layout Plain Layout
+
     double Ub = ((x2_x1 * y1_y3) - (y2_y1 * x1_x3)) / dem;
 \end_layout
 
@@ -42593,18 +42628,22 @@ public class LineSegmentIntersection {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Ensure our U values are in scope
 \end_layout
 
 \begin_layout Plain Layout
+
     if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1) {
 \end_layout
 
 \begin_layout Plain Layout
+
       return null;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -42613,26 +42652,32 @@ public class LineSegmentIntersection {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Calculate the intersection point.
 \end_layout
 
 \begin_layout Plain Layout
+
     result.x = Line1[0].x + Ua * (x2_x1);
 \end_layout
 
 \begin_layout Plain Layout
-    result.y = Line1[0].y + Ub * (y2_y1);
+
+    result.y = Line1[0].y + Ua * (y2_y1);
 \end_layout
 
 \begin_layout Plain Layout
+
     return result;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -42645,7 +42690,6 @@ public class LineSegmentIntersection {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Line Intersection (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -42669,7 +42713,7 @@ name "lis:Line-Intersection-(Java)"
 \begin_layout Standard
 With this method, we can determine if 2 lines intersect.
  However if we choose to determine in n-line segments intersect there are
- a number of approaches, with a naive approach would simple compare all
+ a number of approaches, with a naive approach would simply compare all
  lines with all other lines.
  This unfortunately would yield 
 \series bold
@@ -42690,16 +42734,767 @@ O(n
  A more efficient method would be to use a Sweep Line Algorithm.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float algorithm
+placement !h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A set of line Segments $S$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure A list of intersection points.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{BentleyOttmannLineSweep}{$S$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$I 
+\backslash
+gets 
+\backslash
+emptyset$} 
+\backslash
+Comment {Let $I$ be an empty List of Intersections}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$SL 
+\backslash
+gets 
+\backslash
+emptyset$} 
+\backslash
+Comment {Let $SL$ be an empty set of the sweep line}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$T 
+\backslash
+gets S$} 
+\backslash
+Comment {Initialise Event Queue of all segment endpoints}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Sort $T$ by increasing $x$ and $y$ values of points}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$T 
+\backslash
+neq 
+\backslash
+emptyset$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$E 
+\backslash
+gets$ next event from $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$E$ is a left endpoint}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$E_{seg} 
+\backslash
+gets E$ segment}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$SL 
+\backslash
+gets E_{seg}$} 
+\backslash
+Comment {Add $E_{seg}$ to $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$A_{seg} 
+\backslash
+gets $ segment above $E_{seg}$ in $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$B_{seg} 
+\backslash
+gets $ segment below $E_{seg}$ in $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection between $A_{seg}$ and $E_{seg}$ exists}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$T 
+\backslash
+gets $ Intersection ($A_{seg}$, $E_{seg}$)} 
+\backslash
+Comment {Insert the intersection into $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection between $B_{seg}$ and $E_{seg}$ exists}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$T 
+\backslash
+gets $ Intersection ($B_{seg}$, $E_{seg}$)} 
+\backslash
+Comment {Insert the intersection into $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ElsIf {$E$ is a right endpoint}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$E_{seg} 
+\backslash
+gets E$ segment}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$A_{seg} 
+\backslash
+gets $ segment above $E_{seg}$ in $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$B_{seg} 
+\backslash
+gets $ segment below $E_{seg}$ in $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Remove $E_{seg}$ from $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection between $A_{seg}$ and $B_{seg}$ exists}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection($B_{seg}$, $E_{seg}$) not in $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$T 
+\backslash
+gets $ Intersection ($A_{seg}$, $B_{seg}$)} 
+\backslash
+Comment {Insert the intersection into $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else 
+\backslash
+Comment {$E$ is an Intersection Event}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$I 
+\backslash
+gets E$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Let $E_{seg1}$ above $E_{seg2}$ be $E$'s intersection segments in
+ $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Swap $E_{seg1}$ and $E_{seg2}$, so $E_{seg2}$ is above $E_{seg1}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$A_{seg} 
+\backslash
+gets $ segment above $E_{seg2}$ in $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$B_{seg} 
+\backslash
+gets $ segment below $E_{seg1}$ in $SL$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection between $E_{seg2}$ and $A_{seg}$ exists}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection($E_{seg2}$, $A_{seg}$) not in $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$T 
+\backslash
+gets $ Intersection ($E_{seg2}$, $A_{seg}$)} 
+\backslash
+Comment {Insert the intersection into $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection between $E_{seg1}$ and $B_{seg}$ exists}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {Intersection($E_{seg1}$, $B_{seg}$) not in $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$T 
+\backslash
+gets $ Intersection ($E_{seg1}$, $B_{seg}$)} 
+\backslash
+Comment {Insert the intersection into $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Remove $E$ from $T$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $I$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Bentley-Ottmann Line Sweep Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Bentley-Ottmann-Line-Sweep"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Description of Working
+\end_layout
+
+\begin_layout Standard
+The Bentley-Ottmann Line Sweep Algorithm utilises an event queue of points
+ to determine if two line segments should be tested if they have an intersection
+ or not, thereby reducing the number of intersection tests required.
+\end_layout
+
+\begin_layout Standard
+This algorithm involves simulating the sweeping of a vertical line 
+\begin_inset Formula $l$
+\end_inset
+
+, over the segments moving from left to right, starting at a location to
+ the left of all input segments.
+ Initially a sorted queue of all endpoints is maintainted, which forms the
+ event queue of points to test.
+ 
+\end_layout
+
+\begin_layout Standard
+During the sweep, the set of segments currently intersected by the sweep
+ line is maintained by means of insertions into and removals from a binary
+ search tree.
+ When a new segment end point is encountered, the segment relating to the
+ end point is either added or removed from the binary search tree, thus
+ maintaining the list of segments intersecting with the sweep line.
+ During either the insertion/removal operation a test of all segments that
+ intersect the sweep line are tested to determine if they intersection,
+ and if they do the intersection point is added to the event queue.
+ If an intersection is encounterd during the sweep, the intersection is
+ added to the known Intersection List, and the event is removed from the
+ queue.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Line-Sweep-Algorithm"
+
+\end_inset
+
+ demonstrates the line sweep in action.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/LineSweep.eps
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Line Sweep Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Line-Sweep-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Bentley-Ottmann Algorithm when used with a balanced binary search tree
+ data structure such as an AVL tree or Red-Black Tree, offers 
+\series bold
+O(n log n)
+\series default
+ performance, as insertions and deletions from the tree data structure are
+ 
+\series bold
+O(log n)
+\series default
+ operations.
 \end_layout
 
 \begin_layout Paragraph
 Implementation
 \end_layout
 
+\begin_layout Standard
+An implementation of the Knapsack Algorithm can be found in Listing .
+\end_layout
+
 \begin_layout Paragraph
 Sample Problem -
+\end_layout
+
+\begin_layout Standard
+A metal cutter cuts polygons into a sheet of metal by cutting line segments.
+ Each line segment corresponds to an edge of the polygon.
+ Find the co-­‐ordinates of the corners of the resulting polygon.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The input consists of several test cases.
+ Each line segment is listed on a line by itself as 4 positive integers:
+ the 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+ coordinates of one endpoint followed by the 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+ coordinates of the other endpoint.
+ After the last line segment in the test case, there is the character #
+ on a line by itself.
+ After the last test case there is another character # on a line by itself.
+ You are guaranteed that, in each test case, each line segment intersects
+ exactly two other line segments.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 4 4 5 
+\begin_inset Newline newline
+\end_inset
+
+1 6 4 2 
+\begin_inset Newline newline
+\end_inset
+
+8 3 3 5 
+\begin_inset Newline newline
+\end_inset
+
+6 1 7 4 
+\begin_inset Newline newline
+\end_inset
+
+7 2 3 3 
+\begin_inset Newline newline
+\end_inset
+
+# 
+\begin_inset Newline newline
+\end_inset
+
+#
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output the test case number on a line, the number of
+ corners, and then for each corner a single line with the x and y coordinates,
+ rounded to two decimal places.
+ The corner points should be sorted in increasing order of x coordinates;
+ if multiple points have the same x coordinate, list those points in increasing
+ order of y coordinates.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+Test Case 1: 
+\begin_inset Newline newline
+\end_inset
+
+5 corners 
+\begin_inset Newline newline
+\end_inset
+
+2.36 4.18 
+\begin_inset Newline newline
+\end_inset
+
+3.31 2.92 
+\begin_inset Newline newline
+\end_inset
+
+3.56 4.78 
+\begin_inset Newline newline
+\end_inset
+
+6.38 2.15 
+\begin_inset Newline newline
+\end_inset
+
+6.82 3.47
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -43113,7 +43908,7 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-An implementation of the Kanpsack Algorithm can be found in Listing 
+An implementation of the Knapsack Algorithm can be found in Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "lis:Knapsack-Algorithm-(Java)"
@@ -45363,6 +46158,24 @@ Lester, P.
 \begin_inset CommandInset href
 LatexCommand href
 target "http://www.policyalmanac.org/games/aStarTutorial.htm"
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Section 6.5.1 - Bentley-Ottmann Algorithm, algorithm derived from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Sunday, D (2006), Intersection for a 2D set of Segments, Retrieved September
+ 20, 2012, from 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://softsurfer.com/Archive/algorithm_0108/algorithm_0108.htm"
 
 \end_inset
 
