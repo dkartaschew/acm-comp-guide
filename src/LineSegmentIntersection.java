@@ -1,12 +1,9 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class LineSegmentIntersection {
 
@@ -46,6 +43,7 @@ public class LineSegmentIntersection {
       //List<Point> intersections = Naive(segments);
       List<Point> intersections = BentleyOttmann(segments);
       Collections.sort(intersections); // Sort the points.
+      
       // Output the corner information.
       System.out.printf("Test Case %d:\n%d corners\n", testcase++, intersections.size());
       for (Point p : intersections) {
@@ -54,27 +52,25 @@ public class LineSegmentIntersection {
       line = scn.nextLine();
     }
   }
- 
 
   /**
    * Naive approach to finding intersections from n-segments.
+   *
    * @param segments A list of segments to consider.
-   * @return  A list of points of intersection.
+   * @return A list of points of intersection.
    */
-  public List<Point> Naive(List<Segment> segments){
+  public List<Point> Naive(List<Segment> segments) {
     ArrayList<Point> intersections = new ArrayList<Point>();
-    for(int i = 0; i < segments.size(); i++){
-      for(int j = 0; j < segments.size(); j++){
+    for (int i = 0; i < segments.size(); i++) {
+      for (int j = 0; j < segments.size(); j++) {
         Point intersection = GetLineIntersection(segments.get(i), segments.get(j));
-        if(intersection != null){
+        if (intersection != null) {
           intersections.add(intersection);
         }
       }
     }
     return intersections;
   }
-  
-   private double eventTrigger;
   
   /**
    * Perform a line sweep on the enclosed segments.
@@ -85,7 +81,7 @@ public class LineSegmentIntersection {
   public List<Point> BentleyOttmann(List<Segment> segments) {
     ArrayList<Point> intersections = new ArrayList<Point>();
     PriorityQueue<Event> eventQueue = new PriorityQueue<Event>();
-    TreeMap<Segment, Segment> sweepline = new TreeMap<Segment, Segment>();
+    Sweepline sweepline = new Sweepline();
 
     // Add all our endpoints to the event queue.
     for (Segment segment : segments) {
@@ -105,11 +101,11 @@ public class LineSegmentIntersection {
       } else if (event.point == event.segment.start) {
         // event is a line start.
         eventTrigger = event.point.x;
-        sweepline.put(event.segment, event.segment);
+        sweepline.add(event.segment);
         Segment segE = event.segment;
-        Segment segA = sweepline.lowerKey(segE);
-        Segment segB = sweepline.higherKey(segE);
-        
+        Segment segA = sweepline.prev(segE);
+        Segment segB = sweepline.next(segE);
+
         if (segA != null) {
           addIntersection(eventQueue, segA, segE);
         }
@@ -120,10 +116,10 @@ public class LineSegmentIntersection {
       } else {
         // event is a line end
         eventTrigger = event.point.x;
-        sweepline.remove(event.segment);
         Segment segE = event.segment;
-        Segment segA = sweepline.lowerKey(segE);
-        Segment segB = sweepline.higherKey(segE);
+        Segment segA = sweepline.prev(segE);
+        Segment segB = sweepline.next(segE);
+        sweepline.remove(event.segment);
         if (segA != null && segB != null) {
           addIntersection(eventQueue, segA, segB);
         }
@@ -158,11 +154,19 @@ public class LineSegmentIntersection {
     public Point point;
     public Segment segment;
 
+    /**
+     * Constructor
+     * @param seg The Segment related to the event.
+     * @param pt The point which will trigger the event.
+     */
     public Event(Segment seg, Point pt) {
       point = pt;
       segment = seg;
     }
 
+    /**
+     * Comparable method, that compares the event point.
+     */
     @Override
     public int compareTo(Event o) {
       return point.compareTo(o.point);
@@ -177,6 +181,13 @@ public class LineSegmentIntersection {
     public Point start;
     public Point end;
 
+    /**
+     * Main Constructor.
+     * Note: Points are sorted based on x location, so that the start point
+     * is always to the left of the end point.
+     * @param start The start point
+     * @param end The end point
+     */
     public Segment(Point start, Point end) {
       if (end.compareTo(start) < 0) {
         // swap them.
@@ -188,30 +199,110 @@ public class LineSegmentIntersection {
       this.end = end;
     }
 
+    /**
+     * Comparable method, that compares the event point y location at
+     * intersection with the sweep line
+     */
     @Override
     public int compareTo(Segment o2) {
       // Compare y positions of the segment at the x co-ordinate of the
       // event trigger.
-      // Determine slope of o1.
-      double slopeO1 = (end.y - start.y) / (end.x - start.x);
-      // Determine y intercept of o1.
+      double seg1 = getY(this);
+      double seg2 = getY(o2);
+      //System.out.printf("Compare: this: %f, o2: %f\n", seg1, seg2);
 
-      // Determine y of o1.
-      double posYO1 = slopeO1 * eventTrigger + (start.y - slopeO1 * start.x);
-
-      // Determine slope of o2.
-      double slopeO2 = (o2.end.y - o2.start.y) / (o2.end.x - o2.start.x);
-
-      // Determine y of o2.
-      double posYO2 = slopeO2 * eventTrigger + (o2.start.y - slopeO2 * o2.start.x);
-
-      double result = (posYO1 - posYO2);
-      if(result > 0){
+      if (seg1 > seg2) {
         return 1;
-      } else if (result < 0){
+      } else if (seg1 < seg2) {
         return -1;
       }
-      return 0;
+      // Same location, so lets determine by slope.
+      seg1 = getSlope(this);
+      seg2 = getSlope(o2);
+      if (seg1 > seg2) {
+        return 1;
+      } else if (seg1 < seg2) {
+        return -1;
+      }
+      return 0; // Same y and same slope!
+    }
+
+    @Override
+    public String toString() {
+      return String.format("\"S: %.0f, %.0f, E: %.0f, %.0f\"", start.x, start.y, end.x, end.y);
+    }
+  }
+
+  /**
+   * Get the y intersection of a segment to the sweep line.
+   * @param segment The segment to test against.
+   * @return The y location.
+   */
+  public double getY(Segment segment) {
+    // Determine slope of segment.
+    double slopeO2 = getSlope(segment);
+    // Determine y of segment
+    return slopeO2 * eventTrigger + (segment.start.y - slopeO2 * segment.start.x);
+  }
+
+  /**
+   * Get the slope of the segment.
+   * @param segment The segment whose slope is needed.
+   * @return The slope of the segment.
+   */
+  public double getSlope(Segment segment) {
+    return (segment.end.y - segment.start.y) / (segment.end.x - segment.start.x);
+  }
+  
+  /**
+   * X location of the event trigger (the location of the sweep line).
+   */
+  private static double eventTrigger;
+
+  /**
+   * Generic class to hold the segments that the sweep line intersects.
+   * This should use a AVL/Red-Black Tree (like the Java TreeMap class),
+   * but the Java TreeMap class won't resort the entire tree on insertion
+   * / delete operation.
+   */
+  public class Sweepline {
+
+    private ArrayList<Segment> sweepline;
+
+    public Sweepline() {
+      sweepline = new ArrayList<Segment>();
+    }
+
+    public void add(Segment segment) {
+      sweepline.add(segment);
+      Collections.sort(sweepline);
+    }
+
+    public void remove(Segment segment) {
+      sweepline.remove(segment);
+      Collections.sort(sweepline);
+    }
+
+    public List<Segment> getLine() {
+      return sweepline;
+    }
+
+    public Segment next(Segment segment) {
+      int index = sweepline.indexOf(segment);
+      if (index == -1 || index == sweepline.size() -1) {
+        return null;
+      }
+      //System.out.printf("Next: %s - %s\n", sweepline.get(index+1).toString(), segment.toString());
+      return sweepline.get(index+1);
+    }
+    
+    public Segment prev(Segment segment) {
+      int index = sweepline.indexOf(segment);
+      if (index == -1 || index == 0) {
+        return null;
+      }
+      //System.out.printf("Prev: %s - %s\n", sweepline.get(index-1).toString(), segment.toString());
+      return sweepline.get(index-1);
     }
   }
 
@@ -269,15 +360,10 @@ public class LineSegmentIntersection {
     // Get the demonitator
     double dem = (y4_y3 * x2_x1) - (x4_x3 * y2_y1);
 
-    // Avoid overflow. Lines are near parallel in this case.
-    if (dem < 0.0000001) {
-      return null;
-    }
-
     // Determine U values.
     double Ua = ((x4_x3 * y1_y3) - (y4_y3 * x1_x3)) / dem;
     double Ub = ((x2_x1 * y1_y3) - (y2_y1 * x1_x3)) / dem;
-
+   
     // Ensure our U values are in scope
     if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1) {
       return null;
@@ -286,6 +372,7 @@ public class LineSegmentIntersection {
     // Calculate the intersection point.
     result.x = Line1.start.x + Ua * (x2_x1);
     result.y = Line1.start.y + Ua * (y2_y1);
+
     return result;
   }
 }
