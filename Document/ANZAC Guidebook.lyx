@@ -39182,7 +39182,7 @@ Being able to sort a directed graph based on hierarchies or dependencies
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -42406,7 +42406,7 @@ x=x_{1}+U_{a}(x_{2}-x_{1})
 \begin_layout Standard
 \begin_inset Formula 
 \[
-y=y_{1}+U_{b}(y_{2}-y_{1})
+y=y_{1}+U_{a}(y_{2}-y_{1})
 \]
 
 \end_inset
@@ -42427,7 +42427,7 @@ reference "lis:Line-Intersection-(Java)"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily}"
+lstparams "basicstyle={\scriptsize\ttfamily}"
 inline false
 status open
 
@@ -42584,32 +42584,6 @@ public class LineSegmentIntersection {
 
 \begin_layout Plain Layout
 
-    // Avoid overflow.
- Lines are parallel in this case.
-\end_layout
-
-\begin_layout Plain Layout
-
-    if (dem < 0.0000001) {
-\end_layout
-
-\begin_layout Plain Layout
-
-      return null;
-\end_layout
-
-\begin_layout Plain Layout
-
-    }
-\end_layout
-
-\begin_layout Plain Layout
-
-    
-\end_layout
-
-\begin_layout Plain Layout
-
     // Determine U values.
 \end_layout
 
@@ -42634,7 +42608,8 @@ public class LineSegmentIntersection {
 
 \begin_layout Plain Layout
 
-    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1) {
+    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1 || Double.isNaN(result.x) ||
+ Double.isNaN(result.y)) {
 \end_layout
 
 \begin_layout Plain Layout
@@ -42664,6 +42639,10 @@ public class LineSegmentIntersection {
 \begin_layout Plain Layout
 
     result.y = Line1[0].y + Ua * (y2_y1);
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -43280,7 +43259,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/LineSweep.eps
-	width 100text%
+	width 110text%
 
 \end_inset
 
@@ -43334,17 +43313,488 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-An implementation of the Knapsack Algorithm can be found in Listing .
+An implementation of a Line Sweep Algorithm can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Line-Sweep-Algorithm"
+
+\end_inset
+
+.
+ (A full list of supporting classes can be found in the Problem Solution
+ Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-n-Line"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class LineSegmentIntersection {
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform a line sweep on the enclosed segments.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segments A list of segments to consider.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return A list of points of intersection.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public List<Point> BentleyOttmann(List<Segment> segments) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    ArrayList<Point> intersections = new ArrayList<Point>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    PriorityQueue<Event> eventQueue = new PriorityQueue<Event>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    Sweepline sweepline = new Sweepline();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Add all our endpoints to the event queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (Segment segment : segments) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      eventQueue.add(new Event(segment, segment.start));
+\end_layout
+
+\begin_layout Plain Layout
+
+      eventQueue.add(new Event(segment, segment.end));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Continue while we have item in queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!eventQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Event event = eventQueue.poll();  // Get our next event.
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (event.segment == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Intersection.
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Add the point to the known intersections.
+\end_layout
+
+\begin_layout Plain Layout
+
+        intersections.add(event.point);
+\end_layout
+
+\begin_layout Plain Layout
+
+        sweepline.resort();
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Get the segment above and below the current event point.
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE1 = sweepline.above(event.point);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE2 = sweepline.below(event.point);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segA = sweepline.prev(segE1);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segB = sweepline.next(segE2);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segA != null && segE2 != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segA, segE2);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segB != null && segE1 != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segB, segE1);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (event.point == event.segment.start) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // event is a line start.
+\end_layout
+
+\begin_layout Plain Layout
+
+        eventTrigger = event.point.x;
+\end_layout
+
+\begin_layout Plain Layout
+
+        sweepline.add(event.segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE = event.segment;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segA = sweepline.prev(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segB = sweepline.next(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segA != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segA, segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segB != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segB, segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // event is a line end
+\end_layout
+
+\begin_layout Plain Layout
+
+        eventTrigger = event.point.x;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE = event.segment;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segA = sweepline.prev(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segB = sweepline.next(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        sweepline.remove(event.segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segA != null && segB != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segA, segB);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return intersections;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Add in intersection to the event queue, if an intersection exists between
+ 2
+\end_layout
+
+\begin_layout Plain Layout
+
+   * segments.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param eventQueue The event queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segA The first segment
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segB The second segment
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void addIntersection(PriorityQueue<Event> eventQueue, Segment segA,
+ Segment segB) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Point segBIntersection = GetLineIntersection(segA, segB);
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (segBIntersection != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Event segBEvent = new Event(null, segBIntersection);
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!eventQueue.contains(segBEvent)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        eventQueue.add(segBEvent);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Line Sweep Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Line-Sweep-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
-Sample Problem -
+Sample Problem - n-Line Segment Intersection
 \end_layout
 
 \begin_layout Standard
 A metal cutter cuts polygons into a sheet of metal by cutting line segments.
  Each line segment corresponds to an edge of the polygon.
- Find the co-­‐ordinates of the corners of the resulting polygon.
+ Find the co‐ordinates of the corners of the resulting polygon.
 \end_layout
 
 \begin_layout Standard
@@ -43501,23 +43951,3637 @@ Test Case 1:
 Sample Solution
 \end_layout
 
+\begin_layout Standard
+A sample solution to the n-Line Intersection problem can be found in Listing
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-n-Line"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Collections;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.List;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.ListIterator;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class LineSegmentIntersection {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new LineSegmentIntersection().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main runner.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int testcase = 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    ArrayList<Segment> segments;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner scn = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    String line = scn.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep looping until we get a # by itself on a line.
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (line.compareTo("#") != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      segments = new ArrayList<Segment>();
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Read in our segments.
+\end_layout
+
+\begin_layout Plain Layout
+
+      while (line.compareTo("#") != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        String[] values = line.split(" ");
+\end_layout
+
+\begin_layout Plain Layout
+
+        Point start = new Point();
+\end_layout
+
+\begin_layout Plain Layout
+
+        Point end = new Point();
+\end_layout
+
+\begin_layout Plain Layout
+
+        start.x = Double.parseDouble(values[0]);
+\end_layout
+
+\begin_layout Plain Layout
+
+        start.y = Double.parseDouble(values[1]);
+\end_layout
+
+\begin_layout Plain Layout
+
+        end.x = Double.parseDouble(values[2]);
+\end_layout
+
+\begin_layout Plain Layout
+
+        end.y = Double.parseDouble(values[3]);
+\end_layout
+
+\begin_layout Plain Layout
+
+        segments.add(new Segment(start, end));
+\end_layout
+
+\begin_layout Plain Layout
+
+        line = scn.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Process the segments
+\end_layout
+
+\begin_layout Plain Layout
+
+      //List<Point> intersections = Naive(segments);
+\end_layout
+
+\begin_layout Plain Layout
+
+      List<Point> intersections = BentleyOttmann(segments);
+\end_layout
+
+\begin_layout Plain Layout
+
+      Collections.sort(intersections); // Sort the points.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Output the corner information.
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("Test Case %d:
+\backslash
+n%d corners
+\backslash
+n", testcase++, intersections.size());
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (Point p : intersections) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.println(p.toString());
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      line = scn.nextLine();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Naive approach to finding intersections from n-segments.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segments A list of segments to consider.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return A list of points of intersection.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public List<Point> Naive(List<Segment> segments) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    ArrayList<Point> intersections = new ArrayList<Point>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < segments.size(); i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int j = 0; j < segments.size(); j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        Point intersection = GetLineIntersection(segments.get(i), segments.get(j))
+;
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (intersection != null && !intersections.contains(intersection))
+ {
+\end_layout
+
+\begin_layout Plain Layout
+
+          intersections.add(intersection);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return intersections;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Perform a line sweep on the enclosed segments.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segments A list of segments to consider.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return A list of points of intersection.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public List<Point> BentleyOttmann(List<Segment> segments) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    ArrayList<Point> intersections = new ArrayList<Point>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    PriorityQueue<Event> eventQueue = new PriorityQueue<Event>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    Sweepline sweepline = new Sweepline();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Add all our endpoints to the event queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (Segment segment : segments) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      eventQueue.add(new Event(segment, segment.start));
+\end_layout
+
+\begin_layout Plain Layout
+
+      eventQueue.add(new Event(segment, segment.end));
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Continue while we have item in queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!eventQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Event event = eventQueue.poll();  // Get our next event.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (event.segment == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Intersection.
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Add the point to the known intersections.
+\end_layout
+
+\begin_layout Plain Layout
+
+        intersections.add(event.point);
+\end_layout
+
+\begin_layout Plain Layout
+
+        sweepline.resort();
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Get the segment above and below the current event point.
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE1 = sweepline.above(event.point);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE2 = sweepline.below(event.point);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segA = sweepline.prev(segE1);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segB = sweepline.next(segE2);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segA != null && segE2 != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segA, segE2);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segB != null && segE1 != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segB, segE1);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (event.point == event.segment.start) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // event is a line start.
+\end_layout
+
+\begin_layout Plain Layout
+
+        eventTrigger = event.point.x;
+\end_layout
+
+\begin_layout Plain Layout
+
+        sweepline.add(event.segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE = event.segment;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segA = sweepline.prev(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segB = sweepline.next(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segA != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segA, segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segB != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segB, segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // event is a line end
+\end_layout
+
+\begin_layout Plain Layout
+
+        eventTrigger = event.point.x;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segE = event.segment;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segA = sweepline.prev(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        Segment segB = sweepline.next(segE);
+\end_layout
+
+\begin_layout Plain Layout
+
+        sweepline.remove(event.segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (segA != null && segB != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          addIntersection(eventQueue, segA, segB);
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return intersections;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Add in intersection to the event queue, if an intersection exists between
+ 2
+\end_layout
+
+\begin_layout Plain Layout
+
+   * segments.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param eventQueue The event queue.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segA The first segment
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segB The second segment
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void addIntersection(PriorityQueue<Event> eventQueue, Segment segA,
+ Segment segB) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Point segBIntersection = GetLineIntersection(segA, segB);
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (segBIntersection != null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Event segBEvent = new Event(null, segBIntersection);
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (!eventQueue.contains(segBEvent)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        eventQueue.add(segBEvent);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Generic class to hold an event to be used by BentleyOttmann algorithm.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Event implements Comparable<Event> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Point point;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Segment segment;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Constructor
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param seg The Segment related to the event.
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param pt The point which will trigger the event.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Event(Segment seg, Point pt) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      point = pt;
+\end_layout
+
+\begin_layout Plain Layout
+
+      segment = seg;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Comparable method, that compares the event point.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(Event o) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return point.compareTo(o.point);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Generic class to hold a line segment.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Segment implements Comparable<Segment> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Point start;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Point end;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Main Constructor.
+ Note: Points are sorted based on x location, so that
+\end_layout
+
+\begin_layout Plain Layout
+
+     * the start point is always to the left of the end point.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param start The start point
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param end The end point
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Segment(Point start, Point end) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (end.compareTo(start) < 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // swap them.
+\end_layout
+
+\begin_layout Plain Layout
+
+        this.start = end;
+\end_layout
+
+\begin_layout Plain Layout
+
+        this.end = start;
+\end_layout
+
+\begin_layout Plain Layout
+
+        return;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.start = start;
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.end = end;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Comparable method, that compares the event point y location at
+\end_layout
+
+\begin_layout Plain Layout
+
+     * intersection with the sweep line
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(Segment o2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Compare y positions of the segment at the x co-ordinate of the
+\end_layout
+
+\begin_layout Plain Layout
+
+      // event trigger.
+\end_layout
+
+\begin_layout Plain Layout
+
+      double seg1 = getY(this);
+\end_layout
+
+\begin_layout Plain Layout
+
+      double seg2 = getY(o2);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (seg1 > seg2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (seg1 < seg2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Same location, so lets determine by slope.
+\end_layout
+
+\begin_layout Plain Layout
+
+      seg1 = getSlope(this);
+\end_layout
+
+\begin_layout Plain Layout
+
+      seg2 = getSlope(o2);
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (seg1 > seg2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (seg1 < seg2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return 0; // Same y and same slope!
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String toString() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return String.format("
+\backslash
+"S: %.0f, %.0f, E: %.0f, %.0f
+\backslash
+"", start.x, start.y, end.x, end.y);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Get the y intersection of a segment to the sweep line.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segment The segment to test against.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The y location.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public double getY(Segment segment) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Determine slope of segment.
+\end_layout
+
+\begin_layout Plain Layout
+
+    double slopeO2 = getSlope(segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Determine y of segment
+\end_layout
+
+\begin_layout Plain Layout
+
+    return slopeO2 * eventTrigger + (segment.start.y - slopeO2 * segment.start.x);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Get the slope of the segment.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param segment The segment whose slope is needed.
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The slope of the segment.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public double getSlope(Segment segment) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return (segment.end.y - segment.start.y) / (segment.end.x - segment.start.x);
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * X location of the event trigger (the location of the sweep line).
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private static double eventTrigger;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Generic class to hold the segments that the sweep line intersects.
+ This
+\end_layout
+
+\begin_layout Plain Layout
+
+   * should use a AVL/Red-Black Tree (like the Java TreeMap class), but
+ the Java
+\end_layout
+
+\begin_layout Plain Layout
+
+   * TreeMap class won't resort the entire tree on insertion / delete operation.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Sweepline {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    private ArrayList<Segment> sweepline;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Sweepline() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      sweepline = new ArrayList<Segment>();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Add segment to the list
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void add(Segment segment) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      sweepline.add(segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+      Collections.sort(sweepline);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Remove a segment from the list
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void remove(Segment segment) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      sweepline.remove(segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+      Collections.sort(sweepline);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Get the entire list of segments in the sweepline.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @return
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public List<Segment> getLine() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return sweepline;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Get the segment next to the current segment, or null if none exist.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Segment next(Segment segment) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (segment == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      int index = sweepline.indexOf(segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (index == -1 || index == sweepline.size() - 1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return sweepline.get(index + 1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Get the segment previous to the current segment, or null is none
+ exist.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Segment prev(Segment segment) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (segment == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      int index = sweepline.indexOf(segment);
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (index == -1 || index == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return sweepline.get(index - 1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Find the segment above the current point.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param point
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @return
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Segment above(Point point) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (point == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (Segment seg : sweepline) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        double y = getY(seg);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (y == point.y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          return seg;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Find the segment below the current point.
+\end_layout
+
+\begin_layout Plain Layout
+
+     *
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @param point
+\end_layout
+
+\begin_layout Plain Layout
+
+     * @return
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Segment below(Point point) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (point == null) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (ListIterator iterator = sweepline.listIterator(sweepline.size());
+ iterator.hasPrevious();) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        final Segment seg = (Segment) iterator.previous();
+\end_layout
+
+\begin_layout Plain Layout
+
+        double y = getY(seg);
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (y == point.y) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          return seg;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+
+     * Resort the segments in the sweepline.
+\end_layout
+
+\begin_layout Plain Layout
+
+     */
+\end_layout
+
+\begin_layout Plain Layout
+
+    public void resort() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Collections.sort(sweepline);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Generic class to hold a point
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public class Point implements Comparable<Point> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public double x = 0.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public double y = 0.0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(Point o) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (o.x == this.x) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        double temp = o.y - this.y;
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (temp < 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+        } else if (temp == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      double temp = o.x - this.x;
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (temp < 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (temp == 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public String toString() {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return String.format("%.2f %.2f", x, y);
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Determine if 2 lines intersect, and provide intersection point.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param Line1 The vector of the first line
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @param Line2 The vector of the second line
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return Point if there is an intersection, otherwise null.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public Point GetLineIntersection(Segment Line1, Segment Line2) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Point result = new Point();
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Precalculate some points;
+\end_layout
+
+\begin_layout Plain Layout
+
+    double x4_x3 = (Line2.end.x - Line2.start.x);
+\end_layout
+
+\begin_layout Plain Layout
+
+    double x2_x1 = (Line1.end.x - Line1.start.x);
+\end_layout
+
+\begin_layout Plain Layout
+
+    double y4_y3 = (Line2.end.y - Line2.start.y);
+\end_layout
+
+\begin_layout Plain Layout
+
+    double y2_y1 = (Line1.end.y - Line1.start.y);
+\end_layout
+
+\begin_layout Plain Layout
+
+    double x1_x3 = (Line1.start.x - Line2.start.x);
+\end_layout
+
+\begin_layout Plain Layout
+
+    double y1_y3 = (Line1.start.y - Line2.start.y);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Get the demonitator
+\end_layout
+
+\begin_layout Plain Layout
+
+    double dem = (y4_y3 * x2_x1) - (x4_x3 * y2_y1);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Determine U values.
+\end_layout
+
+\begin_layout Plain Layout
+
+    double Ua = ((x4_x3 * y1_y3) - (y4_y3 * x1_x3)) / dem;
+\end_layout
+
+\begin_layout Plain Layout
+
+    double Ub = ((x2_x1 * y1_y3) - (y2_y1 * x1_x3)) / dem;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Ensure our U values are in scope
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1 || Double.isNaN(result.x) ||
+ Double.isNaN(result.y)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Calculate the intersection point.
+\end_layout
+
+\begin_layout Plain Layout
+
+    result.x = Line1.start.x + Ua * (x2_x1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    result.y = Line1.start.y + Ua * (y2_y1);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return result;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Solution to n-Line Segment Intersection (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-n-Line"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution itself does not offer a true implementation of the Bentley-Ottmann
+ Algorithm, but a slightly modified version in that the datastructure that
+ holds the segments that currently intersect with the sweep line is a Sorted
+ List (based on the 
+\begin_inset Formula $y$
+\end_inset
+
+-intersection of a segment with the current sweepline position), and not
+ a Balanced Binary Search Tree.
+ This does result in some performance penalty as insertions, and deletions
+ are 
+\series bold
+O(n log n)
+\series default
+ and get operations are 
+\series bold
+O(n)
+\series default
+, as opposed to 
+\series bold
+O(log n)
+\series default
+ if a balanced binary search tree is used.
+ The reason for this modification is that any balanced binary search tree
+ implementation to be effective with this algorithm must be able to work
+ with mutable key values and resort the entire tree based on the mutable
+ keys
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+As far as the author is aware, implementations of balanced binary search
+ trees that come with system standard libraries assume the key utilised
+ is immutable.
+\end_layout
+
+\end_inset
+
+.
+ (The keys in the tree are the 
+\begin_inset Formula $y$
+\end_inset
+
+-intersection position of the segment against the current 
+\begin_inset Formula $x$
+\end_inset
+
+-position of the sweep line).
+ This was done as a trade off against implementation complexity and performance
+ complexity.
+ The solution offered does however perform faster than or equal to 
+\series bold
+O(n
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+) 
+\series default
+naive approach in most circumstances despite this modification.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Bentley-Ottmann-vs-Naive"
+
+\end_inset
+
+ demonstrates some benchmarks as conducted on the authors system, (note:
+ intersection output was enabled during these tests).
+ This highlights that when there are few segments that intersecti with the
+ sweepline, the modified version runs significantly faster, only matching
+ the naive approach when all segments intersect the sweepline at a single
+ time.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="4cm">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+Line Segments
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+1,000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+10,000
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+100,000
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+Single segments intersect with sweepline
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Naive
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+210 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+2107 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+~
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Bentley-Ottmann
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+99 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+210 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+2009 msec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+3 Segments intersect with sweepline
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Naive
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+210 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+2107 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+~
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Bentley-Ottmann
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+164 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+710 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+11725 msec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+All Segments intersect with sweepline
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Naive
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+400 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+5012 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+~
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Bentley-Ottmann
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+420 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+5500 msec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+~
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+(
+\size small
+Notes: The times are only recorded if the test completes in under 5 minutes,
+ the first test has no intersections, the second test has 
+\begin_inset Formula $\frac{n}{2}$
+\end_inset
+
+-intersections, and the third test has 
+\begin_inset Formula $2\times n$
+\end_inset
+
+-intersections, and output to console is maintained
+\size default
+).
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Bentley-Ottmann vs Naive
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Bentley-Ottmann-vs-Naive"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As mentioned, the key variable with any implementation of this algorithm
+ is the data structure used to hold the segments that currently intersect
+ with the sweep line, as the rest of the algorithm is rather simple in structure.
+ Any data strucutre must be either sortable on a mutable key value, or offer
+ rapid lookups for next and prev segments based on a mutable key.
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+ The primary case to handle is that there is no or only a single segment
+ exists in the list of segments to be processed.
+\end_layout
+
+\begin_layout Standard
+However there is no requirement for explicit testing of these conditions
+ within the algorithm, as the algorithm naturally handles these conditions.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 Convex Hull
 \end_layout
 
 \begin_layout Standard
+The convex null corresponds to the intuitive notion of a boundary of a set
+ of points and can be used to approximate the shape of a complex object.
+ Informally speaking, the convex hull of a set of points in the plane is
+ a shape taken by a rubber band that is placed 
+\begin_inset Quotes eld
+\end_inset
+
+around the points
+\begin_inset Quotes erd
+\end_inset
+
+ and allowed to shrink to a state of equilibrium.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Convex-Hull"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/ConvexHull.eps
+	width 75text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+The convex hull of a set of points in the plane: (a) an example 
+\begin_inset Quotes eld
+\end_inset
+
+rubber band
+\begin_inset Quotes erd
+\end_inset
+
+ placed around a set of points; (b) the covex hull of the points.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Convex Hull
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Convex-Hull"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Indeed, computing the convex hull of a set of points is a fundamental operation
+ in computational geometery.
+ 
+\end_layout
+
+\begin_layout Standard
+Applications of the related algorithms include area calculations, the length
+ of the boundary of the object (which is useful for 
+\begin_inset Quotes eld
+\end_inset
+
+gift wrapping
+\begin_inset Quotes erd
+\end_inset
+
+, or calculating the material required to cover an object), object culling
+ in 3D/2D graphics for non-retangular shapes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A list $S$ of points in the plane beginning with point $a$, such
+ that $a$ is one the convex hull of $S$ and the remaining points of $S$
+ are sorted counterclockwise around $a$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure List $S$ with only convex hull vertices remaining.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{GrahamScan}{$S,a$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$S$.
+\backslash
+textsf{insertLast}($a$)} 
+\backslash
+Comment{Add a copy of $A$ at the end of $S$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$prev 
+\backslash
+gets S$.
+\backslash
+textsf{first}()} 
+\backslash
+Comment{So that $prev=a$ initially}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$curr 
+\backslash
+gets S$.
+\backslash
+textsf{after}($prev$)} 
+\backslash
+Comment {the next point is on the current vertex chain}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Repeat
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$next 
+\backslash
+gets S$.
+\backslash
+textsf{after}($curr$)} 
+\backslash
+Comment {advance}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {points (point($prev$), point($curr$), point($next$)) make a left turn}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$prev 
+\backslash
+gets curr$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$S$.
+\backslash
+textsf{remove}($curr$)} 
+\backslash
+Comment {point $curr$ is not in the convex hull}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$curr 
+\backslash
+gets S$.
+\backslash
+textsf{before}($prev$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$curr 
+\backslash
+gets S$.
+\backslash
+textsf{after}($prev$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Until {$curr=S$.
+\backslash
+textsf{last}()}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$S$.
+\backslash
+textsf{remove}($S$.
+\backslash
+textsf{last}())} 
+\backslash
+Comment {Remove the copy of $a$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Graham Scan Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Graham-Scan-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Description of Working
 \end_layout
 
 \begin_layout Standard
+The Graham Scan Algorithm for computing the convex hull 
+\begin_inset Formula $H$
+\end_inset
+
+ of a set 
+\begin_inset Formula $P$
+\end_inset
+
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ points in the plane consists of the following four phases:
+\end_layout
+
+\begin_layout Enumerate
+We find a point 
+\begin_inset Formula $a$
+\end_inset
+
+ of 
+\begin_inset Formula $P$
+\end_inset
+
+ and call this the anchor point.
+ Typically this will be the point with the minium 
+\begin_inset Formula $y$
+\end_inset
+
+ value (and minimum 
+\begin_inset Formula $x$
+\end_inset
+
+ value if a tie).
+\end_layout
+
+\begin_layout Enumerate
+We sort the remaining points in 
+\begin_inset Formula $P$
+\end_inset
+
+ using a radial comparison, so that all points are sorted in counterclockwise
+ direction from 
+\begin_inset Formula $a$
+\end_inset
+
+.
+ (See Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Graham-Scan--"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+We call the Scan function, which scans through all points in 
+\begin_inset Formula $S$
+\end_inset
+
+ in radial order, maintaining at each step a list of 
+\begin_inset Formula $H$
+\end_inset
+
+ storing a convex chain 
+\begin_inset Quotes eld
+\end_inset
+
+surrounding
+\begin_inset Quotes erd
+\end_inset
+
+ the points scanned so far.
+ Each time we consider a new point 
+\begin_inset Formula $p$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+If 
+\begin_inset Formula $p$
+\end_inset
+
+ form a left turn with the last two points in 
+\begin_inset Formula $H$
+\end_inset
+
+, or if 
+\begin_inset Formula $H$
+\end_inset
+
+ contains fewer than 2 points, then add 
+\begin_inset Formula $p$
+\end_inset
+
+ to the end of 
+\begin_inset Formula $H$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Otherwise, remove the last point in 
+\begin_inset Formula $H$
+\end_inset
+
+ and repeat the test for 
+\begin_inset Formula $p$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+We stop when when we reach the anchor point 
+\begin_inset Formula $a$
+\end_inset
+
+, at which point 
+\begin_inset Formula $H$
+\end_inset
+
+ sotres the verives of the convex hull in counterclockwise order.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/ConvexHull2.eps
+	width 40text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Graham Scan - Sorting around the anchor point
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Graham-Scan--"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Graham-Scan-1"
+
+\end_inset
+
+ demonstrates the third phase of the Graham Scan Algorithm.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/ConvexHull3.eps
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Graham Scan - Demonstration of Scan Operation
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Graham-Scan-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Implementation
 \end_layout
 
 \begin_layout Standard
-Sample Problem -
+An implementation of the Graham Scan Algorithm can be found in Listing .
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Convex Hull
 \end_layout
 
 \begin_layout Standard
+Tomato plants are planted in the ground at various points in a garden.
+ We wish to build a single continuous fence around the tomato plants at
+ minimal cost.
+ Each linear metre of fence costs $5; posts cost $1.
+ You may assume that you do not need to leave any buffer zone around a tomato
+ plant.
+ You may also assume that the area enclosed by the fence will always be
+ non-­‐zero.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line of input will be a number on a line by itself which is the
+ number of test cases to run.
+ For each test case, the first line will be a number 
+\begin_inset Formula $N\geq3$
+\end_inset
+
+ on a line by itself which is the number of tomato plants.
+ The next 
+\begin_inset Formula $N$
+\end_inset
+
+ lines consists of a pair of non-negative integers, which are the 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $y$
+\end_inset
+
+ coordinates of the end points of the line segments.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+7 
+\begin_inset Newline newline
+\end_inset
+
+5 4 
+\begin_inset Newline newline
+\end_inset
+
+4 2 
+\begin_inset Newline newline
+\end_inset
+
+3 3 
+\begin_inset Newline newline
+\end_inset
+
+6 1 
+\begin_inset Newline newline
+\end_inset
+
+7 4 
+\begin_inset Newline newline
+\end_inset
+
+2 1 
+\begin_inset Newline newline
+\end_inset
+
+1 3 
+\begin_inset Newline newline
+\end_inset
+
+4 
+\begin_inset Newline newline
+\end_inset
+
+6 2 
+\begin_inset Newline newline
+\end_inset
+
+6 3 
+\begin_inset Newline newline
+\end_inset
+
+6 4 
+\begin_inset Newline newline
+\end_inset
+
+5 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output a single line containing the cost of building
+ the fence, rounded to two decimal places.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+$82.61 
+\begin_inset Newline newline
+\end_inset
+
+$35.88
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Sample Solution
 \end_layout
 
