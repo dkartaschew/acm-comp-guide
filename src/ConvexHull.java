@@ -10,10 +10,10 @@ public class ConvexHull {
 
   private double costPost = 1.0;
   private double costFencePerM = 5.0;
-  ArrayList<Point> points;
-  PriorityQueue<Point> pointsQueue;
-  Stack<Point> convexHull;
-  Point anchor;
+  ArrayList<Point> points;  // general list of points in the set.
+  PriorityQueue<Point> pointsQueue; // The points sorted by radial angle from the anchor.
+  Stack<Point> convexHull; // The resultant convex hull
+  Point anchor; // The anchor point.
 
   /**
    * Main
@@ -60,7 +60,6 @@ public class ConvexHull {
         }
       }
       System.out.printf("$%.2f\n", calculateFenceCost());
-
     }
   }
 
@@ -68,18 +67,19 @@ public class ConvexHull {
    * Perform a scan of the points queue, building the convex hull.
    */
   private void grahamScan() {
-    convexHull.push(anchor);
-    convexHull.push(pointsQueue.poll());
-    int i = 1;
+    convexHull.push(pointsQueue.poll()); // Add our anchor point to the convex hull
+    convexHull.push(pointsQueue.poll()); // Add our next point to the convex hull
     while (!pointsQueue.isEmpty()) {
-      Point pt1 = convexHull.pop();
-      Point pt2 = convexHull.peek();
-      convexHull.push(pt1);
-      Point pt3 = pointsQueue.poll();
+      Point pt2 = convexHull.pop(); // Get our prev point
+      Point pt1 = convexHull.peek();  // Get our curr point
+      convexHull.push(pt2);
+      Point pt3 = pointsQueue.poll(); // Get out next point
+      //System.out.printf("Test Points: (%s), (%s), (%s)\n", pt1, pt2, pt3);
       if (turnsLeft(pt1, pt2, pt3)) {
-        convexHull.push(pt3);
+        convexHull.push(pt3); // Add our last point since we turned left
       } else {
-        convexHull.pop();
+        pointsQueue.add(pt3); // Add our just tested point back into the queue
+        convexHull.pop(); // Get rid of the last point as we turned right.
       }
     }
   }
@@ -97,15 +97,26 @@ public class ConvexHull {
       this.y = y;
     }
 
+    /**
+     * Comparable function based on radial angle from the anchor.
+     */
     @Override
     public int compareTo(Point point) {
       // Determine the angle from the anchor to this vs point o.
       double anglePoint = getAngle(point);
       double angleThis = getAngle(this);
       if (anglePoint > angleThis) {
-        return 1;
-      } else if (anglePoint < angleThis) {
         return -1;
+      } else if (anglePoint < angleThis) {
+        return 1;
+      }
+      // Angles are the SAME! so determine by distance from anchor.
+      anglePoint = vectorLength(findVector(anchor, point));
+      angleThis = vectorLength(findVector(anchor, this));
+      if (anglePoint > angleThis) {
+        return -1;
+      } else if (anglePoint < angleThis) {
+        return 1;
       }
       return 0;
     }
@@ -130,13 +141,13 @@ public class ConvexHull {
 
     @Override
     public int compare(Point point1, Point point2) {
-      if (point1.y < point1.y) {
+      if (point1.y < point2.y) {
         return -1;
-      } else if (point1.y > point1.y) {
+      } else if (point1.y > point2.y) {
         return 1;
-      } else if (point1.x < point1.x) {
+      } else if (point1.x < point2.x) {
         return -1;
-      } else if (point1.x > point1.x) {
+      } else if (point1.x > point2.x) {
         return 1;
       }
       return 0;
@@ -158,16 +169,19 @@ public class ConvexHull {
   }
 
   /**
-   * Determines if there is a left turn between 2 points.
+   * Determines if there is a left turn between 2 points. This is done by using
+   * the difference in the cross product of all points.
    */
   private boolean turnsLeft(Point p1, Point p2, Point p3) {
     int result = (p3.x - p2.x) * (p1.y - p2.y) - (p3.y - p2.y) * (p1.x - p2.x);
-    if (result > 0) {
-      return true;
-    }
-    return false;
+    return (result > 0);
   }
 
+  /**
+   * Calculate the cost of the fence around the convex hull.
+   *
+   * @return
+   */
   double calculateFenceCost() {
     double numPosts = convexHull.size();
     double metersOfFence = 0;
@@ -175,14 +189,17 @@ public class ConvexHull {
     Point first = convexHull.peek();
     Point previous = convexHull.pop();
 
+    // Work around the convex hull and determine the length of the fence.
     while (!convexHull.isEmpty()) {
       Point next = (Point) convexHull.pop();
       metersOfFence += vectorLength(findVector(previous, next));
       previous = next;
     }
 
+    // Add in the final section of fence (from the last point back to anchor).
     metersOfFence += vectorLength(findVector(previous, first)); // join fence back to start
 
+    // Return the cost.
     return (costPost * numPosts) + (costFencePerM * metersOfFence);
   }
 }

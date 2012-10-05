@@ -42608,8 +42608,7 @@ public class LineSegmentIntersection {
 
 \begin_layout Plain Layout
 
-    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1 || Double.isNaN(result.x) ||
- Double.isNaN(result.y)) {
+    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1) {
 \end_layout
 
 \begin_layout Plain Layout
@@ -42639,6 +42638,26 @@ public class LineSegmentIntersection {
 \begin_layout Plain Layout
 
     result.y = Line1[0].y + Ua * (y2_y1);
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (Double.isNaN(result.x) || Double.isNaN(result.y)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
 \end_layout
 
 \begin_layout Plain Layout
@@ -46172,8 +46191,7 @@ n", testcase++, intersections.size());
 
 \begin_layout Plain Layout
 
-    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1 || Double.isNaN(result.x) ||
- Double.isNaN(result.y)) {
+    if (Ua < 0 || Ua > 1 || Ub < 0 || Ub > 1) {
 \end_layout
 
 \begin_layout Plain Layout
@@ -46203,6 +46221,25 @@ n", testcase++, intersections.size());
 \begin_layout Plain Layout
 
     result.y = Line1.start.y + Ua * (y2_y1);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (Double.isNaN(result.x) || Double.isNaN(result.y)) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return null;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
 \end_layout
 
 \begin_layout Plain Layout
@@ -47413,7 +47450,244 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-An implementation of the Graham Scan Algorithm can be found in Listing .
+An implementation of the Graham Scan Algorithm can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Graham-Scan-Algorithm"
+
+\end_inset
+
+.
+ (A full list of supporting classes can be found in the Problem Solution
+ Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Convex"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Stack;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class ConvexHull {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  ArrayList<Point> points;  // general list of points in the set.
+\end_layout
+
+\begin_layout Plain Layout
+  PriorityQueue<Point> pointsQueue; // The points sorted by radial angle
+ from the anchor.
+\end_layout
+
+\begin_layout Plain Layout
+  Stack<Point> convexHull; // The resultant convex hull
+\end_layout
+
+\begin_layout Plain Layout
+  Point anchor; // The anchor point.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Perform a scan of the points queue, building the convex hull.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  private void grahamScan() {
+\end_layout
+
+\begin_layout Plain Layout
+    convexHull.push(pointsQueue.poll()); // Add our anchor point to the convex
+ hull
+\end_layout
+
+\begin_layout Plain Layout
+    convexHull.push(pointsQueue.poll()); // Add our next point to the convex
+ hull
+\end_layout
+
+\begin_layout Plain Layout
+    while (!pointsQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+      Point pt2 = convexHull.pop(); // Get our prev point
+\end_layout
+
+\begin_layout Plain Layout
+      Point pt1 = convexHull.peek();  // Get our curr point
+\end_layout
+
+\begin_layout Plain Layout
+      convexHull.push(pt2);
+\end_layout
+
+\begin_layout Plain Layout
+      Point pt3 = pointsQueue.poll(); // Get out next point
+\end_layout
+
+\begin_layout Plain Layout
+      if (turnsLeft(pt1, pt2, pt3)) {
+\end_layout
+
+\begin_layout Plain Layout
+        convexHull.push(pt3); // Add our last point since we turned left
+\end_layout
+
+\begin_layout Plain Layout
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+        pointsQueue.add(pt3); // Add our just tested point back into the
+ queue
+\end_layout
+
+\begin_layout Plain Layout
+        convexHull.pop(); // Get rid of the last point as we turned right.
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determines if there is a left turn between 2 points.
+\end_layout
+
+\begin_layout Plain Layout
+   * This is done by using the difference in the cross product of points.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  private boolean turnsLeft(Point p1, Point p2, Point p3) {
+\end_layout
+
+\begin_layout Plain Layout
+    int result = (p3.x - p2.x) * (p1.y - p2.y) - (p3.y - p2.y) * (p1.x - p2.x);
+\end_layout
+
+\begin_layout Plain Layout
+    return (result > 0);
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Graham Scan Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Graham-Scan-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The implementation described uses a Priority Queue to hold points to be
+ processed (based on radial angle from the anchor) and a Stack of points
+ that form the convex hull.
+ This makes it easy add and remove points as needed from both data structures,
+ especially doe to the ordered nature of the priority queue.
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+turnsLeft()
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ method only needs to determine if we turned left or not, and not the angle,
+ which allows us to determine this based on the cross product of the points
+ in question.
 \end_layout
 
 \begin_layout Paragraph
@@ -47428,7 +47702,7 @@ Tomato plants are planted in the ground at various points in a garden.
  You may assume that you do not need to leave any buffer zone around a tomato
  plant.
  You may also assume that the area enclosed by the fence will always be
- non-­‐zero.
+ non‐zero.
 \end_layout
 
 \begin_layout Standard
@@ -47583,6 +47857,906 @@ $35.88
 
 \begin_layout Paragraph
 Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Convex Hull problem can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Convex"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Collections;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Comparator;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Stack;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class ConvexHull {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  private double costPost = 1.0;
+\end_layout
+
+\begin_layout Plain Layout
+  private double costFencePerM = 5.0;
+\end_layout
+
+\begin_layout Plain Layout
+  ArrayList<Point> points;  // general list of points in the set.
+\end_layout
+
+\begin_layout Plain Layout
+  PriorityQueue<Point> pointsQueue; // The points sorted by radial angle
+ from the anchor.
+\end_layout
+
+\begin_layout Plain Layout
+  Stack<Point> convexHull; // The resultant convex hull
+\end_layout
+
+\begin_layout Plain Layout
+  Point anchor; // The anchor point.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+    new ConvexHull().run();
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Main runner.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+    Scanner scn = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+    int numberOfTestCases = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    while (numberOfTestCases-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      int numberOfPoint = scn.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+      points = new ArrayList<Point>(numberOfPoint);
+\end_layout
+
+\begin_layout Plain Layout
+      pointsQueue = new PriorityQueue<Point>(numberOfPoint);
+\end_layout
+
+\begin_layout Plain Layout
+      convexHull = new Stack<Point>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // read in all our points.
+\end_layout
+
+\begin_layout Plain Layout
+      while (numberOfPoint-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+        points.add(new Point(scn.nextInt(), scn.nextInt()));
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Sort our list of points, based on y and x values;
+\end_layout
+
+\begin_layout Plain Layout
+      Collections.sort(points, new PointSort());
+\end_layout
+
+\begin_layout Plain Layout
+      anchor = points.get(0); // Get the start of the list, this is our anchor.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Add the points to the priority queue.
+\end_layout
+
+\begin_layout Plain Layout
+      for (Point point : points) {
+\end_layout
+
+\begin_layout Plain Layout
+        pointsQueue.add(point); // These are sorted based on angle between
+ anchor and point.
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Don't bother building a convex hull with 3 or less points.
+\end_layout
+
+\begin_layout Plain Layout
+      if (points.size() > 3) {
+\end_layout
+
+\begin_layout Plain Layout
+        grahamScan();
+\end_layout
+
+\begin_layout Plain Layout
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+        // Just add the points to the convex hull...
+\end_layout
+
+\begin_layout Plain Layout
+        while (!pointsQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+          convexHull.push(pointsQueue.poll());
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      System.out.printf("$%.2f
+\backslash
+n", calculateFenceCost());
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Perform a scan of the points queue, building the convex hull.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  private void grahamScan() {
+\end_layout
+
+\begin_layout Plain Layout
+    convexHull.push(pointsQueue.poll()); // Add our anchor point to the convex
+ hull
+\end_layout
+
+\begin_layout Plain Layout
+    convexHull.push(pointsQueue.poll()); // Add our next point to the convex
+ hull
+\end_layout
+
+\begin_layout Plain Layout
+    while (!pointsQueue.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+      Point pt2 = convexHull.pop(); // Get our prev point
+\end_layout
+
+\begin_layout Plain Layout
+      Point pt1 = convexHull.peek();  // Get our curr point
+\end_layout
+
+\begin_layout Plain Layout
+      convexHull.push(pt2);
+\end_layout
+
+\begin_layout Plain Layout
+      Point pt3 = pointsQueue.poll(); // Get out next point
+\end_layout
+
+\begin_layout Plain Layout
+      //System.out.printf("Test Points: (%s), (%s), (%s)
+\backslash
+n", pt1, pt2, pt3);
+\end_layout
+
+\begin_layout Plain Layout
+      if (turnsLeft(pt1, pt2, pt3)) {
+\end_layout
+
+\begin_layout Plain Layout
+        convexHull.push(pt3); // Add our last point since we turned left
+\end_layout
+
+\begin_layout Plain Layout
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+        pointsQueue.add(pt3); // Add our just tested point back into the
+ queue
+\end_layout
+
+\begin_layout Plain Layout
+        convexHull.pop(); // Get rid of the last point as we turned right.
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Generic class to hold a point
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public class Point implements Comparable<Point> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    public int x = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    public int y = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    public Point(int x, int y) {
+\end_layout
+
+\begin_layout Plain Layout
+      this.x = x;
+\end_layout
+
+\begin_layout Plain Layout
+      this.y = y;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+     * Comparable function based on radial angle from the anchor.
+\end_layout
+
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+    public int compareTo(Point point) {
+\end_layout
+
+\begin_layout Plain Layout
+      // Determine the angle from the anchor to this vs point.
+\end_layout
+
+\begin_layout Plain Layout
+      double anglePoint = getAngle(point);
+\end_layout
+
+\begin_layout Plain Layout
+      double angleThis = getAngle(this);
+\end_layout
+
+\begin_layout Plain Layout
+      if (anglePoint > angleThis) {
+\end_layout
+
+\begin_layout Plain Layout
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+      } else if (anglePoint < angleThis) {
+\end_layout
+
+\begin_layout Plain Layout
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      // Angles are the SAME! so determine by distance from anchor.
+\end_layout
+
+\begin_layout Plain Layout
+      anglePoint = vectorLength(findVector(anchor, point));
+\end_layout
+
+\begin_layout Plain Layout
+      angleThis = vectorLength(findVector(anchor, this));
+\end_layout
+
+\begin_layout Plain Layout
+      if (anglePoint > angleThis) {
+\end_layout
+
+\begin_layout Plain Layout
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+      } else if (anglePoint < angleThis) {
+\end_layout
+
+\begin_layout Plain Layout
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      return 0;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+    public String toString() {
+\end_layout
+
+\begin_layout Plain Layout
+      return String.format("%d %d", x, y);
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+     * Return the angle between the anchor (as origin) and point.
+\end_layout
+
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
+    private double getAngle(Point point) {
+\end_layout
+
+\begin_layout Plain Layout
+      return Math.atan2(point.y - anchor.y, point.x - anchor.x);
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Generic Comparator to sort a list by y, and x values.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  private class PointSort implements Comparator<Point> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+    public int compare(Point point1, Point point2) {
+\end_layout
+
+\begin_layout Plain Layout
+      if (point1.y < point2.y) {
+\end_layout
+
+\begin_layout Plain Layout
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+      } else if (point1.y > point2.y) {
+\end_layout
+
+\begin_layout Plain Layout
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+      } else if (point1.x < point2.x) {
+\end_layout
+
+\begin_layout Plain Layout
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+      } else if (point1.x > point2.x) {
+\end_layout
+
+\begin_layout Plain Layout
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      return 0;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determine the vector from point 1 to point 2.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  private Point findVector(Point point1, Point point2) {
+\end_layout
+
+\begin_layout Plain Layout
+    return new Point(point2.x - point1.x, point2.y - point1.y);
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determine the vector length from origin.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  private double vectorLength(Point point) {
+\end_layout
+
+\begin_layout Plain Layout
+    return Math.sqrt(Math.pow(point.x, 2) + Math.pow(point.y, 2));
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determines if there is a left turn between 2 points.
+ This is done by using
+\end_layout
+
+\begin_layout Plain Layout
+   * the difference in the cross product of all points.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  private boolean turnsLeft(Point p1, Point p2, Point p3) {
+\end_layout
+
+\begin_layout Plain Layout
+    int result = (p3.x - p2.x) * (p1.y - p2.y) - (p3.y - p2.y) * (p1.x - p2.x);
+\end_layout
+
+\begin_layout Plain Layout
+    return (result > 0);
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Calculate the cost of the fence around the convex hull.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @return
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  double calculateFenceCost() {
+\end_layout
+
+\begin_layout Plain Layout
+    double numPosts = convexHull.size();
+\end_layout
+
+\begin_layout Plain Layout
+    double metersOfFence = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    Point first = convexHull.peek();
+\end_layout
+
+\begin_layout Plain Layout
+    Point previous = convexHull.pop();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Work around the convex hull and determine the length of the fence.
+\end_layout
+
+\begin_layout Plain Layout
+    while (!convexHull.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+      Point next = (Point) convexHull.pop();
+\end_layout
+
+\begin_layout Plain Layout
+      metersOfFence += vectorLength(findVector(previous, next));
+\end_layout
+
+\begin_layout Plain Layout
+      previous = next;
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Add in the final section of fence (from the last point back to anchor).
+\end_layout
+
+\begin_layout Plain Layout
+    metersOfFence += vectorLength(findVector(previous, first)); // join
+ fence back to start
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    // Return the cost.
+\end_layout
+
+\begin_layout Plain Layout
+    return (costPost * numPosts) + (costFencePerM * metersOfFence);
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Convex Hull Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Convex"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+ 
+\end_layout
+
+\begin_layout Standard
+Some sample cases that must be considered are: 
+\end_layout
+
+\begin_layout Itemize
+Less than 3 points within a series of points to determine the convex hull.
+ (This is explicity tested for).
+\end_layout
+
+\begin_layout Itemize
+A series of points that have the same radial angle from the anchor.
+ This can be handled by ordering them based on distance from the anchor
+ in such case, or simply removing the closest point to the anchor from the
+ queue of points to be processed.
+\end_layout
+
+\begin_layout Standard
+Other than the first point, there is no requirement for explicit testing
+ of the other conditions within the algorithm, as the algorithm naturally
+ handles these conditions.
+ 
 \end_layout
 
 \begin_layout Subsection
