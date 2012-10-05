@@ -109,7 +109,7 @@ figs-within-sections
 \defskip medskip
 \quotes_language english
 \papercolumns 1
-\papersides 1
+\papersides 2
 \paperpagestyle fancy
 \listings_params "basicstyle={\small,\ttfamily},captionpos=b,frame=single,language=Java,numberbychapter=true"
 \tracking_changes false
@@ -42086,22 +42086,692 @@ Graph Theory (Advanced)
 \end_layout
 
 \begin_layout Subsubsection
-Maximal Matching
+Maximal Cardinality Bipartite Matching
 \end_layout
 
 \begin_layout Standard
+A problem that arise in a number of important applications is the maximum
+ bipartite matching problem.
+ In this problem, we are given a connected undirected graph with the following
+ properties:
+\end_layout
+
+\begin_layout Itemize
+The vertices of 
+\begin_inset Formula $G$
+\end_inset
+
+ are partitioned into two sets, 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Every edge of 
+\begin_inset Formula $G$
+\end_inset
+
+ has one endpoint in 
+\begin_inset Formula $X$
+\end_inset
+
+ and the endpoint in 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Such a graph is called a bipartite graph.
+ A matching in G is a set of edges that have no endpoints in common - such
+ a set of 
+\begin_inset Quotes eld
+\end_inset
+
+pairs
+\begin_inset Quotes erd
+\end_inset
+
+ of vertices in 
+\begin_inset Formula $X$
+\end_inset
+
+ with vertices in 
+\begin_inset Formula $Y$
+\end_inset
+
+ so that each vertex has at most one 
+\begin_inset Quotes eld
+\end_inset
+
+partner
+\begin_inset Quotes erd
+\end_inset
+
+ in the other set.
+ The maximum bipartite matching problem is to find a matching with the greatest
+ number of edges (over all matches).
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Bipartite-Graph"
+
+\end_inset
+
+ shows a valid bipartite graph.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/BipartiteGraph.eps
+	width 30text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Bipartite Graph
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Bipartite-Graph"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sample problems in which bipartite graphs and related algorithms are useful
+ include:
+\end_layout
+
+\begin_layout Itemize
+Singles Agency - From a group of 
+\begin_inset Formula $n$
+\end_inset
+
+ women and 
+\begin_inset Formula $m$
+\end_inset
+
+ single men who wish to be in a relationship, with edges denoting acceptability
+ of partnership, attempt to maximise the total number of partnerships that
+ can be made.
+\end_layout
+
+\begin_layout Itemize
+Task Scheduling - From a group of employees, matched to skills, attempt
+ to maximise the number of skills that can be utilised at one time.
+\end_layout
+
+\begin_layout Itemize
+Classroom assignment - From a group of study units, and a group of rooms
+ attempt to maximise the number of rooms utilised at one time which enables
+ the maximum number of concurrent study units.
+\end_layout
+
+\begin_layout Standard
+The matching between vertices from each set, can be considered maximal is
+ we cannot add any edge to the existing set 
+\begin_inset Formula $M$
+\end_inset
+
+ without violating the properties of matching.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement !h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A bipartite graph $G$, consisting of $X$ vertices on the left hand
+ side and $Y$ vertices on the right hand side.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The cardinality of the graph $G$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{MaximumBipartiteMatching}{$S$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$C 
+\backslash
+gets 0$} 
+\backslash
+Comment {Set cardinately to 0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {$src$ in $X$} 
+\backslash
+Comment {For each source in left side vertices}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {$ver$ in $Y$} 
+\backslash
+Comment {For each vertex in right side}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$ver$.visited $
+\backslash
+gets$ false}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {
+\backslash
+textsc{FindAugmentingPath}($src$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$C = C + 1$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $C$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Maximum Bipartite Matching Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Maximum-Bipartite-Matching"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement !h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A source vertex $v$
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure True if a path exists, otherwise false
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{FindAugmentingPath}{$v$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {$d$ in $v$ adjency list} 
+\backslash
+Comment {For all destinations in $v$ adjacency list}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$d$ not visited}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$d$.visited $
+\backslash
+gets$ true}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$d$ is unmatched $
+\backslash
+lor$ 
+\backslash
+textsc{FindAugmentingPath}($d$ current match)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$d$ and $v$ are matched} 
+\backslash
+Comment {Augment function}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} true}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} false}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Find Augmenting Path Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Find-Augmenting-Path"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Description of Working
 \end_layout
 
 \begin_layout Standard
+The Maximum Bipartite Matching Algorithm as shown requires the following
+ data structures to operate:
+\end_layout
+
+\begin_layout Itemize
+Graph
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+List of all vertices in 
+\begin_inset Formula $G$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $N$
+\end_inset
+
+ vertices in left side (
+\begin_inset Formula $0\ldots N-1$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $M$
+\end_inset
+
+ vertices in right side (
+\begin_inset Formula $0\ldots M-1$
+\end_inset
+
+).
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Vertices
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Identifier
+\end_layout
+
+\begin_layout Itemize
+Visited
+\end_layout
+
+\begin_layout Itemize
+Matched
+\end_layout
+
+\begin_layout Itemize
+Matched with
+\end_layout
+
+\begin_layout Itemize
+Adjacency List
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+The algorithm works on the concept of alternating paths and augmenting paths,
+ in that we continue to develop augmenting paths until no paths exist.
+\end_layout
+
+\begin_layout Standard
+The Algorithm itself is based on two parts, the main algorithm and the algorithm
+ to find augmented paths.
+ The main algorithm simple cycles through all vertices in the left side
+ 
+\begin_inset Formula $X$
+\end_inset
+
+, and attempts to find augmented paths, until such none exist.
+ Each time a path is found, the cardinality is incremented.
+\end_layout
+
+\begin_layout Standard
+The key algorithm is the FindAugmentingPath, which utilises a DFS (Depth
+ First Search) to find vertices that are unmatched or have themselves augmented
+ paths.
+ 
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Maximum-Bipartite-Matching"
+
+\end_inset
+
+ demonstrates this algorithm in detail.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Maximum Bipartite Matching Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Maximum-Bipartite-Matching"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The described Maximum Bipartite Matching algorithm is found in 
+\series bold
+O(│V│
+\begin_inset Formula $\times$
+\end_inset
+
+│E│)
+\series default
+ time.
+\end_layout
+
+\begin_layout Paragraph
 Implementation
 \end_layout
 
-\begin_layout Standard
-Sample Problem -
+\begin_layout Paragraph
+Sample Problem - Taxi
 \end_layout
 
-\begin_layout Standard
+\begin_layout Paragraph
 Sample Solution
 \end_layout
 
@@ -42737,7 +43407,7 @@ O(n
 placement !h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -47445,6 +48115,14 @@ name "fig:Graham-Scan-1"
 
 \end_layout
 
+\begin_layout Standard
+The Graham Scan Algorithm has been shown to operate in 
+\series bold
+O(n log n)
+\series default
+ time.
+\end_layout
+
 \begin_layout Paragraph
 Implementation
 \end_layout
@@ -47476,14 +48154,17 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.ArrayList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.PriorityQueue;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Stack;
 \end_layout
 
@@ -47492,6 +48173,7 @@ import java.util.Stack;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class ConvexHull {
 \end_layout
 
@@ -47500,19 +48182,23 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
   ArrayList<Point> points;  // general list of points in the set.
 \end_layout
 
 \begin_layout Plain Layout
+
   PriorityQueue<Point> pointsQueue; // The points sorted by radial angle
  from the anchor.
 \end_layout
 
 \begin_layout Plain Layout
+
   Stack<Point> convexHull; // The resultant convex hull
 \end_layout
 
 \begin_layout Plain Layout
+
   Point anchor; // The anchor point.
 \end_layout
 
@@ -47521,81 +48207,100 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Perform a scan of the points queue, building the convex hull.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   private void grahamScan() {
 \end_layout
 
 \begin_layout Plain Layout
+
     convexHull.push(pointsQueue.poll()); // Add our anchor point to the convex
  hull
 \end_layout
 
 \begin_layout Plain Layout
+
     convexHull.push(pointsQueue.poll()); // Add our next point to the convex
  hull
 \end_layout
 
 \begin_layout Plain Layout
+
     while (!pointsQueue.isEmpty()) {
 \end_layout
 
 \begin_layout Plain Layout
+
       Point pt2 = convexHull.pop(); // Get our prev point
 \end_layout
 
 \begin_layout Plain Layout
+
       Point pt1 = convexHull.peek();  // Get our curr point
 \end_layout
 
 \begin_layout Plain Layout
+
       convexHull.push(pt2);
 \end_layout
 
 \begin_layout Plain Layout
+
       Point pt3 = pointsQueue.poll(); // Get out next point
 \end_layout
 
 \begin_layout Plain Layout
+
       if (turnsLeft(pt1, pt2, pt3)) {
 \end_layout
 
 \begin_layout Plain Layout
+
         convexHull.push(pt3); // Add our last point since we turned left
 \end_layout
 
 \begin_layout Plain Layout
+
       } else {
 \end_layout
 
 \begin_layout Plain Layout
+
         pointsQueue.add(pt3); // Add our just tested point back into the
  queue
 \end_layout
 
 \begin_layout Plain Layout
+
         convexHull.pop(); // Get rid of the last point as we turned right.
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -47604,38 +48309,47 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determines if there is a left turn between 2 points.
 \end_layout
 
 \begin_layout Plain Layout
+
    * This is done by using the difference in the cross product of points.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   private boolean turnsLeft(Point p1, Point p2, Point p3) {
 \end_layout
 
 \begin_layout Plain Layout
+
     int result = (p3.x - p2.x) * (p1.y - p2.y) - (p3.y - p2.y) * (p1.x - p2.x);
 \end_layout
 
 \begin_layout Plain Layout
+
     return (result > 0);
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -47878,26 +48592,32 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.ArrayList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Collections;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Comparator;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.PriorityQueue;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Stack;
 \end_layout
 
@@ -47906,6 +48626,7 @@ import java.util.Stack;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class ConvexHull {
 \end_layout
 
@@ -47914,27 +48635,33 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
   private double costPost = 1.0;
 \end_layout
 
 \begin_layout Plain Layout
+
   private double costFencePerM = 5.0;
 \end_layout
 
 \begin_layout Plain Layout
+
   ArrayList<Point> points;  // general list of points in the set.
 \end_layout
 
 \begin_layout Plain Layout
+
   PriorityQueue<Point> pointsQueue; // The points sorted by radial angle
  from the anchor.
 \end_layout
 
 \begin_layout Plain Layout
+
   Stack<Point> convexHull; // The resultant convex hull
 \end_layout
 
 \begin_layout Plain Layout
+
   Point anchor; // The anchor point.
 \end_layout
 
@@ -47943,26 +48670,32 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     new ConvexHull().run();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -47971,26 +48704,32 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main runner.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner scn = new Scanner(System.in);
 \end_layout
 
 \begin_layout Plain Layout
+
     int numberOfTestCases = scn.nextInt();
 \end_layout
 
@@ -47999,6 +48738,7 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
     while (numberOfTestCases-- > 0) {
 \end_layout
 
@@ -48007,18 +48747,22 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
       int numberOfPoint = scn.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
       points = new ArrayList<Point>(numberOfPoint);
 \end_layout
 
 \begin_layout Plain Layout
+
       pointsQueue = new PriorityQueue<Point>(numberOfPoint);
 \end_layout
 
 \begin_layout Plain Layout
+
       convexHull = new Stack<Point>();
 \end_layout
 
@@ -48027,18 +48771,22 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
       // read in all our points.
 \end_layout
 
 \begin_layout Plain Layout
+
       while (numberOfPoint-- > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
         points.add(new Point(scn.nextInt(), scn.nextInt()));
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -48047,14 +48795,17 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Sort our list of points, based on y and x values;
 \end_layout
 
 \begin_layout Plain Layout
+
       Collections.sort(points, new PointSort());
 \end_layout
 
 \begin_layout Plain Layout
+
       anchor = points.get(0); // Get the start of the list, this is our anchor.
 \end_layout
 
@@ -48063,19 +48814,23 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Add the points to the priority queue.
 \end_layout
 
 \begin_layout Plain Layout
+
       for (Point point : points) {
 \end_layout
 
 \begin_layout Plain Layout
+
         pointsQueue.add(point); // These are sorted based on angle between
  anchor and point.
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -48084,52 +48839,64 @@ public class ConvexHull {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Don't bother building a convex hull with 3 or less points.
 \end_layout
 
 \begin_layout Plain Layout
+
       if (points.size() > 3) {
 \end_layout
 
 \begin_layout Plain Layout
+
         grahamScan();
 \end_layout
 
 \begin_layout Plain Layout
+
       } else {
 \end_layout
 
 \begin_layout Plain Layout
+
         // Just add the points to the convex hull...
 \end_layout
 
 \begin_layout Plain Layout
+
         while (!pointsQueue.isEmpty()) {
 \end_layout
 
 \begin_layout Plain Layout
+
           convexHull.push(pointsQueue.poll());
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf("$%.2f
 \backslash
 n", calculateFenceCost());
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -48138,87 +48905,107 @@ n", calculateFenceCost());
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Perform a scan of the points queue, building the convex hull.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   private void grahamScan() {
 \end_layout
 
 \begin_layout Plain Layout
+
     convexHull.push(pointsQueue.poll()); // Add our anchor point to the convex
  hull
 \end_layout
 
 \begin_layout Plain Layout
+
     convexHull.push(pointsQueue.poll()); // Add our next point to the convex
  hull
 \end_layout
 
 \begin_layout Plain Layout
+
     while (!pointsQueue.isEmpty()) {
 \end_layout
 
 \begin_layout Plain Layout
+
       Point pt2 = convexHull.pop(); // Get our prev point
 \end_layout
 
 \begin_layout Plain Layout
+
       Point pt1 = convexHull.peek();  // Get our curr point
 \end_layout
 
 \begin_layout Plain Layout
+
       convexHull.push(pt2);
 \end_layout
 
 \begin_layout Plain Layout
+
       Point pt3 = pointsQueue.poll(); // Get out next point
 \end_layout
 
 \begin_layout Plain Layout
+
       //System.out.printf("Test Points: (%s), (%s), (%s)
 \backslash
 n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
       if (turnsLeft(pt1, pt2, pt3)) {
 \end_layout
 
 \begin_layout Plain Layout
+
         convexHull.push(pt3); // Add our last point since we turned left
 \end_layout
 
 \begin_layout Plain Layout
+
       } else {
 \end_layout
 
 \begin_layout Plain Layout
+
         pointsQueue.add(pt3); // Add our just tested point back into the
  queue
 \end_layout
 
 \begin_layout Plain Layout
+
         convexHull.pop(); // Get rid of the last point as we turned right.
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -48227,18 +49014,22 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Generic class to hold a point
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class Point implements Comparable<Point> {
 \end_layout
 
@@ -48247,10 +49038,12 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     public int x = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     public int y = 0;
 \end_layout
 
@@ -48259,18 +49052,22 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     public Point(int x, int y) {
 \end_layout
 
 \begin_layout Plain Layout
+
       this.x = x;
 \end_layout
 
 \begin_layout Plain Layout
+
       this.y = y;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -48279,94 +49076,117 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Comparable function based on radial angle from the anchor.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     @Override
 \end_layout
 
 \begin_layout Plain Layout
+
     public int compareTo(Point point) {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Determine the angle from the anchor to this vs point.
 \end_layout
 
 \begin_layout Plain Layout
+
       double anglePoint = getAngle(point);
 \end_layout
 
 \begin_layout Plain Layout
+
       double angleThis = getAngle(this);
 \end_layout
 
 \begin_layout Plain Layout
+
       if (anglePoint > angleThis) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (anglePoint < angleThis) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       // Angles are the SAME! so determine by distance from anchor.
 \end_layout
 
 \begin_layout Plain Layout
+
       anglePoint = vectorLength(findVector(anchor, point));
 \end_layout
 
 \begin_layout Plain Layout
+
       angleThis = vectorLength(findVector(anchor, this));
 \end_layout
 
 \begin_layout Plain Layout
+
       if (anglePoint > angleThis) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (anglePoint < angleThis) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       return 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -48375,18 +49195,22 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     @Override
 \end_layout
 
 \begin_layout Plain Layout
+
     public String toString() {
 \end_layout
 
 \begin_layout Plain Layout
+
       return String.format("%d %d", x, y);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -48395,30 +49219,37 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Return the angle between the anchor (as origin) and point.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     private double getAngle(Point point) {
 \end_layout
 
 \begin_layout Plain Layout
+
       return Math.atan2(point.y - anchor.y, point.x - anchor.x);
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -48427,18 +49258,22 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Generic Comparator to sort a list by y, and x values.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   private class PointSort implements Comparator<Point> {
 \end_layout
 
@@ -48447,58 +49282,72 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     @Override
 \end_layout
 
 \begin_layout Plain Layout
+
     public int compare(Point point1, Point point2) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (point1.y < point2.y) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (point1.y > point2.y) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (point1.x < point2.x) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return -1;
 \end_layout
 
 \begin_layout Plain Layout
+
       } else if (point1.x > point2.x) {
 \end_layout
 
 \begin_layout Plain Layout
+
         return 1;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       return 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -48507,26 +49356,32 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determine the vector from point 1 to point 2.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   private Point findVector(Point point1, Point point2) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return new Point(point2.x - point1.x, point2.y - point1.y);
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -48535,26 +49390,32 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determine the vector length from origin.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   private double vectorLength(Point point) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return Math.sqrt(Math.pow(point.x, 2) + Math.pow(point.y, 2));
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -48563,35 +49424,43 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determines if there is a left turn between 2 points.
  This is done by using
 \end_layout
 
 \begin_layout Plain Layout
+
    * the difference in the cross product of all points.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   private boolean turnsLeft(Point p1, Point p2, Point p3) {
 \end_layout
 
 \begin_layout Plain Layout
+
     int result = (p3.x - p2.x) * (p1.y - p2.y) - (p3.y - p2.y) * (p1.x - p2.x);
 \end_layout
 
 \begin_layout Plain Layout
+
     return (result > 0);
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -48600,34 +49469,42 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Calculate the cost of the fence around the convex hull.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   double calculateFenceCost() {
 \end_layout
 
 \begin_layout Plain Layout
+
     double numPosts = convexHull.size();
 \end_layout
 
 \begin_layout Plain Layout
+
     double metersOfFence = 0;
 \end_layout
 
@@ -48636,10 +49513,12 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     Point first = convexHull.peek();
 \end_layout
 
 \begin_layout Plain Layout
+
     Point previous = convexHull.pop();
 \end_layout
 
@@ -48648,26 +49527,32 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     // Work around the convex hull and determine the length of the fence.
 \end_layout
 
 \begin_layout Plain Layout
+
     while (!convexHull.isEmpty()) {
 \end_layout
 
 \begin_layout Plain Layout
+
       Point next = (Point) convexHull.pop();
 \end_layout
 
 \begin_layout Plain Layout
+
       metersOfFence += vectorLength(findVector(previous, next));
 \end_layout
 
 \begin_layout Plain Layout
+
       previous = next;
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -48676,10 +49561,12 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     // Add in the final section of fence (from the last point back to anchor).
 \end_layout
 
 \begin_layout Plain Layout
+
     metersOfFence += vectorLength(findVector(previous, first)); // join
  fence back to start
 \end_layout
@@ -48689,18 +49576,22 @@ n", pt1, pt2, pt3);
 \end_layout
 
 \begin_layout Plain Layout
+
     // Return the cost.
 \end_layout
 
 \begin_layout Plain Layout
+
     return (costPost * numPosts) + (costFencePerM * metersOfFence);
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -48709,7 +49600,6 @@ n", pt1, pt2, pt3);
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Convex Hull Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
