@@ -42679,8 +42679,11 @@ Adjacency List
 
 \end_deeper
 \begin_layout Standard
-The algorithm works on the concept of alternating paths and augmenting paths,
- in that we continue to develop augmenting paths until no paths exist.
+The algorithm works on the concept of alternating paths and determining
+ augmenting paths, in that we continue to develop augmenting paths until
+ no paths exist.
+ (Each time we have an augmented path, we increase the cardinality of the
+ graph).
 \end_layout
 
 \begin_layout Standard
@@ -42720,6 +42723,14 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/BipartiteGraphAlgorithm.eps
+	width 90text%
+
+\end_inset
+
 
 \end_layout
 
@@ -42752,7 +42763,58 @@ name "fig:Maximum-Bipartite-Matching"
 \end_layout
 
 \begin_layout Standard
-The described Maximum Bipartite Matching algorithm is found in 
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Maximum-Bipartite-Matching"
+
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Standard
+(a), the first iteration of the main loop utilised vertex A as the source,
+ and simply takes the first vertex as a match (being vertex F).
+ 
+\end_layout
+
+\begin_layout Standard
+(b), the second iteration of the main loop utilised vertex B as the source,
+ and itself takes vertex F as it's match, as vertex A has an alternative
+ path (being to vertex H).
+ As an augmented path exists, the cardinality is now 2.
+ 
+\end_layout
+
+\begin_layout Standard
+(c), the third iteration of the main loop utilises vertex C as the source,
+ and simply takes G as it's match.
+ As G is not matched with anything else, searching for augmented paths doesn't
+ take place.
+\end_layout
+
+\begin_layout Standard
+(d), the fourth iteration of the main loop utilises vertex D as the source,
+ and itself takes vertex G as it's match, as vertex C has an alternative
+ path (being to vertex I).
+ Whilst it is possible for vertex D to match to I and C to G, the algorithm
+ itself works in a linear path through the adjacency list, and attempts
+ to take the first vertex (if possible) for itself.
+ (In this case the Adjacency List for vertex D is vertex G, vertex I in
+ order).
+\end_layout
+
+\begin_layout Standard
+(e), the final iteration of the main loop utilised vertex E as the source.
+ It does not take vertex H as it's match, as vertex A which is currently
+ matched to vertex H, has no alternative paths.
+ (So it's not possible to steal that match for it's as it could possible
+ decrement the current cardinality value).
+\end_layout
+
+\begin_layout Standard
+The described Maximum Bipartite Matching Algorithm is found in 
 \series bold
 O(│V│
 \begin_inset Formula $\times$
@@ -42767,12 +42829,1211 @@ O(│V│
 Implementation
 \end_layout
 
+\begin_layout Standard
+An implementation of the Maximum Bipartite Matching Algorithm can be found
+ in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Maximum-Bipartite-Matching"
+
+\end_inset
+
+.
+ (A full list of supporting classes can be found in the Problem Solution
+ Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Taxi"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class MaximumBipartiteMatching {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Find the cardinality of Graph G, with set X and Y being left and right
+ sides.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param graphX Left hand side graph
+\end_layout
+
+\begin_layout Plain Layout
+   * @param graphY Right hand side graph
+\end_layout
+
+\begin_layout Plain Layout
+   * @return The cardinality of Graph G.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public int MaximumBipartiteMatching(ArrayList<Vertex> graphX, ArrayList<Vertex
+> graphY) {
+\end_layout
+
+\begin_layout Plain Layout
+    int cardinality = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    for (Vertex vertexX : graphX) {
+\end_layout
+
+\begin_layout Plain Layout
+      for (Vertex vertexY : graphY) {
+\end_layout
+
+\begin_layout Plain Layout
+        vertexY.visited = false;  // Set all right side to not visited.
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      if (FindAugmentingPath(vertexX)) {  // If a path exists...
+\end_layout
+
+\begin_layout Plain Layout
+        cardinality++;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    return cardinality;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determine is an augmented path exist from vertex.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param vertex The source vertex.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return True, If a path exists
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public boolean FindAugmentingPath(Vertex vertex) {
+\end_layout
+
+\begin_layout Plain Layout
+    // Process all vertices in the adjacency list.
+\end_layout
+
+\begin_layout Plain Layout
+    for (Vertex vertexD : vertex.adjList) {
+\end_layout
+
+\begin_layout Plain Layout
+      if (!vertexD.visited) { // Only query vertex if not already visited.
+\end_layout
+
+\begin_layout Plain Layout
+        vertexD.visited = true;
+\end_layout
+
+\begin_layout Plain Layout
+        if (vertexD.matched == null || FindAugmentingPath(vertexD.matched))
+ {
+\end_layout
+
+\begin_layout Plain Layout
+          // d and v are now matched and we have a new path.
+\end_layout
+
+\begin_layout Plain Layout
+          vertex.matched = vertexD;
+\end_layout
+
+\begin_layout Plain Layout
+          vertexD.matched = vertex;
+\end_layout
+
+\begin_layout Plain Layout
+          return true;
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    return false; // no path...
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Maximum Bipartite Matching Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Maximum-Bipartite-Matching"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Sample Problem - Taxi
 \end_layout
 
+\begin_layout Standard
+Party town is a well planned town.
+ Each town block is 200m x 200m and all of the streets are built as straight
+ lines that intersect at right angles (see diagram).
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Taxi.eps
+	width 35text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Although the town is well designed and very pretty, the best thing about
+ Party Town is that the inhabitants love to party! Every month they hold
+ a “mystery venue” party.
+ The venue for the party is only announced a short time before the party
+ starts.
+ The “mystery venue” parties tend to fill up very quickly, so everyone wants
+ to get there as soon as possible.
+ To give everyone a chance, the venue is announced on the radio just before
+ the party starts, so everyone tries to get there as quickly as possible.
+ 
+\end_layout
+
+\begin_layout Standard
+This is all great news for the Party Town Taxi Service.
+ As soon as the party venue is announced on the radio, people all over town
+ ring up for a taxi to take them to the party.
+ The problem for the taxi service is that a lot of people ask for a ride
+ at the same time and the taxis have to pick up the people quickly.
+ 
+\end_layout
+
+\begin_layout Standard
+You have been asked to help the Party Town Taxi Service figure out how many
+ passengers they can take to the party.
+ You must take into account the following constraints: 
+\end_layout
+
+\begin_layout Itemize
+Each taxi can only take one passenger 
+\end_layout
+
+\begin_layout Itemize
+Passengers always wait at intersections of roads 
+\end_layout
+
+\begin_layout Itemize
+At the time of the radio announcement, all taxis are also waiting at intersectio
+ns 
+\end_layout
+
+\begin_layout Itemize
+The taxi has to reach the passenger within a given time limit (or they will
+ be too late to get into the party)
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line contains the number of test cases 
+\begin_inset Formula $K$
+\end_inset
+
+ (
+\begin_inset Formula $K\leq250$
+\end_inset
+
+).
+ The first line of each test case contains the number of persons 
+\begin_inset Formula $P(1\leq P\leq400)$
+\end_inset
+
+, the number of taxis 
+\begin_inset Formula $T(1\leq T\leq200)$
+\end_inset
+
+ the speed 
+\begin_inset Formula $S(1\leq S\leq2000)$
+\end_inset
+
+ of the taxis in meters per second and the time limit 
+\begin_inset Formula $C$
+\end_inset
+
+ to collect a person in seconds 
+\begin_inset Formula $(1\leq C\leq1000000)$
+\end_inset
+
+.
+ The next 
+\begin_inset Formula $P$
+\end_inset
+
+ lines contain the positions of the persons.
+ The next 
+\begin_inset Formula $T$
+\end_inset
+
+ lines contain the position of the taxis in the city.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+1 
+\begin_inset Newline newline
+\end_inset
+
+2 3 10 40 
+\begin_inset Newline newline
+\end_inset
+
+2 5 
+\begin_inset Newline newline
+\end_inset
+
+5 2 
+\begin_inset Newline newline
+\end_inset
+
+2 3 
+\begin_inset Newline newline
+\end_inset
+
+4 1 
+\begin_inset Newline newline
+\end_inset
+
+4 4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output the test case number followed by a colon and
+ a space and then the maximum number of persons who can get to the party.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+1: 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Taxi problem can be found in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Taxi"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+import java.util.ArrayList;
+\end_layout
+
+\begin_layout Plain Layout
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+public class Taxi {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  final int BLOCK_SIZE = 200; // meters
+\end_layout
+
+\begin_layout Plain Layout
+  ArrayList<Vertex> taxis; // Graph X
+\end_layout
+
+\begin_layout Plain Layout
+  ArrayList<Vertex> people; // Grpah Y
+\end_layout
+
+\begin_layout Plain Layout
+  int numPeople;
+\end_layout
+
+\begin_layout Plain Layout
+  int numTaxis;
+\end_layout
+
+\begin_layout Plain Layout
+  int taxiSpeed;
+\end_layout
+
+\begin_layout Plain Layout
+  int timeToCollect;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+    new Taxi().run();
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Main runner.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+    Scanner sc = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    int numCases = sc.nextInt(); // Number of test cases
+\end_layout
+
+\begin_layout Plain Layout
+    for (int ncase = 1; ncase <= numCases; ncase++) {
+\end_layout
+
+\begin_layout Plain Layout
+      numPeople = sc.nextInt(); // number of persons
+\end_layout
+
+\begin_layout Plain Layout
+      numTaxis = sc.nextInt(); // number of taxis
+\end_layout
+
+\begin_layout Plain Layout
+      taxiSpeed = sc.nextInt(); // speed of taxis (m/s)
+\end_layout
+
+\begin_layout Plain Layout
+      timeToCollect = sc.nextInt(); // time limit to collect (seconds)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      taxis = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+      people = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // read in our people locations
+\end_layout
+
+\begin_layout Plain Layout
+      while (numPeople-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+        int x = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+        int y = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+        people.add(new Vertex(x, y));
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // read in our taxi locations
+\end_layout
+
+\begin_layout Plain Layout
+      while (numTaxis-- > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+        int x = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+        int y = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+        taxis.add(new Vertex(x, y));
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      // Create edges between people and taxis, if the taxi is able to service
+ the person.
+\end_layout
+
+\begin_layout Plain Layout
+      createEdges();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+      // Output the cardinality
+\end_layout
+
+\begin_layout Plain Layout
+      System.out.printf("%d: %d%n", ncase, MaximumBipartiteMatching(taxis,
+ people));
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Create edges between taxis and people, if the taxi is able to service
+ a
+\end_layout
+
+\begin_layout Plain Layout
+   * person.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  void createEdges() {
+\end_layout
+
+\begin_layout Plain Layout
+    for (Vertex taxi : taxis) {
+\end_layout
+
+\begin_layout Plain Layout
+      for (Vertex person : people) {
+\end_layout
+
+\begin_layout Plain Layout
+        // If the travel time from the taxi to person is below the required
+ tim
+\end_layout
+
+\begin_layout Plain Layout
+        // then the taxi can service the person.
+\end_layout
+
+\begin_layout Plain Layout
+        if (travelTime(taxi, person) <= timeToCollect) {
+\end_layout
+
+\begin_layout Plain Layout
+          // Taxi is able to service this person so add an edge between
+ them
+\end_layout
+
+\begin_layout Plain Layout
+          taxi.adjList.add(person);
+\end_layout
+
+\begin_layout Plain Layout
+          person.adjList.add(taxi);
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determine the time needed to move from source to destination.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param source The source location.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param destination The destination location.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return the time needed
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  int travelTime(Vertex source, Vertex destination) {
+\end_layout
+
+\begin_layout Plain Layout
+    return manhattanDist(source, destination) * BLOCK_SIZE / taxiSpeed;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Calculate the number of blocks to traverse in Manhattan Distance.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param source The source location.
+\end_layout
+
+\begin_layout Plain Layout
+   * @param destination The destination location.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return The number of blocks to traverse.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  int manhattanDist(Vertex source, Vertex destination) {
+\end_layout
+
+\begin_layout Plain Layout
+    return Math.abs(source.x - destination.x) + Math.abs(source.y - destination.y);
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Find the cardinality of Graph G, with set X and Y being left and right
+\end_layout
+
+\begin_layout Plain Layout
+   * sides.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param graphX Left hand side graph
+\end_layout
+
+\begin_layout Plain Layout
+   * @param graphY Right hand side graph
+\end_layout
+
+\begin_layout Plain Layout
+   * @return The cardinality of Graph G.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public int MaximumBipartiteMatching(ArrayList<Vertex> graphX, ArrayList<Vertex
+> graphY) {
+\end_layout
+
+\begin_layout Plain Layout
+    int cardinality = 0;
+\end_layout
+
+\begin_layout Plain Layout
+    for (Vertex vertexX : graphX) {
+\end_layout
+
+\begin_layout Plain Layout
+      for (Vertex vertexY : graphY) {
+\end_layout
+
+\begin_layout Plain Layout
+        vertexY.visited = false;  // Set all right side to not visited.
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+      if (FindAugmentingPath(vertexX)) {  // If a path exists...
+\end_layout
+
+\begin_layout Plain Layout
+        cardinality++;
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    return cardinality;
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Determine is an augmented path exist from vertex.
+\end_layout
+
+\begin_layout Plain Layout
+   *
+\end_layout
+
+\begin_layout Plain Layout
+   * @param vertex The source vertex.
+\end_layout
+
+\begin_layout Plain Layout
+   * @return True, If a path exists
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public boolean FindAugmentingPath(Vertex vertex) {
+\end_layout
+
+\begin_layout Plain Layout
+    // Process all vertices in the adjacency list.
+\end_layout
+
+\begin_layout Plain Layout
+    for (Vertex vertexD : vertex.adjList) {
+\end_layout
+
+\begin_layout Plain Layout
+      if (!vertexD.visited) { // Only query vertex if not already visited.
+\end_layout
+
+\begin_layout Plain Layout
+        vertexD.visited = true;
+\end_layout
+
+\begin_layout Plain Layout
+        if (vertexD.matched == null || FindAugmentingPath(vertexD.matched))
+ {
+\end_layout
+
+\begin_layout Plain Layout
+          // d and v are now matched and we have a new path.
+\end_layout
+
+\begin_layout Plain Layout
+          vertex.matched = vertexD;
+\end_layout
+
+\begin_layout Plain Layout
+          vertexD.matched = vertex;
+\end_layout
+
+\begin_layout Plain Layout
+          return true;
+\end_layout
+
+\begin_layout Plain Layout
+        }
+\end_layout
+
+\begin_layout Plain Layout
+      }
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+    return false; // no path...
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+   * Class definition of the Vertex Information, with vertices in 2D space.
+\end_layout
+
+\begin_layout Plain Layout
+   */
+\end_layout
+
+\begin_layout Plain Layout
+  public class Vertex {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    public int x;
+\end_layout
+
+\begin_layout Plain Layout
+    public int y;
+\end_layout
+
+\begin_layout Plain Layout
+    public String id;
+\end_layout
+
+\begin_layout Plain Layout
+    public boolean visited = false;
+\end_layout
+
+\begin_layout Plain Layout
+    public Vertex matched = null;
+\end_layout
+
+\begin_layout Plain Layout
+    public ArrayList<Vertex> adjList;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+     * Default constructor.
+\end_layout
+
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
+    public Vertex(int x, int y) {
+\end_layout
+
+\begin_layout Plain Layout
+      this.x = x;
+\end_layout
+
+\begin_layout Plain Layout
+      this.y = y;
+\end_layout
+
+\begin_layout Plain Layout
+      adjList = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+    /**
+\end_layout
+
+\begin_layout Plain Layout
+     * Default constructor.
+\end_layout
+
+\begin_layout Plain Layout
+     */
+\end_layout
+
+\begin_layout Plain Layout
+    public Vertex(String id) {
+\end_layout
+
+\begin_layout Plain Layout
+      this.id = id;
+\end_layout
+
+\begin_layout Plain Layout
+      adjList = new ArrayList<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+    }
+\end_layout
+
+\begin_layout Plain Layout
+  }
+\end_layout
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Taxi Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Taxi"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+ Some sample cases that must be considered are:
+\end_layout
+
+\begin_layout Itemize
+No taxi is able to pick up any person, due to either time or distance constraint
+s.
+ (This results in zero egdes between each side).
+\end_layout
+
+\begin_layout Itemize
+There are multiple people at a single intersection.
+\end_layout
+
+\begin_layout Itemize
+There is a large difference between the number of taxis and people.
+\end_layout
+
+\begin_layout Itemize
+A taxi and person are at the same location.
+\end_layout
+
+\begin_layout Standard
+However there is no requirement for explicit testing of these conditions
+ within the algorithm, as the algorithm and implementation naturally handles
+ these conditions.
+ 
 \end_layout
 
 \begin_layout Subsubsection
