@@ -42580,7 +42580,7 @@ end{algorithmic}
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Find Augmenting Path Algorithm
+Maximum Bipartite Matching Find Augmenting Path Algorithm
 \begin_inset CommandInset label
 LatexCommand label
 name "alg:Find-Augmenting-Path"
@@ -42858,6 +42858,7 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.ArrayList;
 \end_layout
 
@@ -42866,6 +42867,7 @@ import java.util.ArrayList;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class MaximumBipartiteMatching {
 \end_layout
 
@@ -42874,76 +42876,94 @@ public class MaximumBipartiteMatching {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Find the cardinality of Graph G, with set X and Y being left and right
  sides.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param graphX Left hand side graph
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param graphY Right hand side graph
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The cardinality of Graph G.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public int MaximumBipartiteMatching(ArrayList<Vertex> graphX, ArrayList<Vertex
 > graphY) {
 \end_layout
 
 \begin_layout Plain Layout
+
     int cardinality = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     for (Vertex vertexX : graphX) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (Vertex vertexY : graphY) {
 \end_layout
 
 \begin_layout Plain Layout
+
         vertexY.visited = false;  // Set all right side to not visited.
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       if (FindAugmentingPath(vertexX)) {  // If a path exists...
 \end_layout
 
 \begin_layout Plain Layout
+
         cardinality++;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return cardinality;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -42952,87 +42972,108 @@ public class MaximumBipartiteMatching {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determine is an augmented path exist from vertex.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param vertex The source vertex.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return True, If a path exists
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public boolean FindAugmentingPath(Vertex vertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Process all vertices in the adjacency list.
 \end_layout
 
 \begin_layout Plain Layout
+
     for (Vertex vertexD : vertex.adjList) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (!vertexD.visited) { // Only query vertex if not already visited.
 \end_layout
 
 \begin_layout Plain Layout
+
         vertexD.visited = true;
 \end_layout
 
 \begin_layout Plain Layout
+
         if (vertexD.matched == null || FindAugmentingPath(vertexD.matched))
  {
 \end_layout
 
 \begin_layout Plain Layout
+
           // d and v are now matched and we have a new path.
 \end_layout
 
 \begin_layout Plain Layout
+
           vertex.matched = vertexD;
 \end_layout
 
 \begin_layout Plain Layout
+
           vertexD.matched = vertex;
 \end_layout
 
 \begin_layout Plain Layout
+
           return true;
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return false; // no path...
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -43289,10 +43330,12 @@ inline false
 status open
 
 \begin_layout Plain Layout
+
 import java.util.ArrayList;
 \end_layout
 
 \begin_layout Plain Layout
+
 import java.util.Scanner;
 \end_layout
 
@@ -43301,6 +43344,7 @@ import java.util.Scanner;
 \end_layout
 
 \begin_layout Plain Layout
+
 public class Taxi {
 \end_layout
 
@@ -43309,30 +43353,37 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   final int BLOCK_SIZE = 200; // meters
 \end_layout
 
 \begin_layout Plain Layout
+
   ArrayList<Vertex> taxis; // Graph X
 \end_layout
 
 \begin_layout Plain Layout
+
   ArrayList<Vertex> people; // Grpah Y
 \end_layout
 
 \begin_layout Plain Layout
+
   int numPeople;
 \end_layout
 
 \begin_layout Plain Layout
+
   int numTaxis;
 \end_layout
 
 \begin_layout Plain Layout
+
   int taxiSpeed;
 \end_layout
 
 \begin_layout Plain Layout
+
   int timeToCollect;
 \end_layout
 
@@ -43341,26 +43392,32 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public static void main(String[] args) {
 \end_layout
 
 \begin_layout Plain Layout
+
     new Taxi().run();
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43369,22 +43426,27 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Main runner.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public void run() {
 \end_layout
 
 \begin_layout Plain Layout
+
     Scanner sc = new Scanner(System.in);
 \end_layout
 
@@ -43393,26 +43455,32 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
     int numCases = sc.nextInt(); // Number of test cases
 \end_layout
 
 \begin_layout Plain Layout
+
     for (int ncase = 1; ncase <= numCases; ncase++) {
 \end_layout
 
 \begin_layout Plain Layout
+
       numPeople = sc.nextInt(); // number of persons
 \end_layout
 
 \begin_layout Plain Layout
+
       numTaxis = sc.nextInt(); // number of taxis
 \end_layout
 
 \begin_layout Plain Layout
+
       taxiSpeed = sc.nextInt(); // speed of taxis (m/s)
 \end_layout
 
 \begin_layout Plain Layout
+
       timeToCollect = sc.nextInt(); // time limit to collect (seconds)
 \end_layout
 
@@ -43421,10 +43489,12 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
       taxis = new ArrayList<Vertex>();
 \end_layout
 
 \begin_layout Plain Layout
+
       people = new ArrayList<Vertex>();
 \end_layout
 
@@ -43433,26 +43503,32 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
       // read in our people locations
 \end_layout
 
 \begin_layout Plain Layout
+
       while (numPeople-- > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
         int x = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         int y = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         people.add(new Vertex(x, y));
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
@@ -43461,35 +43537,43 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
       // read in our taxi locations
 \end_layout
 
 \begin_layout Plain Layout
+
       while (numTaxis-- > 0) {
 \end_layout
 
 \begin_layout Plain Layout
+
         int x = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         int y = sc.nextInt();
 \end_layout
 
 \begin_layout Plain Layout
+
         taxis.add(new Vertex(x, y));
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       // Create edges between people and taxis, if the taxi is able to service
  the person.
 \end_layout
 
 \begin_layout Plain Layout
+
       createEdges();
 \end_layout
 
@@ -43498,19 +43582,23 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
       // Output the cardinality
 \end_layout
 
 \begin_layout Plain Layout
+
       System.out.printf("%d: %d%n", ncase, MaximumBipartiteMatching(taxis,
  people));
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43519,73 +43607,90 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Create edges between taxis and people, if the taxi is able to service
  a
 \end_layout
 
 \begin_layout Plain Layout
+
    * person.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   void createEdges() {
 \end_layout
 
 \begin_layout Plain Layout
+
     for (Vertex taxi : taxis) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (Vertex person : people) {
 \end_layout
 
 \begin_layout Plain Layout
+
         // If the travel time from the taxi to person is below the required
  tim
 \end_layout
 
 \begin_layout Plain Layout
+
         // then the taxi can service the person.
 \end_layout
 
 \begin_layout Plain Layout
+
         if (travelTime(taxi, person) <= timeToCollect) {
 \end_layout
 
 \begin_layout Plain Layout
+
           // Taxi is able to service this person so add an edge between
  them
 \end_layout
 
 \begin_layout Plain Layout
+
           taxi.adjList.add(person);
 \end_layout
 
 \begin_layout Plain Layout
+
           person.adjList.add(taxi);
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43594,42 +43699,52 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determine the time needed to move from source to destination.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param source The source location.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param destination The destination location.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return the time needed
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   int travelTime(Vertex source, Vertex destination) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return manhattanDist(source, destination) * BLOCK_SIZE / taxiSpeed;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43638,42 +43753,52 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Calculate the number of blocks to traverse in Manhattan Distance.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param source The source location.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param destination The destination location.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The number of blocks to traverse.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   int manhattanDist(Vertex source, Vertex destination) {
 \end_layout
 
 \begin_layout Plain Layout
+
     return Math.abs(source.x - destination.x) + Math.abs(source.y - destination.y);
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43682,83 +43807,103 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Find the cardinality of Graph G, with set X and Y being left and right
 \end_layout
 
 \begin_layout Plain Layout
+
    * sides.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param graphX Left hand side graph
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param graphY Right hand side graph
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return The cardinality of Graph G.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public int MaximumBipartiteMatching(ArrayList<Vertex> graphX, ArrayList<Vertex
 > graphY) {
 \end_layout
 
 \begin_layout Plain Layout
+
     int cardinality = 0;
 \end_layout
 
 \begin_layout Plain Layout
+
     for (Vertex vertexX : graphX) {
 \end_layout
 
 \begin_layout Plain Layout
+
       for (Vertex vertexY : graphY) {
 \end_layout
 
 \begin_layout Plain Layout
+
         vertexY.visited = false;  // Set all right side to not visited.
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
       if (FindAugmentingPath(vertexX)) {  // If a path exists...
 \end_layout
 
 \begin_layout Plain Layout
+
         cardinality++;
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return cardinality;
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43767,87 +43912,108 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Determine is an augmented path exist from vertex.
 \end_layout
 
 \begin_layout Plain Layout
+
    *
 \end_layout
 
 \begin_layout Plain Layout
+
    * @param vertex The source vertex.
 \end_layout
 
 \begin_layout Plain Layout
+
    * @return True, If a path exists
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public boolean FindAugmentingPath(Vertex vertex) {
 \end_layout
 
 \begin_layout Plain Layout
+
     // Process all vertices in the adjacency list.
 \end_layout
 
 \begin_layout Plain Layout
+
     for (Vertex vertexD : vertex.adjList) {
 \end_layout
 
 \begin_layout Plain Layout
+
       if (!vertexD.visited) { // Only query vertex if not already visited.
 \end_layout
 
 \begin_layout Plain Layout
+
         vertexD.visited = true;
 \end_layout
 
 \begin_layout Plain Layout
+
         if (vertexD.matched == null || FindAugmentingPath(vertexD.matched))
  {
 \end_layout
 
 \begin_layout Plain Layout
+
           // d and v are now matched and we have a new path.
 \end_layout
 
 \begin_layout Plain Layout
+
           vertex.matched = vertexD;
 \end_layout
 
 \begin_layout Plain Layout
+
           vertexD.matched = vertex;
 \end_layout
 
 \begin_layout Plain Layout
+
           return true;
 \end_layout
 
 \begin_layout Plain Layout
+
         }
 \end_layout
 
 \begin_layout Plain Layout
+
       }
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
     return false; // no path...
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
@@ -43856,18 +44022,22 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
   /**
 \end_layout
 
 \begin_layout Plain Layout
+
    * Class definition of the Vertex Information, with vertices in 2D space.
 \end_layout
 
 \begin_layout Plain Layout
+
    */
 \end_layout
 
 \begin_layout Plain Layout
+
   public class Vertex {
 \end_layout
 
@@ -43876,26 +44046,32 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
     public int x;
 \end_layout
 
 \begin_layout Plain Layout
+
     public int y;
 \end_layout
 
 \begin_layout Plain Layout
+
     public String id;
 \end_layout
 
 \begin_layout Plain Layout
+
     public boolean visited = false;
 \end_layout
 
 \begin_layout Plain Layout
+
     public Vertex matched = null;
 \end_layout
 
 \begin_layout Plain Layout
+
     public ArrayList<Vertex> adjList;
 \end_layout
 
@@ -43904,34 +44080,42 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Default constructor.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     public Vertex(int x, int y) {
 \end_layout
 
 \begin_layout Plain Layout
+
       this.x = x;
 \end_layout
 
 \begin_layout Plain Layout
+
       this.y = y;
 \end_layout
 
 \begin_layout Plain Layout
+
       adjList = new ArrayList<Vertex>();
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
@@ -43940,38 +44124,47 @@ public class Taxi {
 \end_layout
 
 \begin_layout Plain Layout
+
     /**
 \end_layout
 
 \begin_layout Plain Layout
+
      * Default constructor.
 \end_layout
 
 \begin_layout Plain Layout
+
      */
 \end_layout
 
 \begin_layout Plain Layout
+
     public Vertex(String id) {
 \end_layout
 
 \begin_layout Plain Layout
+
       this.id = id;
 \end_layout
 
 \begin_layout Plain Layout
+
       adjList = new ArrayList<Vertex>();
 \end_layout
 
 \begin_layout Plain Layout
+
     }
 \end_layout
 
 \begin_layout Plain Layout
+
   }
 \end_layout
 
 \begin_layout Plain Layout
+
 }
 \end_layout
 
@@ -43984,7 +44177,6 @@ public class Taxi {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Taxi Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -44038,22 +44230,1001 @@ However there is no requirement for explicit testing of these conditions
 
 \begin_layout Subsubsection
 Network Flow (minimum cost, maximum flow)
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Network-Flow-(minimum"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+An important problem involving weighted graphs is the 
+\series bold
+maximum flow
+\series default
+ problem.
+ In this problem we are given a weighted graph 
+\begin_inset Formula $G$
+\end_inset
+
+, with each edge representing a 
+\begin_inset Quotes eld
+\end_inset
+
+pipe
+\begin_inset Quotes erd
+\end_inset
+
+ that can transport some commodity, with the weight of the dge representing
+ the maximum amount it can transport.
+ The maximum-flow problem problem is to find a way of transporting the maximum
+ amount of the given commodity from some 
+\series bold
+source
+\series default
+ to the destination (called the 
+\series bold
+sink
+\series default
+).
+ (The source has an in degree of 0, and the sink has an out degree of 0).
+\end_layout
+
+\begin_layout Standard
+A classic example is a computer network, in which links between different
+ hosts/nodes can vary in line speed.
+ In order to determine the maximum bandwidth between two hosts on opposite
+ sides of the network we can use an algorithm to determine this.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Maximum-Flow-Basic"
+
+\end_inset
+
+ demonstrates such a network, with the source being Vertex D, and the Sink
+ being Vertex G.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Basic Flow Graph.eps
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Maximum Flow Basic Graph
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Maximum-Flow-Basic"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Maximum-Flow-Basic"
+
+\end_inset
+
+, whilst Vertex D has a pipes outward worth 38, and Vetrex G has pipes feeding
+ in worth 20, the maximum flow is only 15! 
+\end_layout
+
+\begin_layout Standard
+It turns out that flows are closely related to another concept, known as
+ cuts.
+ Intuitively, a cut is a division of the vertices of a flow network (such
+ as one in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Maximum-Flow-Basic"
+
+\end_inset
+
+) into two sets, with source on one side and the sink on the other.
+ Formally, a 
+\series bold
+cut
+\series default
+ of 
+\begin_inset Formula $N$
+\end_inset
+
+ is a partition 
+\begin_inset Formula $\chi=(V_{s},V_{t})$
+\end_inset
+
+ of vertices of 
+\begin_inset Formula $N$
+\end_inset
+
+ such that 
+\begin_inset Formula $s\in V_{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $s\in V_{t}$
+\end_inset
+
+.
+ If we can determine a minimum cut for a network, that a cut is found that
+ the cost of the edges through the cut is minimum, then we can determine
+ the maximum flow.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Maximum-Flow-with"
+
+\end_inset
+
+ shows the minimum cut, that also defines the maximum flow of the network.
+ (The sum of all pipe capacities along the cut will give the minimum cut,
+ which is equal to the maximum flow, which in this case is 15).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/Basic Flow Graph with cut.eps
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Maximum Flow with Cut
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Maximum-Flow-with"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to prove that a certain flow 
+\begin_inset Formula $f$
+\end_inset
+
+ is maximum (other than visually as done by looking at Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Maximum-Flow-with"
+
+\end_inset
+
+), we need some way of showing that there is absolutely no more flow that
+ can be possibly be squeezed into 
+\begin_inset Formula $f$
+\end_inset
+
+.
+ This can be done by using two concepts of residual capacity and augmented
+ paths.
+\end_layout
+
+\begin_layout Standard
+Residual capacity is basically any left over capacity not being current
+ utilised along an edge.
+ An augmented path for flow 
+\begin_inset Formula $f$
+\end_inset
+
+ is a path from the source to the sink with non-zero residual capacity,
+ and when no augmented paths exist, we can determine the maximum flow.
+ (This is a very similar concept to that used to solve the Maximum Bipartite
+ Matching problem
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+We can also use one of the algorithms to solve the Maximum Flow problem
+ to also solve the Maximum Bipartite Matching problem.
+ To utilise this method we introduced a new source vertex to the left side
+ graph (which is connected to all vertices on the left hand side, and a
+ sink vertex to the right side graph (which is connected to all vertices
+ on the right hand side), and then treat the maximum bipartite matching
+ problem as a maximum flow problem.
+\end_layout
+
+\end_inset
+
+).
+ It should also be noted that many graphs may actually have different maximum
+ flows 
+\begin_inset Formula $f$
+\end_inset
+
+ of the same maximum capacity, but each involve a different set of edges
+ to reach the maximum flow capacity.
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+Ford Fulkerson
+\series default
+ algorithm is used to solve the maximum flow problem.
+ The algorithm relies on finding augmenting paths in the underlying residual
+ network.
+ The residual network can be thought of as having forward edges, the original
+ edges in the network, and backward edges once a flow is placed on a particular
+ edge.
+ Augmenting paths from the source to the sink can be found by finding a
+ path in the residual network by using the forward and backward edges.
+ Once a path has been found, the edge with the minimum capacity defines
+ the amount that the flow can be augmented.
+ Forward edges in the underlying residual network then have their capacity
+ reduced and backward edges have their capacity increased.
+\end_layout
+
+\begin_layout Standard
+The augmenting path for determining the maximum flow can be found using
+ any graph traversal algorithm – depth first search, breadth first search
+ or priority first search, where priority is given to the maximum capacity
+ of the adjacent egdes.
+ Breadth first search is quite often used as it is simple to implement and
+ produces the shortest path based on the number of edges in the path.
+\end_layout
+
+\begin_layout Standard
+While it is very useful to solve the Maximum Flow problem, many real life
+ examples also associate a cost to utilising some resource (or edge as modelled
+ in a graph).
+ This may be the cost of using a WAN service, the cost of a toll road, the
+ cost of shipping via a certain company or the cost of using one employee
+ over another to perform a task 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+When using an algorithm for Minimum Cost, Maximum Flow to solve a Maximum
+ Bipartite Matching problem
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The Minimum Cost Maximum Flow algorithm is designed to determine the minimum
+ cost needed for a given set of maximum flows 
+\begin_inset Formula $f$
+\end_inset
+
+ for graph 
+\begin_inset Formula $N$
+\end_inset
+
+.
+ That is, what is the minimum cost needed to achieve the maximum flow through
+ a network.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement !h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A graph $G$, source vertex $s$, sink vertex $t$.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The minimum cost.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{MinCostFlowEdmondsKarp}{$G, s, t$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$costs 
+\backslash
+gets 
+\backslash
+infty$} 
+\backslash
+Comment {Set all $costs$ to infinity}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Set all diagonal $costs 
+\backslash
+gets 0$} 
+\backslash
+Comment {set all $costs$[i][i] = 0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Repeat 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$pathCapacity 
+\backslash
+gets $
+\backslash
+textsc{findAugmentingPath}($G, s,t$)}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Until {$pathCapacity > 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} 
+\backslash
+textsc{calculateMinimumCost}($flow, costs$) }
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Minimum Cost Maximum Flow Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Min-Cost-Flow-Algorithm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement !h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A graph $G$, source vertex $s$, sink vertex $t$.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The minimum cost.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{FindAugmentingPath}{$G, s, t$}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} 0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Minimum Cost Maximum Flow Find Augmenting Path Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Min-Cost-Flow-Algorithm-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement !h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Require A $flow$ matrix and a $cost$ matrix.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Ensure The minimum cost.
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Procedure{calculateMinimumCost}{$flow, cost$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$c 
+\backslash
+gets 0$}	
+\backslash
+Comment {Set total cost to 0}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ForAll {positive values in $flow$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$c 
+\backslash
+gets c + flow[i][j] 
+\backslash
+times cost[i][j]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $c$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndProcedure
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Minimum Cost Maximum Flow Calculate Minimum Cost Algorithm
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Min-Cost-Flow-Algorithm-1-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Description of Working
 \end_layout
 
-\begin_layout Standard
+\begin_layout Paragraph
 Implementation
 \end_layout
 
 \begin_layout Standard
-Sample Problem -
+An implementation of the Minimum Cost Maximum Flow Algorithm can be found
+ in Listing
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Minimum Cost Maximum Flow
 \end_layout
 
 \begin_layout Standard
+Given a network which has a single source vertex with no in edges and a
+ single destination (sink) vertex with no out edges, compute the minimum
+ cost for the maximum flow of the network.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+The first line contains the number of test cases 
+\begin_inset Formula $T(T\leq250)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The first line of each test case contains 4 integers – 
+\begin_inset Formula $N$
+\end_inset
+
+, 
+\begin_inset Formula $E$
+\end_inset
+
+, 
+\begin_inset Formula $S$
+\end_inset
+
+ and 
+\begin_inset Formula $D$
+\end_inset
+
+.
+ N is the number of vertices in the network, 
+\begin_inset Formula $2\leq N\leq1000$
+\end_inset
+
+.
+ 
+\begin_inset Formula $E$
+\end_inset
+
+ is the number of directed edges in the network, 
+\begin_inset Formula $1\leq E\leq10,000$
+\end_inset
+
+.
+ S is the source vertex of the network, 
+\begin_inset Formula $0\leq S<N$
+\end_inset
+
+.
+ 
+\begin_inset Formula $D$
+\end_inset
+
+ is the sink vertex of the network , 
+\begin_inset Formula $0\leq D<N$
+\end_inset
+
+.
+ There is a further constraint that 
+\begin_inset Formula $S\neq D$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The next 
+\begin_inset Formula $E$
+\end_inset
+
+ lines contain four integers – 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+, 
+\begin_inset Formula $Cap$
+\end_inset
+
+, 
+\begin_inset Formula $Cost$
+\end_inset
+
+ – where 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ is the source vertex of the directed edge, 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ is the destination vertex of the directed edge, 
+\begin_inset Formula $Cap$
+\end_inset
+
+ is the capacity of the directed edge and 
+\begin_inset Formula $Cost$
+\end_inset
+
+ is the cost for the edge.
+ 
+\begin_inset Formula $1\leq Cap\leq10,000$
+\end_inset
+
+.
+ 
+\begin_inset Formula $1\leq Cost\leq1,000$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2 
+\begin_inset Newline newline
+\end_inset
+
+4 4 0 3 
+\begin_inset Newline newline
+\end_inset
+
+0 1 10 5 
+\begin_inset Newline newline
+\end_inset
+
+1 3 10 5 
+\begin_inset Newline newline
+\end_inset
+
+0 2 10 2 
+\begin_inset Newline newline
+\end_inset
+
+2 3 10 2 
+\begin_inset Newline newline
+\end_inset
+
+7 8 0 6 
+\begin_inset Newline newline
+\end_inset
+
+0 1 3 10 
+\begin_inset Newline newline
+\end_inset
+
+0 2 1 12 
+\begin_inset Newline newline
+\end_inset
+
+1 3 3 5 
+\begin_inset Newline newline
+\end_inset
+
+2 3 5 1 
+\begin_inset Newline newline
+\end_inset
+
+2 4 4 4 
+\begin_inset Newline newline
+\end_inset
+
+3 6 2 10 
+\begin_inset Newline newline
+\end_inset
+
+4 5 2 6 
+\begin_inset Newline newline
+\end_inset
+
+5 6 3 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+For each test case, output the message “
+\family typewriter
+Test x: Minimum Cost = y
+\family default
+”, where x is the test case number and y is the minimum cost of the maximum
+ flow for the given network.
+ Test case numbers start at 1.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+Test 1: Minimum Cost = 140 
+\begin_inset Newline newline
+\end_inset
+
+Test 2: Minimum Cost = 74
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
 Sample Solution
+\end_layout
+
+\begin_layout Standard
+A sample solution to the Minimum Cost Maximum Flow problem can be found
+ in Listing
 \end_layout
 
 \begin_layout Subsection
@@ -53551,6 +54722,28 @@ target "http://www.policyalmanac.org/games/aStarTutorial.htm"
 \end_inset
 
 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Network-Flow-(minimum"
+
+\end_inset
+
+ - Minimum Cost, Maximum Flow, introduction text, algorithm and description
+ of working derived from:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Corney, M.
+ (2011), Maximum Flow and Minimum Cost Maximum Flow document.
+ Emailed from M.
+ Corney on October 9, 2012 and part of INB204 Special Topic Advanced Algorithms,
+ Semester 2, 2011, Notes.
 \end_layout
 
 \end_deeper
