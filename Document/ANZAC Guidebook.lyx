@@ -44563,7 +44563,7 @@ The Minimum Cost Maximum Flow algorithm is designed to determine the minimum
 
 \begin_layout Standard
 \begin_inset Float algorithm
-placement !h
+placement H
 wide false
 sideways false
 status open
@@ -44712,7 +44712,7 @@ name "alg:Min-Cost-Flow-Algorithm"
 
 \begin_layout Standard
 \begin_inset Float algorithm
-placement !h
+placement H
 wide false
 sideways false
 status open
@@ -44746,18 +44746,351 @@ Ensure The minimum cost.
 
 
 \backslash
-State
+Procedure{FindAugmentingPath}{$G, s, t$}
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-Procedure{FindAugmentingPath}{$G, s, t$}
+State {$Q 
+\backslash
+gets 
+\backslash
+emptyset$} 
+\backslash
+Comment {Initialise empty priority queue}
 \end_layout
 
 \begin_layout Plain Layout
 
+
+\backslash
+State {$parent 
+\backslash
+gets $ SENTINEL} 
+\backslash
+Comment {Initialise parent array to SENTINEL}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$i 
+\backslash
+gets 1$ to $n$} 
+\backslash
+Comment {$n$ is the number of vertices in $G$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$G_{v}[i].$
+\backslash
+textsf{lowestCost}$
+\backslash
+gets 
+\backslash
+infty$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$G_{v}[i] = s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$G_{v}[i].
+ 
+\backslash
+textsf{lowestCost} 
+\backslash
+gets 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+ElsIf {$capacity[s][i] - flow[s][i] > 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$G_{v}[i].
+ 
+\backslash
+textsf{lowestCost} 
+\backslash
+gets cost[s][i]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$parent[i] 
+\backslash
+gets s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$Q 
+\backslash
+gets G_{v}[i]$} 
+\backslash
+Comment {Add the current vertex to the priority queue}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+While {$Q 
+\backslash
+neq 
+\backslash
+emptyset$ 
+\backslash
+textbf{and} $s$ not reached}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$current 
+\backslash
+gets Q$} 
+\backslash
+Comment {let $current$ be top of queue}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+For {$i 
+\backslash
+gets 1$ to $n$} 
+\backslash
+Comment {$n$ is the number of vertices in $G$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {capacity from $current$ to $G_{v}[i]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$potential 
+\backslash
+gets current.
+ 
+\backslash
+textsf{lowestCost}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {flow from $current$ to $G_{v}[i] < 0$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$potential 
+\backslash
+gets potential - cost[current][i]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Else
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$potential 
+\backslash
+gets potential + cost[current][i]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$potential < G_{v}[i].
+ 
+\backslash
+textsf{lowestCost}$} 
+\backslash
+Comment {Check for a lower cost path}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {Remove $current$ from $Q$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$G_{v}[i].
+ 
+\backslash
+textsf{lowestCost} 
+\backslash
+gets potential$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$current 
+\backslash
+gets parent[i]$} 
+\backslash
+Comment {Set $current$ to be the parent of $G_{v}[i]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$Q 
+\backslash
+gets G_{v}[i]$} 
+\backslash
+Comment {Add the current vertex to the priority queue}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndFor
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$current = s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {set flag that $s$ has been reached}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndWhile
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$f 
+\backslash
+gets 
+\backslash
+infty$}	
+\backslash
+Comment {Set $f$ to be the augmented flow}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$current 
+\backslash
+gets s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$parent[s] =$ SENTINEL}
 \end_layout
 
 \begin_layout Plain Layout
@@ -44766,7 +45099,144 @@ Procedure{FindAugmentingPath}{$G, s, t$}
 \backslash
 State {
 \backslash
-textbf{return} 0}
+textbf{return} 0} 
+\backslash
+Comment {no path was found}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Repeat 
+\backslash
+Comment {Determine the augmented flow}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$R_{cap} 
+\backslash
+gets capacity[parent[current]][current] - flow[parent[current]][current]$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+If {$R_{cap} < f$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$f 
+\backslash
+gets R_{cap}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$current 
+\backslash
+gets parent[current]$} 
+\backslash
+Comment {Walk backwards through the path}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+EndIf
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Until {$current 
+\backslash
+neq s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$current 
+\backslash
+gets s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Repeat 
+\backslash
+Comment {Update residual flows in graph}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$flow[parent[current]][current] 
+\backslash
+gets flow[parent[current]][current] + f$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$flow[current][parent[current]] 
+\backslash
+gets flow[current][parent[current]] - f$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {$current 
+\backslash
+gets parent[current]$} 
+\backslash
+Comment {Walk backwards through the path}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+Until {$current 
+\backslash
+neq s$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+State {
+\backslash
+textbf{return} $f$} 
+\backslash
+Comment {Return the augmenting flow value}
 \end_layout
 
 \begin_layout Plain Layout
@@ -44948,6 +45418,10 @@ name "alg:Min-Cost-Flow-Algorithm-1-1"
 
 \begin_layout Paragraph
 Description of Working
+\end_layout
+
+\begin_layout Standard
+
 \end_layout
 
 \begin_layout Paragraph
