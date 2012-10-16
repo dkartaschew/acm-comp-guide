@@ -148,13 +148,9 @@ Guide for Advanced Algorithms for Australia and New Zealand Algorithmics
 This work is licensed under the Creative Commons Attribution-ShareAlike
  3.0 Australia License.
  To view a copy of this license, visit 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-http://creativecommons.org/licenses/by-sa/3.0/au/
-\end_layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://creativecommons.org/licenses/by-sa/3.0/au/"
 
 \end_inset
 
@@ -332,7 +328,7 @@ The programming contests held in Universities across Australia and New Zealand,
 In recent years teams from not only Universities taken part, but teams from
  TAFE and other educational institutions have taken part in the competition.
  Additionally teams outside of Australia and New Zealand such as those from
- the Phillipines have also taken part.
+ the Philippines have also taken part.
 \end_layout
 
 \begin_layout Subsubsection
@@ -358,7 +354,7 @@ n.
 In order to compete within the competition it is recommended that 3 students
  form a team to work together on solving the challenges.
  Each team is only given 1 computer to work on, and all reference material
- brought into the competion must be in printed form only
+ brought into the competition must be in printed form only
 \begin_inset Foot
 status collapsed
 
@@ -375,7 +371,7 @@ The printed material requirement is to ensure that no copying of existing
 
 \begin_layout Standard
 Scores are awarded for completed challenges (typically 1 point), and the
- time elasped from the start of the competition to accepted submission of
+ time elapsed from the start of the competition to accepted submission of
  the challenge is also noted.
  If a submitted challenge fails, then a 20 minute time penalty to added
  to the teams total time value.
@@ -385,7 +381,7 @@ Scores are awarded for completed challenges (typically 1 point), and the
 As a minimum each contest will allow either C/C++ and Java, however additional
  programming languages may also be included.
  Typically C# has been allowed in recent years, due to the popularity of
- the language, especially as it is taught farily early in a students undergradua
+ the language, especially as it is taught fairly early in a students undergradua
 te degree.
 \end_layout
 
@@ -405,7 +401,7 @@ The ACM-ICPC competition is an International level competition sponsored
  by IBM, ACM and Upsilon Pi Epsilon, and contestants who make the world
  finals are often sort after by industry for later employment, as well as
  bringing notoriety and prestige to the University or College to which the
- constestants originate from.
+ contestants originate from.
  The regional component of the competition is typically held as the last
  ANZAC competition, as both competitions share the same tools, resources
  and rules.
@@ -417,7 +413,7 @@ The top two teams from each region (and in the case of Australia and New
  the International competition held annually in late March/early April in
  an overseas location.
  The 2012 ACM-ICPC Finals consisting of teams from all over the world was
- held in Warsow, Poland.
+ held in Warsaw, Poland.
 \end_layout
 
 \begin_layout Subsection
@@ -459,7 +455,7 @@ A short statement on the algorithm and the intended uses, as well as other
 \end_layout
 
 \begin_layout Enumerate
-The pseudocode for the algorithm.
+The Pseudocode for the algorithm.
 \end_layout
 
 \begin_layout Enumerate
@@ -479,7 +475,7 @@ An example solution to the challenge.
 Throughout the guide there will be notes on performance aspects of each
  algorithm, as well as helpful utility functions to make better use of the
  algorithm implementations.
- One example will be a function to convert an Adjancy List into an Adjancy
+ One example will be a function to convert an Adjacency List into an Adjacency
  Matrix used for different graph based algorithms.
 \end_layout
 
@@ -568,11 +564,11 @@ Microsoft Windows XP x64, with:
 \end_layout
 
 \begin_layout Itemize
-Mircosoft Visual Studio 2010 (C# and C++)
+Microsoft Visual Studio 2010 (C# and C++)
 \end_layout
 
 \begin_layout Itemize
-.NET Frameowrk 2.0
+.NET Framework 2.0
 \end_layout
 
 \begin_layout Subsection
@@ -594,13 +590,9 @@ License
 This work is licensed under the Creative Commons Attribution-ShareAlike
  3.0 Australia License.
  To view a copy of this license, visit 
-\begin_inset Flex URL
-status open
-
-\begin_layout Plain Layout
-
-http://creativecommons.org/licenses/by-sa/3.0/au/
-\end_layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://creativecommons.org/licenses/by-sa/3.0/au/"
 
 \end_inset
 
@@ -641,7 +633,7 @@ Attribution
 Share Alike
 \series default
  — If you alter, transform, or build upon this work, you may distribute
- the resulting work only under a licence identical to this one.
+ the resulting work only under a license identical to this one.
  
 \end_layout
 
@@ -699,7 +691,7 @@ Rights other persons may have either in the work itself or in how the work
 \series bold
 Notice
 \series default
- — For any reuse or distribution, you must make clear to others the licence
+ — For any reuse or distribution, you must make clear to others the license
  terms of this work.
  
 \end_layout
@@ -924,12 +916,12 @@ To submit a run for judging, perform the following steps:
 \end_layout
 
 \begin_layout Enumerate
-From the Problem dropdown list select the challenge that you are attempting.
+From the Problem drop down list select the challenge that you are attempting.
 \end_layout
 
 \begin_layout Enumerate
-From the Language dropdown list select the programming language in the submissio
-n is written in.
+From the Language drop down list select the programming language in the
+ submission is written in.
 \end_layout
 
 \begin_layout Enumerate
@@ -1052,12 +1044,12 @@ Ensure that your source code file and the sample data files are in the same
 \end_layout
 
 \begin_layout Enumerate
-From the Problem dropdown list select the challenge that you are attempting.
+From the Problem drop down list select the challenge that you are attempting.
 \end_layout
 
 \begin_layout Enumerate
-From the Language dropdown list select the programming language in the submissio
-n is written in.
+From the Language drop down list select the programming language in the
+ submission is written in.
 \end_layout
 
 \begin_layout Enumerate
@@ -1086,9 +1078,9 @@ Test
 
 \begin_layout Enumerate
 Select the appropriate sample input file in the open dialog box.
- (Typically the sample input fille will be 
+ (Typically the sample input file will be 
 \family typewriter
-<challengename>_sample_in.txt
+<challenge name>_sample_in.txt
 \family default
  ).
 \end_layout
@@ -1513,7 +1505,7 @@ Visual Studio
 \begin_layout Standard
 Visual Studio is capable of working with a number of programming languages,
  including C# and C++.
- This guide will cover working with both langauges, noting the differences
+ This guide will cover working with both languages, noting the differences
  between the two.
 \end_layout
 
@@ -1618,7 +1610,7 @@ Console Application - Visual C#
 \family typewriter
 .NET Framework 2.0
 \family default
- is selected in the .NET Framework dropdown.
+ is selected in the .NET Framework drop down.
 \end_layout
 
 \begin_layout Enumerate
@@ -1866,7 +1858,7 @@ Win32 Console Application - Visual C++
 \family typewriter
 .NET Framework 2.0
 \family default
- is selected in the .NET Framework dropdown.
+ is selected in the .NET Framework drop down.
 \end_layout
 
 \begin_layout Enumerate
@@ -1904,7 +1896,7 @@ The Win32 Application Wizard will run.
 \end_layout
 
 \begin_layout Enumerate
-On the Applications Settings dialog, enusre that 
+On the Applications Settings dialog, ensure that 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2229,7 +2221,7 @@ The primary requirement of any submission, is that all source code required
 
 \begin_layout Standard
 To test your submission, the judges machine will compile your source code
- to an exectuable or class file in the case of Java, then execute it.
+ to an executable or class file in the case of Java, then execute it.
  All input for the application is feed in via 
 \family typewriter
 stdin
@@ -2415,7 +2407,7 @@ You want to understand the problem completely before typing.
 
 \begin_layout Standard
 Don't think comments are a waste of time.
- At least in "clever" code, you don't want to go debugging line-by-line
+ At least in "clever" code, you don't want to go debugging line by line
  to see what went wrong (that is a real waste of time).
  Value clarity.
  
@@ -2437,7 +2429,7 @@ Performance
 \end_layout
 
 \begin_layout Subsection
-BigO Notation
+Big O Notation
 \end_layout
 
 \begin_layout Standard
@@ -2521,7 +2513,7 @@ O(n
 
 \end_inset
 
-) This algoritm will have a worst case runtime in the order of n
+) This algorithm will have a worst case runtime in the order of n
 \begin_inset script superscript
 
 \begin_layout Plain Layout
@@ -2580,8 +2572,7 @@ n
 \begin_layout Standard
 As an example, suppose the each operation can be done in 1 microsecond,
  and we have 256 elements to be processed.
- The respective worst case runtimes for each function is shown in Table
- 
+ The respective worst case runtime for each function is shown in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Big-O-runtimes"
@@ -2814,7 +2805,7 @@ centuries
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Big O runtimes
+Big O runtime
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Big-O-runtimes"
@@ -2860,8 +2851,7 @@ n
  is relatively small.
  To illustrate, suppose the each operation can be done in 4 microseconds,
  but we only have 16 elements to be processed.
- The respective worst case runtimes for each function is shown in Table
- 
+ The respective worst case runtime for each function is shown in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Big-O-runtimes-1"
@@ -3085,7 +3075,7 @@ n
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Big O runtimes
+Big O runtime
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:Big-O-runtimes-1"
@@ -3136,10 +3126,10 @@ O(n)
 \end_layout
 
 \begin_layout Standard
-The information within this section is a very brief introduction to BigO
- notation, has been included to help you choose between two different algorithms
- to complete a task based on the Order function given in the algorithm descripti
-on.
+The information within this section is a very brief introduction to Big
+ O notation, has been included to help you choose between two different
+ algorithms to complete a task based on the Order function given in the
+ algorithm description.
  Much research has been completed on algorithm analysis, with many text
  books and reference books being authored on this one subject of Computer
  Science.
@@ -3153,9 +3143,9 @@ Measuring Performance
 \begin_layout Standard
 While information described with algorithms can be useful to gain an understandi
 ng of the algorithm complexity, it can be helpful to be able to measure
- the actual exectution time needed to complete sections of code.
- All modern languages or software libraries contatins functions to determine
- exectution times
+ the actual execution time needed to complete sections of code.
+ All modern languages or software libraries contains functions to determine
+ execution times
 \begin_inset Foot
 status collapsed
 
@@ -3783,7 +3773,7 @@ Some items that are typically seen (and encouraged) are:
 \end_layout
 
 \begin_layout Enumerate
-Liberal use of global variables utlised by direct access.
+Liberal use of global variables utilised by direct access.
 \end_layout
 
 \begin_layout Enumerate
@@ -3791,8 +3781,8 @@ Liberal use of function pointers and jump tables in C++.
 \end_layout
 
 \begin_layout Enumerate
-Dispite strong OOP principles with each programming language, these are
- often ignored for more simple data structures and items like inheritence
+Despite strong OOP principles with each programming language, these are
+ often ignored for more simple data structures and items like inheritance
  and encapsulation are ignored.
 \end_layout
 
@@ -3837,7 +3827,7 @@ goto
 
 \begin_layout Enumerate
 Ignoring typical design patterns, unless they provide direct and significant
- benefit in utlising an algorithm to complete a challenge.
+ benefit in utilising an algorithm to complete a challenge.
 \end_layout
 
 \begin_layout Enumerate
@@ -3848,7 +3838,7 @@ Error checking is kept to a minimum, mainly designed around corner cases
 \begin_layout Enumerate
 Utilisation of the most efficient algorithm, even in cases where memory
  requirements may be pushed to the extreme.
- eg, building complete hashtables in memory for 
+ eg, building complete hash tables in memory for 
 \series bold
 O(1)
 \series default
@@ -3885,7 +3875,7 @@ All source code submissions are to consist of a single source code file,
  This section aims to provide simple templates that can be utilised to create
  your submissions.
  It will also cover some of the basic console functions available with each
- langauge.
+ language.
 \end_layout
 
 \begin_layout Subsection
@@ -3970,7 +3960,7 @@ reference "lis:CS-Input-Template"
 \end_inset
 
  shows how to read a group of 3 integers (per line) from the console, until
- a three 0's (zeroes) are entered.
+ a three 0's (zeros) are entered.
  The numbers for each line is added, and the sum is written back to the
  console.
 \end_layout
@@ -4412,7 +4402,7 @@ status collapsed
 
 \begin_layout Plain Layout
 Mixing the two methods is possible, on provision that all input and output
- streams are emtpy when switching between either method.
+ streams are empty when switching between either method.
  This is due to the buffering that each method utilises during Console IO
  operations.
 \end_layout
@@ -5030,7 +5020,7 @@ reference "lis:C++,-cout-vs"
 
 \end_inset
 
-, yeilds the following results:
+, yields the following results:
 \end_layout
 
 \begin_layout Enumerate
@@ -5043,7 +5033,7 @@ printf() time = 280 msec
 
 \begin_layout Standard
 It should be heavily stressed, that the above times are indicative of worst
- cases only, and in practice and real-word the difference is less pronounced.
+ cases only, and in practice and real world the difference is less pronounced.
  For example, enabling all compiler optimisations that enable SSE4 and auto-para
 llelisation support reduces the difference to:
 \end_layout
@@ -5057,7 +5047,7 @@ printf() time = 280 msec
 \end_layout
 
 \begin_layout Standard
-Indicating a time penality of just over 2 times.
+Indicating a time penalty of just over 2 times.
  While this penalty isn't as poor as earlier indicated, within the competition
  it may mean the difference between getting a 
 \begin_inset Quotes eld
@@ -5071,7 +5061,7 @@ Yes
 \begin_inset Quotes eld
 \end_inset
 
-Time Overrrun
+Time Overrun
 \begin_inset Quotes erd
 \end_inset
 
@@ -5313,7 +5303,7 @@ and
 \family typewriter
 System.out
 \family default
- classes used in conjuction with the 
+ classes used in conjunction with the 
 \family typewriter
 Java.util.Scanner
 \family default
@@ -5331,7 +5321,7 @@ Java historically has had a large number of different methods for handling
 \end_layout
 
 \begin_layout Standard
-The current prefered method for console input in Java is to use the 
+The current preferred method for console input in Java is to use the 
 \family typewriter
 Java.util.Scanner
 \family default
@@ -5515,7 +5505,7 @@ Output is easiest handled via the
 \family typewriter
 System.out.printf()
 \family default
- method, as it offers a good match between flexiblity and performance.
+ method, as it offers a good match between flexibility and performance.
  The format for the method call is the same as the C++ 
 \family typewriter
 printf()
@@ -5628,7 +5618,7 @@ These are recommendations, not hard rules.
 
 \end_inset
 
- that may assist in development of yout solutions.
+ that may assist in development of your solutions.
 \end_layout
 
 \begin_layout Standard
@@ -6001,7 +5991,7 @@ Description of working
 \begin_layout Standard
 The linear search algorithm takes a vector (aka array) of elements, and
  simply searches all elements in order as stored.
- This can yeild slow performance with large vectors, as the worst case for
+ This can yield slow performance with large vectors, as the worst case for
  linear search is 
 \series bold
 O(
@@ -6597,7 +6587,7 @@ The binary search algorithm is a more efficient method of searching a vector,
 O(1)
 \series default
  time.
- Becuase of these two conditions, it can't with some storage data structures
+ Because of these two conditions, it can't with some storage data structures
  like linked lists (as elements can't be accessed in 
 \series bold
 O(1)
@@ -7412,20 +7402,20 @@ When talking about arrays, we typical define one as a single string
 status collapsed
 
 \begin_layout Plain Layout
-A string in many languages (notably low level langauges like assembler)
+A string in many languages (notably low level languages like assembler)
  does not define a String of letters, numbers and punctuation, but rather
  a linear memory region of bytes.
 \end_layout
 
 \end_inset
 
- or allocation of elements in a linear continous region.
- Ee can define an array of arrays to form a two dimensional array, or an
+ or allocation of elements in a linear continuous region.
+ We can define an array of arrays to form a two dimensional array, or an
  array of arrays of arrays to form a three dimensional array, and continue
  to do so, allowing for infinite dimensional array.
  This section will typically discuss array operations on two dimensional
  arrays, such as rotation and mirroring that may support application of
- algorithms or may simply speed up implementions due to underlying hardware
+ algorithms or may simply speed up implementations due to underlying hardware
  constraints.
 \end_layout
 
@@ -7455,7 +7445,7 @@ ng the underlying hardware and how memory access works.
 \end_layout
 
 \begin_layout Standard
-From a hardware achitectural viewpoint there are different classes of hardware
+From a hardware architectural viewpoint there are different classes of hardware
  memory:
 \end_layout
 
@@ -7464,14 +7454,14 @@ Primary - The RAM that the CPU sees as the address space given to it.
 \end_layout
 
 \begin_layout Enumerate
-Secondary - The Harddrive installed within the system, providing non-voliatile
+Secondary - The Hard drive installed within the system, providing nonvolatile
  memory.
  
 \end_layout
 
 \begin_layout Enumerate
-Teritiary - Removable non-voliatile memory such as DVD's, CD's, USB Flash
- Keys, etc.
+Tertiary - Removable nonvolatile memory such as DVD's, CD's, USB Flash Keys,
+ etc.
 \end_layout
 
 \begin_layout Standard
@@ -7499,7 +7489,7 @@ CPU registers, internal to the CPU and these are where typically most operations
 \begin_layout Enumerate
 Level 1 Data and Code caches, these hold the most recent code and data being
  accessed from the Level 2 cache.
- There are typically two Level 1 caches, each desginated for holding either
+ There are typically two Level 1 caches, each designated for holding either
  code or data, and are typically 16kilobytes size in size
 \begin_inset Foot
 status collapsed
@@ -7593,8 +7583,8 @@ Why is knowing all about the different level of cache's important in regards
  one of the caches, your application will suffer a performance hit whilst
  waiting for the information from main memory.
  By ensuring that your next memory access will be in one of the CPUs cache,
- you can ensure the best possible performance for your applicaton when dealing
- with any sized array.
+ you can ensure the best possible performance for your application when
+ dealing with any sized array.
 \end_layout
 
 \begin_layout Standard
@@ -7653,7 +7643,7 @@ reference "lis:Array-Access-Performance"
 
 \end_inset
 
- yeilds the results show in Table 
+ yields the results show in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Array-Access-Performance"
@@ -8311,7 +8301,7 @@ To change from a left to right, to a right to left access pattern, simply
 
 \begin_layout Standard
 The same applies to any 2+ dimensional array, to change the direction of
- travsel, either change from counting from 0 to width/height to counting
+ traversal, either change from counting from 0 to width/height to counting
  down from the width/height to 0, and vice versa.
 \end_layout
 
@@ -8687,7 +8677,6 @@ public class ArrayTraverseLinear {
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Row-Wise and Column-Wise Traverse (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -8717,8 +8706,8 @@ Given a two dimension matrix measuring n
 \begin_inset Formula $\times$
 \end_inset
 
- m, print the cell co-ordinates in number format whilst traversing in a
- column-wise direction.
+ m, print the cell coordinates in number format whilst traversing in a column-wi
+se direction.
 \end_layout
 
 \begin_layout Standard
@@ -8786,10 +8775,10 @@ OUTPUT
 \end_layout
 
 \begin_layout Standard
-The output of traversal should be the column and row co-ordinates in number
+The output of traversal should be the column and row coordinates in number
  format separated by a comma enclosed in brackets.
  Each displayed offset starts at 1.
- Each co-ordinate reference are to be separated by a space.
+ Each coordinate reference are to be separated by a space.
  Each case should be separated by a blank line.
 \end_layout
 
@@ -9069,7 +9058,6 @@ n");
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
 Solution to Matrix Traverse (Java)
 \begin_inset CommandInset label
 LatexCommand label
@@ -9133,10 +9121,10 @@ s, so these methods are not commonly used.
 \end_layout
 
 \begin_layout Standard
-The one issue with this form of travesal through an array, are the underlying
- performance penalities that will occur due to cache misses, as each subsequent
- access to the array is non-linear.
- Like other array travesal techniques, diagonal traverse is an 
+The one issue with this form of traversal through an array, are the underlying
+ performance penalties that will occur due to cache misses, as each subsequent
+ access to the array is nonlinear.
+ Like other array traversal techniques, diagonal traverse is an 
 \series bold
 O(n
 \begin_inset script superscript
@@ -9447,7 +9435,7 @@ The
 \family typewriter
 if-else-if-else
 \family default
- statements recalculate the new start position for the next travesal, until
+ statements recalculate the new start position for the next traversal, until
  the new start position exceeds the bounds of the array, in which case the
  algorithm exits.
 \end_layout
@@ -9530,7 +9518,7 @@ reference "fig:Diagonal-Traversal-of-1"
 
 \end_inset
 
- demonstrates the top-left origin to bottom-right traversel on a 3 
+ demonstrates the top-left origin to bottom-right traversal on a 3 
 \begin_inset Formula $\times$
 \end_inset
 
@@ -9538,7 +9526,7 @@ reference "fig:Diagonal-Traversal-of-1"
 \end_layout
 
 \begin_layout Standard
-The order of traversel for the other origins would result in the following
+The order of traversal for the other origins would result in the following
  sequences based on the forms listed above:
 \end_layout
 
@@ -9813,8 +9801,8 @@ Given a two dimension matrix measuring n
 \begin_inset Formula $\times$
 \end_inset
 
- m, print the cell co-ordinates in spreadsheet format whilst traversing
- in a diagonal direction from a top-left origin to a bottom right traverse.
+ m, print the cell coordinates in spreadsheet format whilst traversing in
+ a diagonal direction from a top-left origin to a bottom right traverse.
 \end_layout
 
 \begin_layout Standard
@@ -9882,7 +9870,7 @@ OUTPUT
 \end_layout
 
 \begin_layout Standard
-The output of traversal should be the column and row co-ordinates in spreadsheet
+The output of traversal should be the column and row coordinates in spreadsheet
  name format.
  That is the column is an uppercase alphabetical format, and the row is
  in number format, eg A1 for the first row and column, with each cell reference
@@ -10285,16 +10273,12 @@ n");
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
-Solution to 
-\lang english
-Matrix Traverse Problem (Java)
+Solution to Matrix Traverse Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
 name "lis:Solution-to-Matrix"
 
 \end_inset
-
 
  
 \end_layout
@@ -10373,7 +10357,7 @@ O(n
 
 )
 \series default
- operations, due to all array members must be accessed to complete the opeation
+ operations, due to all array members must be accessed to complete the operation
  successfully.
 \end_layout
 
@@ -10639,7 +10623,7 @@ end{algorithmic}
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Array Rotation AntiClockwise
+Array Rotation Anticlockwise
 \begin_inset CommandInset label
 LatexCommand label
 name "alg:Array-Rotation-AntiClockwise"
@@ -10664,7 +10648,7 @@ Description of working
 \end_layout
 
 \begin_layout Standard
-Algoritms 
+Algorithms 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:Array-Rotation-Clockwise"
@@ -10678,7 +10662,7 @@ reference "alg:Array-Rotation-AntiClockwise"
 
 \end_inset
 
- depict both clockwise and anti-clock array rotation respectively.
+ depict both clockwise and anticlockwise array rotation respectively.
  Simply, both perform substitution of x and y values for the target array.
  An additional variable is needed to hold an offset, so that the new array
  offsets may be calculated correctly
@@ -10886,7 +10870,7 @@ public void ArrayAntiRotateClockWise(E[][] source, E[][] target, int width,
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Array Anti-Clockwise Rotation (Java)
+Array Anticlockwise Rotation (Java)
 \begin_inset CommandInset label
 LatexCommand label
 name "lis:Array-Anti-Clockwise-Rotation"
@@ -10915,7 +10899,7 @@ Performance of both of these implementations will suffer due to access not
 \end_layout
 
 \begin_layout Paragraph
-Sample Problem- Matrix Rotation 
+Sample Problem - Matrix Rotation 
 \begin_inset CommandInset label
 LatexCommand label
 name "par:SP-Linear-Search-1"
@@ -11787,7 +11771,7 @@ name "alg:Array-Mirror-Horizon"
 
 \begin_layout Standard
 As both of these algorithms access both the source and target arrays row
- by row, there should be no (or few) performance penalities due to cache
+ by row, there should be no (or few) performance penalties due to cache
  misses.
 \end_layout
 
@@ -11796,7 +11780,7 @@ Description of working
 \end_layout
 
 \begin_layout Standard
-Algoritms 
+Algorithms 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:Array-Mirror-Vertical"
@@ -11876,7 +11860,7 @@ reference "lis:Mirror-Array-Along"
 
 \end_inset
 
- show implementations of vertical and horizontal mirroing respectively.
+ show implementations of vertical and horizontal mirroring respectively.
 \end_layout
 
 \begin_layout Standard
@@ -12006,7 +11990,7 @@ name "lis:Mirror-Array-Along"
 \end_layout
 
 \begin_layout Paragraph
-Sample Problem- Matrix Flipping
+Sample Problem - Matrix Flipping
 \end_layout
 
 \begin_layout Standard
@@ -12697,7 +12681,7 @@ Greatest common divisor
 \end_layout
 
 \begin_layout Standard
-The Greatest Common Divisor or Eucilidean algorithm was originally developed
+The Greatest Common Divisor or Euclidean algorithm was originally developed
  by Euclid of Alexandria in 3
 \begin_inset script superscript
 
@@ -12707,7 +12691,7 @@ rd
 
 \end_inset
 
- BC, and computes the greatest common divisor of two non-negative, not-both-zero
+ BC, and computes the greatest common divisor of two nonnegative, not-both-zero
  integers 
 \family typewriter
 m
@@ -12742,7 +12726,7 @@ The Euclidean algorithm is based on the principle that the greatest common
  For if k, m, and n are integers, and k is a common factor of two integers
  A and B, then A=(n×k) and B=(m×k) implies A-B=(n-m)×k, therefore k is also
  a common factor of the difference.
- That k may also represent the greatest common divisor is proven below.
+ That k may also represent the greatest common divisor is shown below.
  For example, 21 is the GCD of 252 and 105 (252 = 12 × 21; 105 = 5 × 21);
  since 252 − 105 = (12 - 5) × 21 = 147, the GCD of 147 and 105 is also 21.
 \end_layout
@@ -13546,11 +13530,11 @@ N
 \shape default
 -1.
  There are however more efficient methods for finding prime numbers, including
- the use of Sieve's, in particulator the Sieve of Erathosthenes.
+ the use of Sieve's, in particular the Sieve of Eratosthenes.
 \end_layout
 
 \begin_layout Standard
-The Sieve of Erathosthenes, is a relatively simple algorithm, that performs
+The Sieve of Eratosthenes, is a relatively simple algorithm, that performs
  prime number generation through iteration of composites based on the last
  prime found.
  This is done by maintaining an array of all numbers between 2 and 
@@ -13563,7 +13547,7 @@ N
 \end_layout
 
 \begin_layout Standard
-The Sieve of Erathosthenes is considered a 
+The Sieve of Eratosthenes is considered a 
 \series bold
 O(n log log n)
 \series default
@@ -14734,7 +14718,7 @@ Testing each number input as a prime using the divisibility test, and if
 
 \begin_layout Enumerate
 Create a list of all numbers within the test space in an array and set all
- array elements that respresent composites to 0.
+ array elements that represent composites to 0.
  To test each number given, we simple look up the slot for that number in
  the array, and determine if it's a prime or not
 \begin_inset Foot
@@ -14803,7 +14787,7 @@ n)
  performance.
  With a slight modification to the binary search method, instead of returning
  -1 if not found, we can return the index of the last tested value, which
- incidently will the next prime below the number being tested.
+ incidentally will the next prime below the number being tested.
  Therefore we can assume
 \series bold
  O(log
@@ -14840,7 +14824,7 @@ status open
 
 \begin_layout Plain Layout
 Whilst during the creation of the list of primes, large amounts of memory
- is needed, once the list has been created, the needed space to hld the
+ is needed, once the list has been created, the needed space to hold the
  results is vastly smaller.
 \end_layout
 
@@ -15528,7 +15512,7 @@ Web crawlers utilised by search engines classify billions of text documents
 \end_layout
 
 \begin_layout Itemize
-Bioinformatics Research, particularly arounfg genome based research.
+Bioinformatics Research, particularly around genome based research.
  
 \end_layout
 
@@ -15548,8 +15532,8 @@ Strings are effectively a collection of characters, with each character
 \end_inset
 
  characters).
- One common misconseption is that a string may only represent those letters
- and figures as defined in a human langauge, but from a Computers viewpoint
+ One common misconception is that a string may only represent those letters
+ and figures as defined in a human language, but from a Computers viewpoint
  any value that can be defined may be included (or even excluded) from the
  alphabet that defines a string.
 \end_layout
@@ -15664,7 +15648,7 @@ C# (with .NET) - A string is a vector of UTF-16 encoded characters, represented
 \end_layout
 
 \begin_layout Standard
-There are numberous algorithms that perform string matching, including Brute
+There are numerous algorithms that perform string matching, including Brute
  Force, Rabin-Karp, Knuth-Morris-Pratt, Boyer-Moore, and Horspool.
  Regular Expressions are also considered a form of pattern matching, with
  the advantage that they allow an infinite number of patterns to be matched.
@@ -15875,7 +15859,7 @@ The Brute Force String Matching algorithm is a very simple algorithm that
 \end_layout
 
 \begin_layout Enumerate
-Align patternw at the beginning of the text.
+Align pattern at the beginning of the text.
 \end_layout
 
 \begin_layout Enumerate
@@ -15894,7 +15878,7 @@ A mismatch is detected.
 
 \end_deeper
 \begin_layout Enumerate
-While pattern is not found, and the text is not exhausted, relaign pattern
+While pattern is not found, and the text is not exhausted, realign pattern
  one position to the right and repeat step 2.
 \end_layout
 
@@ -15927,7 +15911,7 @@ O(n
 
 )
 \series default
- operation, however may offer worse performance if many clost matches are
+ operation, however may offer worse performance if many close matches are
  present within the text.
 \end_layout
 
@@ -17805,7 +17789,7 @@ Following the grid of letters, another integer
 
  lines of input contain the list of words to search for, one word per line.
  These words may contain upper and lower case letters only (no spaces, hyphens
- or other non-alphabetic characters).
+ or other non alphabetic characters).
 \end_layout
 
 \begin_layout Standard
@@ -17926,11 +17910,11 @@ For each word in the word list, a pair of integers representing the location
 
  represents the rightmost column in the grid).
  If a word can be found more than once in the grid, then the location which
- is output should correspond to the uppermost occurence of the word (i.e.
- the occurence which places the first letter of the word closest to the
+ is output should correspond to the uppermost occurrence of the word (i.e.
+ the occurrence which places the first letter of the word closest to the
  top of the grid).
  If two or more words are uppermost, the output should correspond to the
- leftmost of these occurences.
+ leftmost of these occurrences.
  All words can be found at least once in the grid.
 \end_layout
 
@@ -19107,7 +19091,7 @@ reference "fig:Scanning-Grid-for"
 \end_inset
 
  demonstrates this technique.
- If found, I update the best known location (according to cuurent row and
+ If found, I update the best known location (according to current row and
  column values), and then continue to scan the rest of the grid (as shown
  as the gradients squares in Figure 
 \begin_inset CommandInset ref
@@ -19169,7 +19153,7 @@ name "fig:Scanning-Grid-for"
 
 \begin_layout Standard
 For the sample implementation I utilised the Brute Force String Matching
- Algorithm simply to demonstarte it's use.
+ Algorithm simply to demonstrate it's use.
  However, in a real competition environment I would utilise a more efficient
  pattern matching algorithm to ensure the best possible performance.
  One such algorithm that could be used is in place of the Brute Force String
@@ -19755,7 +19739,7 @@ T
 P
 \shape default
 .
- Each time there is a match, we increment the current indices.
+ Each time there is a match, we increment the current index.
  On the other hand, if there is a mismatch and we have previously made progress
  in 
 \shape italic
@@ -19838,8 +19822,8 @@ T
  The correctness of this algorithm follows from the definition of the failure
  function.
  The skipped comparisons are actually unnecessary, for the failure function
- guarantess that all the ignored comparisons are redundan - they would involve
- comparing characters we already know match.
+ guarantees that all the ignored comparisons are redundant - they would
+ involve comparing characters we already know match.
 \end_layout
 
 \begin_layout Standard
@@ -19860,10 +19844,10 @@ reference "fig:Failure-Function-for"
 
 .
  The algorithm performs 19 character comparisons, which are indicated with
- numberical labels.
+ numerical labels.
  Note the use of the failure function to avoid redoing one of the comparisons
  between a character of the pattern and a character of text.
- Also note that this algorithm performs fewer overall comparisons tha the
+ Also note that this algorithm performs fewer overall comparisons than the
  brute force algorithm.
 \end_layout
 
@@ -19893,7 +19877,7 @@ KMPMatch
 \begin_inset Formula $i>j$
 \end_inset
 
- throughtout the execution of the algorithm, 
+ throughout the execution of the algorithm, 
 \begin_inset Formula $f(j-1)$
 \end_inset
 
@@ -21253,7 +21237,7 @@ edges
 V
 \shape default
 .
- Egdes in a graph are either 
+ Edges in a graph are either 
 \series bold
 directed
 \series default
@@ -21263,7 +21247,7 @@ undirected
 \series default
 , that is an edge may only allow connection in a single direction between
  vertices.
- Egdes may also have a 
+ Edges may also have a 
 \series bold
 weight
 \series default
@@ -21273,7 +21257,7 @@ status collapsed
 
 \begin_layout Plain Layout
 A weight may have either a positive or negative value depending on what
- is being modelled.
+ is being modeled.
 \end_layout
 
 \end_inset
@@ -21291,7 +21275,7 @@ reference "fig:Basic-Graph"
 
  as an example, each location (town/suburb) is a vertex, and the road is
  an edge between locations.
- The directions denote if the road is a one-way street or two-way, and the
+ The directions denote if the road is a one way street or two way, and the
  weight is the defined time to travel on that road to get between the vertices.
 \end_layout
 
@@ -21387,7 +21371,7 @@ deg(v)
 V
 \shape default
 .
- This may also be broken down into in-degree and ou-degree when applied
+ This may also be broken down into in-degree and out-degree when applied
  with a directed graph.
  (The count of the edges leading to or from the vertex respectively).
 \end_layout
@@ -21397,7 +21381,7 @@ A
 \series bold
 trail
 \series default
- in a graph, is a sequences of necessiarily distinct vertices, but distinct
+ in a graph, is a sequences of necessarily distinct vertices, but distinct
  edges.
 \end_layout
 
@@ -21951,7 +21935,7 @@ The space required to store the list is minimal in that no wasted space
 \end_layout
 
 \begin_layout Itemize
-Travesal of the graph is easy, by simply following the vertex information
+Traversal of the graph is easy, by simply following the vertex information
  in the list.
 \end_layout
 
@@ -21969,7 +21953,7 @@ The adjacency list works primarily as it stores references and not copies
 \end_layout
 
 \begin_layout Standard
-For graph travesal, you can simply make one of vertices within the list
+For graph traversal, you can simply make one of vertices within the list
  the current location, and therefore find it's edge list as well.
  This allows for a naturally recursive implementation for many graph traversal
  algorithms.
@@ -23218,7 +23202,7 @@ Adjacency Matrix
 \end_layout
 
 \begin_layout Standard
-An Adjacency Matrix is a method of representing a graph within a two-dimension
+An Adjacency Matrix is a method of representing a graph within a two dimensional
  matrix which offers 
 \series bold
 O(1)
@@ -23997,7 +23981,7 @@ Description of working
 
 \begin_layout Standard
 The Adjacency Matrix works well with either dense graphs (as the storage
- requirement between an Adjancey Matrix and Adjacency List would be roughly
+ requirement between an Adjacency Matrix and Adjacency List would be roughly
  equal), or when performance is required when either utilising edge information
  or for performing edge manipulation operations.
 \end_layout
@@ -24029,8 +24013,8 @@ The Adjacency Matrix utilises an
 \end_inset
 
  is null, with null typically being represented by 0 (zero).
- For weighted graphs each cell, holds the weight of the edge, and for un-weighte
-d graphs, each cell will hold a boolean value either 
+ For weighted graphs each cell, holds the weight of the edge, and for unweighted
+ graphs, each cell will hold a boolean value either 
 \family typewriter
 true
 \family default
@@ -24088,7 +24072,7 @@ reference "lis:Adjacency-Matrix-(Java)"
 
 .
  However it should be noted, that typically within the competition, a simple
- two dimension array of the corrrect type is used instead of the generic
+ two dimension array of the correct type is used instead of the generic
  class implementation shown.
 \end_layout
 
@@ -25078,7 +25062,7 @@ A common operation on a graph is to visit every vertex and perform an operation
 \end_layout
 
 \begin_layout Standard
-Breadth First Search, after visting a given vertex 
+Breadth First Search, after visiting a given vertex 
 \shape italic
 n
 \shape default
@@ -25109,10 +25093,10 @@ Which nodes we have found but need to visit.
 
 \begin_layout Standard
 Essentially the same algorithm is used for both BFS and DFS, however the
- datastructures to store the above knowledge points allow the algorithm
+ data structures to store the above knowledge points allow the algorithm
  to work differently.
- A BFS will use a queue datastructure, whilst DFS will use a stack datastructure
- to implement those knowledge points.
+ A BFS will use a queue data structure, whilst DFS will use a stack data
+ structure to implement those knowledge points.
  The similarities can be seen comparing both Algorithm 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -25527,12 +25511,12 @@ reference "fig:DFE-Example"
 
 \end_inset
 
- displays an example of the DFS travesal, where the edges incident of a
+ displays an example of the DFS traversal, where the edges incident of a
  vertex are explored by alphabetical order of the adjacent vertices, starting
  at Vertex A.
  (The direction of travel is displayed by the arrows.
  In this example, no backtracking has taken place).
- The order of travesal in this instance is: A, B, C, E, D, F, G.
+ The order of traversal in this instance is: A, B, C, E, D, F, G.
 \end_layout
 
 \begin_layout Standard
@@ -25582,7 +25566,7 @@ name "fig:DFE-Example"
 The Breadth First Search is less adventurous than DFS, however instead of
  wandering the graph, BFS proceeds in rounds and subdivides the vertices
  into levels.
- Breadth First Search, after visting a given vertex 
+ Breadth First Search, after visiting a given vertex 
 \shape italic
 n
 \shape default
@@ -25591,7 +25575,7 @@ n
 n
 \shape default
  before visiting any other nodes.
- For an unweighted graph, BFS therefore provides the shortests paths from
+ For an unweighted graph, BFS therefore provides the shortest paths from
  the root vertex to all other vertices.
  BFS is also the basic implementation for a number of shortest paths algorithms.
 \end_layout
@@ -25610,7 +25594,7 @@ reference "fig:BFS-example"
  (The discovery edges are shown with bold lines and the crossed edges with
  a dash line: (a) graph before the traversal; (b) discovery at level 1;
  (c) discovery at level 2; (d) discovery at level 3.).
- The order of travesal in this instance is: A, B, D, C, E, F, G.
+ The order of traversal in this instance is: A, B, D, C, E, F, G.
 \end_layout
 
 \begin_layout Standard
@@ -25657,7 +25641,7 @@ name "fig:BFS-example"
 \end_layout
 
 \begin_layout Standard
-On comparing both implementations, it is considered that the DFS travesal
+On comparing both implementations, it is considered that the DFS traversal
  is better for answering complex connectivity questions, such as determining
  if every pair of vertices in a graph can be connected by two disjoint paths.
  Whilst BFS is better for finding shortest path between a root vertex and
@@ -26189,7 +26173,7 @@ The chief guru of the ACM always likes to have available a crib sheet indicating
 \end_layout
 
 \begin_layout Standard
-Given a sequence of scenarios, each with a triple of non-negative integers
+Given a sequence of scenarios, each with a triple of nonnegative integers
  representing the urn contents, determine for each scenario the smallest
  possible number of days required to empty one of the urns.
  This problem is guaranteed to have a solution in each case.
@@ -27339,7 +27323,7 @@ reference "fig:Monks-Solution-Diagram"
 
  demonstrates the core method LeastMoves() of the sample solution.
  You will notice immediately that the resulting calculations that define
- new jar values form a tree (which is a type of grah), that allows us to
+ new jar values form a tree (which is a type of graph), that allows us to
  the BFS to solve the problems as presented.
  The key difference, is that new vertices (or Jars) to explore are derived
  at runtime, and not part of a set graph to explore.
@@ -27469,7 +27453,7 @@ A tree is a graph, where there are no cycles
 
 \end_inset
 
- that only includes the minimum number of egdes that also has the property
+ that only includes the minimum number of edges that also has the property
  that the sum of all edge weights is the minimum possible.
 \end_layout
 
@@ -27816,7 +27800,7 @@ Starting at Vertex D, all edges that are incident are added to the priority
 \end_layout
 
 \begin_layout Standard
-The Prim-Jarník Algorithm depending on the implemetation will have a running
+The Prim-Jarník Algorithm depending on the implementation will have a running
  time of 
 \series bold
 O(m log n)
@@ -29351,7 +29335,7 @@ Kruskal's with Union Find Algorithm
 \begin_layout Standard
 Kruskal's Minimum Spanning Tree Algorithm works in a very similar manner
  to that described of The Prim-Jarník Algorithm, with one exception, that
- egdes are added to the tree in order of lowest cost irrespective of the
+ edges are added to the tree in order of lowest cost irrespective of the
  edge they incident with, unless addition of the edge results in a cycle
  forming.
  
@@ -29575,7 +29559,7 @@ The algorithm like Prim's essentially builds the minimum spanning tree based
 
 \begin_layout Standard
 This is achieved through the use of a single priority queue, that holds
- all edges of the graph, with the least weighted egdes being at the start/head
+ all edges of the graph, with the least weighted edges being at the start/head
  of the queue.
  On each iteration, it will remove the next least cost edge, add it to the
  tree, if and only if the addition of the edge does not result in a cycle
@@ -29612,7 +29596,7 @@ reference "fig:Kruskal's-Algorithm"
  (b,e), (b,d), (d,e), (a,b), (b,c), (e,g), (c,e), (d,f), (a,d), (e,f)}.
  In (a), the first edge is automatically added to the Tree (as there are
  no other edges currently in the tree).
- (b), (c) add additional edges to form a second sub-tree.
+ (b), (c) add additional edges to form a second subtree.
  In (d), the next edge in the priority queue is (d,e), however this is not
  added as it would create a cycle within the tree.
  The rest of the edges are added into the tree, until the number of edges
@@ -29626,7 +29610,7 @@ One of the key aspects of the algorithm is the method used to determining
 \end_inset
 
  is true or false as well as performing the merge operation between the
- two clusters (or sub-trees).
+ two clusters (or subtrees).
  To achieve this we utilise a union find data structure, that offers high
  performance in both checking if 
 \begin_inset Formula $C(v)\neq C(u)$
@@ -30292,7 +30276,7 @@ name "lis:Kruskal's-Algorithm-(Java)"
 \end_layout
 
 \begin_layout Subparagraph
-Sample Problem- Minimum Spanning Tree
+Sample Problem - Minimum Spanning Tree
 \end_layout
 
 \begin_layout Standard
@@ -31062,7 +31046,7 @@ ng if
 \end_inset
 
  is true or false as well as performing the merge operation between the
- two clusters (or sub-trees).
+ two clusters (or subtrees).
  To achieve this we utilise a union find data structure, that offers high
  performance in both checking if 
 \begin_inset Formula $C(v)\neq C(u)$
@@ -31087,7 +31071,7 @@ reference "fig:Kruskal's-with-Union"
 
 \end_inset
 
- illustrates how the Union Find datastructure works, utilising the graph
+ illustrates how the Union Find data structure works, utilising the graph
  shown in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -31146,7 +31130,7 @@ name "fig:Kruskal's-with-Union"
 \end_layout
 
 \begin_layout Enumerate
-At the start of the main loop, all vertices are placed into their own sub-trees
+At the start of the main loop, all vertices are placed into their own subtrees
  (parent is null, that is they are the root of the tree).
  (a)
 \end_layout
@@ -31160,7 +31144,7 @@ On the first iteration, we determine if the two vertices share the same
 
 \begin_layout Enumerate
 With iterations (c) through (g), we perform the same action as above, except
- in step (e) where both B and E share a common root vertex within the sub-tree.
+ in step (e) where both B and E share a common root vertex within the subtree.
  Also, note that path compression doesn't occur in (e) as vertex B is not
  processed in the 
 \family typewriter
@@ -31178,9 +31162,9 @@ find()
 \family default
 , modifies the respective parent pointers so that the resultant graphs looks
  like that shown in (i).
- This flatterning of the Union Find data structure ensures minimum time
- is needed within the operation to determine is two sub-trees share the
- same parent.
+ This flattening of the Union Find data structure ensures minimum time is
+ needed within the operation to determine is two subtrees share the same
+ parent.
  If another find option occurs involving vertex B, then vertex B will have
  it's parent changed to vertex C as well.
 \end_layout
@@ -31195,7 +31179,7 @@ reference "fig:Kruskal's-with-Union"
 
 , the depth of the Union Find data structure is minimised due to the path
  compression, so that future searches for a vertices root vertex within
- it's sub-tree is very quick.
+ it's subtree is very quick.
 \end_layout
 
 \begin_layout Standard
@@ -31216,7 +31200,7 @@ Single Source Shortest Path
 \end_layout
 
 \begin_layout Standard
-As seen previously, the Breadth-First Search is capable of finding the shortest
+As seen previously, the Breadth First Search is capable of finding the shortest
  path within an unweighted graph, however in the real world edges within
  a graph almost always have a weight associated.
  For weighted graphs (being either directed or undirected) we require a
@@ -31226,9 +31210,9 @@ As seen previously, the Breadth-First Search is capable of finding the shortest
 \end_layout
 
 \begin_layout Standard
-Dijsktra's algorithm is commonly used with network routing protocols, specifical
+Dijkstra's algorithm is commonly used with network routing protocols, specifical
 ly Open Shortest Path First and IS-IS.
- It also has many other applications including path-finding in Artificial
+ It also has many other applications including path finding in Artificial
  Intelligence (as utilised in computer games) or Robotics.
  One advantage of Dijkstra's algorithm, is that it will also calculate the
  shortest path from a source vertex to all other vertices within the operation
@@ -32677,7 +32661,7 @@ Step 4.
 \begin_layout Plain Layout
 
 \size small
-Select the smallest weighted edgefrom 
+Select the smallest weighted edge from 
 \begin_inset Formula $D$
 \end_inset
 
@@ -34097,7 +34081,7 @@ Since all vertices have been visited, we exit the algorithm.
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Dijsktra's Algorithm
+Dijkstra's Algorithm
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:Dijsktra's-Algorithm"
@@ -34119,7 +34103,7 @@ name "fig:Dijsktra's-Algorithm"
 
 \begin_layout Standard
 As shown, Dijkstra's Algorithm gives you the weight of the shortest path
- to each other vertice, not the actual path itself.
+ to each other vertex, not the actual path itself.
  To find the actual path, Algorithm 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -34316,7 +34300,7 @@ reference "lis:Dijkstra's-Algorithm-(Java)"
 \end_inset
 
 .
- This implementation utilises an adjacency matrix as the graph represention
+ This implementation utilises an adjacency matrix as the graph representation
  data structure, thus offers 
 \series bold
 O(n
@@ -34341,7 +34325,7 @@ status collapsed
 
 \begin_layout Plain Layout
 The only modification to be usable in C, would be to implement the Stack<E>
- datastructure, which can be easily done with a linked list datastructure,
+ data structure, which can be easily done with a linked list data structure,
  or even just a normal array (and maintaining a pointer/index to the last
  element in the array).
 \end_layout
@@ -35708,7 +35692,7 @@ The few edge cases to consider would be very dense graphs, very sparse graphs,
 \begin_layout Standard
 As the problem focuses around the algorithm itself, the implementation of
  the algorithm is the key factor in success with this problem.
- Two items to note about the implemention of the sample solution compared
+ Two items to note about the implementation of the sample solution compared
  to the reference implementation, is that we don't maintain a data structure
  to find a path from a source to destination vertex, and the use of the
  priority queue.
@@ -35723,7 +35707,7 @@ reference "lis:Dijkstra's-Algorithm-(Java)"
 
 \end_inset
 
-, by providing a single datastructure that maintains a list of unvisited
+, by providing a single data structure that maintains a list of unvisited
  vertices and also sorts the vertices by weight, so the head of the queue
  is the next unvisited vertex with the least weight.
  This implementation as shown should offer 
@@ -36183,7 +36167,7 @@ In order to determine the path between two vertices, we are required to
 \end_inset
 
 .
- Once all weights have been determined we use Alogrithm 
+ Once all weights have been determined we use Algorithm 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:Floyd-Warshall-Algorithm-(Find"
@@ -37848,7 +37832,7 @@ name "alg:AStar-Algorithm"
 \end_layout
 
 \begin_layout Standard
-A* is commonly utilised in real-time robotics for path finding on dynamic
+A* is commonly utilised in real time robotics for path finding on dynamic
  graphs, or within navigation aids (such as in car GPS devices).
 \end_layout
 
@@ -37859,7 +37843,7 @@ Description of working
 \begin_layout Standard
 A* utilises additional information within each vertex data structure to
  able to perform a heuristic search of the graph.
- In addition to the vertex location (x,y co-ordinates (Euclidean or Manhattan))
+ In addition to the vertex location (x,y coordinates (Euclidean or Manhattan))
  and list of vertices adjacent, these are:
 \end_layout
 
@@ -37872,7 +37856,7 @@ hScore - heuristic estimate from the current location to the goal.
 \end_layout
 
 \begin_layout Itemize
-fScore - gScrore + hScore
+fScore - gScore + hScore
 \end_layout
 
 \begin_layout Standard
@@ -37922,7 +37906,7 @@ reference "fig:AStar-Initial-Map"
 
 ).
  Simplifying the search area, as we have done here, is the first step in
- pathfinding with A*.
+ path finding with A*.
  This particular method reduces our search area to a simple two dimensional
  array.
  Each item in the array represents one of the squares on the grid, and its
@@ -38056,7 +38040,7 @@ reference "fig:AStar-Initial-Map-2"
 
 \end_inset
 
- is prior to removing the first vertex from the priorty queue).
+ is prior to removing the first vertex from the priority queue).
  It should be noted, that the hScore can be estimated in a number of ways.
  The method we use here is called the Manhattan method, where you calculate
  the total number of squares moved horizontally and vertically to reach
@@ -38187,7 +38171,7 @@ reference "fig:AStar-Initial-Map-4"
 
 \end_inset
 
- shows the next vertex being removed from the proirity queue (below the
+ shows the next vertex being removed from the priority queue (below the
  first vertex in this case), with it's adjacent vertices added to the priority
  queue, with the various Scores being shown.
  This time, when we check the adjacent squares we find that the one to the
@@ -38269,7 +38253,7 @@ reference "fig:AStar-Initial-Map-4"
  However on selection of the next vertex, we end up below the last vertex
  visited and continue on that path.
  (The final path could go either below or above the obstacle depending on
- how the priority queue is implementated, but for the sake of the demonstration
+ how the priority queue is implemented, but for the sake of the demonstration
  we assume the oldest item is taken first even if two items have the same
  priority).
 \end_layout
@@ -38392,7 +38376,7 @@ reference "fig:AStar-Initial-Map-6"
 
 \begin_layout Standard
 The time complexity of the A* Shortest Path algorithm is deterministic on
- the hueristic function choosen, and how well it can guess the hScore value.
+ the heuristic function chosen, and how well it can guess the hScore value.
  This is due to the number of cells or paths that will be tested during
  the course of the algorithm running will vary accordingly to how accurate
  the estimation is.
@@ -39041,7 +39025,7 @@ Road trip! It’s time to hit the road from your home town and travel to some
 \begin_inset Formula $y$
 \end_inset
 
- co-ordinates for all towns and the government has done an amazing job of
+ coordinates for all towns and the government has done an amazing job of
  laying perfectly straight roads between some of the towns as shown on the
  map.
  
@@ -40221,8 +40205,8 @@ Topological Sort
 \end_layout
 
 \begin_layout Standard
-Directed graphs wihtou direct cycles are encountered in many applications.
- Such a diagrap is often referred to as a 
+Directed graphs without direct cycles are encountered in many applications.
+ Such a digraph is often referred to as a 
 \series bold
 directed acyclic graph
 \series default
@@ -40235,11 +40219,11 @@ dag
 \end_layout
 
 \begin_layout Itemize
-Inheritence between C++ classes or Java Interfaces.
+Inheritance between C++ classes or Java Interfaces.
 \end_layout
 
 \begin_layout Itemize
-Prerequistes between courses of a degree program.
+Prerequisites between courses of a degree program.
 \end_layout
 
 \begin_layout Itemize
@@ -40588,8 +40572,8 @@ Description of Working
 \end_layout
 
 \begin_layout Standard
-The alogrithm itself is based on the same principles as DFS, in that we
- first find all the vertices with an indegree of 0, and use these as our
+The algorithm itself is based on the same principles as DFS, in that we
+ first find all the vertices with an in degree of 0, and use these as our
  starting point.
  (We add these to a stack).
  The main 
@@ -40598,7 +40582,7 @@ while()
 \family default
  loop runs until this stack is empty.
  Within the main loop, we record the current vertex we are at, and then
- add all vertices incident to the current that have an indegree of 0 (when
+ add all vertices incident to the current that have an in degree of 0 (when
  the current edge between the current vertex and adjacent vertex is removed)
  to stack for further processing.
 \end_layout
@@ -40622,7 +40606,7 @@ reference "fig:Topological-Sort"
  (a) demonstrates the initial configuration; (b-h) after each while-loop
  iteration.
  The vertex labels give the vertex number and the current incounter value.
- The edges tarversed in previous iterations are drawn with thick solid lines.
+ The edges traversed in previous iterations are drawn with thick solid lines.
  The edges traversed in the current iteration are drawn in dotted lines.
 \end_layout
 
@@ -43128,8 +43112,8 @@ In development of a solution, special care should be taken in regards to
  Input test cases should include both A1, and ZZZ999, ensuring that the
  row count is calculated correctly.
  Utilisation of regular expressions could help in determine the start of
- the number in the cell reference, however consideration for the penalities
- on using the regular expression engine, verses perfoming a linear search
+ the number in the cell reference, however consideration for the penalties
+ on using the regular expression engine, verses performing a linear search
  for at most 3 characters should also be considered.
 \end_layout
 
@@ -45335,9 +45319,9 @@ pipe
 \begin_inset Quotes erd
 \end_inset
 
- that can transport some commodity, with the weight of the dge representing
+ that can transport some commodity, with the weight of the edge representing
  the maximum amount it can transport.
- The maximum-flow problem problem is to find a way of transporting the maximum
+ The maximum flow problem problem is to find a way of transporting the maximum
  amount of the given commodity from some 
 \series bold
 source
@@ -45416,7 +45400,7 @@ reference "fig:Maximum-Flow-Basic"
 
 \end_inset
 
-, whilst Vertex D has a pipes outward worth 38, and Vetrex G has pipes feeding
+, whilst Vertex D has a pipes outward worth 38, and Vertex G has pipes feeding
  in worth 20, the maximum flow is only 15! 
 \end_layout
 
@@ -45547,8 +45531,8 @@ Residual capacity is basically any left over capacity not being current
 \begin_inset Formula $f$
 \end_inset
 
- is a path from the source to the sink with non-zero residual capacity,
- and when no augmented paths exist, we can determine the maximum flow.
+ is a path from the source to the sink with nonzero residual capacity, and
+ when no augmented paths exist, we can determine the maximum flow.
  (This is a very similar concept to that used to solve the Maximum Bipartite
  Matching problem
 \begin_inset Foot
@@ -45599,14 +45583,14 @@ Ford Fulkerson
 The augmenting path for determining the maximum flow can be found using
  any graph traversal algorithm – depth first search, breadth first search
  or priority first search, where priority is given to the maximum capacity
- of the adjacent egdes.
+ of the adjacent edges.
  Breadth first search is quite often used as it is simple to implement and
  produces the shortest path based on the number of edges in the path.
 \end_layout
 
 \begin_layout Standard
 While it is very useful to solve the Maximum Flow problem, many real life
- examples also associate a cost to utilising some resource (or edge as modelled
+ examples also associate a cost to utilising some resource (or edge as modeled
  in a graph).
  This may be the cost of using a WAN service, the cost of a toll road, the
  cost of shipping via a certain company or the cost of using one employee
@@ -46592,7 +46576,7 @@ textsc{FindAugmentingPath}
 
 \end_inset
 
-, the left-over capacity of each edge is calculated and stored in a separate
+, the leftover capacity of each edge is calculated and stored in a separate
  matrix.
  Figure 
 \begin_inset CommandInset ref
@@ -46783,7 +46767,7 @@ FindAugmentingPath
 \end_layout
 
 \begin_layout Enumerate
-The algorithm first initialises the lowest cost of each vetrex to infinity
+The algorithm first initialises the lowest cost of each vertex to infinity
  (except the source which is set to 0) and determines a priority queue of
  the edges that are to be processed by order of the lowest cost edges first.
  
@@ -48762,16 +48746,12 @@ sKarp());
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
-Solution to 
-\lang english
-Minimum Cost Maximum Flow Problem (Java)
+Solution to Minimum Cost Maximum Flow Problem (Java)
 \begin_inset CommandInset label
 LatexCommand label
 name "lis:Solution-to-Minimum-1"
 
 \end_inset
-
 
  
 \end_layout
@@ -48817,7 +48797,7 @@ However there is no requirement for explicit testing of these conditions
 \end_layout
 
 \begin_layout Subsection
-Computational Geometery
+Computational Geometry
 \end_layout
 
 \begin_layout Subsubsection
@@ -48826,7 +48806,7 @@ Line Segment Intersection
 
 \begin_layout Standard
 Determination if two line segments intersect is a key component for many
- math related problems found in computational geometery.
+ math related problems found in computational geometry.
  The fields of application include:
 \end_layout
 
@@ -48928,7 +48908,7 @@ reference "fig:Line-Intersection"
 
 .
  In order to determine the point in which they intersect, we define the
- line-segments by their end points.
+ line segments by their end points.
 \end_layout
 
 \begin_layout Standard
@@ -49046,7 +49026,7 @@ Notice that the denominator on both of those equations is the same.
 \begin_layout Standard
 Since these equations treat the lines as infinitely long lines instead of
  line segments we want, there is guaranteed to be an intersection point
- if the lines aren’t parallel.
+ if the lines are not parallel.
  To determine if it happens in the segments we’ve specified, we need to
  see if 
 \begin_inset Formula $U$
@@ -49927,7 +49907,7 @@ This algorithm involves simulating the sweeping of a vertical line
 
 , over the segments moving from left to right, starting at a location to
  the left of all input segments.
- Initially a sorted queue of all endpoints is maintainted, which forms the
+ Initially a sorted queue of all endpoints is maintained, which forms the
  event queue of points to test.
  
 \end_layout
@@ -49942,7 +49922,7 @@ During the sweep, the set of segments currently intersected by the sweep
  During either the insertion/removal operation a test of all segments that
  intersect the sweep line are tested to determine if they intersection,
  and if they do the intersection point is added to the event queue.
- If an intersection is encounterd during the sweep, the intersection is
+ If an intersection is encountered during the sweep, the intersection is
  added to the known Intersection List, and the event is removed from the
  queue.
 \end_layout
@@ -52979,13 +52959,13 @@ name "lis:Solution-to-n-Line"
 
 \begin_layout Standard
 The solution itself does not offer a true implementation of the Bentley-Ottmann
- Algorithm, but a slightly modified version in that the datastructure that
+ Algorithm, but a slightly modified version in that the data structure that
  holds the segments that currently intersect with the sweep line is a Sorted
  List (based on the 
 \begin_inset Formula $y$
 \end_inset
 
--intersection of a segment with the current sweepline position), and not
+-intersection of a segment with the current sweep line position), and not
  a Balanced Binary Search Tree.
  This does result in some performance penalty as insertions, and deletions
  are 
@@ -53053,9 +53033,9 @@ reference "tab:Bentley-Ottmann-vs-Naive"
 
  demonstrates some benchmarks as conducted on the authors system, (note:
  intersection output was enabled during these tests).
- This highlights that when there are few segments that intersecti with the
- sweepline, the modified version runs significantly faster, only matching
- the naive approach when all segments intersect the sweepline at a single
+ This highlights that when there are few segments that intersect with the
+ sweep line, the modified version runs significantly faster, only matching
+ the naive approach when all segments intersect the sweep line at a single
  time.
  
 \end_layout
@@ -53144,7 +53124,7 @@ Line Segments
 
 \series bold
 \size small
-Single segments intersect with sweepline
+Single segments intersect with sweep line
 \end_layout
 
 \end_inset
@@ -53257,7 +53237,7 @@ Bentley-Ottmann
 
 \series bold
 \size small
-3 Segments intersect with sweepline
+3 Segments intersect with sweep line
 \end_layout
 
 \end_inset
@@ -53370,7 +53350,7 @@ Bentley-Ottmann
 
 \series bold
 \size small
-All Segments intersect with sweepline
+All Segments intersect with sweep line
 \end_layout
 
 \end_inset
@@ -53539,8 +53519,8 @@ name "tab:Bentley-Ottmann-vs-Naive"
 As mentioned, the key variable with any implementation of this algorithm
  is the data structure used to hold the segments that currently intersect
  with the sweep line, as the rest of the algorithm is rather simple in structure.
- Any data strucutre must be either sortable on a mutable key value, or offer
- rapid lookups for next and prev segments based on a mutable key.
+ Any data structure must be either sortable on a mutable key value, or offer
+ rapid lookups for next and previous segments based on a mutable key.
 \end_layout
 
 \begin_layout Standard
@@ -53612,7 +53592,7 @@ rubber band
 \begin_inset Quotes erd
 \end_inset
 
- placed around a set of points; (b) the covex hull of the points.
+ placed around a set of points; (b) the convex hull of the points.
 \end_layout
 
 \begin_layout Plain Layout
@@ -53645,7 +53625,7 @@ name "fig:Convex-Hull"
 
 \begin_layout Standard
 Indeed, computing the convex hull of a set of points is a fundamental operation
- in computational geometery.
+ in computational geometry.
  
 \end_layout
 
@@ -53660,7 +53640,7 @@ gift wrapping
 \end_inset
 
 , or calculating the material required to cover an object), object culling
- in 3D/2D graphics for non-retangular shapes.
+ in 3D/2D graphics for non rectangular shapes.
 \end_layout
 
 \begin_layout Standard
@@ -53926,7 +53906,7 @@ We find a point
 \end_inset
 
  and call this the anchor point.
- Typically this will be the point with the minium 
+ Typically this will be the point with the minimum 
 \begin_inset Formula $y$
 \end_inset
 
@@ -54030,7 +54010,7 @@ We stop when when we reach the anchor point
 \begin_inset Formula $H$
 \end_inset
 
- sotres the verives of the convex hull in counterclockwise order.
+ stores the vertices of the convex hull in counterclockwise order.
 \end_layout
 
 \begin_layout Standard
@@ -54456,7 +54436,7 @@ The first line of input will be a number on a line by itself which is the
 \begin_inset Formula $N$
 \end_inset
 
- lines consists of a pair of non-negative integers, which are the 
+ lines consists of a pair of nonnegative integers, which are the 
 \begin_inset Formula $x$
 \end_inset
 
@@ -55653,7 +55633,7 @@ Some sample cases that must be considered are:
 
 \begin_layout Itemize
 Less than 3 points within a series of points to determine the convex hull.
- (This is explicity tested for).
+ (This is explicitly tested for).
 \end_layout
 
 \begin_layout Itemize
@@ -55730,9 +55710,9 @@ name "sub:Knapsack-Problem"
 \begin_layout Standard
 The Knapsack Problem is a problem of combinational optimisation, where given
  a set of items of differing weights, attempt to find the optimal list of
- items to be included based on value within set total weight constriants.
+ items to be included based on value within set total weight constraints.
  The problem derives its name from the challenge faced by someone who is
- constrained by a fixed-size knapsack and must fill it with the most valuable
+ constrained by a fixed size knapsack and must fill it with the most valuable
  items.
 \end_layout
 
@@ -55779,7 +55759,7 @@ Where
 \begin_inset Formula $b_{i}$
 \end_inset
 
-, whic is the utility value assigned to item 
+, which is the utility value assigned to item 
 \begin_inset Formula $i$
 \end_inset
 
@@ -57317,7 +57297,7 @@ Since examination of the relations reveals that E(
 
 \begin_layout Standard
 This has multiple advantages, in that we avoid recursion of the main algorithm,
- and previously calculated values are not recaculated.
+ and previously calculated values are not recalculated.
 \end_layout
 
 \begin_layout Standard
@@ -57643,7 +57623,7 @@ The input begins with a line containing a single integer,
 
 , the number of test cases which follow.
  For each test case, two lines of text, each with length between 0 and 1000
- folllow.
+ follow.
 \end_layout
 
 \begin_layout Standard
@@ -58209,7 +58189,7 @@ Student Membership is approximately US$40 per year for students in Australia.
 
 \end_inset
 
-), and winners recieve an all-expenses paid trip to any IEEE conference
+), and winners receive an all expenses paid trip to any IEEE conference
  in the world.
  (
 \begin_inset CommandInset href
@@ -58235,8 +58215,8 @@ target "http://code.google.com/codejam/"
 \end_layout
 
 \begin_layout Itemize
-Microsoft Imagine Cup - Run by Microsoft and offers prize money and all-expenses
- paid trips around the world.
+Microsoft Imagine Cup - Run by Microsoft and offers prize money and all
+ expenses paid trips around the world.
  (Note: this competition is more building a product than solving problem
  sets).
  (
@@ -58266,10 +58246,10 @@ target "http://uva.onlinejudge.org/"
 \begin_layout Standard
 Lastly, I should mention that taking part in these competitions (and even
  if you don't do well), is an excellent item to include on your CV/resume.
- Taking part in these competitions makes you stand-out in the crowd and
- can be a talking point within any job interview for a prospective software
+ Taking part in these competitions makes you standout in the crowd and can
+ be a talking point within any job interview for a prospective software
  development position.
- And if you do well within the competitions, the sponsers of the competition
+ And if you do well within the competitions, the sponsors of the competition
  certainly do take notice (and have been known to make available job offers
  from time to time)!
 \end_layout
@@ -58295,7 +58275,7 @@ References
 \end_layout
 
 \begin_layout Standard
-Throughout this guide multipe sources where used to construct this guide.
+Throughout this guide multiple sources where used to construct this guide.
  The main sources of information presented through out this guide were:
 \end_layout
 
@@ -58431,7 +58411,7 @@ Section 6.3.6.1 - A* Search, Figures, derived from:
 \begin_deeper
 \begin_layout Itemize
 Lester, P.
- (2005), A* Pathfinding for Beginners, Retrived September 10, 2012, from
+ (2005), A* Pathfinding for Beginners, Retrieved September 10, 2012, from
  
 \begin_inset CommandInset href
 LatexCommand href
