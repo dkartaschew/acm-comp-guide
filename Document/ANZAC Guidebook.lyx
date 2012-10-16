@@ -8561,6 +8561,557 @@ name "alg:Column-wise-Traversal-of"
 
 \end_layout
 
+\begin_layout Paragraph
+Description of working
+\end_layout
+
+\begin_layout Standard
+The algorithm itself simple cycles through either the full range of the
+ row count or column count before incrementing the alternate count variable.
+ The algorithm terminates when both counts have reached the size limits
+ of the matrix.
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+An implementation of the Row-Wise and Column-Wise Algorithms are shown in
+ Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Row-Wise-and-Column-Wise"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+public class ArrayTraverseLinear {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void RowWiseTraverse(int width, int height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int row = 0; row < height; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int col = 0; col < width; col++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.printf("%d,%d ", row, col);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void ColumnWiseTraverse(int width, int height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int col = 0; col < width; col++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int row = 0; row < height; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.printf("%d,%d ", row, col);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Row-Wise and Column-Wise Traverse (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Row-Wise-and-Column-Wise"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Matrix Traverse
+\end_layout
+
+\begin_layout Standard
+Given a two dimension matrix measuring n 
+\begin_inset Formula $\times$
+\end_inset
+
+ m, print the cell co-ordinates in number format whilst traversing in a
+ column-wise direction.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+Input consists of one or more lines, with the first line being the size
+ of the matrix to traverse in width and height.
+ The width and height will be in a range between 0 and 10.
+ The application should exit when the size given is 
+\begin_inset Quotes eld
+\end_inset
+
+0 0
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3 3
+\begin_inset Newline newline
+\end_inset
+
+9 2
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+0 0 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+The output of traversal should be the column and row co-ordinates in number
+ format separated by a comma enclosed in brackets.
+ Each displayed offset starts at 1.
+ Each co-ordinate reference are to be separated by a space.
+ Each case should be separated by a blank line.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+(1,1) (1,2) (1,3) (2,1) (2,2) (2,3) (3,1) (3,2) (3,3) 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+(1,1) (1,2) (2,1) (2,2) (3,1) (3,2) (4,1) (4,2) (5,1) (5,2) (6,1) (6,2)
+ (7,1) (7,2) (8,1) (8,2) (9,1) (9,2)
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+(1,1) 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A solution to the sample problem utilising an array traverse can be seen
+ in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-MatrixLinear"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class ArrayTraverseLinear {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new ArrayTraverseLinear().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main runner.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner sc = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    int width = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    int height = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (width != 0 || height != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Ensure we have both positive values
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (width > 0 && height > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        ColumnWiseTraverse(width, height);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.println("
+\backslash
+n");
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Get next input
+\end_layout
+
+\begin_layout Plain Layout
+
+      width = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      height = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Traverse a matrix in column order.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void ColumnWiseTraverse(int width, int height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int col = 0; col < width; col++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int row = 0; row < height; row++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.printf("(%d,%d) ", col+1, row+1);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to Matrix Traverse (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-MatrixLinear"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+ Some sample cases that must be considered are: 
+\end_layout
+
+\begin_layout Itemize
+Either the row or column count (but not both) is 0.
+ In this case a blank line is produced.
+\end_layout
+
+\begin_layout Itemize
+The output is 1 indexed for the row number.
+\end_layout
+
+\begin_layout Standard
+However there is no requirement for explicit testing of these conditions
+ within the algorithm, as the algorithm and implementation naturally handles
+ these conditions.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 Diagonal Traversal of an Array
 \end_layout
@@ -9251,6 +9802,533 @@ name "lis:Diagonal-Traversal-of"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Paragraph
+Sample Problem - Matrix Traverse 
+\end_layout
+
+\begin_layout Standard
+Given a two dimension matrix measuring n 
+\begin_inset Formula $\times$
+\end_inset
+
+ m, print the cell co-ordinates in spreadsheet format whilst traversing
+ in a diagonal direction from a top-left origin to a bottom right traverse.
+\end_layout
+
+\begin_layout Standard
+INPUT
+\end_layout
+
+\begin_layout Standard
+Input consists of one or more lines, with the first line being the size
+ of the matrix to traverse in width and height.
+ The width and height will be in a range between 0 and 26.
+ The application should exit when the size given is 
+\begin_inset Quotes eld
+\end_inset
+
+0 0
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+SAMPLE INPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3 3
+\begin_inset Newline newline
+\end_inset
+
+9 2
+\begin_inset Newline newline
+\end_inset
+
+26 1
+\begin_inset Newline newline
+\end_inset
+
+0 0 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+OUTPUT
+\end_layout
+
+\begin_layout Standard
+The output of traversal should be the column and row co-ordinates in spreadsheet
+ name format.
+ That is the column is an uppercase alphabetical format, and the row is
+ in number format, eg A1 for the first row and column, with each cell reference
+ separated by a space.
+ Each case should be separated by a blank line.
+\end_layout
+
+\begin_layout Standard
+SAMPLE OUTPUT
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+A1 B1 A2 C1 B2 A3 C2 B3 C3
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+A1 B1 A2 C1 B2 A3 D1 C2 B3 A4 D2 C3 B4 A5 D3 C4 B5 A6 D4 C5 B6 A7 D5 C6
+ B7 A8 D6 C7 B8 A9 D7 C8 B9 D8 C9 D9
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+A1 B1 C1 D1 E1 F1 G1 H1 I1 J1 K1 L1 M1 N1 O1 P1 Q1 R1 S1 T1 U1 V1 W1 X1
+ Y1 Z1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sample Solution
+\end_layout
+
+\begin_layout Standard
+A solution to the sample problem utilising an array traverse can be seen
+ in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Matrix"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class ArrayTraverse {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new ArrayTraverse().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main runner.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner sc = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+    int width = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    int height = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (width != 0 || height != 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      if(width > 0 && height > 0){
+\end_layout
+
+\begin_layout Plain Layout
+
+        ArrayDiagonalTraverse(width, height);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.println("
+\backslash
+n");
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Get next input
+\end_layout
+
+\begin_layout Plain Layout
+
+      width = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+      height = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void ArrayDiagonalTraverse(int width, int height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    char[] alpha = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
+'P',
+\end_layout
+
+\begin_layout Plain Layout
+
+                    'Q','R','S','T','U','V','W','X','Y','Z'};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    int start_x = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int start_y = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int column;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int row;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Keep looping until exit condition.
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (true) {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Initialise the starting location in the matrix for the current
+ slice.
+\end_layout
+
+\begin_layout Plain Layout
+
+      column = start_x;
+\end_layout
+
+\begin_layout Plain Layout
+
+      row = start_y;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Traverse the current slice.
+\end_layout
+
+\begin_layout Plain Layout
+
+      while (column >= 0 && row < height) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        System.out.printf("%c%d ",  alpha[column], row+1);
+\end_layout
+
+\begin_layout Plain Layout
+
+        column--;
+\end_layout
+
+\begin_layout Plain Layout
+
+        row++;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Update the start location for the next slice.
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (start_x < width - 1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        start_x++;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (start_y < height - 1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        start_y++;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // Exit the method, as start locations are now out of matrix bounds.
+\end_layout
+
+\begin_layout Plain Layout
+
+        break;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to 
+\lang english
+Matrix Traverse Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Matrix"
+
+\end_inset
+
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+ Some sample cases that must be considered are: 
+\end_layout
+
+\begin_layout Itemize
+Either the row or column count (but not both) is 0.
+ In this case a blank line is produced.
+\end_layout
+
+\begin_layout Itemize
+The output is 1 indexed for the row number.
+\end_layout
+
+\begin_layout Standard
+However there is no requirement for explicit testing of these conditions
+ within the algorithm, as the algorithm and implementation naturally handles
+ these conditions.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -27531,7 +28609,7 @@ A sample solution to the Minimum Spanning Tree problem can be found in Listing
  
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "lis:Solution-to-Minimum"
+reference "lis:Solution-to-Minimum-1"
 
 \end_inset
 
@@ -44206,7 +45284,7 @@ The solution to this problem is rather simple as it primarily relies on
 \begin_layout Itemize
 No taxi is able to pick up any person, due to either time or distance constraint
 s.
- (This results in zero egdes between each side).
+ (This results in zero edges between each side).
 \end_layout
 
 \begin_layout Itemize
@@ -44653,7 +45731,7 @@ textsc{findAugmentingPath}($G, s,t$)}
 
 
 \backslash
-Until {$pathCapacity > 0$}
+Until {$pathCapacity = 0$}
 \end_layout
 
 \begin_layout Plain Layout
@@ -45421,7 +46499,364 @@ Description of Working
 \end_layout
 
 \begin_layout Standard
+A key component of the network which this algorithm applies is that each
+ edge in addition to the capacity of the edge, must also designate a cost
+ of utilisation of the edge.
+\end_layout
 
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Minimum-Cost-Maximum-1"
+
+\end_inset
+
+ describes a simple example graph that has one vertex 
+\begin_inset Formula $s$
+\end_inset
+
+ with an in degree of 0 (being the source), and one vertex 
+\begin_inset Formula $t$
+\end_inset
+
+ with an out degree of zero (being the sink).
+ All edges are denoted with the maximum capacities and the cost of the edge.
+ (Note: The cost of the edge is the cost per capacity point, not the total
+ cost if the edge is utilised to capacity).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/minCost1.eps
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Minimum Cost Maximum Flow Graph Example
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Minimum-Cost-Maximum"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The main loop as shown in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Min-Cost-Flow-Algorithm"
+
+\end_inset
+
+, simply keeps looping while there are no augmenting paths left to find
+ with the graph, with an augmenting path being one that is able to transverse
+ from the source to the sink consuming some capacity.
+ On each run of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textsc{FindAugmentingPath}
+\end_layout
+
+\end_inset
+
+, the left-over capacity of each edge is calculated and stored in a separate
+ matrix.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Minimum-Cost-Maximum-1"
+
+\end_inset
+
+ show the example graph after 2 iterations of the main loop.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/minCost2.eps
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Minimum Cost Maximum Flow Graph Iterations
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Minimum-Cost-Maximum-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As the graph shown in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Minimum-Cost-Maximum"
+
+\end_inset
+
+ is a directed graph, there are no more augmenting paths, therefore the
+ main loop will exit after just two iterations.
+ The cost of the paths found will give the minimum cost for the graph:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+cost=2\times(10+5+10)+1\times(12+4+6+2)=50+24=74
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the example graph was undirected there is an additional flow available,
+ (
+\begin_inset Formula $s\rightarrow A\rightarrow C\rightarrow B\rightarrow D\rightarrow E\rightarrow t$
+\end_inset
+
+), which will bring the maximum flow to 4, with a cost of 90.
+ 
+\end_layout
+
+\begin_layout Standard
+The key component of the algorithm is the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textsc{FindAugmentingPath}
+\end_layout
+
+\end_inset
+
+ function described in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Min-Cost-Flow-Algorithm-1"
+
+\end_inset
+
+.
+ This function determines the next path from the residual graphs made after
+ each iteration, with the residual graph being the original graph with the
+ capacities altered taking into account the already utilised capacity of
+ the edge.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Residual-Graph-After"
+
+\end_inset
+
+ shows the residual graph of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Minimum-Cost-Maximum-1"
+
+\end_inset
+
+ (a) after the first iteration.
+ (Note the edge 
+\begin_inset Formula $C\rightarrow t$
+\end_inset
+
+ has no capacity left).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/minCost3.eps
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Residual Graph After One Iteration of 
+\shape smallcaps
+FindAugmentingPath
+\shape default
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Residual-Graph-After"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\shape smallcaps
+FindAugmentingPath
+\shape default
+ algorithm itself is split into three parts:
+\end_layout
+
+\begin_layout Enumerate
+The algorithm first initialises the lowest cost of each vetrex to infinity
+ (except the source which is set to 0) and determines a priority queue of
+ the edges that are to be processed by order of the lowest cost edges first.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The next main loop, simply processes the priority queue of edges attempting
+ to build a path from the source to the sink, and if a path has not been
+ found exit with a flow value of 0.
+ The path itself is built by processing the edges with the lowest cost first
+ within the queue, and if the edge has residual capacity then it added it
+ to the queue.
+ If a queue item is the sink, then a path has been determined, however if
+ the queue has been empty and we have not found the sink, then no path is
+ present.
+\end_layout
+
+\begin_layout Enumerate
+If a path has been found, it simply walks the path to determine the cost
+ and update the residual flow graph for the next iteration.
+\end_layout
+
+\begin_layout Standard
+In order to improve the implementation performance of the algorithm the
+ costs, flows and capacities are stored in separate matrices to allow 
+\series bold
+O(1)
+\series default
+ lookup of these values, rather than storing this information within an
+ adjacency list within the vertex structure.
+\end_layout
+
+\begin_layout Standard
+The last component of the Minimum Cost Maximum Flow Algorithm is the 
+\shape smallcaps
+CalculateMinimumCost
+\shape default
+ function as described in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Min-Cost-Flow-Algorithm-1-1"
+
+\end_inset
+
+.
+ This function simply looks for positive flow values within the flow data,
+ and adds the cost to the current total cost value.
+\end_layout
+
+\begin_layout Standard
+The algorithm as implemented operates in approximately 
+\series bold
+O(nm
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+
+\series bold
+2
+\end_layout
+
+\end_inset
+
+)
+\series default
+ time.
+\end_layout
+
+\begin_layout Standard
+This same algorithm can also be used to solve just the Maximum Flow problem
+ as well.
+ To do this, just assign all edges a cost value of 1, and rather than track
+ the total cost, track the total derived flows.
 \end_layout
 
 \begin_layout Paragraph
@@ -45430,7 +46865,656 @@ Implementation
 
 \begin_layout Standard
 An implementation of the Minimum Cost Maximum Flow Algorithm can be found
- in Listing
+ in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Minimum-Cost-Maximum"
+
+\end_inset
+
+.
+ (A full list of supporting classes can be found in the Problem Solution
+ Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Minimum-1"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class minCostMaxFlow {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  int[][] capacity; // Capacity Matrix for the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int[][] costs; // Cost Matrix for the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int[][] flow; // Flow Matrix for the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  Vertex[] vertices; // Vector of Vertices in the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int numVertices; // Number of Vertices in the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int sourceVertex; // Index of the Source Vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+  int sinkVertex; // Index of the Sink Vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+  final int SENTINEL = -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+  final int INFINITY = Integer.MAX_VALUE;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Calculate the Minimum Cost of the Maximum Flow within the graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int minCostFlowEdmondsKarp() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (findAugmentingPath() > 0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    return calculateMinimumCost();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Determine the flow of the an augmenting path within the graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The flow value of a path.
+ (0 being no path).
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int findAugmentingPath() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    PriorityQueue<Vertex> Q = new PriorityQueue<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // initialise parents
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] parent = new int[numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int n = 0; n < numVertices; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      parent[n] = SENTINEL; // sentinel value
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    // initialise queued nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertices[i].lowestCost = INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (i == sourceVertex) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertices[i].lowestCost = 0; // source cost
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (capacity[sourceVertex][i] - flow[sourceVertex][i] > 0)
+ {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertices[i].lowestCost = costs[sourceVertex][i]; // nodes from source
+\end_layout
+
+\begin_layout Plain Layout
+
+        parent[i] = sourceVertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Q.add(vertices[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!Q.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Vertex current = Q.poll();
+\end_layout
+
+\begin_layout Plain Layout
+
+	  // check if sink reached
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (current.id == sinkVertex) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        break;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (capacity[current.id][i] - flow[current.id][i] > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          int potential = current.lowestCost;
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (flow[current.id][i] < 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            potential -= costs[current.id][i];
+\end_layout
+
+\begin_layout Plain Layout
+
+          } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+            potential += costs[current.id][i];
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (potential < vertices[i].lowestCost) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            Q.remove(vertices[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+            vertices[i].lowestCost = potential;
+\end_layout
+
+\begin_layout Plain Layout
+
+            parent[i] = current.id;
+\end_layout
+
+\begin_layout Plain Layout
+
+            Q.add(vertices[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    int augmentingFlow = INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int current = sinkVertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // sentinel value, ie no augmenting path was found
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (parent[sinkVertex] == SENTINEL) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    do {
+\end_layout
+
+\begin_layout Plain Layout
+
+      int residualCap = capacity[parent[current]][current] - flow[parent[current
+]][current];
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (residualCap < augmentingFlow) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        augmentingFlow = residualCap; // find minimum residual capacity
+ for augmenting path
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      current = parent[current]; // walk backwards
+\end_layout
+
+\begin_layout Plain Layout
+
+    } while (current != sourceVertex);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    current = sinkVertex; // starting from the sink
+\end_layout
+
+\begin_layout Plain Layout
+
+    do {
+\end_layout
+
+\begin_layout Plain Layout
+
+      flow[parent[current]][current] += augmentingFlow; // forwards flow
+ (real flow)
+\end_layout
+
+\begin_layout Plain Layout
+
+      flow[current][parent[current]] -= augmentingFlow; // backwards flow
+\end_layout
+
+\begin_layout Plain Layout
+
+      current = parent[current]; // walk backwards
+\end_layout
+
+\begin_layout Plain Layout
+
+    } while (current != sourceVertex);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return augmentingFlow;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Determine the minimum cost of the maximum flow.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The minimum cost
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int calculateMinimumCost() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int totalCost = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int j = 0; j < numVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (flow[i][j] > 0) { // ignoring backwards flows
+\end_layout
+
+\begin_layout Plain Layout
+
+          totalCost += flow[i][j] * costs[i][j];
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return totalCost;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Minimum Cost Maximum Flow Algorithm (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Minimum-Cost-Maximum"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It should be noted that unlike other graph algorithm implementations, this
+ implementation splits the data which defines the graph into multiple separate
+ data structures.
+ This has been done to allow 
+\series bold
+O(1)
+\series default
+ lookup performance for either the cost, flow or capacities within the graph.
 \end_layout
 
 \begin_layout Paragraph
@@ -45698,7 +47782,1038 @@ Sample Solution
 
 \begin_layout Standard
 A sample solution to the Minimum Cost Maximum Flow problem can be found
- in Listing
+ in Listing 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "lis:Solution-to-Minimum-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\scriptsize\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import java.util.PriorityQueue;
+\end_layout
+
+\begin_layout Plain Layout
+
+import java.util.Scanner;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+public class minCostMaxFlow {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  int[][] capacity; // Capacity Matrix for the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int[][] costs; // Cost Matrix for the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int[][] flow; // Flow Matrix for the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  Vertex[] vertices; // Vector of Vertices in the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int numVertices; // Number of Vertices in the Graph
+\end_layout
+
+\begin_layout Plain Layout
+
+  int sourceVertex; // Index of the Source Vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+  int sinkVertex; // Index of the Sink Vertex.
+\end_layout
+
+\begin_layout Plain Layout
+
+  final int SENTINEL = -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+  final int INFINITY = Integer.MAX_VALUE;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public static void main(String[] args) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    new minCostMaxFlow().run();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Main runner.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  public void run() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    Scanner sc = new Scanner(System.in);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    int numCases = sc.nextInt();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int caseNum = 1; caseNum <= numCases; caseNum++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      numVertices = sc.nextInt(); // number of vertices
+\end_layout
+
+\begin_layout Plain Layout
+
+      int numEdges = sc.nextInt(); // edges
+\end_layout
+
+\begin_layout Plain Layout
+
+      sourceVertex = sc.nextInt(); // source
+\end_layout
+
+\begin_layout Plain Layout
+
+      sinkVertex = sc.nextInt(); // sink
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      // Create the matrix for capacity, cost and flows
+\end_layout
+
+\begin_layout Plain Layout
+
+      capacity = new int[numVertices][numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+      costs = new int[numVertices][numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+      flow = new int[numVertices][numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertices = new Vertex[numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int n = 0; n < numVertices; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertices[n] = new Vertex(n);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int edge = 0; edge < numEdges; edge++) { // edges:
+\end_layout
+
+\begin_layout Plain Layout
+
+        int edgeSource = sc.nextInt(); // input Vi
+\end_layout
+
+\begin_layout Plain Layout
+
+        int edgeDestination = sc.nextInt(); // input Vj
+\end_layout
+
+\begin_layout Plain Layout
+
+        int edgeCapacity = sc.nextInt(); // input Cap
+\end_layout
+
+\begin_layout Plain Layout
+
+        int edgeCost = sc.nextInt(); // input Cost
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        capacity[edgeSource][edgeDestination] = edgeCapacity; // directed
+ capacity
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        costs[edgeSource][edgeDestination] = edgeCost; // undirected cost
+\end_layout
+
+\begin_layout Plain Layout
+
+        costs[edgeDestination][edgeSource] = edgeCost;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+        flow[edgeSource][edgeDestination] = 0; // zero initial flow
+\end_layout
+
+\begin_layout Plain Layout
+
+        flow[edgeDestination][edgeSource] = 0; // zero back flow
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      //output minimum cost
+\end_layout
+
+\begin_layout Plain Layout
+
+      System.out.printf("Test %d: Minimum Cost = %d%n", caseNum, minCostFlowEdmond
+sKarp()); 
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Calculate the Minimum Cost of the Maximum Flow within the graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int minCostFlowEdmondsKarp() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (findAugmentingPath() > 0);
+\end_layout
+
+\begin_layout Plain Layout
+
+    return calculateMinimumCost();
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Determine the flow of the an augmenting path within the graph.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The flow value of a path.
+ (0 being no path).
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int findAugmentingPath() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    PriorityQueue<Vertex> Q = new PriorityQueue<Vertex>();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // initialise parents
+\end_layout
+
+\begin_layout Plain Layout
+
+    int[] parent = new int[numVertices];
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int n = 0; n < numVertices; n++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      parent[n] = SENTINEL; // sentinel value
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    // initialise queued nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      vertices[i].lowestCost = INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (i == sourceVertex) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertices[i].lowestCost = 0; // source cost
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (capacity[sourceVertex][i] - flow[sourceVertex][i] > 0)
+ {
+\end_layout
+
+\begin_layout Plain Layout
+
+        vertices[i].lowestCost = costs[sourceVertex][i]; // nodes from source
+\end_layout
+
+\begin_layout Plain Layout
+
+        parent[i] = sourceVertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+        Q.add(vertices[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    while (!Q.isEmpty()) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      Vertex current = Q.poll();
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (current.id == sinkVertex) // check if sink reached
+\end_layout
+
+\begin_layout Plain Layout
+
+      {
+\end_layout
+
+\begin_layout Plain Layout
+
+        break;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (capacity[current.id][i] - flow[current.id][i] > 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+          int potential = current.lowestCost;
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (flow[current.id][i] < 0) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            potential -= costs[current.id][i];
+\end_layout
+
+\begin_layout Plain Layout
+
+          } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+            potential += costs[current.id][i];
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+          if (potential < vertices[i].lowestCost) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            Q.remove(vertices[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+            vertices[i].lowestCost = potential;
+\end_layout
+
+\begin_layout Plain Layout
+
+            parent[i] = current.id;
+\end_layout
+
+\begin_layout Plain Layout
+
+            Q.add(vertices[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+          }
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    int augmentingFlow = INFINITY;
+\end_layout
+
+\begin_layout Plain Layout
+
+    int current = sinkVertex;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    // sentinel value, ie no augmenting path was found
+\end_layout
+
+\begin_layout Plain Layout
+
+    if (parent[sinkVertex] == SENTINEL) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    do {
+\end_layout
+
+\begin_layout Plain Layout
+
+      int residualCap = capacity[parent[current]][current] - flow[parent[current
+]][current];
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (residualCap < augmentingFlow) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        augmentingFlow = residualCap; // find minimum residual capacity
+ for augmenting path
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      current = parent[current]; // walk backwards
+\end_layout
+
+\begin_layout Plain Layout
+
+    } while (current != sourceVertex);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    current = sinkVertex; // starting from the sink
+\end_layout
+
+\begin_layout Plain Layout
+
+    do {
+\end_layout
+
+\begin_layout Plain Layout
+
+      flow[parent[current]][current] += augmentingFlow; // forwards flow
+ (real flow)
+\end_layout
+
+\begin_layout Plain Layout
+
+      flow[current][parent[current]] -= augmentingFlow; // backwards flow
+\end_layout
+
+\begin_layout Plain Layout
+
+      current = parent[current]; // walk backwards
+\end_layout
+
+\begin_layout Plain Layout
+
+    } while (current != sourceVertex);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    return augmentingFlow;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Determine the minimum cost of the maximum flow.
+\end_layout
+
+\begin_layout Plain Layout
+
+   *
+\end_layout
+
+\begin_layout Plain Layout
+
+   * @return The minimum cost
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  private int calculateMinimumCost() {
+\end_layout
+
+\begin_layout Plain Layout
+
+    int totalCost = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+    for (int i = 0; i < numVertices; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      for (int j = 0; j < numVertices; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        if (flow[i][j] > 0) { // ignoring backwards flows
+\end_layout
+
+\begin_layout Plain Layout
+
+          totalCost += flow[i][j] * costs[i][j];
+\end_layout
+
+\begin_layout Plain Layout
+
+        }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+    return totalCost;
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  /**
+\end_layout
+
+\begin_layout Plain Layout
+
+   * Generic Vertex Information.
+ Note: Adjacency Information is stored
+\end_layout
+
+\begin_layout Plain Layout
+
+   * separately.
+\end_layout
+
+\begin_layout Plain Layout
+
+   */
+\end_layout
+
+\begin_layout Plain Layout
+
+  class Vertex implements Comparable<Vertex> {
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int lowestCost;
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int id;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    public Vertex(int i) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      id = i;
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    @Override
+\end_layout
+
+\begin_layout Plain Layout
+
+    public int compareTo(Vertex other) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      // before case (lower cost)
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (this.lowestCost < other.lowestCost) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        return -1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      } else if (this.lowestCost > other.lowestCost) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        // after case (greater lowest Cost)
+\end_layout
+
+\begin_layout Plain Layout
+
+        return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+      return 0; // equality case (equal cost)
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+Solution to 
+\lang english
+Minimum Cost Maximum Flow Problem (Java)
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Solution-to-Minimum-1"
+
+\end_inset
+
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The solution to this problem is rather simple as it primarily relies on
+ the implementation of the algorithm itself to produce a correct result.
+ Some sample cases that must be considered are: 
+\end_layout
+
+\begin_layout Itemize
+Some edges are listed multiple times.
+\end_layout
+
+\begin_layout Itemize
+Some costs or capacities are below zero.
+ (This is not handled as the problem statement ensures this is the case).
+\end_layout
+
+\begin_layout Itemize
+There are vertices which have no edges.
+\end_layout
+
+\begin_layout Itemize
+There is no path from the source to sink.
+\end_layout
+
+\begin_layout Standard
+However there is no requirement for explicit testing of these conditions
+ within the algorithm, as the algorithm and implementation naturally handles
+ these conditions.
+ 
 \end_layout
 
 \begin_layout Subsection
@@ -55036,6 +58151,135 @@ However there is no requirement for explicit testing of these conditions
 
 \begin_layout Section
 Afterword
+\end_layout
+
+\begin_layout Standard
+The algorithms described within this guide are by no means an exhaustive
+ list of algorithms needed for the competition, but is merely a set of ones
+ that tend to appear each year within the competition.
+ These algorithms are also considered fundamental algorithms in that many
+ other algorithms are derived from or form the basis of other algorithms,
+ therefore understanding these ones is considered essential not only for
+ the competition but also any further development work you'll undertake
+ as a professional software developer.
+ 
+\end_layout
+
+\begin_layout Standard
+The ACM competition organisers do make available old problem sets (and sometimes
+ even judges data as well) if you are interested in tackling some of the
+ problems that have been presented in earlier competitions.
+ These can be found here: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.sppcontest.org/problems.html"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In addition to the ACM-ICPC and ANZAC competitions there are several other
+ competitions run both regionally and Internationally.
+ These are:
+\end_layout
+
+\begin_layout Itemize
+TopCoder - An international competition that offers prize money to the best
+ of the best.
+ (
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.topcoder.com/"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+IEEEXtreme - Run by the IEEE (you are required to be an IEEE Student Member
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Student Membership is approximately US$40 per year for students in Australia.
+\end_layout
+
+\end_inset
+
+), and winners recieve an all-expenses paid trip to any IEEE conference
+ in the world.
+ (
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.ieee.org/membership_services/membership/students/competitions/xtreme/index.html"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Google Code Jam - Run by Google, and offers prize money for the winners.
+ (Last years prize was US$10,000 in cash).
+ (
+\begin_inset CommandInset href
+LatexCommand href
+target "http://code.google.com/codejam/"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Microsoft Imagine Cup - Run by Microsoft and offers prize money and all-expenses
+ paid trips around the world.
+ (Note: this competition is more building a product than solving problem
+ sets).
+ (
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.imaginecup.com/"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+Additionally, the University of Valladolid hosts an online judging site
+ where many programming competition problems are available and is an excellent
+ resource for practicing.
+ (
+\begin_inset CommandInset href
+LatexCommand href
+target "http://uva.onlinejudge.org/"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+Lastly, I should mention that taking part in these competitions (and even
+ if you don't do well), is an excellent item to include on your CV/resume.
+ Taking part in these competitions makes you stand-out in the crowd and
+ can be a talking point within any job interview for a prospective software
+ development position.
+ And if you do well within the competitions, the sponsers of the competition
+ certainly do take notice (and have been known to make available job offers
+ from time to time)!
+\end_layout
+
+\begin_layout Standard
+Happy Coding,
+\end_layout
+
+\begin_layout Standard
+Darran Kartaschew
 \end_layout
 
 \begin_layout Standard
