@@ -318,7 +318,7 @@ About the Competition
 \begin_layout Standard
 The programming contests held in Universities across Australia and New Zealand,
  are part of the Australia and New Zealand Algorithmics & Computing League
- Competition and is used in conjunction with the ACM-ICPC competition.
+ Competition and are used in conjunction with the ACM-ICPC competition.
  These competitions are aimed at challenging students in completing a set
  number of problems within the allocated time slot (typically 5 hours),
  with the winners in each location given some prestige.
@@ -386,8 +386,8 @@ te degree.
 \end_layout
 
 \begin_layout Standard
-Overall, the competition is designed to be challenging, fun and also students
- to advance within their field of study.
+Overall, the competition is designed to be challenging, fun and also allow
+ students to advance within their field of study.
  It is also a great way to network amongst other equally capable students
  within the programming field.
 \end_layout
@@ -732,8 +732,8 @@ PC^2
 \end_layout
 
 \begin_layout Standard
-The primary tool that allow students to submit their challenge entries to
- be judged in the PC^2 Software Suite.
+The primary tool that allows students to submit their challenge entries
+ to be judged is the PC^2 Software Suite.
  The application itself is developed by California State University, Sacramento
  for the purposes of programming competitions and has been adopted by both
  the Australia and New Zealand Algorithmics & Computing League (ANZACL)
@@ -1117,7 +1117,21 @@ If you solve a problem, you get one point for solving the problem.
 \begin_layout Standard
 The ordering of the teams is based on the number of correct problems descending
  and then on the total amount of time used by the team ascending.
- An example of how the total time is calculated is given in the next section.
+ 
+\end_layout
+
+\begin_layout Standard
+For example, if two teams both solve 5 problems, then they each are awarded
+ 5 points.
+ The time calculated is the summation of the times in which they completed
+ a problem from the start of the competition with penalities added.
+ For example if the first team completes their problems at 45min, 60min,
+ 120min, 135min and 180min from the start of the competition with 5 No Responses.
+ They will have a total time of 640min.
+ The second team completes their problems at 30min, 45min, 125min, 180min
+ and 230min with 1 No Response, they will have a time of 630min.
+ With this example the second team is ahead in the rankings in respect to
+ the first team.
 \end_layout
 
 \begin_layout Subsection
@@ -1330,7 +1344,7 @@ Finish
  (See Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Eclipse---New-1"
+reference "fig:Eclipse---New"
 
 \end_inset
 
@@ -1359,7 +1373,7 @@ All debugging facilities may be utilised within Eclipse with no restrictions.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -1369,7 +1383,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/Eclipse1.png
-	width 75text%
+	width 60text%
 
 \end_inset
 
@@ -5642,7 +5656,7 @@ reference "lis:Java-Program-Structure"
 There should be no need to use public or private modifiers for your instance
  variables.
  There is no need for the strict OO rules to be followed, just as long as
- you understand what side effects you are writing in to your methods.
+ you understand what side effects are possible when writing your methods.
 \end_layout
 
 \begin_layout Standard
@@ -5848,7 +5862,7 @@ Linear Search
 \end_layout
 
 \begin_layout Standard
-Linear Search algorithms transverse through a list of data items in sequential
+Linear Search algorithms traverse through a list of data items in sequential
  order attempting to find the location of the data item.
  The list itself may or may not be sorted, and the underlying data structure
  may be a linear array or a linked list.
@@ -5989,8 +6003,8 @@ Description of working
 \end_layout
 
 \begin_layout Standard
-The linear search algorithm takes a vector (aka array) of elements, and
- simply searches all elements in order as stored.
+The linear search algorithm takes a vector (array) of elements, and simply
+ searches all elements in order as stored.
  This can yield slow performance with large vectors, as the worst case for
  linear search is 
 \series bold
@@ -6011,7 +6025,7 @@ Implementation
 Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "lis:Linear-Search-Implementation-1"
+reference "lis:Linear-Search-Implementation"
 
 \end_inset
 
@@ -6317,6 +6331,7 @@ The line itself contains a single integer, being the key, but provided with
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -6587,20 +6602,12 @@ The binary search algorithm is a more efficient method of searching a vector,
 O(1)
 \series default
  time.
- Because of these two conditions, it can't with some storage data structures
- like linked lists (as elements can't be accessed in 
+ Because of these two conditions, it can't be used with some storage data
+ structures like linked lists (as elements can't be accessed in 
 \series bold
 O(1)
 \series default
  time), nor is suitable for vectors that are unsorted.
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -7084,6 +7091,7 @@ The line itself contains a single integer, being the key, but provided with
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -7556,8 +7564,18 @@ The Sun UltraSPARC IV+ utilises a 32MB L3 cache and the Intel Itanium 9300
 Main Memory, is typically in the form of the DIMMs that get installed in
  the mainboard of the computer.
  While systems are approaching very large capacities (32GB can be found
- in home desktop systems, and up to 194GB in workstations), they are very
- slow compared to the CPU registers and even the Level 1,2 and 3 caches.
+ in home desktop systems, up to 192GB in workstations and up to 2TB in servers
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The Oracle T4-4 Server in a quad CPU setup supports up to 2TB of main memory.
+\end_layout
+
+\end_inset
+
+), they are very slow compared to the CPU registers and even the Level 1,2
+ and 3 caches.
  Typical access latencies can be measured anywhere from hundreds to thousands
  of CPU cycles.
  That is, if the CPU needs some information that is not present in one of
@@ -7629,7 +7647,7 @@ The CPUs cache management engine works by loading the contents of most recently
 \end_layout
 
 \begin_layout Standard
-Therefore the to gain the best possible performance when dealing with arrays,
+Therefore to gain the best possible performance when dealing with arrays,
  either utilise very small arrays that will fit into the level 1 cache,
  or only access arrays in a linear fashion row by row.
 \end_layout
@@ -7663,6 +7681,7 @@ reference "tab:Array-Access-Performance"
 
 \begin_layout Standard
 \begin_inset listings
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -8580,7 +8599,7 @@ reference "lis:Row-Wise-and-Column-Wise"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily}"
+lstparams "basicstyle={\small\ttfamily}"
 inline false
 status open
 
@@ -12903,10 +12922,6 @@ name "alg:Euclidean-Algorithm-Iterative"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -12917,7 +12932,7 @@ name "alg:Euclidean-Algorithm-Iterative"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -13031,7 +13046,7 @@ reference "lis:Euclidean-Algorithm-(Java)"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage pagebreak
+\begin_inset Newpage newpage
 \end_inset
 
 
@@ -13039,7 +13054,7 @@ reference "lis:Euclidean-Algorithm-(Java)"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\normalsize\ttfamily}"
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -19758,7 +19773,7 @@ P
 T
 \shape default
 .
- Otherwise, we simplate increment the index for 
+ Otherwise, we simply increment the index for 
 \shape italic
 T
 \shape default
@@ -19835,7 +19850,11 @@ reference "fig:Illustration-of-the"
 \end_inset
 
 , we illustrate the execution of the KMP algorithm.
- The failure function f for the pattern displayed is given in Figure 
+ The failure function 
+\shape italic
+f
+\shape default
+ for the pattern displayed is given in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Failure-Function-for"
@@ -21988,7 +22007,7 @@ reference "lis:Adjacency-List-(Java)"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily}"
+lstparams "basicstyle={\scriptsize\ttfamily}"
 inline false
 status open
 
@@ -24039,7 +24058,7 @@ O(1)
 \end_inset
 
 .
- However, the the storage requirements for an Adjacency Matrix is 
+ However, the storage requirements for an Adjacency Matrix is 
 \series bold
 O(n
 \begin_inset script superscript
