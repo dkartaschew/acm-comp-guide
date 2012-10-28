@@ -22445,7 +22445,7 @@ status collapsed
 
 \begin_layout Plain Layout
 A weight may have either a positive or negative value depending on what
- is being modeled.
+ is being modelled.
 \end_layout
 
 \end_inset
@@ -22569,7 +22569,7 @@ A
 \series bold
 trail
 \series default
- in a graph, is a sequences of necessarily distinct vertices, but distinct
+ in a graph, is a sequence of not necessarily distinct vertices, but distinct
  edges.
 \end_layout
 
@@ -24337,7 +24337,8 @@ name "lis:Solution-to-Adjacency"
 
 \begin_layout Standard
 The Adjacency List Problem is a relatively simple problem that relies on
- the data structure implementation to be correct.
+ the data structure implementation to be correct, and is thusly a direct
+ implementation of the dta structure.
  As can be seen in Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -24370,7 +24371,7 @@ O(n log n)
 \end_layout
 
 \begin_layout Standard
-Sample test cases include:
+The primary areas to test for within this problem include:
 \end_layout
 
 \begin_layout Itemize
@@ -24378,11 +24379,105 @@ Edge count for the entire graph being zero.
 \end_layout
 
 \begin_layout Itemize
-The degree of an vertex being zero.
+The degree of a vertex being zero.
 \end_layout
 
 \begin_layout Itemize
 Receiving the same edge more than once in the input strings.
+\end_layout
+
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\begin_inset Newline newline
+\end_inset
+
+4 1
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+4 8
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+1 0
+\begin_inset Newline newline
+\end_inset
+
+1 2
+\begin_inset Newline newline
+\end_inset
+
+1 3
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+0 3
+\begin_inset Newline newline
+\end_inset
+
+3 0
+\begin_inset Newline newline
+\end_inset
+
+0 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 2 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A simple graph with four vertices, with only 1 edge present.
+ This test for when the degree of a vertex may be zero.
+\end_layout
+
+\begin_layout Enumerate
+A simple graph with four vertices, however some edges are repeated.
+\end_layout
+
+\begin_layout Standard
+Another test would to create a graph that has 5,000 vertices and 10,000
+ egdes to ensure that the implementation of the data structures can hold
+ the required amounts as requested by the problem set.
+ (Good choice of data structures will allow the solution to scale beyond
+ the required number of vertices/edges without change in code).
 \end_layout
 
 \begin_layout Paragraph
@@ -25200,7 +25295,15 @@ The Adjacency Matrix utilises an
 \begin_inset Formula $A[i,j]$
 \end_inset
 
- is null, with null typically being represented by 0 (zero).
+ is 
+\begin_inset Formula $null$
+\end_inset
+
+, with 
+\begin_inset Formula $null$
+\end_inset
+
+ typically being represented by 0 (zero).
  For weighted graphs each cell, holds the weight of the edge, and for unweighted
  graphs, each cell will hold a boolean value either 
 \family typewriter
@@ -25242,7 +25345,7 @@ O(n
 
 )
 \series default
- which may representing very large graphs difficult.
+ which may make representing very large graphs difficult.
 \end_layout
 
 \begin_layout Subparagraph
@@ -26215,13 +26318,19 @@ name "lis:Solution-to-Adjacency-1"
 
 \begin_layout Standard
 The Adjacency Matrix Problem is a relatively simple problem that relies
- on the data structure implementation to be correct.
+ on the data structure implementation to be correct, and thusly is considered
+ a direct implementation of the data structure.
  Since the underlying data structure is a simple array, there is little
  that can go wrong.
 \end_layout
 
 \begin_layout Standard
-The main challenges include:
+One key point with the solution is to note how the resulting matrix is printed
+ and the use of the formatting parameters are being utilised in this case.
+\end_layout
+
+\begin_layout Standard
+The primary areas to test for within this problem include:
 \end_layout
 
 \begin_layout Itemize
@@ -26234,6 +26343,94 @@ A graph with zero edges.
 
 \begin_layout Itemize
 Ensuring correct spacing when displaying the matrix.
+\end_layout
+
+\begin_layout Itemize
+The source and destination vertex are the same.
+\end_layout
+
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\begin_inset Newline newline
+\end_inset
+
+4 1
+\begin_inset Newline newline
+\end_inset
+
+0 1 3
+\begin_inset Newline newline
+\end_inset
+
+4 5
+\begin_inset Newline newline
+\end_inset
+
+0 1 3
+\begin_inset Newline newline
+\end_inset
+
+1 0 3
+\begin_inset Newline newline
+\end_inset
+
+0 2 4
+\begin_inset Newline newline
+\end_inset
+
+3 3 2
+\begin_inset Newline newline
+\end_inset
+
+0 1 4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 2 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A simple graph with four vertices, with only 1 edge present.
+ This test for when the degree of a vertex may be zero.
+\end_layout
+
+\begin_layout Enumerate
+A simple graph with four vertices, with the fourth edge having the same
+ source and destination, and the fifth edge being the same as the first
+ edge given.
+ (The edge weight should be updated in this case).
+\end_layout
+
+\begin_layout Standard
+Another test would to create a graph that has 5,000 vertices and 10,000
+ egdes to ensure that the implementation of the data structures can hold
+ the required amounts as requested by the problem set.
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -26841,7 +27038,7 @@ Implementation
 \end_layout
 
 \begin_layout Standard
-An implementation of the DFS algorithm in Java can be seen in Listing 
+An implementation of the BFS algorithm in Java can be seen in Listing 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "lis:Breadth-Search-First"
@@ -27530,7 +27727,7 @@ reference "lis:Solution-to-Monks"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily}"
+lstparams "basicstyle={\scriptsize\ttfamily}"
 inline false
 status open
 
@@ -28625,13 +28822,80 @@ O(n)
  performance.
 \end_layout
 
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+1 1 1
+\begin_inset Newline newline
+\end_inset
+
+499 498 500
+\begin_inset Newline newline
+\end_inset
+
+0 237 237
+\begin_inset Newline newline
+\end_inset
+
+0 0 0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 3 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A simple case of the minimum number of beads to initiate the algorithm.
+\end_layout
+
+\begin_layout Enumerate
+The case of when at least one of the urns are at maximum starting capacity.
+\end_layout
+
+\begin_layout Enumerate
+At least 1 urn has a starting contents of zero.
+ (The algorithm should terminate immediately).
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a scenario with does not have a solution,
+ and ensure that the algorithm implementation does terminate correctly in
+ these instances.
+ (While this is not required as part of the challenge, there have been times
+ when judges data for a problem may actually have not complied 100% with
+ the problem description).
+\end_layout
+
 \begin_layout Subsubsection
 Minimum Spanning Tree
 \end_layout
 
 \begin_layout Standard
-Minimum spanning trees are a useful operation on a graph that allow you
- to construct a tree
+Minimum spanning trees (MST) are a useful operation on a graph that allow
+ you to construct a tree
 \begin_inset Foot
 status collapsed
 
@@ -28962,7 +29226,7 @@ reference "fig:The-Prim-Jarník-Algorithm"
 
 \end_inset
 
-demonstrates the algorithm, based on the initial graph in Figure 
+ demonstrates the algorithm, based on the initial graph in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Basic-Graph-Example"
@@ -28970,45 +29234,6 @@ reference "fig:Basic-Graph-Example"
 \end_inset
 
 , starting at vertex D.
-\end_layout
-
-\begin_layout Standard
-Starting at Vertex D, all edges that are incident are added to the priority
- queue, and the edge with the least weight is removed from the queue.
- At step (a), this is the edge (d,b).
- This edge is then added to the resulting MST, as shown in the bold line.
- This process is then repeated at Vertex B (step b), in which all edges
- are added to the queue (or if in the queue is adjusted if a new lower weight
- has been found).
- The edge with the least weight is then removed from the queue.
- This edge may be adjacent to either Vertex D or Vertex B, as the algorithm
- only cares about the minimum weight, not the current vertex.
- This process is repeated, until all vertices are within the MST T (step
- (f)).
-\end_layout
-
-\begin_layout Standard
-The Prim-Jarník Algorithm depending on the implementation will have a running
- time of 
-\series bold
-O(m log n)
-\series default
- when an adjacency list is utilised or
-\series bold
- O(n
-\begin_inset script superscript
-
-\begin_layout Plain Layout
-
-\series bold
-2
-\end_layout
-
-\end_inset
-
-)
-\series default
- when an adjacency matrix is utilised.
 \end_layout
 
 \begin_layout Standard
@@ -29049,13 +29274,48 @@ name "fig:The-Prim-Jarník-Algorithm"
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Starting at Vertex D, all edges that are incident are added to the priority
+ queue, and the edge with the least weight is removed from the queue.
+ At step (a), this is the edge (d,b).
+ This edge is then added to the resulting MST, as shown in the bold line.
+ This process is then repeated at Vertex B (step b), in which all edges
+ are added to the queue (or if in the queue is adjusted if a new lower weight
+ has been found).
+ The edge with the least weight is then removed from the queue.
+ This edge may be adjacent to either Vertex D or Vertex B, as the algorithm
+ only cares about the minimum weight, not the current vertex.
+ This process is repeated, until all vertices are within the MST T (step
+ (f)).
+\end_layout
+
+\begin_layout Standard
+The Prim-Jarník Algorithm depending on the implementation will have a running
+ time of 
+\series bold
+O(m log n)
+\series default
+ when an adjacency list is utilised or
+\series bold
+ O(n
+\begin_inset script superscript
+
 \begin_layout Plain Layout
 
+\series bold
+2
 \end_layout
 
 \end_inset
 
-
+)
+\series default
+ when an adjacency matrix is utilised.
 \end_layout
 
 \begin_layout Subparagraph
@@ -30516,6 +30776,148 @@ n, that is a new edge, that has both source and destination vertex already
  (These should simply be discarded, and are within the implementation).
 \end_layout
 
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+4
+\begin_inset Newline newline
+\end_inset
+
+4 6
+\begin_inset Newline newline
+\end_inset
+
+0 1 1
+\begin_inset Newline newline
+\end_inset
+
+0 2 1
+\begin_inset Newline newline
+\end_inset
+
+0 3 1
+\begin_inset Newline newline
+\end_inset
+
+1 2 1
+\begin_inset Newline newline
+\end_inset
+
+1 3 1
+\begin_inset Newline newline
+\end_inset
+
+2 3 1
+\begin_inset Newline newline
+\end_inset
+
+4 3
+\begin_inset Newline newline
+\end_inset
+
+0 1 12
+\begin_inset Newline newline
+\end_inset
+
+1 2 10
+\begin_inset Newline newline
+\end_inset
+
+0 3 15
+\begin_inset Newline newline
+\end_inset
+
+4 4
+\begin_inset Newline newline
+\end_inset
+
+0 1 2
+\begin_inset Newline newline
+\end_inset
+
+1 2 3
+\begin_inset Newline newline
+\end_inset
+
+2 3 4
+\begin_inset Newline newline
+\end_inset
+
+3 0 1
+\begin_inset Newline newline
+\end_inset
+
+4 3
+\begin_inset Newline newline
+\end_inset
+
+0 1 2
+\begin_inset Newline newline
+\end_inset
+
+1 2 3
+\begin_inset Newline newline
+\end_inset
+
+2 3 4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 4 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A fully connected graph, in which each vertex is connected to all other
+ vertices, and all edges have the same weight.
+\end_layout
+
+\begin_layout Enumerate
+A graph that already is a Minimum Spanning Tree.
+\end_layout
+
+\begin_layout Enumerate
+A graph in which all vertices have an in degree of 1 and an out degree of
+ 1.
+\end_layout
+
+\begin_layout Enumerate
+A graph in which all vertices form a line of vertices in sequence.
+ eg (
+\begin_inset Formula $a\gets b\gets c\gets d$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a graph with 5,000 vertices and 10,000 edges
+ to ensure that the underlying datastructures being utilised are able to
+ handle graphs of at least the size.
+\end_layout
+
 \begin_layout Paragraph
 Kruskal's with Union Find Algorithm 
 \end_layout
@@ -30773,49 +31175,6 @@ reference "fig:Basic-Graph-Example"
 \end_layout
 
 \begin_layout Standard
-Based on the weights, of edges within the graph depicted in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Kruskal's-Algorithm"
-
-\end_inset
-
-(a), will be stored in the priority queue in the following order: {(f,g),
- (b,e), (b,d), (d,e), (a,b), (b,c), (e,g), (c,e), (d,f), (a,d), (e,f)}.
- In (a), the first edge is automatically added to the Tree (as there are
- no other edges currently in the tree).
- (b), (c) add additional edges to form a second subtree.
- In (d), the next edge in the priority queue is (d,e), however this is not
- added as it would create a cycle within the tree.
- The rest of the edges are added into the tree, until the number of edges
- in the resulting Tree is equal to the number of vertices - 1.
-\end_layout
-
-\begin_layout Standard
-One of the key aspects of the algorithm is the method used to determining
- if 
-\begin_inset Formula $C(v)\neq C(u)$
-\end_inset
-
- is true or false as well as performing the merge operation between the
- two clusters (or subtrees).
- To achieve this we utilise a union find data structure, that offers high
- performance in both checking if 
-\begin_inset Formula $C(v)\neq C(u)$
-\end_inset
-
- and also performing the merge operation.
-\end_layout
-
-\begin_layout Standard
-Kruskal's Algorithm will typically have a performance complexity of 
-\series bold
-O(m log n)
-\series default
-.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
@@ -30853,13 +31212,55 @@ name "fig:Kruskal's-Algorithm"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Based on the weights, the edges within the graph depicted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Kruskal's-Algorithm"
+
+\end_inset
+
+(a), will be stored in the priority queue in the following order: {
+\begin_inset Formula ${(f,g),(b,e),(b,d),(d,e),(a,b),(b,c),(e,g),(c,e),(d,f),(a,d),(e,f)}$
+\end_inset
+
+}.
+ In (a), the first edge is automatically added to the Tree (as there are
+ no other edges currently in the tree).
+ (b), (c) add additional edges to form a second subtree.
+ In (d), the next edge in the priority queue is (d,e), however this is not
+ added as it would create a cycle within the tree.
+ The rest of the edges are added into the tree, until the number of edges
+ in the resulting Tree is equal to the number of vertices - 1.
+\end_layout
+
+\begin_layout Standard
+One of the key aspects of the algorithm is the method used to determining
+ if 
+\begin_inset Formula $C(v)\neq C(u)$
+\end_inset
+
+ is true or false as well as performing the merge operation between the
+ two clusters (or subtrees).
+ To achieve this we utilise a union find data structure, that offers high
+ performance in both checking if 
+\begin_inset Formula $C(v)\neq C(u)$
+\end_inset
+
+ and also performing the merge operation.
+\end_layout
+
+\begin_layout Standard
+Kruskal's Algorithm will typically have a performance complexity of 
+\series bold
+O(m log n)
+\series default
+.
 \end_layout
 
 \begin_layout Subparagraph
@@ -30879,7 +31280,7 @@ reference "lis:Kruskal's-Algorithm-(Java)"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily}"
+lstparams "basicstyle={\scriptsize\ttfamily}"
 inline false
 status open
 
@@ -31496,7 +31897,7 @@ reference "lis:Solution-to-Minimum-Kruskals"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\footnotesize\ttfamily}"
+lstparams "basicstyle={\scriptsize\ttfamily}"
 inline false
 status open
 
@@ -32383,6 +32784,11 @@ n, that is a new edge, that has both source and destination vertex already
  
 \end_layout
 
+\begin_layout Standard
+Sample test cases for this problem would be the same as those listed with
+ in the solution to this problem utilising Prim's Algorithm in Section 6.3.3.1.4.
+\end_layout
+
 \begin_layout Subsubsection
 Single Source Shortest Path
 \end_layout
@@ -32738,6 +33144,13 @@ reference "fig:Basic-Graph-Example"
 \end_inset
 
 , starting at vertex A.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -36140,6 +36553,13 @@ NP 0 6 10 13
 
 \begin_layout Paragraph
 Sample Solution
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Sample-Solution_dikjstra"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -36875,6 +37295,160 @@ The few edge cases to consider would be very dense graphs, very sparse graphs,
  to destination is capable of representing the value without overflow.
  (That is any possible weight from source to destination is less than the
  maximum value used to hold the weight).
+\end_layout
+
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+5
+\begin_inset Newline newline
+\end_inset
+
+4 6 0
+\begin_inset Newline newline
+\end_inset
+
+0 1 1
+\begin_inset Newline newline
+\end_inset
+
+0 2 1
+\begin_inset Newline newline
+\end_inset
+
+0 3 1
+\begin_inset Newline newline
+\end_inset
+
+1 2 1
+\begin_inset Newline newline
+\end_inset
+
+1 3 1
+\begin_inset Newline newline
+\end_inset
+
+2 3 1
+\begin_inset Newline newline
+\end_inset
+
+4 3 0
+\begin_inset Newline newline
+\end_inset
+
+0 1 12
+\begin_inset Newline newline
+\end_inset
+
+1 2 10
+\begin_inset Newline newline
+\end_inset
+
+0 3 15
+\begin_inset Newline newline
+\end_inset
+
+4 4 0
+\begin_inset Newline newline
+\end_inset
+
+0 1 2
+\begin_inset Newline newline
+\end_inset
+
+1 2 3
+\begin_inset Newline newline
+\end_inset
+
+2 3 4
+\begin_inset Newline newline
+\end_inset
+
+3 0 1
+\begin_inset Newline newline
+\end_inset
+
+4 3 0
+\begin_inset Newline newline
+\end_inset
+
+0 1 2
+\begin_inset Newline newline
+\end_inset
+
+1 2 3
+\begin_inset Newline newline
+\end_inset
+
+2 3 4
+\begin_inset Newline newline
+\end_inset
+
+1 1 0
+\begin_inset Newline newline
+\end_inset
+
+0 0 12
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 5 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A fully connected graph, in which each vertex is connected to all other
+ vertices, and all edges have the same weight.
+\end_layout
+
+\begin_layout Enumerate
+A graph that is a tree.
+\end_layout
+
+\begin_layout Enumerate
+A graph in which all vertices have an in degree of 1 and an out degree of
+ 1.
+\end_layout
+
+\begin_layout Enumerate
+A graph in which all vertices form a line of vertices in sequence.
+ eg (
+\begin_inset Formula $a\gets b\gets c\gets d$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+A graph with a single vertex, and an edge to itself.
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a graph with 5,000 vertices and 10,000 edges
+ to ensure that the underlying datastructures being utilised are able to
+ handle graphs of at least the size.
 \end_layout
 
 \begin_layout Standard
@@ -38715,6 +39289,18 @@ The few edge cases to consider would be very dense graphs, very sparse graphs,
  to destination is capable of representing the value without overflow.
  (That is any possible weight from source to destination is less than the
  maximum value used to hold the weight).
+\end_layout
+
+\begin_layout Standard
+The sample test cases for this problem are the same for the sample problem
+ as discussed in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "par:Sample-Solution_dikjstra"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -41369,6 +41955,18 @@ name "lis:Solution-to-Shortest"
 \end_layout
 
 \begin_layout Standard
+The solution to this problem is a direct implementation of the A* path finding
+ algorithm, which in this case the 
+\begin_inset Formula $x,y$
+\end_inset
+
+ coordinates are given directly, as well as the edge information.
+ (This is virtually no data transformation required with this sample solution).
+ The towns directly translate into vertix information, and the connected
+ road information directly translate into edge information for a graph.
+\end_layout
+
+\begin_layout Standard
 The few edge cases to consider would be very dense graphs, very sparse graphs,
  or graphs that contain zero edges.
  Another edge case that should be considered is the maximum weight between
@@ -41386,6 +41984,152 @@ sqrt()
 \family default
 methods).
  
+\end_layout
+
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3
+\begin_inset Newline newline
+\end_inset
+
+4 6 0 3
+\begin_inset Newline newline
+\end_inset
+
+0 0
+\begin_inset Newline newline
+\end_inset
+
+0 10
+\begin_inset Newline newline
+\end_inset
+
+10 0
+\begin_inset Newline newline
+\end_inset
+
+10 10
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+0 2
+\begin_inset Newline newline
+\end_inset
+
+0 3
+\begin_inset Newline newline
+\end_inset
+
+1 2
+\begin_inset Newline newline
+\end_inset
+
+1 3
+\begin_inset Newline newline
+\end_inset
+
+2 3
+\begin_inset Newline newline
+\end_inset
+
+3 3 0 2
+\begin_inset Newline newline
+\end_inset
+
+-50000 -50000
+\begin_inset Newline newline
+\end_inset
+
+100 100
+\begin_inset Newline newline
+\end_inset
+
+50000 50000
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+1 2
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\begin_inset Newline newline
+\end_inset
+
+3 1 0 2
+\begin_inset Newline newline
+\end_inset
+
+10 10
+\begin_inset Newline newline
+\end_inset
+
+0 0
+\begin_inset Newline newline
+\end_inset
+
+-10 -10
+\begin_inset Newline newline
+\end_inset
+
+0 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 3 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A fully connected road network, in which each town is connected to all other
+ towns.
+\end_layout
+
+\begin_layout Enumerate
+A road network with 2 towns on opposite extreme sides of the map.
+ (This is to test for underflow/overflow conditions as well as the distance
+ calculations).
+\end_layout
+
+\begin_layout Enumerate
+A road network in which there is only 1 road but 3 towns.
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a graph with 10,000 towns and 20,000 roads
+ to ensure that the underlying datastructures being utilised are able to
+ handle road networks of at least the size.
 \end_layout
 
 \begin_layout Subsubsection
@@ -42821,7 +43565,7 @@ The name of a cell consists of one to three letters for the column followed
  by a number between 1 and 999 (including) for the row.
  The letters for the column form the following series: A, B, C, ..., Z, AA,
  AB, AC, ..., AZ, BA, ..., BZ, CA, ..., ZZ, AAA, AAB, ..., AAZ, ABA, ..., ABZ, ACA, ..., ZZZ.
- These letters correspond to the number from 1 to 18278.
+ These letters correspond to the number from 1 to 17576.
  The top left cell has the name A1 (see table above).
 \end_layout
 
@@ -43184,11 +43928,6 @@ public class SpreadSheet {
 \begin_layout Plain Layout
 
       // Get our path around the spread sheet.
-\end_layout
-
-\begin_layout Plain Layout
-
-      //ArrayList<Vertex> path = TopologicalSort(graph);
 \end_layout
 
 \begin_layout Plain Layout
@@ -44276,6 +45015,19 @@ name "lis:Solution-to-Spreadsheet"
 \end_layout
 
 \begin_layout Standard
+The sample solution starts by building the spreadsheet cell setup, with
+ determination if a cell is a direct number or formula.
+ It then performs a topological sort of the resulting graph, using information
+ in cells to either find a reference in another cell, or inserting a value
+ into the cell as found by calculation.
+ The solution as presented as a slight modification to the main algorithm,
+ in that rather than adding the current vertex being operated on to the
+ sorted path, we simple process the dependency calculation in place.
+ This was done to save cycling through the path list later on, when it can
+ be done in place in the middle of the algorithm.
+\end_layout
+
+\begin_layout Standard
 When utilising a topological sort within the spreadsheet problem, there
  are few issues with the problem.
 \end_layout
@@ -44324,11 +45076,135 @@ Another test case to be considered is a cell's formula that may have multiple
 \end_layout
 
 \begin_layout Standard
-The solution as presented as a slight modification to the main algorithm,
- in that rather than adding the current vertex being operated on to the
- sorted path, we simple process the dependency calculation in place.
- This was done to save cycling through the path list later on, when it can
- be done in place in the middle of the algorithm.
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+1
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+=A1
+\begin_inset Newline newline
+\end_inset
+
+2 2
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+=A1+B2+A1+A1+A1+A1+A1+A1+A1+A1+A1+A1+A1+A1 2 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 3 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A simple 
+\begin_inset Formula $1\times1$
+\end_inset
+
+ spreadsheet, with a single cell.
+\end_layout
+
+\begin_layout Enumerate
+A simple 
+\begin_inset Formula $1\times1$
+\end_inset
+
+ spreadsheet, with a single cell that is self referencing.
+\end_layout
+
+\begin_layout Enumerate
+A simple 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ spreadsheet, with a single cell that contains a large number of cell references.
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a spreadsheet with 17576 columns and 999
+ rows to ensure that the underlying datastructures being utilised are able
+ to handle spreadsheets of at least the size.
+ Further to this, some simple tests to convert from cell reference notation
+ to 
+\begin_inset Formula $x,y$
+\end_inset
+
+ coordinates and back again would be desirable to ensure this aspect of
+ the solution is not overlooked.
+ For example:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+A1 = 1,1
+\begin_inset Newline newline
+\end_inset
+
+AAA1 = 677, 1
+\begin_inset Newline newline
+\end_inset
+
+ZZZ999 = 17576, 999
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -45575,7 +46451,7 @@ reference "lis:Solution-to-Taxi"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\scriptsize\ttfamily}"
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -46448,6 +47324,77 @@ name "lis:Solution-to-Taxi"
 \end_layout
 
 \begin_layout Standard
+The solution to this problem can be modelled as a Bitpartite Graph, in that
+ we have taxis on one side of the graph, and party goers on the other side
+ of the graph.
+ (These are the two sets of vertices for the model).
+ The edges can then be derived on the condition that a taxi is capable of
+ taking a person to the party, that is the time to get from it's start position
+ to the person does not exceed the maximum time allowed.
+ Using the sample input, the resulting graph will look that shown in Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Taxi-Model-using"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/TaxiGraph.eps
+	width 60text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Taxi Model using Bipartite Graph
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Taxi-Model-using"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In (a), we create a basic graph (with no edges), and then for each taxi,
+ test to see if it can pickup each person before the time limit.
+ For those that are possible, we add each match as an edge to the graph
+ (b).
+ Once all taxi/person combinations have been found, we then attempt to perform
+ bipartite matching to determine the maximum number of people that will
+ make it to the party.
+\end_layout
+
+\begin_layout Standard
 The solution to this problem is rather simple as it primarily relies on
  the implementation of the algorithm itself to produce a correct result.
  Some sample cases that must be considered are:
@@ -46469,6 +47416,90 @@ There is a large difference between the number of taxis and people.
 
 \begin_layout Itemize
 A taxi and person are at the same location.
+\end_layout
+
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\begin_inset Newline newline
+\end_inset
+
+1 1 200 1
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+4 4
+\begin_inset Newline newline
+\end_inset
+
+2 2 200 20000
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+4 4
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 2 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A instance where no taxi is able to service any person.
+ (A graph with zero egdes).
+\end_layout
+
+\begin_layout Enumerate
+A instance where multiple people are at the same location, where a taxi
+ shares the same location as a person, and all taxis can service all people.
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a setup with 400 people columns and 200
+ taxis to ensure that the underlying datastructures being utilised are able
+ to handle spreadsheets of at least the size.
+ Further to this, some simple tests for calculation of manhattan distance
+ would also be desirable as well, to ensure this aspect of the solution
+ is not overlooked.
 \end_layout
 
 \begin_layout Standard
@@ -48059,7 +49090,7 @@ reference "lis:Solution-to-Minimum-1"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\scriptsize\ttfamily}"
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -48966,7 +49997,7 @@ reference "lis:Solution-to-Minimum-1"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\scriptsize\ttfamily}"
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -49955,6 +50986,11 @@ name "lis:Solution-to-Minimum-1"
 \end_layout
 
 \begin_layout Standard
+The solution as displayed is a direct imlementation of the algoritm and
+ requires no direct data transformation to solve the problem.
+\end_layout
+
+\begin_layout Standard
 The solution to this problem is rather simple as it primarily relies on
  the implementation of the algorithm itself to produce a correct result.
  Some sample cases that must be considered are: 
@@ -49975,6 +51011,111 @@ There are vertices which have no edges.
 
 \begin_layout Itemize
 There is no path from the source to sink.
+\end_layout
+
+\begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+3
+\begin_inset Newline newline
+\end_inset
+
+2 1 0 1
+\begin_inset Newline newline
+\end_inset
+
+0 1 10 10
+\begin_inset Newline newline
+\end_inset
+
+5 7 0 3
+\begin_inset Newline newline
+\end_inset
+
+0 1 10 10
+\begin_inset Newline newline
+\end_inset
+
+0 2 2 1
+\begin_inset Newline newline
+\end_inset
+
+0 3 1 1
+\begin_inset Newline newline
+\end_inset
+
+1 2 1 10
+\begin_inset Newline newline
+\end_inset
+
+1 2 3 10
+\begin_inset Newline newline
+\end_inset
+
+1 3 1 10
+\begin_inset Newline newline
+\end_inset
+
+2 3 1 10
+\begin_inset Newline newline
+\end_inset
+
+4 2 0 3
+\begin_inset Newline newline
+\end_inset
+
+0 1 10 10
+\begin_inset Newline newline
+\end_inset
+
+2 3 10 10
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 3 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A simple graph with a single edge and only two vertices.
+\end_layout
+
+\begin_layout Enumerate
+A graph in which the same edge is listed twice, and the graph is fully connected.
+\end_layout
+
+\begin_layout Enumerate
+A graph in which there is no path from the nominated source vertex to the
+ destination vertex.
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a setup with 1,000 vertices and 10,000 edges
+ to ensure that the underlying datastructures being utilised are able to
+ handle graphs of at least the size.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -50286,7 +51427,7 @@ reference "lis:Line-Intersection-(Java)"
 
 \begin_layout Standard
 \begin_inset listings
-lstparams "basicstyle={\scriptsize\ttfamily}"
+lstparams "basicstyle={\footnotesize\ttfamily}"
 inline false
 status open
 
@@ -54719,6 +55860,110 @@ The solution to this problem is rather simple as it primarily relies on
 \end_layout
 
 \begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+0 0 0 1
+\begin_inset Newline newline
+\end_inset
+
+0 0 1 0
+\begin_inset Newline newline
+\end_inset
+
+1 0 1 1
+\begin_inset Newline newline
+\end_inset
+
+0 1 1 1
+\begin_inset Newline newline
+\end_inset
+
+#
+\begin_inset Newline newline
+\end_inset
+
+1 3 1 1
+\begin_inset Newline newline
+\end_inset
+
+2 3 2 1
+\begin_inset Newline newline
+\end_inset
+
+1 2 2 2
+\begin_inset Newline newline
+\end_inset
+
+#
+\begin_inset Newline newline
+\end_inset
+
+0 0 0 1
+\begin_inset Newline newline
+\end_inset
+
+2 2 2 3
+\begin_inset Newline newline
+\end_inset
+
+#
+\begin_inset Newline newline
+\end_inset
+
+#
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 3 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A square with vertical edges and also endpoints shared by two or more line
+ segments.
+\end_layout
+
+\begin_layout Enumerate
+A list of edges that do not form a polygon, and has vertical edges.
+\end_layout
+
+\begin_layout Enumerate
+A list of edges that do not intersect.
+ (Note, this case is not part of the challenge, but is something to test).
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a setup with 100,000 edges to ensure that
+ the underlying datastructures being utilised are able to handle graphs
+ of at least the size.
+ (Note, the time needed 100,000 edges is quite high and most likely won't
+ exist within a competitions data set, however is something that should
+ be tested for to ensure the solution works for even large large setups).
+\end_layout
+
+\begin_layout Standard
 However there is no requirement for explicit testing of these conditions
  within the algorithm, as the algorithm naturally handles these conditions.
  
@@ -54762,7 +56007,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/ConvexHull.eps
-	width 75text%
+	width 60text%
 
 \end_inset
 
@@ -54812,7 +56057,7 @@ name "fig:Convex-Hull"
 \end_layout
 
 \begin_layout Standard
-Indeed, computing the convex hull of a set of points is a fundamental operation
+Computing the convex hull of a set of points is a fundamental operation
  in computational geometry.
  
 \end_layout
@@ -54833,10 +56078,10 @@ gift wrapping
 
 \begin_layout Standard
 \begin_inset Float algorithm
-placement H
+placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -55212,7 +56457,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/ConvexHull2.eps
-	width 40text%
+	width 25text%
 
 \end_inset
 
@@ -55260,6 +56505,7 @@ reference "fig:Graham-Scan-1"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -55269,7 +56515,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename images/ConvexHull3.eps
-	width 90text%
+	width 70text%
 
 \end_inset
 
@@ -56832,6 +58078,115 @@ A series of points that have the same radial angle from the anchor.
 \end_layout
 
 \begin_layout Standard
+Sample test cases for this problem include the following scenarios: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\family typewriter
+2
+\begin_inset Newline newline
+\end_inset
+
+3
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+2 1
+\begin_inset Newline newline
+\end_inset
+
+1 2
+\begin_inset Newline newline
+\end_inset
+
+5
+\begin_inset Newline newline
+\end_inset
+
+1 1
+\begin_inset Newline newline
+\end_inset
+
+1 3
+\begin_inset Newline newline
+\end_inset
+
+3 1
+\begin_inset Newline newline
+\end_inset
+
+2 2
+\begin_inset Newline newline
+\end_inset
+
+3 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 3 test cases listed above include:
+\end_layout
+
+\begin_layout Enumerate
+A simple triangle area with the 3 points, and two of these share the lowest
+ 
+\begin_inset Formula $y$
+\end_inset
+
+ value.
+ (Greater than zero area, and test for also getting the anchor with the
+ minimum 
+\begin_inset Formula $x$
+\end_inset
+
+ value in the event of a tie on the 
+\begin_inset Formula $y$
+\end_inset
+
+ value).
+\end_layout
+
+\begin_layout Enumerate
+A setup in which two points have the same radial angle from the anchor.
+\end_layout
+
+\begin_layout Standard
+Another test would be to create a setup with 100,000 tomato stake positions
+ to ensure that the underlying datastructures being utilised are able to
+ handle graphs of at least the size.
+ (Note, the time needed 100,000 positions is quite high and most likely
+ won't exist within a competitions data set, however is something that should
+ be tested for to ensure the solution works for even large large setups).
+ Tests for determining the cost of the resulting convex hull, tests for
+ the distance from the anchor point and tests for determining correct calculatio
+n of the radial angle should also be considered to ensure these aspects
+ of the problem are not overlooked as well.
+\end_layout
+
+\begin_layout Standard
 Other than the first point, there is no requirement for explicit testing
  of the other conditions within the algorithm, as the algorithm naturally
  handles these conditions.
@@ -56873,8 +58228,8 @@ m that involves computing F(n − 2).
 \begin_layout Standard
 A problem is defined to have optimal substructure if an optimal solution
  can be constructed efficiently from optimal solutions of its subproblems.
- Optimal Substructure This property is used to determine the usefulness
- of dynamic programming and greedy algorithms in a problem.
+ The optimal substructure property is used to determine the usefulness of
+ dynamic programming and greedy algorithms in a problem.
  Typically, a greedy algorithm is used to solve a problem with optimal substruct
 ure if it can be proved by induction that this is optimal at each step.
  Otherwise, providing the problem exhibits overlapping subproblems as well,
